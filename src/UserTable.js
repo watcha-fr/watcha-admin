@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import User from './User';
 import PropTypes from 'prop-types';
 import {Button,FormGroup,FormControl,Col,Form,Grid,Row,Table} from 'react-bootstrap';
 
@@ -22,7 +23,6 @@ export default class UserTable extends Component {
       <Table striped bordered condensed hover responsive>
   <thead>
     <tr>
-      <th>#</th>
       <th>User Id</th>
       <th>Creation ts</th>
       <th>Admin</th>
@@ -31,8 +31,8 @@ export default class UserTable extends Component {
     </tr>
   </thead>
   <tbody>
+<User userId='@joe' creationTs='12 avril' admin='false' partner='false' email='joe@mailcom'/>
     <tr>
-      <td>1</td>
       <td>Table cell</td>
       <td>Table cell</td>
       <td>Table cell</td>
@@ -40,15 +40,6 @@ export default class UserTable extends Component {
       <td>Table cell</td>
     </tr>
     <tr>
-      <td>2</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-    </tr>
-    <tr>
-      <td>3</td>
       <td>Table cell</td>
       <td>Table cell</td>
       <td>Table cell</td>
