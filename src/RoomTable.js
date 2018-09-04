@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Room from './Room'
 import {Button,FormGroup,FormControl,Col,Form,Grid,Row,Table} from 'react-bootstrap';
 
 
@@ -22,7 +23,6 @@ export default class RoomTable extends Component {
       <Table striped bordered condensed hover responsive>
   <thead>
     <tr>
-      <th>#</th>
       <th>Room Id</th>
       <th>Creator</th>
       <th>Admins</th>
@@ -31,8 +31,8 @@ export default class RoomTable extends Component {
     </tr>
   </thead>
   <tbody>
+    <Room roomId='Conf' creator='jack' admins='john' active='true' alias='homesweethome'/>
     <tr>
-      <td>1</td>
       <td>Table cell</td>
       <td>Table cell</td>
       <td>Table cell</td>
@@ -40,15 +40,6 @@ export default class RoomTable extends Component {
       <td>Table cell</td>
     </tr>
     <tr>
-      <td>2</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-      <td>Table cell</td>
-    </tr>
-    <tr>
-      <td>3</td>
       <td>Table cell</td>
       <td>Table cell</td>
       <td>Table cell</td>
