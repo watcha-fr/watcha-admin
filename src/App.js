@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import AdminHome from './AdminHome.js'
 import {Button,FormGroup,FormControl,Col,Form,Grid,Row} from 'react-bootstrap';
 
 
@@ -64,6 +65,9 @@ class App extends Component {
 
   render() {
     this.getServerName();
+    if (this.state.accessToken){
+      return (<AdminHome></AdminHome>)
+    }
     return (
       <div>
         <Grid className="container">
