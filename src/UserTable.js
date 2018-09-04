@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import User from './User';
-import PropTypes from 'prop-types';
-import {Button,FormGroup,FormControl,Col,Form,Grid,Row,Table} from 'react-bootstrap';
+import {Table} from 'react-bootstrap';
 
 
 export default class UserTable extends Component {
