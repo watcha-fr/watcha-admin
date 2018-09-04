@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Room from './Room'
-import {Button,FormGroup,FormControl,Col,Form,Grid,Row,Table} from 'react-bootstrap';
+import {Table} from 'react-bootstrap';
 
 
 export default class RoomTable extends Component {
