@@ -12,15 +12,28 @@ export default class User extends Component {
     };
   }
 
-  onSelect= () => {
-      this.props.onUserSelected(this.props.userId)
+  onSelect = () => {
+      this.props.onUserSelected(this.props.data);
+  }
+
+  dataToRow = () => {
+    let data = this.props.data;
+    let row = [];
+    let rowClassName = this.props.data['userId'] === this.props.selected['userId'] ? "rowSelected" : "row"
+    for (let property in data) {
+      row.push(
+        <td className={rowClassName} key={property}>{this.props.data[property]}</td>
+      )
+    }
+    return row
   }
 
   render() {
-    let rowClassName= this.props.userId===this.props.selected ? "rowSelected" : "row"
+    let row = []
+    row = this.dataToRow();
     return (
       <tr onClick={this.onSelect}>
-        <td className={rowClassName}>{this.props.user['userId']}</td>
+        {row}
       </tr>
     );
   }

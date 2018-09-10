@@ -18,13 +18,14 @@ export default class UserTable extends Component {
     };
   }
 
-  onUserSelected(userId){
-    this.setState({ selected: userId });
+  onUserSelected(data){
+    this.setState({ selected: data });
 
   }
 
   render() {
     let dataJoe = {userId:'@joe', creationTs:'12 avril 2018', admin:'true', partner:'false', email:'joe@mailcom'}
+    let dataJeanne = {userId:'@jeanne', creationTs:'11 avril 2013', admin:'false', partner:'false', email:'joe@mailcom'}
     return (
 
       <div>
@@ -39,10 +40,11 @@ export default class UserTable extends Component {
             </tr>
           </thead>
           <tbody>
-            <User user={dataJoe} onUserSelected={this.onUserSelected} selected={this.state.selected}/>
+            <User data={dataJoe} onUserSelected={this.onUserSelected} selected={this.state.selected}/>
+            <User data={dataJeanne} onUserSelected={this.onUserSelected} selected={this.state.selected}/>
           </tbody>
         </Table>
-        <CollapsableRightPanel open={this.state.selected}></CollapsableRightPanel>
+        <CollapsableRightPanel data={this.state.selected}></CollapsableRightPanel>
       </div>
     );
   }

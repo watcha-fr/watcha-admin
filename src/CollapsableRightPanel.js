@@ -12,15 +12,13 @@ export default class CollapsableRightPanel extends Component {
   }
 
   render() {
+    let open = this.props.data ? true : false;
     return (
       <div>
-        <Collapse in={this.props.open}>
+        <Collapse in={open}>
          <div>
            <Well>
-             Anim pariatur cliche reprehenderit, enim eiusmod high life
-             accusamus terry richardson ad squid. Nihil anim keffiyeh
-             helvetica, craft beer labore wes anderson cred nesciunt sapiente
-             ea proident.
+             {this.props.data['userId']}
            </Well>
          </div>
        </Collapse>
