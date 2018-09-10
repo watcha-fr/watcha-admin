@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse,Panel,Label,Button,Well,FormControl,FormGroup,ControlLabel,Form} from 'react-bootstrap';
+import {Collapse,Panel,Label,Button,Well,FormControl,FormGroup,ControlLabel,Form,Table} from 'react-bootstrap';
 
 export default class CollapsableRightPanel extends Component {
 
@@ -27,28 +27,31 @@ export default class CollapsableRightPanel extends Component {
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>User : {this.props.data['userId']}</Panel.Title>
               </Panel.Heading>
+
               <div className='pannelContainer'>
                 <Well>
-                  <div>
-                    <span className='labelText'>Creation:</span>
-                    {this.props.data['creationTs']}
-                  </div>
-                  <div>
-                    <span className='labelText'>Last Connection:</span>
-                    {this.props.data['creationTs']}
-                  </div>
-                <Form inline className='email'>
-                  <FormGroup controlId="formInlineEmail" className='email'>
-                    <ControlLabel>Email :</ControlLabel>{' '}
-                    <FormControl type="email" placeholder={this.props.data['email']} />
-                  </FormGroup>{' '}
-                </Form>
-
+                  <Table>
+                    <tbody>
+                      <tr>
+                        <td className='labelText'>Creation:</td>
+                        <td>{this.props.data['creationTs']}</td>
+                      </tr>
+                      <tr>
+                        <td className='labelText'>Last Connection:</td>
+                        <td>{this.props.data['creationTs']}</td>
+                      </tr>
+                      <tr>
+                          <td><ControlLabel>Email :</ControlLabel>{' '}</td>
+                          <td> <input type="email" placeholder={this.props.data['email']} readOnly/></td>
+                    </tr>
+                    </tbody>
+                  </Table>
                 </Well>
                 {upgradePartner}
                 <Button bsStyle='primary'>Reset Password</Button>
-
               </div>
+
+
             </Panel>
           </div>
         </Collapse>
