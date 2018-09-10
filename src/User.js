@@ -19,7 +19,7 @@ export default class User extends Component {
   dataToRow = () => {
     let data = this.props.data;
     let row = [];
-    let rowClassName = this.props.data['userId'] === this.props.selected['userId'] ? "rowSelected" : "row"
+    let rowClassName = this.props.data['userId'] === this.props.selected['userId'] ? "rowSelected" : "row";
     for (let property in data) {
       row.push(
         <td className={rowClassName} key={property}>{this.props.data[property]}</td>
