@@ -1,12 +1,35 @@
+/*User*/
 .rowSelected{
   background: cyan;
 
 }
 
+/*collapsedRightPanel*/
 .panel{
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0px;
   right: 0px;
   width: 19vw;
 }
+
+.checkboxInfo{
+
+}
+
+.pannelContainer{
+
+}
+
+.email.form-group{
+  display: flex;
+  align-items: baseline;
+}
+ .form-control{
+   margin-left: 10px;
+ }
+
+ .labelText{
+   font-size: 14px;
+   font-weight: 700;
+ }
