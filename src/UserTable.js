@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import User from './User';
 import {Table} from 'react-bootstrap';
+import CollapsableRightPanel from './CollapsableRightPanel'
 
 
 
 export default class UserTable extends Component {
-
   static propTypes = {
 
   };
@@ -24,7 +24,9 @@ export default class UserTable extends Component {
   }
 
   render() {
+    let dataJoe = {userId:'@joe', creationTs:'12 avril 2018', admin:'true', partner:'false', email:'joe@mailcom'}
     return (
+
       <div>
         <Table striped bordered condensed hover responsive>
           <thead>
@@ -37,11 +39,10 @@ export default class UserTable extends Component {
             </tr>
           </thead>
           <tbody>
-            <User userId='@joe' creationTs='12 avril 2018' admin='true' partner='false' email='joe@mailcom' onUserSelected={this.onUserSelected} selected={this.state.selected}/>
-      <User userId='@jeanne@mail.com' creationTs='14 avril 2018' admin='false' partner='true' email='jeanne@mailcom' onUserSelected={this.onUserSelected} selected={this.state.selected}/>
+            <User user={dataJoe} onUserSelected={this.onUserSelected} selected={this.state.selected}/>
           </tbody>
         </Table>
-
+        <CollapsableRightPanel open={this.state.selected}></CollapsableRightPanel>
       </div>
     );
   }
