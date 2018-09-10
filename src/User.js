@@ -17,15 +17,10 @@ export default class User extends Component {
   }
 
   render() {
-
     let rowClassName= this.props.userId===this.props.selected ? "rowSelected" : "row"
     return (
       <tr onClick={this.onSelect}>
-        <td className={rowClassName}>{this.props.userId}</td>
-        <td className={rowClassName}>{this.props.creationTs}</td>
-        <td className={rowClassName}>{this.props.admin}</td>
-        <td className={rowClassName}>{this.props.userId}</td>
-        <td className={rowClassName}>{this.props.email}</td>
+        <td className={rowClassName}>{this.props.user['userId']}</td>
       </tr>
     );
   }
