@@ -9,6 +9,10 @@ Create user:
 Remove/deactivate user:
 
 should we be able to hard remove (GDPR)
+users:
+devices
+last connection
+pusher
 
 Deactivate Account:
 
