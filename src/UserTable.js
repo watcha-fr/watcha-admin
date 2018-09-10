@@ -12,15 +12,27 @@ export default class UserTable extends Component {
 
   constructor(props) {
     super(props);
-    this.onUserSelected=this.onUserSelected.bind(this)
     this.state = {
       selected:false
     };
   }
 
-  onUserSelected(data){
+  componentDidMount(){
+  document.addEventListener("keydown", this.escFunction, false);
+}
+componentWillUnmount(){
+  document.removeEventListener("keydown", this.escFunction, false);
+}
+
+  onUserSelected = (data) => {
     this.setState({ selected: data });
 
+  };
+
+  escFunction = (event) => {
+    if (event.keyCode === 27){
+      this.setState({selected:false})
+    }
   }
 
   render() {
@@ -28,7 +40,7 @@ export default class UserTable extends Component {
     let dataJeanne = {userId:'@jeanne', creationTs:'11 avril 2013', admin:'false', partner:'false', email:'joe@mailcom'}
     return (
 
-      <div>
+      <div className='userTable'>
         <Table striped bordered condensed hover responsive>
           <thead>
             <tr>
@@ -44,7 +56,7 @@ export default class UserTable extends Component {
             <User data={dataJeanne} onUserSelected={this.onUserSelected} selected={this.state.selected}/>
           </tbody>
         </Table>
-        <CollapsableRightPanel data={this.state.selected}></CollapsableRightPanel>
+        <CollapsableRightPanel className='collapsedRightPanel' data={this.state.selected}></CollapsableRightPanel>
       </div>
     );
   }

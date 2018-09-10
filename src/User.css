@@ -2,3 +2,11 @@
   background: cyan;
 
 }
+
+.panel{
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 19vw;
+}
