@@ -36,8 +36,8 @@ componentWillUnmount(){
   }
 
   render() {
-    let dataJoe = {userId:'@joe', creationTs:'12 avril 2018', admin:'true', partner:'false', email:'joe@mail.com'}
-    let dataJeanne = {userId:'@jeanne', creationTs:'11 avril 2013', admin:'false', partner:'true', email:'jeanne@mailcom'}
+    let dataJoe = {userId:'@joe', creationTs:'12 avril 2018', admin:'true', partner:'false', email:'joe@mail.com', device:'mozilla',last_connection:'10 octobre 2018'}
+    let dataJeanne = {userId:'@jeanne', creationTs:'11 avril 2013', admin:'false', partner:'true', email:'jeanne@mailcom', device:'safari, IOS',last_connection:'10 octobre 2018'}
     return (
 
       <div className='userTable'>

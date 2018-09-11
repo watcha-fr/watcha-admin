@@ -13,6 +13,8 @@ users:
 devices
 last connection
 pusher
+displayname
+invitedby
 
 Deactivate Account:
 

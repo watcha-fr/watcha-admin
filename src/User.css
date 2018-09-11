@@ -25,11 +25,15 @@
   display: flex;
   align-items: baseline;
 }
- .form-control{
-   margin-left: 10px;
- }
+.form-control{
+  margin-left: 10px;
+}
 
- .labelText{
-   font-size: 14px;
-   font-weight: 700;
- }
+.infoText{
+  font-size: 14px;
+}
+
+.labelText{
+  font-size: 14px;
+  font-weight: 700;
+}

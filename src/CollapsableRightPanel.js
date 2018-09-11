@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse,Panel,Label,Button,Well,FormControl,FormGroup,ControlLabel,Form,Table} from 'react-bootstrap';
+import {Collapse,Panel,Label,Button,Well,FormControl,FormGroup,ControlLabel,Form,Table,Glyphicon} from 'react-bootstrap';
 
 export default class CollapsableRightPanel extends Component {
 
@@ -7,17 +7,81 @@ export default class CollapsableRightPanel extends Component {
     super(props);
 
     this.state = {
-      open: true
+      open: true,
+      editEmail: false,
+      isEmail: false,
+      emailValue:'',
     };
   }
 
+  onEmailEdit = () => {
+    this.setState({editEmail : !this.state.editEmail})
+  }
+
+  isEmail = (query) => {
+    return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+  }
+
+  onCancelEdit = () => {
+    this.setState({emailValue:''});
+    this.setState({editEmail:false})
+  }
+
+
+  onEmailChange = (ev) => {
+    this.setState({emailValue:ev.target.value})
+    this.setState({isEmail:false});
+    if(this.isEmail(ev.target.value)){
+      this.setState({isEmail:true})
+    }
+  }
+
+  onEmailValidate = () => {
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({emailValue:''})
+  }
+
+
   render() {
-    let upgradePartner
+    let upgradePartner;
+    let isPartner;
+    let editEmail;
+    let open = this.props.data ? true : false;
     if(this.props.data['partner']=== 'true')
     {
       upgradePartner=<Button bsStyle='primary'>Upgrade to member</Button>
     }
-    let open = this.props.data ? true : false;
+    editEmail=
+    <td>
+      <input className='infoText' value={this.state.emailValue} readOnly type="email" placeholder={this.props.data['email']} />
+      <Button onClick={this.onEmailEdit}>
+        <Glyphicon glyph="pencil"></Glyphicon>
+      </Button>
+    </td>
+    if(this.state.editEmail){
+      if(this.state.isEmail){
+        editEmail =
+        <td>
+          <input className='infoText' value={this.state.emailValue} type="email" placeholder={this.props.data['email']} onChange={this.onEmailChange} ref='emailInput' />
+          <Button onClick={this.onEmailValidate}>
+            <Glyphicon glyph="ok"></Glyphicon>
+          </Button>
+        </td>
+      }
+      else{
+        editEmail=
+        <td>
+          <input className='infoText' value={this.state.emailValue} type="email" placeholder={this.props.data['email']} onChange={this.onEmailChange} />
+          <Button onClick={this.onCancelEdit}>
+            <Glyphicon glyph="remove"></Glyphicon>
+          </Button>
+        </td>
+      }
+    }
+
     return (
       <div>
         <Collapse in={open} dimension='width' timeout={0}>
@@ -34,24 +98,26 @@ export default class CollapsableRightPanel extends Component {
                     <tbody>
                       <tr>
                         <td className='labelText'>Creation:</td>
-                        <td>{this.props.data['creationTs']}</td>
+                        <td className='infoText'>{this.props.data['creationTs']}</td>
                       </tr>
                       <tr>
                         <td className='labelText'>Last Connection:</td>
-                        <td>{this.props.data['creationTs']}</td>
+                        <td className='infoText'>{this.props.data['last_connection']}</td>
                       </tr>
                       <tr>
-                          <td><ControlLabel>Email :</ControlLabel>{' '}</td>
-                          <td> <input type="email" placeholder={this.props.data['email']} readOnly/></td>
-                    </tr>
+                        <td className='labelText'>Devices:</td>
+                        <td className='infoText'>{this.props.data.device}</td>
+                      </tr>
+                      <tr>
+                        <td className='labelText'>Email :</td>
+                        {editEmail}
+                      </tr>
                     </tbody>
                   </Table>
                 </Well>
                 {upgradePartner}
                 <Button bsStyle='primary'>Reset Password</Button>
               </div>
-
-
             </Panel>
           </div>
         </Collapse>
