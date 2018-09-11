@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import AdminHome from './AdminHome.js'
-import {Button,FormGroup,FormControl,Col,Form,Grid,Row} from 'react-bootstrap';
-
+import AdminHome from './AdminHome.js';
+import {Button, FormGroup, FormControl, Col, Form, Grid, Row} from 'react-bootstrap';
 
 
 class App extends Component {
@@ -11,62 +10,66 @@ class App extends Component {
     super(props, context);
 
     this.state = {
-      userName:'',
+      userName: '',
       password: '',
-      token:'',
-      connected:false,
+      token: '',
+      connected: false,
     };
   }
 
-  async onConnection() {
-    let self = this;
-    let homeserver = this.getServerName();
-    let userName = this.state.userName;
-    let password = this.state.password;
+ onConnection = async () => {
+   const self = this;
+   const homeserver = this.getServerName();
+   const userName = this.state.userName;
+   const password = this.state.password;
 
-    try {
+   try {
+     // XHR POST to login
+     const loginRequest = await fetch( homeserver + '_matrix/client/r0/login', {
+       method: 'POST',
+       body: JSON.stringify({
+         "initial_device_display_name": "Web setup account",
+         "user": userName,
+         "password": password,
+         "type": "m.login.password",
+       }),
+       headers: {
+         "Content-Type": "application/json",
+         "Accept": "application/json",
+       },
+     });
+     const loginData = JSON.parse(await loginRequest.text());
+     if (loginData['access_token']) {
+       self.setState({accessToken: loginData['access_token']});
+       console.log('login successful: ' + loginData);
 
+       return this.state.accessToken;
+     }
+   } catch (e) {
+     console.log('error: ' + e);
 
-      // XHR POST to login
-      const loginRequest = await fetch( homeserver + '_matrix/client/r0/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          "initial_device_display_name": "Web setup account",
-          "user": userName,
-          "password": password,
-          "type": "m.login.password",
-        }),
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        }
-      });
-      const loginData = JSON.parse(await loginRequest.text());
-      if(loginData['access_token'])
-      {
-      self.setState({accessToken: loginData['access_token']});
-      console.log('login successful: ' + loginData);
+     return;
+   }
+ }
 
-      return this.state.accessToken;}
+ getServerName() {
+   const currentLocation = window.location.hostname;
+   console.log(currentLocation);
+   return "https://localhost:8448/";
+ }
 
-    } catch(e) {
-      console.log('error: ' + e);
-
-      return;
-    }
-
+  onNameChange = (evt) => {
+    this.setState({userName: evt.target.value});
   }
 
-  getServerName() {
-    let currentLocation = window.location.hostname;
-    console.log(currentLocation);
-    return "https://localhost:8448/"
+  onPasswordChange = (evt) => {
+    this.setState({password: evt.target.value});
   }
 
   render() {
     this.getServerName();
-    if (this.state.accessToken){
-      return (<AdminHome></AdminHome>)
+    if (this.state.accessToken) {
+      return (<AdminHome></AdminHome>);
     }
     return (
       <div>
@@ -78,17 +81,17 @@ class App extends Component {
           </Row>
           <Row className="show-grid">
             <Col lg={6} sm={12} md={6} xs={12} mdOffset={3} smOffset={0} xsOffset={0}>
-            <Form className='loginInput'>
-              <FormGroup controlId="formHorizontalName">
-                <FormControl type="text" placeholder="Name" onChange={evt => this.setState({userName: evt.target.value})}/>
-              </FormGroup>
-              <FormGroup controlId="formHorizontalPassword">
-                <FormControl type="password" placeholder="Password" onChange={evt => this.setState({password: evt.target.value})}/>
-              </FormGroup>
-            </Form>
+              <Form className='loginInput'>
+                <FormGroup controlId="formHorizontalName">
+                  <FormControl type="text" placeholder="Name" onChange={this.onNameChange} />
+                </FormGroup>
+                <FormGroup controlId="formHorizontalPassword">
+                  <FormControl type="password" placeholder="Password" onChange={this.onPasswordChange} />
+                </FormGroup>
+              </Form>
             </Col>
           </Row>
-            <Button bsStyle="primary" className='SubmitButton' onClick={(event) => this.onConnection(event,this)}>Sign in</Button>
+          <Button bsStyle="primary" className='SubmitButton' onClick={this.onConnection}>Sign in</Button>
         </Grid>
       </div>
     );

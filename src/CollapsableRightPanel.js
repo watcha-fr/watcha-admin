@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {Collapse,Panel,Label,Button,Well,FormControl,FormGroup,ControlLabel,Form,Table,Glyphicon} from 'react-bootstrap';
+import {Collapse, Panel, Button, Well, Table, Glyphicon} from 'react-bootstrap';
 
 export default class CollapsableRightPanel extends Component {
-
   constructor(props) {
     super(props);
 
@@ -10,12 +9,12 @@ export default class CollapsableRightPanel extends Component {
       open: true,
       editEmail: false,
       isEmail: false,
-      emailValue:'',
+      emailValue: '',
     };
   }
 
   onEmailEdit = () => {
-    this.setState({editEmail : !this.state.editEmail})
+    this.setState({editEmail: !this.state.editEmail});
   }
 
   isEmail = (query) => {
@@ -23,16 +22,16 @@ export default class CollapsableRightPanel extends Component {
   }
 
   onCancelEdit = () => {
-    this.setState({emailValue:''});
-    this.setState({editEmail:false})
+    this.setState({emailValue: ''});
+    this.setState({editEmail: false});
   }
 
 
   onEmailChange = (ev) => {
-    this.setState({emailValue:ev.target.value})
-    this.setState({isEmail:false});
-    if(this.isEmail(ev.target.value)){
-      this.setState({isEmail:true})
+    this.setState({emailValue: ev.target.value});
+    this.setState({isEmail: false});
+    if (this.isEmail(ev.target.value)) {
+      this.setState({isEmail: true});
     }
   }
 
@@ -41,7 +40,7 @@ export default class CollapsableRightPanel extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({emailValue:''})
+    this.setState({emailValue: ''});
   }
 
 
@@ -49,10 +48,12 @@ export default class CollapsableRightPanel extends Component {
     let upgradePartner;
     let isPartner;
     let editEmail;
-    let open = this.props.data ? true : false;
-    if(this.props.data['partner']=== 'true')
-    {
-      upgradePartner=<Button bsStyle='primary'>Upgrade to member</Button>
+    const open = this.props.data ? true : false;
+    if (this.props.data['partner']=== 'true') {
+      isPartner = true;
+    }
+    if (isPartner) {
+      upgradePartner=<Button bsStyle='primary'>Upgrade to member</Button>;
     }
     editEmail=
     <td>
@@ -60,25 +61,24 @@ export default class CollapsableRightPanel extends Component {
       <Button onClick={this.onEmailEdit}>
         <Glyphicon glyph="pencil"></Glyphicon>
       </Button>
-    </td>
-    if(this.state.editEmail){
-      if(this.state.isEmail){
+    </td>;
+    if (this.state.editEmail) {
+      if (this.state.isEmail) {
         editEmail =
         <td>
           <input className='infoText' value={this.state.emailValue} type="email" placeholder={this.props.data['email']} onChange={this.onEmailChange} ref='emailInput' />
           <Button onClick={this.onEmailValidate}>
             <Glyphicon glyph="ok"></Glyphicon>
           </Button>
-        </td>
-      }
-      else{
+        </td>;
+      } else {
         editEmail=
         <td>
           <input className='infoText' value={this.state.emailValue} type="email" placeholder={this.props.data['email']} onChange={this.onEmailChange} />
           <Button onClick={this.onCancelEdit}>
             <Glyphicon glyph="remove"></Glyphicon>
           </Button>
-        </td>
+        </td>;
       }
     }
 
@@ -89,7 +89,7 @@ export default class CollapsableRightPanel extends Component {
 
             <Panel bsStyle='primary' className='panel'>
               <Panel.Heading>
-                <Panel.Title componentClass='h3'>User : {this.props.data['userId']}</Panel.Title>
+                <Panel.Title componentClass='h3'>User : { this.props.data['userId'] }</Panel.Title>
               </Panel.Heading>
 
               <div className='pannelContainer'>
@@ -98,24 +98,24 @@ export default class CollapsableRightPanel extends Component {
                     <tbody>
                       <tr>
                         <td className='labelText'>Creation:</td>
-                        <td className='infoText'>{this.props.data['creationTs']}</td>
+                        <td className='infoText'>{ this.props.data['creationTs'] }</td>
                       </tr>
                       <tr>
                         <td className='labelText'>Last Connection:</td>
-                        <td className='infoText'>{this.props.data['last_connection']}</td>
+                        <td className='infoText'>{ this.props.data['last_connection'] }</td>
                       </tr>
                       <tr>
                         <td className='labelText'>Devices:</td>
-                        <td className='infoText'>{this.props.data.device}</td>
+                        <td className='infoText'>{ this.props.data.device }</td>
                       </tr>
                       <tr>
                         <td className='labelText'>Email :</td>
-                        {editEmail}
+                        { editEmail }
                       </tr>
                     </tbody>
                   </Table>
                 </Well>
-                {upgradePartner}
+                { upgradePartner }
                 <Button bsStyle='primary'>Reset Password</Button>
               </div>
             </Panel>
@@ -124,5 +124,4 @@ export default class CollapsableRightPanel extends Component {
       </div>
     );
   }
-
 }
