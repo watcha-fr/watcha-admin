@@ -53,10 +53,6 @@ module.exports = {
         // rules we do not want from the google styleguide
         "object-curly-spacing": ["off"],
         "spaced-comment": ["off"],
-
-        // in principle we prefer single quotes, but life is too short
-        quotes: ["off"],
-
         // rules we'd ideally like to adhere to, but the current
         // code does not (in most cases because it's still ES5)
         // we set these to warnings, and assert that the number

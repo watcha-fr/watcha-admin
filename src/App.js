@@ -28,14 +28,14 @@ class App extends Component {
      const loginRequest = await fetch( homeserver + '_matrix/client/r0/login', {
        method: 'POST',
        body: JSON.stringify({
-         "initial_device_display_name": "Web setup account",
-         "user": userName,
-         "password": password,
-         "type": "m.login.password",
+         'initial_device_display_name': 'Web setup account',
+         'user': userName,
+         'password': password,
+         'type': 'm.login.password',
        }),
        headers: {
-         "Content-Type": "application/json",
-         "Accept": "application/json",
+         'Content-Type': 'application/json',
+         'Accept': 'application/json',
        },
      });
      const loginData = JSON.parse(await loginRequest.text());
@@ -55,7 +55,7 @@ class App extends Component {
  getServerName() {
    const currentLocation = window.location.hostname;
    console.log(currentLocation);
-   return "https://localhost:8448/";
+   return 'https://localhost:8448/';
  }
 
   onNameChange = (evt) => {

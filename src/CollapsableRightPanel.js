@@ -43,17 +43,22 @@ export default class CollapsableRightPanel extends Component {
     this.setState({emailValue: ''});
   }
 
-
   render() {
     let upgradePartner;
     let isPartner;
     let editEmail;
+    let bsStyle;
+    let title;
+    bsStyle = 'primary';
+    title = 'User';
     const open = this.props.data ? true : false;
     if (this.props.data['partner']=== 'true') {
       isPartner = true;
     }
     if (isPartner) {
       upgradePartner=<Button bsStyle='primary'>Upgrade to member</Button>;
+      bsStyle='warning';
+      title='Partner';
     }
     editEmail=
     <td>
@@ -87,9 +92,9 @@ export default class CollapsableRightPanel extends Component {
         <Collapse in={open} dimension='width' timeout={0}>
           <div>
 
-            <Panel bsStyle='primary' className='panel'>
+            <Panel bsStyle={bsStyle} className='panel'>
               <Panel.Heading>
-                <Panel.Title componentClass='h3'>User : { this.props.data['userId'] }</Panel.Title>
+                <Panel.Title componentClass='h3'>{ title } : { this.props.data['userId'] }</Panel.Title>
               </Panel.Heading>
 
               <div className='pannelContainer'>
@@ -115,8 +120,9 @@ export default class CollapsableRightPanel extends Component {
                     </tbody>
                   </Table>
                 </Well>
-                { upgradePartner }
-                <Button bsStyle='primary'>Reset Password</Button>
+                <div className='bottomButton'>
+                  { upgradePartner }
+                  <Button bsStyle='primary'>Reset Password</Button></div>
               </div>
             </Panel>
           </div>
