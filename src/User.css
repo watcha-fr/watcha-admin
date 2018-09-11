@@ -37,3 +37,8 @@
   font-size: 14px;
   font-weight: 700;
 }
+
+.bottomButton{
+  display: flex;
+  justify-content: space-around;
+}

@@ -13,10 +13,10 @@ export default class UserTable extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.escFunction, false);
+    document.addEventListener('keydown', this.escFunction, false);
   }
   componentWillUnmount() {
-    document.removeEventListener("keydown", this.escFunction, false);
+    document.removeEventListener('keydown', this.escFunction, false);
   }
 
   onUserSelected = (data) => {
