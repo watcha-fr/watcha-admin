@@ -20,9 +20,6 @@ export default class dataToRow extends Component {
     const row = [];
     const pk = this.props.primaryKey;
     const rowClassName = this.props.data[pk] === this.props.selected[pk] ? 'rowSelected' : 'row';
-    console.log(pk+'pk');
-    console.log(this.props.data[pk]+'+datapk')
-    console.log(this.props.selected[pk]+'selectedpk')
     for (const property in data) {
       if ({}.hasOwnProperty.call(data, property)) {
         row.push(
