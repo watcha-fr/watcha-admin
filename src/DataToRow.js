@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './User.css';
 
 
-export default class User extends Component {
+export default class dataToRow extends Component {
   constructor(props) {
     super(props);
 
@@ -18,11 +18,17 @@ export default class User extends Component {
   dataToRow = () => {
     const data = this.props.data;
     const row = [];
-    const rowClassName = this.props.data['userId'] === this.props.selected['userId'] ? "rowSelected" : "row";
+    const pk = this.props.primaryKey;
+    const rowClassName = this.props.data[pk] === this.props.selected[pk] ? 'rowSelected' : 'row';
+    console.log(pk+'pk');
+    console.log(this.props.data[pk]+'+datapk')
+    console.log(this.props.selected[pk]+'selectedpk')
     for (const property in data) {
-      row.push(
-          <td className={rowClassName} key={property}>{ this.props.data[property] }</td>,
-      );
+      if ({}.hasOwnProperty.call(data, property)) {
+        row.push(
+            <td className={rowClassName} key={property}>{ this.props.data[property] }</td>,
+        );
+      }
     }
     return row;
   }

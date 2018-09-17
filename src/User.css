@@ -21,10 +21,18 @@
 
 }
 
+.dismissRight{
+  position: absolute;
+  right: 2px;
+  top: 3px;
+  cursor: pointer;
+}
+
 .email.form-group{
   display: flex;
   align-items: baseline;
 }
+
 .form-control{
   margin-left: 10px;
 }
