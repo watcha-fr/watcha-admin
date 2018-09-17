@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Room from './Room';
+import Datatorow from './DataToRow'
 import {Table} from 'react-bootstrap';
 
 
@@ -13,6 +14,9 @@ export default class RoomTable extends Component {
   }
 
   render() {
+    const dataRoom1 =
+    {roomId: 'conf', creator: '@joe', admins: '@joe', Active: 'True',
+      Alias: 'conference'};
     return (
       <Table striped bordered condensed hover responsive>
         <thead>
@@ -25,13 +29,9 @@ export default class RoomTable extends Component {
           </tr>
         </thead>
         <tbody>
-          <Room roomId='Conf' creator='jack' admins='john' active='true' alias='homesweethome' />
+          <Datatorow data={dataRoom1} pk='roomId' selected="false"/>
           <tr>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
+
           </tr>
           <tr>
             <td>Table cell</td>

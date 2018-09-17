@@ -35,6 +35,10 @@ export default class CollapsableRightPanel extends Component {
     }
   }
 
+  onClose = () => {
+    this.props.close();
+  }
+
   onEmailValidate = () => {
 
   }
@@ -94,7 +98,10 @@ export default class CollapsableRightPanel extends Component {
 
             <Panel bsStyle={bsStyle} className='panel'>
               <Panel.Heading>
-                <Panel.Title componentClass='h3'>{ title } : { this.props.data['userId'] }</Panel.Title>
+                <Panel.Title componentClass='h3'>
+                  { title } : { this.props.data['userId'] }
+                  <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
+                </Panel.Title>
               </Panel.Heading>
 
               <div className='pannelContainer'>
