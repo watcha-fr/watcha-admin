@@ -53,8 +53,6 @@ class App extends Component {
  }
 
  getServerName() {
-   const currentLocation = window.location.hostname;
-   console.log(currentLocation);
    return 'https://localhost:8448/';
  }
 
@@ -69,7 +67,7 @@ class App extends Component {
   render() {
     this.getServerName();
     if (this.state.accessToken) {
-      return (<AdminHome></AdminHome>);
+      return (<AdminHome token={this.state.accessToken} server={this.getServerName()}></AdminHome>);
     }
     return (
       <div>
