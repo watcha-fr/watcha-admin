@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Room from './Room';
-import Datatorow from './DataToRow'
+import Datatorow from './DataToRow';
 import {Table} from 'react-bootstrap';
 
 
@@ -29,7 +28,7 @@ export default class RoomTable extends Component {
           </tr>
         </thead>
         <tbody>
-          <Datatorow data={dataRoom1} pk='roomId' selected="false"/>
+          <Datatorow data={dataRoom1} pk='roomId' selected="false" />
           <tr>
 
           </tr>
