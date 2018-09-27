@@ -11,10 +11,7 @@ const tableType = {
     'header': {'Room Id': 'room_id', 'Creator': 'creator'} },
   'stats': {},
 };
-const arrayOfdata = [];
-let type;
-let header;
-let dataToRow = [];
+
 
 export default class UserTable extends Component {
   constructor(props) {
@@ -30,8 +27,7 @@ export default class UserTable extends Component {
 
   componentDidMount = () => {
     document.addEventListener('keydown', this.escFunction, false);
-    type = tableType[this.props.tableName];
-    header = this.getHeader(type);
+    this.setState({header:this.getHeader(this.state.type)})
     this.getData();
     this.setState({finished: true });
   }
@@ -41,7 +37,6 @@ export default class UserTable extends Component {
 
   onUserSelected = (data) => {
     this.setState({ selected: data });
-    console.log(this.state.selected + ' selected')
   };
 
   escFunction = (event) => {
@@ -70,10 +65,10 @@ export default class UserTable extends Component {
     let userData;
     const homeServer = this.props.server;
     const accessToken = this.props.token;
-    const primaryKey = type['primaryKey'];
+    const primaryKey = this.state.type['primaryKey'];
 
     try {
-      const userRequest = await fetch(homeServer+ type['apiAdress'], {
+      const userRequest = await fetch(homeServer+ this.state.type['apiAdress'], {
         method: 'GET',
         headers: {
           'Authorization': 'bearer '+accessToken,
@@ -88,15 +83,15 @@ export default class UserTable extends Component {
 
     for (let user in userData) {
       const dataObject={};
-      for (const columnHeader in type['header']) {
+      for (const columnHeader in this.state.type['header']) {
         for (const property in userData[user]) {
-          if (property === type['header'][columnHeader]) {
+          if (property === this.state.type['header'][columnHeader]) {
             dataObject[columnHeader] = userData[user][property];
           }
         }
       }
 
-      arrayOfdata.push(dataObject);
+      this.state.arrayOfdata.push(dataObject);
     }
 
 
@@ -119,26 +114,28 @@ export default class UserTable extends Component {
   }
 
   render() {
-    dataToRow=[]
-    for (let row in arrayOfdata) {
+    const dataToRow=[];
+    for (let row in this.state.arrayOfdata) {
       dataToRow.push(
-          <Datatorow data={arrayOfdata[row]} onUserSelected={this.onUserSelected} selected={this.state.selected} primaryKey={type['primaryKey']} key={row} />,
+          <Datatorow data={this.state.arrayOfdata[row]} onUserSelected={this.onUserSelected} selected={this.state.selected} primaryKey={this.state.type['primaryKey']} key={row} />,
       );
     }
+
+
     return (
 
       <div className='userTable'>
         <Table striped bordered condensed hover responsive>
           <thead>
             <tr>
-              { header }
+              { this.state.header }
             </tr>
           </thead>
           <tbody>
             { dataToRow }
           </tbody>
         </Table>
-        <CollapsableRightPanel className='collapsedRightPanel' data={this.state.selected} close={this.closeRightPanel}></CollapsableRightPanel>
+        <CollapsableRightPanel className='collapsedRightPanel' data={this.state.selected} close={this.closeRightPanel}> primaryKey={ this.state.type['primaryKey']}</CollapsableRightPanel>
       </div>
     );
   }
