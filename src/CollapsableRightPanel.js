@@ -99,7 +99,7 @@ export default class CollapsableRightPanel extends Component {
             <Panel bsStyle={bsStyle} className='panel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
-                  { title } : { this.props.data['userId'] }
+                  { title } : { this.props.data['User Id'] }
                   <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
                 </Panel.Title>
               </Panel.Heading>
@@ -110,11 +110,11 @@ export default class CollapsableRightPanel extends Component {
                     <tbody>
                       <tr>
                         <td className='labelText'>Creation:</td>
-                        <td className='infoText'>{ this.props.data['creationTs'] }</td>
+                        <td className='infoText'>{ this.props.data['date of creation'] }</td>
                       </tr>
                       <tr>
                         <td className='labelText'>Last Connection:</td>
-                        <td className='infoText'>{ this.props.data['last_connection'] }</td>
+                        <td className='infoText'>{ this.props.data['last connection'] }</td>
                       </tr>
                       <tr>
                         <td className='labelText'>Devices:</td>

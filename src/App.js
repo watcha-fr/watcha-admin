@@ -41,8 +41,6 @@ class App extends Component {
      const loginData = JSON.parse(await loginRequest.text());
      if (loginData['access_token']) {
        self.setState({accessToken: loginData['access_token']});
-       console.log('login successful: ' + loginData);
-
        return this.state.accessToken;
      }
    } catch (e) {

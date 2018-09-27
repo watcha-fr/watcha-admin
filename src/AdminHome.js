@@ -9,10 +9,10 @@ export default class AdminHome extends Component {
     return (
       <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
         <Tab eventKey={1} title="Users">
-          <UserTable tableName='user' token={this.props.token} server={this.props.server}/>
+          <UserTable tableName='user' token={this.props.token} server={this.props.server} />
         </Tab>
         <Tab eventKey={2} title="Rooms">
-          <RoomTable />
+          <UserTable tableName='room' token={this.props.token} server={this.props.server} />
         </Tab>
         <Tab eventKey={3} title="Stats">
           Tab 3 content
