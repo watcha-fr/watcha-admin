@@ -4,16 +4,17 @@ import {Table} from 'react-bootstrap';
 import CollapsableRightPanel from './CollapsableRightPanel';
 
 const tableType = {
-  'user': {'primaryKey': 'name', 'apiAdress': '_matrix/client/r0/watchauserlist',
-    'header': ['User Id', 'date of creation', 'Admin', 'Partner', 'Email', 'Devices'] },
-  'room': {'primaryKey': 'roomId', 'apiAdress': ''},
+  'user': {'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watchauserlist',
+    'header': {'User Id': 'name', 'date of creation': 'creation_ts',
+      'Admin': 'admin', 'Partner': 'is_partner', 'Email': 'email', 'Devices': 'display_name'} },
+  'room': {'primaryKey': 'Room Id', 'apiAdress': '_matrix/client/r0/watcharoomlist',
+    'header': {'Room Id': 'room_id', 'Creator': 'creator'} },
   'stats': {},
 };
-const dataObject = {};
+const arrayOfdata = [];
 let type;
-
-
-const dataToRow = [];
+let header;
+let dataToRow = [];
 
 export default class UserTable extends Component {
   constructor(props) {
@@ -21,12 +22,16 @@ export default class UserTable extends Component {
     this.state = {
       selected: false,
       rightPanel: false,
+      arrayOfdata: [],
+      dataToRow: [],
+      type: tableType[this.props.tableName],
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     document.addEventListener('keydown', this.escFunction, false);
     type = tableType[this.props.tableName];
+    header = this.getHeader(type);
     this.getData();
     this.setState({finished: true });
   }
@@ -36,6 +41,7 @@ export default class UserTable extends Component {
 
   onUserSelected = (data) => {
     this.setState({ selected: data });
+    console.log(this.state.selected + ' selected')
   };
 
   escFunction = (event) => {
@@ -50,26 +56,21 @@ export default class UserTable extends Component {
     });
   }
 
-  getHeader = (nameType) => {
+  getHeader = (type) => {
     const header = [];
-    if (this.state.finished) {
-      nameType['header'].forEach(function(column) {
-        header.push(<th key={column}> { column } </th>);
-      });
+    for (const elems in type['header']) {
+      header.push(<th key={elems}> { elems } </th>);
     }
+
+
     return header;
   }
 
   getUserData = async () => {
-    const self=this;
     let userData;
-    const row =[];
-    console.log(type['apiAdress']+'type');
     const homeServer = this.props.server;
     const accessToken = this.props.token;
     const primaryKey = type['primaryKey'];
-    const onUserSelected = this.onUserSelected;
-    const selected = this.state.selected;
 
     try {
       const userRequest = await fetch(homeServer+ type['apiAdress'], {
@@ -80,25 +81,33 @@ export default class UserTable extends Component {
       });
 
       userData = JSON.parse(await userRequest.text());
-      for (const elements in userData) {
-        console.log(userData[elements]);
-        dataToRow.push(
-            <Datatorow data={userData[elements]} onUserSelected={onUserSelected} selected={selected} primaryKey={primaryKey} key={elements[primaryKey]} />,
-        );
-        this.setState({finish: true});
-      }
     } catch (e) {
       console.log('error: ' + e);
       return;
     }
 
-    return row;
+    for (let user in userData) {
+      const dataObject={};
+      for (const columnHeader in type['header']) {
+        for (const property in userData[user]) {
+          if (property === type['header'][columnHeader]) {
+            dataObject[columnHeader] = userData[user][property];
+          }
+        }
+      }
+
+      arrayOfdata.push(dataObject);
+    }
+
+
+
+    this.setState({finish: true});
   }
   getData = () => {
     let data;
     switch (this.props.tableName) {
       case 'room':
-        data = this.getRoomData;
+        data = this.getUserData();
         break;
       case 'user':
         data = this.getUserData();
@@ -110,15 +119,12 @@ export default class UserTable extends Component {
   }
 
   render() {
-    // /const type = tableType[this.props.tableName];
-    const header = this.getHeader(type);
-    /*
-    data.forEach(function(element) {
-      row.push(
-          <Datatorow data={element} onUserSelected={onUserSelected} selected={selected} primaryKey={primaryKey} key={element[primaryKey]} />,
+    dataToRow=[]
+    for (let row in arrayOfdata) {
+      dataToRow.push(
+          <Datatorow data={arrayOfdata[row]} onUserSelected={this.onUserSelected} selected={this.state.selected} primaryKey={type['primaryKey']} key={row} />,
       );
-    });
-*/
+    }
     return (
 
       <div className='userTable'>

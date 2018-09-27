@@ -1,3 +1,6 @@
+dataToRow.push(
+    <Datatorow data={userData[elements]} onUserSelected={onUserSelected} selected={selected} primaryKey={primaryKey} key={elements} />,
+
 User Admin:
 
   Only users that are server admins can use these APIs. A user can be marked as a server admin by updating the database directly, e.g.:
