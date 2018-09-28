@@ -27,7 +27,7 @@ export default class UserTable extends Component {
 
   componentDidMount = () => {
     document.addEventListener('keydown', this.escFunction, false);
-    this.setState({header:this.getHeader(this.state.type)})
+    this.setState({header: this.getHeader(this.state.type)});
     this.getData();
     this.setState({finished: true });
   }
@@ -53,8 +53,10 @@ export default class UserTable extends Component {
 
   getHeader = (type) => {
     const header = [];
-    for (const elems in type['header']) {
-      header.push(<th key={elems}> { elems } </th>);
+    for (const elem in type['header']) {
+      if ({}.hasOwnProperty.call(type['header'], elem)) {
+        header.push(<th key={elem}> { elem } </th>);
+      }
     }
 
 
@@ -65,7 +67,6 @@ export default class UserTable extends Component {
     let userData;
     const homeServer = this.props.server;
     const accessToken = this.props.token;
-    const primaryKey = this.state.type['primaryKey'];
 
     try {
       const userRequest = await fetch(homeServer+ this.state.type['apiAdress'], {
@@ -81,19 +82,24 @@ export default class UserTable extends Component {
       return;
     }
 
-    for (let user in userData) {
-      const dataObject={};
-      for (const columnHeader in this.state.type['header']) {
-        for (const property in userData[user]) {
-          if (property === this.state.type['header'][columnHeader]) {
-            dataObject[columnHeader] = userData[user][property];
+    for (const user in userData) {
+      if ({}.hasOwnProperty.call(userData, user)) {
+        const dataObject={};
+        for (const columnHeader in this.state.type['header']) {
+          if ({}.hasOwnProperty.call(this.state.type['header'], columnHeader)) {
+            for (const property in userData[user]) {
+              if ({}.hasOwnProperty.call(userData[user], property)) {
+                if (property === this.state.type['header'][columnHeader]) {
+                  dataObject[columnHeader] = userData[user][property];
+                }
+              }
+            }
           }
         }
+
+        this.state.arrayOfdata.push(dataObject);
       }
-
-      this.state.arrayOfdata.push(dataObject);
     }
-
 
 
     this.setState({finish: true});
@@ -115,12 +121,14 @@ export default class UserTable extends Component {
 
   render() {
     const dataToRow=[];
-    for (let row in this.state.arrayOfdata) {
-      dataToRow.push(
-          <Datatorow data={this.state.arrayOfdata[row]} onUserSelected={this.onUserSelected} selected={this.state.selected} primaryKey={this.state.type['primaryKey']} key={row} />,
-      );
-    }
 
+    for (const row in this.state.arrayOfdata) {
+      if ({}.hasOwnProperty.call( this.state.arrayOfdata, row)) {
+        dataToRow.push(
+            <Datatorow data={this.state.arrayOfdata[row]} onUserSelected={this.onUserSelected} selected={this.state.selected} primaryKey={this.state.type['primaryKey']} key={row} />,
+        );
+      }
+    }
 
     return (
 
@@ -135,7 +143,7 @@ export default class UserTable extends Component {
             { dataToRow }
           </tbody>
         </Table>
-        <CollapsableRightPanel className='collapsedRightPanel' data={this.state.selected} close={this.closeRightPanel}> primaryKey={ this.state.type['primaryKey']}</CollapsableRightPanel>
+        <CollapsableRightPanel className='collapsedRightPanel' data={this.state.selected} close={this.closeRightPanel} tableName={this.props.tableName} />
       </div>
     );
   }
