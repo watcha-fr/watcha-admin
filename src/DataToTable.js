@@ -5,15 +5,21 @@ import CollapsableRightPanel from './CollapsableRightPanel';
 
 const tableType = {
   'user': {'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watchauserlist',
+    //'JoinTables':
+    //{'matchingKey': {}},
     'header': {'User Id': 'name', 'date of creation': 'creation_ts',
       'Admin': 'admin', 'Partner': 'is_partner', 'Email': 'email', 'Devices': 'display_name'} },
   'room': {'primaryKey': 'Room Id', 'apiAdress': '_matrix/client/r0/watcharoomlist',
-    'header': {'Room Id': 'room_id', 'Creator': 'creator'} },
+    'JoinTables':
+        {'watcharoomname': {'matchingKey':
+          { 'mainTable': 'Room Id', 'secondaryTable': 'room_id'},
+        'apiAdress': '_matrix/client/r0/watcharoomname', 'column': 'name'} },
+    'header': {'Room Id': 'room_id', 'Creator': 'creator', 'Name': 'watcharoomname'} },
   'stats': {},
 };
 
 
-export default class UserTable extends Component {
+export default class DataToTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,8 +71,10 @@ export default class UserTable extends Component {
 
   getUserData = async () => {
     let userData;
+    let JoinTablesData;
     const homeServer = this.props.server;
     const accessToken = this.props.token;
+    const JoinTables = this.state.type['JoinTables'];
 
     try {
       const userRequest = await fetch(homeServer+ this.state.type['apiAdress'], {
@@ -82,7 +90,7 @@ export default class UserTable extends Component {
       return;
     }
 
-    for (const user in userData) {
+    for (const user in userData) { //handle the main table;
       if ({}.hasOwnProperty.call(userData, user)) {
         const dataObject={};
         for (const columnHeader in this.state.type['header']) {
@@ -98,6 +106,44 @@ export default class UserTable extends Component {
         }
 
         this.state.arrayOfdata.push(dataObject);
+      }
+    }
+    for (const table in JoinTables) {
+      if ({}.hasOwnProperty.call(JoinTables, table)) {
+        const mainKey= JoinTables[table]['matchingKey'].mainTable;
+        const secondaryKey= JoinTables[table]['matchingKey'].secondaryTable;
+        const apiAdress = JoinTables[table]['apiAdress'];
+        const column = JoinTables[table]['column'];
+        try {
+          const userRequest = await fetch(homeServer+ apiAdress, {
+            method: 'GET',
+            headers: {
+              'Authorization': 'bearer '+accessToken,
+            },
+          });
+
+          JoinTablesData = JSON.parse(await userRequest.text());
+        } catch (e) {
+          console.log('error: ' + e);
+        }
+
+        for (const dataObject in this.state.arrayOfdata) {
+          if ({}.hasOwnProperty.call(this.state.arrayOfdata, dataObject)) {
+            for (const data in JoinTablesData ) {
+              if ({}.hasOwnProperty.call(JoinTablesData, data)) {
+                if (this.state.arrayOfdata[dataObject][mainKey] === JoinTablesData[data][secondaryKey]) {
+                  for (const columnHeader in this.state.type['header']) {
+                    if ({}.hasOwnProperty.call(this.state.type['header'], columnHeader)) {
+                      if (table === this.state.type['header'][columnHeader]) {
+                        this.state.arrayOfdata[dataObject][columnHeader]=JoinTablesData[data][column];
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 
@@ -132,7 +178,7 @@ export default class UserTable extends Component {
 
     return (
 
-      <div className='userTable'>
+      <div className='DataToTable'>
         <Table striped bordered condensed hover responsive>
           <thead>
             <tr>
