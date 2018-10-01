@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse, Panel, Button, Well, Table, Glyphicon} from 'react-bootstrap';
+import {Collapse, Panel, Well, Table, Glyphicon} from 'react-bootstrap';
 
 export default class RoomRightPanel extends Component {
   constructor(props) {
