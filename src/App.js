@@ -23,9 +23,9 @@ class App extends Component {
    const password = this.state.password;
 
    try {
-     const homeserver = await this.getServerName();
+     await this.getserverName();
      // XHR POST to login
-     const loginRequest = await fetch( homeserver + '_matrix/client/r0/login', {
+     const loginRequest = await fetch( this.state.homeserver + '_matrix/client/r0/login', {
        method: 'POST',
        body: JSON.stringify({
          'initial_device_display_name': 'Web setup account',
@@ -50,10 +50,9 @@ class App extends Component {
    }
  }
 
- getServerName = async () => {
+ getserverName = async () => {
    let coreUrl = '';
-   const currentpage = window.location.protocol+'//'+window.location.hostname;
-   console.log(currentpage);
+   const currentpage = window.location.protocol+'//'+window.location.hostname+'/';
    try {
      const configRequest = await fetch(currentpage+'/config.json');
      const configData = JSON.parse(await configRequest.text());
@@ -63,7 +62,8 @@ class App extends Component {
      console.log('error: ' + e);
      return;
    }
-   return coreUrl;
+   console.log(coreUrl);
+   this.setState({homeserver: coreUrl+'/'});
  }
   onNameChange = (evt) => {
     this.setState({userName: evt.target.value});
@@ -74,9 +74,8 @@ class App extends Component {
   }
 
   render() {
-    this.getServerName();
     if (this.state.accessToken) {
-      return (<AdminHome token={this.state.accessToken} server={this.getServerName()}></AdminHome>);
+      return (<AdminHome token={this.state.accessToken} server={this.state.homeserver}></AdminHome>);
     }
     return (
       <div>

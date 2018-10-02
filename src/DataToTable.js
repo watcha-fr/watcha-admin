@@ -85,7 +85,6 @@ export default class DataToTable extends Component {
     const homeServer = this.props.server;
     const accessToken = this.props.token;
     const JoinTables = this.state.type['JoinTables'];
-    console.log(accessToken);
 
     try {
       const userRequest = await fetch(homeServer+ this.state.type['apiAdress'], {
