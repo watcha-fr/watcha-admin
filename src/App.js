@@ -19,11 +19,11 @@ class App extends Component {
 
  onConnection = async () => {
    const self = this;
-   const homeserver = this.getServerName();
    const userName = this.state.userName;
    const password = this.state.password;
 
    try {
+     const homeserver = await this.getServerName();
      // XHR POST to login
      const loginRequest = await fetch( homeserver + '_matrix/client/r0/login', {
        method: 'POST',
@@ -50,10 +50,21 @@ class App extends Component {
    }
  }
 
- getServerName() {
-   return 'https://localhost:8448/';
+ getServerName = async () => {
+   let coreUrl = '';
+   const currentpage = window.location.protocol+'//'+window.location.hostname;
+   console.log(currentpage);
+   try {
+     const configRequest = await fetch(currentpage+'/config.json');
+     const configData = JSON.parse(await configRequest.text());
+     coreUrl = configData['default_hs_url'];
+     if (!coreUrl) throw new Error('could not get coreUrl');
+   } catch (e) {
+     console.log('error: ' + e);
+     return;
+   }
+   return coreUrl;
  }
-
   onNameChange = (evt) => {
     this.setState({userName: evt.target.value});
   }
