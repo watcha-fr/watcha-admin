@@ -91,7 +91,7 @@ export default class DataToTable extends Component {
       const userRequest = await fetch(homeServer+ this.state.type['apiAdress'], {
         method: 'GET',
         headers: {
-          'Authorization': 'bearer '+accessToken,
+          'Authorization': 'Bearer '+accessToken,
         },
       });
 
