@@ -17,10 +17,6 @@ export default class CollapsableRightPanel extends Component {
   }
 
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({emailValue: ''});
-  }
-
   getPanel = () => {
     let panel;
     switch (this.props.tableName) {
