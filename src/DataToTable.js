@@ -167,6 +167,7 @@ export default class DataToTable extends Component {
 
   convertRawData = (rawData, type) => {
     let data;
+    let ts;
     switch (type) {
       case 'string':
         data = rawData;
@@ -179,7 +180,8 @@ export default class DataToTable extends Component {
         }
         break;
       case 'date':
-        data=rawData;
+        ts=new Date(rawData*1000);
+        data=ts.toLocaleDateString('fr-Fr');
         break;
       default:
         data = '';
