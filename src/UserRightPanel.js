@@ -9,8 +9,19 @@ export default class UserRightPanel extends Component {
       open: true,
       editEmail: false,
       isEmail: false,
-      emailValue: '',
+      emailValue: ' ',
     };
+  }
+
+  componentDidUpdate(prevProps) {
+  // Typical usage (don't forget to compare props):
+    if (this.props.data !== prevProps.data) {
+      if (this.props.data['Email']) {
+        this.setState({emailValue: this.props.data['Email']});
+      } else {
+        this.setState({emailValue: ' '});
+      }
+    }
   }
 
   onEmailEdit = () => {
@@ -43,22 +54,17 @@ export default class UserRightPanel extends Component {
 
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({emailValue: ''});
-  }
-
   render() {
     let upgradePartner;
-    let isPartner;
     let editEmail;
     let bsStyle;
     let title;
     bsStyle = 'primary';
     title = 'User';
     const open = this.props.data ? true : false;
-    if (this.props.data['partner']=== 'true') {
-      isPartner = true;
-    }
+
+    const isPartner = this.props.data['Partner'];
+
     if (isPartner) {
       upgradePartner=<Button bsStyle='primary'>Upgrade to member</Button>;
       bsStyle='warning';
