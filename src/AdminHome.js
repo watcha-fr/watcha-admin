@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 import DataToTable from './DataToTable';
-import RefreshButton from './Buttons/RefreshButton.js';
+import TableToolBar from './TableToolBar';
+import RefreshButton from './Buttons/RefreshButton';
+import CreateUserButton from './Buttons/CreateUserButton';
 
 
 export default class AdminHome extends Component {
@@ -19,7 +21,7 @@ export default class AdminHome extends Component {
     return (
 
       <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-        <RefreshButton onClick={this.onRefresh} />
+        <TableToolBar refresh={this.onRefresh}></TableToolBar>
         <Tab eventKey={1} title="Users">
           <DataToTable tableName='user' token={this.props.token} server={this.props.server} key={this.state.refresh} />
         </Tab>
