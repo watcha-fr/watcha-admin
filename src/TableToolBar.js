@@ -3,7 +3,6 @@ import RefreshButton from './Buttons/RefreshButton';
 import CreateUserButton from './Buttons/CreateUserButton';
 
 export default class TableToolBar extends Component {
-
   constructor(props) {
     super(props);
 
@@ -15,10 +14,9 @@ export default class TableToolBar extends Component {
   render() {
     return (
       <div className='TableToolBar'>
-        <RefreshButton onClick={this.props.refresh}></RefreshButton>
-        <CreateUserButton></CreateUserButton>
+        <RefreshButton onClick={this.props.refresh} />
+        <CreateUserButton />
       </div>
     );
   }
-
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Glyphicon, Button} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 export default class CreateUserButton extends Component {
   constructor(props) {
@@ -9,10 +9,12 @@ export default class CreateUserButton extends Component {
 
     };
   }
+  onClick = () =>{
 
+  }
   render() {
     return (
-      <Button>Create User</Button>
+      <Button onClick = {this.onClick} >Create User</Button>
     );
   }
 }
