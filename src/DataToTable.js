@@ -10,8 +10,8 @@ const tableType = {
     'header':
       {'User Id': {'name': 'name', 'type': 'string'},
         'date of creation': {'name': 'creation_ts', 'type': 'date'},
-        'Admin': {'name': 'admin', 'type': 'boolean'},
-        'Partner': {'name': 'is_partner', 'type': 'boolean'},
+        'Status': {'Admin': {'name': 'admin', 'type': 'boolean'},
+          'Partner': {'name': 'is_partner', 'type': 'boolean'}, 'type': 'merge', 'Default': 'Member'},
         'Email': {'name': 'email', 'type': 'string'},
         'Devices': {'name': 'display_name', 'type': 'string'}} },
   'room': {
@@ -47,6 +47,8 @@ export default class DataToTable extends Component {
     this.getData();
     this.setState({finished: true });
   }
+
+
   componentWillUnmount() {
     document.removeEventListener('keydown', this.escFunction, false);
   }
@@ -85,6 +87,7 @@ export default class DataToTable extends Component {
     const homeServer = this.props.server;
     const accessToken = this.props.token;
     const JoinTables = this.state.type['JoinTables'];
+    const Headers = this.state.type['header'];
 
     try {
       const userRequest = await fetch(homeServer+ this.state.type['apiAdress'], {
@@ -100,19 +103,22 @@ export default class DataToTable extends Component {
       return;
     }
 
-    for (const user in userData) { //handle the main table;
+    for (const user in userData) { //handle the main table by iterating on the users list we get from request;
       if ({}.hasOwnProperty.call(userData, user)) {
         const dataObject={};
-        for (const columnHeader in this.state.type['header']) {
-          if ({}.hasOwnProperty.call(this.state.type['header'], columnHeader)) {
-            for (const property in userData[user]) {
+        for (const columnHeader in Headers) { // for each header we declare in the tabletype
+          if ({}.hasOwnProperty.call(Headers, columnHeader)) {
+            if (Headers[columnHeader]['type']==='list') {// in case we want one cell to handle multiple values useful for JoinTables
+              dataObject[columnHeader] = [];
+            }
+            if (Headers[columnHeader]['type']==='merge') {//in case we want one header for multiple boolean tabl columns
+              dataObject[columnHeader] = this.mergeRow(Headers[columnHeader], userData[user]);
+            }
+            for (const property in userData[user]) { // for each fields that belong to a user
               if ({}.hasOwnProperty.call(userData[user], property)) {
-                if (property === this.state.type['header'][columnHeader]['name']) {
+                if (property === Headers[columnHeader]['name']) { // we check if the field name match the name excepted by the header
                   dataObject[columnHeader] =
-                    this.convertRawData(userData[user][property], this.state.type['header'][columnHeader]['type']);
-                }
-                if (this.state.type['header'][columnHeader]['type']==='list') {
-                  dataObject[columnHeader] = [];
+                    this.convertRawData(userData[user][property], Headers[columnHeader]['type']);//we convert the data from the sql table to more revelant type for javascript
                 }
               }
             }
@@ -122,7 +128,7 @@ export default class DataToTable extends Component {
         this.state.arrayOfdata.push(dataObject);
       }
     }
-    for (const table in JoinTables) {
+    for (const table in JoinTables) {// handle extra tables
       if ({}.hasOwnProperty.call(JoinTables, table)) {
         const mainKey= JoinTables[table]['matchingKey'].mainTable;
         const secondaryKey= JoinTables[table]['matchingKey'].secondaryTable;
@@ -183,10 +189,24 @@ export default class DataToTable extends Component {
         ts=new Date(rawData*1000);
         data=ts.toLocaleDateString('fr-Fr');
         break;
+      case 'merge':
+        data='merge';
+        break;
       default:
         data = '';
     }
     return data;
+  }
+
+  mergeRow = (columns, data) => {
+    let value = columns['Default'];
+    for (const columnToMerge in columns ) {
+      if (data[columns[columnToMerge]['name']]===1) {
+        value=columnToMerge;
+      }
+    }
+
+    return value;
   }
 
 
