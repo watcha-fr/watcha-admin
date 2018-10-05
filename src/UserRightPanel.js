@@ -12,7 +12,13 @@ export default class UserRightPanel extends Component {
       emailValue: ' ',
     };
   }
-
+  componentDidMount() {
+    if (this.props.data['Email']) {
+      this.setState({emailValue: this.props.data['Email']});
+    } else {
+      this.setState({emailValue: ' '});
+    }
+  }
   componentDidUpdate(prevProps) {
   // Typical usage (don't forget to compare props):
     if (this.props.data !== prevProps.data) {
