@@ -15,7 +15,7 @@ export default class RoomRightPanel extends Component {
 
 
   onClose = () => {
-    this.props.close();
+    this.props.onClose();
   }
 
 

@@ -47,7 +47,7 @@ export default class UserRightPanel extends Component {
   }
 
   onClose = () => {
-    this.props.close();
+    this.props.onClose();
   }
 
   onEmailValidate = () => {

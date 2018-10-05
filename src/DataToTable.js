@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Datatorow from './DataToRow';
 import {Table} from 'react-bootstrap';
-import CollapsableRightPanel from './CollapsableRightPanel';
 
 const tableType = {
   'user': {'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watchauserlist',
@@ -55,6 +54,7 @@ export default class DataToTable extends Component {
 
   onUserSelected = (data) => {
     this.setState({ selected: data });
+    this.props.setRightPanel({type: this.props.tableName, data: data});
   };
 
   escFunction = (event) => {
@@ -249,7 +249,6 @@ export default class DataToTable extends Component {
             { dataToRow }
           </tbody>
         </Table>
-        <CollapsableRightPanel className='collapsedRightPanel' data={this.state.selected} close={this.closeRightPanel} tableName={this.props.tableName} />
       </div>
     );
   }

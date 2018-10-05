@@ -7,9 +7,6 @@
 /*collapsedRightPanel*/
 .panel{
   height: 100vh;
-  position: fixed;
-  top: 0px;
-  right: 0px;
   width: 30vw;
 }
 
@@ -57,4 +54,12 @@ display:flex;
 
 .table-responsive{
   max-height: 92vh;
+}
+
+.AdminHomeContainer{
+  display: flex;
+}
+
+.tabsContainer{
+  flex-grow: 1;
 }

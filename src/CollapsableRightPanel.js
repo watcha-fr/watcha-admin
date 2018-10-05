@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import RoomRightPanel from './RoomRightPanel.js';
-import UserRightPanel from './UserRightPanel.js';
+import RoomRightPanel from './RoomRightPanel';
+import UserRightPanel from './UserRightPanel';
+import CreateUserRightPanel from './CreateUserRightPanel';
 
 export default class CollapsableRightPanel extends Component {
   constructor(props) {
@@ -13,21 +14,25 @@ export default class CollapsableRightPanel extends Component {
 
 
   onClose = () => {
-    this.props.close();
+    this.props.onClose();
   }
 
 
   getPanel = () => {
     let panel;
-    switch (this.props.tableName) {
+    console.log(this.props.panelType);
+    switch (this.props.panelType) {
       case 'user':
-        panel = <UserRightPanel data={this.props.data} close={this.onClose} />;
+        panel = <UserRightPanel data={this.props.data} onClose={this.onClose} />;
         break;
       case 'room':
-        panel = <RoomRightPanel data={this.props.data} close={this.onClose} />;
+        panel = <RoomRightPanel data={this.props.data} onClose={this.onClose} />;
+        break;
+      case 'createUser':
+        panel = <CreateUserRightPanel data={this.props.data} onClose={this.onClose} />;
         break;
       default:
-        panel=<UserRightPanel data={this.props.data} close={this.onClose} />;
+        panel=<UserRightPanel data={this.props.data} onClose={this.onClose} />;
     }
     return panel;
   }
