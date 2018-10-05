@@ -20,7 +20,6 @@ export default class CollapsableRightPanel extends Component {
 
   getPanel = () => {
     let panel;
-    console.log(this.props.panelType);
     switch (this.props.panelType) {
       case 'user':
         panel = <UserRightPanel data={this.props.data} onClose={this.onClose} />;
