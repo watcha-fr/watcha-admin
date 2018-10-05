@@ -12,7 +12,6 @@ export default class CreateUserRightPanel extends Component {
   createUser = async () =>{
     const homeServer = this.props.server;
     const accessToken = this.props.token;
-    console.log(this.state.userIdValue);
 
     try {
       const userRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_register', {
@@ -22,8 +21,10 @@ export default class CreateUserRightPanel extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({user: this.state.userIdValue, full_name: this.state.firstNameValue+' '+this.state.lastNameValue,
-          email: this.state.emailValue, admin: false}),
+        body: JSON.stringify(
+            {user: this.state.userIdValue, full_name: this.state.firstNameValue+' '+this.state.lastNameValue,
+              email: this.state.emailValue, admin: false},
+        ),
       });
     } catch (e) {
       console.log('error: ' + e);
@@ -42,6 +43,9 @@ export default class CreateUserRightPanel extends Component {
   }
   isUserId = (query) => {
     return true;
+  }
+  onClose = () => {
+    this.props.onClose();
   }
 
   onEmailChange = (ev) => {
@@ -76,7 +80,7 @@ export default class CreateUserRightPanel extends Component {
     return (
 
       <div>
-        <Collapse in={'close'} dimension='width' timeout={0}>
+        <Collapse in={true} dimension='width' timeout={0}>
           <div>
 
             <Panel className='panel'>

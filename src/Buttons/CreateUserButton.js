@@ -9,12 +9,10 @@ export default class CreateUserButton extends Component {
 
     };
   }
-  onClick = () =>{
 
-  }
   render() {
     return (
-      <Button onClick = {this.onClick} >Create User</Button>
+      <Button onClick = {this.props.onClick} >Create User</Button>
     );
   }
 }

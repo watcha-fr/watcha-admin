@@ -14,7 +14,6 @@ export default class dataToRow extends Component {
   onSelect = () => {
     this.props.onUserSelected(this.props.data);
     this.setState({update: !this.state.update});
-
   }
 
   dataToRow = () => {
