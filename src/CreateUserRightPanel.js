@@ -13,11 +13,12 @@ export default class CreateUserRightPanel extends Component {
     const homeServer = this.props.server;
     const accessToken = this.props.token;
 
+
     try {
       const userRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_register', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer '+accessToken,
+          'Authorization': 'Bearer '+ accessToken,
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },

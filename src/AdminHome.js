@@ -32,13 +32,17 @@ export default class AdminHome extends Component {
     let panel;
     if (this.state.rightPanel) {
       panel = <CollapsableRightPanel
-        panelType={this.state.rightPanel['type']} data={this.state.rightPanel['data']} onClose={this.onClose} />;
+        panelType={this.state.rightPanel['type']}
+        data={this.state.rightPanel['data']}
+        onClose={this.onClose}
+        token={this.props.token}
+        server={this.props.server} />;
     }
     return (
 
       <div className='AdminHomeContainer'>
         <Tabs defaultActiveKey={1} className='tabsContainer' id='tabs'>
-          <TableToolBar refresh={this.onRefresh} setRightPanel={this.setRightPanel} onClose = {this.onClose}></TableToolBar>
+          <TableToolBar refresh={this.onRefresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
           <Tab eventKey={1} title="Users">
             <DataToTable tableName='user' token={this.props.token} server={this.props.server} key={this.state.refresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
           </Tab>
