@@ -22,16 +22,35 @@ export default class CollapsableRightPanel extends Component {
     let panel;
     switch (this.props.panelType) {
       case 'user':
-        panel = <UserRightPanel data={this.props.data} onClose={this.onClose} />;
+        panel = <UserRightPanel
+          data={this.props.data}
+          onClose={this.onClose}
+          server={this.props.server}
+          token={this.props.token} />;
         break;
+
       case 'room':
-        panel = <RoomRightPanel data={this.props.data} onClose={this.onClose} />;
+        panel = <RoomRightPanel
+          data={this.props.data}
+          onClose={this.onClose}
+          server={this.props.server}
+          token={this.props.token} />;
         break;
+
       case 'createUser':
-        panel = <CreateUserRightPanel data={this.props.data} onClose={this.onClose} />;
+        panel = <CreateUserRightPanel
+          data={this.props.data}
+          onClose={this.onClose}
+          server={this.props.server}
+          token={this.props.token} />;
         break;
+
       default:
-        panel=<UserRightPanel data={this.props.data} onClose={this.onClose} />;
+        panel=<UserRightPanel
+          data={this.props.data}
+          onClose={this.onClose}
+          server={this.props.server}
+          token={this.props.token} />;
     }
     return panel;
   }
