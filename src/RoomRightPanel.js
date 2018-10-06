@@ -33,7 +33,7 @@ export default class RoomRightPanel extends Component {
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
                   { title } : { this.props.data['Room Id'] }
-                  <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
+                  <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose} />
                 </Panel.Title>
               </Panel.Heading>
 
