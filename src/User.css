@@ -56,10 +56,10 @@ display:flex;
   max-height: 92vh;
 }
 
-.AdminHomeContainer{
+.tableContainer{
   display: flex;
 }
 
-.tabsContainer{
+.table-responsive{
   flex-grow: 1;
 }

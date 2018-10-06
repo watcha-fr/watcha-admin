@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 import DataToTable from './DataToTable';
 import TableToolBar from './TableToolBar';
-import CollapsableRightPanel from './CollapsableRightPanel';
 
 
 export default class AdminHome extends Component {
@@ -23,26 +22,12 @@ export default class AdminHome extends Component {
     });
   }
 
-  setRightPanel = (panel) =>{
-    this.setState({
-      rightPanel: panel,
-    });
-  }
+
   render() {
-    let panel;
-    if (this.state.rightPanel) {
-      panel = <CollapsableRightPanel
-        panelType={this.state.rightPanel['type']}
-        data={this.state.rightPanel['data']}
-        onClose={this.onClose}
-        token={this.props.token}
-        server={this.props.server} />;
-    }
     return (
 
       <div className='AdminHomeContainer'>
         <Tabs defaultActiveKey={1} className='tabsContainer' id='tabs'>
-          <TableToolBar refresh={this.onRefresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
           <Tab eventKey={1} title="Users">
             <DataToTable tableName='user' token={this.props.token} server={this.props.server} key={this.state.refresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
           </Tab>
@@ -53,7 +38,7 @@ export default class AdminHome extends Component {
           Tab 3 content
           </Tab>
         </Tabs>
-        { panel }
+
       </div>
     );
   }

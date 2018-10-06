@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Datatorow from './DataToRow';
 import {Table} from 'react-bootstrap';
+import TableToolBar from './TableToolBar';
+import CollapsableRightPanel from './CollapsableRightPanel';
 
 const tableType = {
   'user': {'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watchauserlist',
@@ -54,7 +56,9 @@ export default class DataToTable extends Component {
 
   onUserSelected = (data) => {
     this.setState({ selected: data });
-    this.props.setRightPanel({type: this.props.tableName, data: data});
+    this.setState({
+      rightPanel: {type: this.props.tableName, data: data},
+    });
   };
 
   escFunction = (event) => {
@@ -79,6 +83,16 @@ export default class DataToTable extends Component {
 
 
     return header;
+  }
+
+  onRefresh = () =>{
+    this.getData();
+  }
+
+  setRightPanel = (panel) =>{
+    this.setState({
+      rightPanel: panel,
+    });
   }
 
   getUserData = async () => {
@@ -236,19 +250,35 @@ export default class DataToTable extends Component {
       }
     }
 
+    let panel;
+    if (this.state.rightPanel) {
+      panel = <CollapsableRightPanel
+        panelType={this.state.rightPanel['type']}
+        data={this.state.rightPanel['data']}
+        onClose={this.onClose}
+        token={this.props.token}
+        server={this.props.server} />;
+    }
+
     return (
 
       <div className='DataToTable'>
-        <Table striped bordered condensed hover responsive>
-          <thead>
-            <tr>
-              { this.state.header }
-            </tr>
-          </thead>
-          <tbody>
-            { dataToRow }
-          </tbody>
-        </Table>
+        <TableToolBar refresh={this.onRefresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
+
+        <div className='tableContainer'>
+          <Table striped bordered condensed hover responsive className='tableBody'>
+            <thead>
+              <tr>
+                { this.state.header }
+              </tr>
+            </thead>
+            <tbody>
+              { dataToRow }
+            </tbody>
+          </Table>
+          { panel }
+        </div>
+
       </div>
     );
   }
