@@ -86,7 +86,16 @@ export default class DataToTable extends Component {
   }
 
   onRefresh = () =>{
+    this.setState({
+      arrayOfdata: [],
+    });
     this.getData();
+  }
+
+  onClose = () =>{
+    this.setState({
+      rightPanel: false,
+    });
   }
 
   setRightPanel = (panel) =>{
