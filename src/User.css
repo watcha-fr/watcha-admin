@@ -13,13 +13,15 @@
 .checkboxInfo{
 
 }
-
+.panel-title{
+  display: flex;
+  justify-content: space-between;
+}
 .pannelContainer{
 
 }
 
 .dismissRight{
-  position: absolute;
   right: 2px;
   top: 3px;
   cursor: pointer;
