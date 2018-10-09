@@ -1,35 +1,71 @@
 import React, { Component } from 'react';
-import {Collapse, Panel, Glyphicon, Well, Table, Button} from 'react-bootstrap';
+import {Collapse, Panel, Glyphicon, Well, Table, Button, Alert } from 'react-bootstrap';
 
 export default class CreateUserRightPanel extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-
+      infoMessage: false,
     };
   }
   createUser = async () =>{
     const homeServer = this.props.server;
     const accessToken = this.props.token;
-
-
-    try {
-      const userRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_register', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer '+ accessToken,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-            {user: this.state.userIdValue, full_name: this.state.firstNameValue+' '+this.state.lastNameValue,
-              email: this.state.emailValue, admin: false},
-        ),
+    if (!this.state.isEmail) {
+      this.setState({
+        message: {type: 'danger', title: 'Invalid Email',
+          body: 'this email adress seems to be incorrect please enter a valid email adress '},
       });
-    } catch (e) {
-      console.log('error: ' + e);
-      return;
+      this.displayInfoMessage();
+    } else if (!this.state.isFirstName) {
+      this.setState({
+        message: {type: 'danger', title: 'Invalid First Name',
+          body: 'First Name must contain at least two characters '},
+      });
+      this.displayInfoMessage();
+    } else if (!this.state.isLastName) {
+      this.setState({
+        message: {type: 'danger', title: 'Invalid Last Name',
+          body: 'Last Name must contain at least two characters '},
+      });
+      this.displayInfoMessage();
+    } else if (!this.props.isEmailAvailable(this.state.emailValue)) {
+      this.setState({
+        message: {type: 'danger', title: 'Email already in use',
+          body: this.state.emailValue+ ' is already in use enter a new email '},
+      });
+      this.displayInfoMessage();
+    } else {
+      try {
+        const userRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_register', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer '+ accessToken,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(
+              {user: this.state.userIdValue, full_name: this.state.firstNameValue+' '+this.state.lastNameValue,
+                email: this.state.emailValue, admin: false},
+          ),
+        });
+        const response = JSON.parse(await userRequest.text());
+        if (userRequest.ok) {
+          this.setState({
+            message: {type: 'success', title: 'User Created', body: this.state.userIdValue+' has been added to watcha'},
+          });
+          this.displayInfoMessage();
+        } else {
+          this.setState({
+            message: {type: 'danger', title: 'User Creation Failed', body: response['error'] },
+          });
+          this.displayInfoMessage();
+        }
+      } catch (e) {
+        console.log('error: ' + e);
+        return;
+      }
     }
   }
 
@@ -37,14 +73,12 @@ export default class CreateUserRightPanel extends Component {
     return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
   }
   isName = (query) => {
-    return true;
+    return query.length>1;
   }
   isFirstName = (query) => {
-    return true;
+    return query.length>1;
   }
-  isUserId = (query) => {
-    return true;
-  }
+
   onClose = () => {
     this.props.onClose();
   }
@@ -72,18 +106,42 @@ export default class CreateUserRightPanel extends Component {
   }
   onUserIdChange = (ev) => {
     this.setState({userIdValue: ev.target.value});
-    this.setState({isUserId: false});
-    if (this.isUserId(ev.target.value)) {
-      this.setState({isUserId: true});
-    }
   }
-  render() {
-    return (
 
+  displayInfoMessage = () => {
+    this.setState({
+      infoMessage: true,
+    });
+  }
+
+  dismissInfoMessage = () => {
+    this.setState({
+      infoMessage: false,
+    });
+  }
+
+  render() {
+    let bottomWell;
+    if (this.state.infoMessage) {
+      bottomWell =
+      <Alert onDismiss={this.dismissInfoMessage} bsStyle={this.state.message.type}>
+        <h4>{ this.state.message.title }</h4>
+        <p>
+          { this.state.message.body }
+        </p>
+        <p>
+          <Button bsStyle={this.state.message.type} onClick={this.dismissInfoMessage}>Ok</Button>
+        </p>
+      </Alert>;
+    } else {
+      bottomWell=<div className='bottomButton'>
+        <Button bsStyle='primary' onClick={this.createUser}>Create User</Button>
+      </div>;
+    }
+    return (
       <div>
         <Collapse in={true} dimension='width' timeout={0}>
           <div>
-
             <Panel className='panel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
@@ -123,10 +181,11 @@ export default class CreateUserRightPanel extends Component {
                     </tbody>
                   </Table>
                 </Well>
-                <div className='bottomButton'>
-                  <Button bsStyle='primary' onClick={this.createUser}>Create User</Button></div>
+                { bottomWell }
+
               </div>
             </Panel>
+
           </div>
         </Collapse>
       </div>

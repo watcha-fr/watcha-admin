@@ -232,6 +232,16 @@ export default class DataToTable extends Component {
     return value;
   }
 
+  isEmailAvailable = (mail) => {
+    let emailAvailable = true;
+    for (const user in this.state.arrayOfdata) {
+      if (this.state.arrayOfdata[user]['Email'] === mail) {
+        emailAvailable = false;
+      }
+    }
+    return emailAvailable;
+  }
+
 
   getData = () => {
     let data;
@@ -266,13 +276,15 @@ export default class DataToTable extends Component {
         data={this.state.rightPanel['data']}
         onClose={this.onClose}
         token={this.props.token}
-        server={this.props.server} />;
+        server={this.props.server}
+        isEmailAvailable = {this.isEmailAvailable}
+      />;
     }
 
     return (
 
       <div className='DataToTable'>
-        <TableToolBar refresh={this.onRefresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
+        <TableToolBar refresh={this.onRefresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} tab={this.props.tableName} />
 
         <div className='tableContainer'>
           <Table striped bordered condensed hover responsive className='tableBody'>

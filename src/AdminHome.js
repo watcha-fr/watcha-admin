@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 import DataToTable from './DataToTable';
-import TableToolBar from './TableToolBar';
 
 
 export default class AdminHome extends Component {

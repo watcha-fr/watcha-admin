@@ -12,16 +12,19 @@ export default class TableToolBar extends Component {
   }
   createUser = () =>{
     const panel = {'type': 'createUser'};
-    console.log(panel);
     this.props.setRightPanel(panel);
   }
 
 
   render() {
+    let userButton;
+    if (this.props.tab === 'user') {
+      userButton = <CreateUserButton onClick={this.createUser} />;
+    }
     return (
       <div className='TableToolBar'>
         <RefreshButton onClick={this.props.refresh} />
-        <CreateUserButton onClick={this.createUser} />
+        { userButton }
       </div>
     );
   }
