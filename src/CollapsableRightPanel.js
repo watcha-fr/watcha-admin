@@ -42,7 +42,8 @@ export default class CollapsableRightPanel extends Component {
           data={this.props.data}
           onClose={this.onClose}
           server={this.props.server}
-          token={this.props.token} />;
+          token={this.props.token}
+          isEmailAvailable={this.props.isEmailAvailable} />;
         break;
 
       default:
