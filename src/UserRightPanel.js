@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse, Panel, Button, Well, Table, Glyphicon} from 'react-bootstrap';
+import {Collapse, Panel, Button, Well, Table, Glyphicon, Alert} from 'react-bootstrap';
 
 export default class UserRightPanel extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export default class UserRightPanel extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-  // Typical usage (don't forget to compare props):
+    // Typical usage (don't forget to compare props):
     if (this.props.data !== prevProps.data) {
       if (this.props.data['Email']) {
         this.setState({emailValue: this.props.data['Email']});
@@ -58,6 +58,52 @@ export default class UserRightPanel extends Component {
 
   onEmailValidate = () => {
 
+  }
+
+  displayInfoMessage = () => {
+    this.setState({
+      infoMessage: true,
+    });
+  }
+
+  dismissInfoMessage = () => {
+    this.setState({
+      infoMessage: false,
+    });
+  }
+
+  resetPassword = async () => {
+    const homeServer = this.props.server;
+    const accessToken = this.props.token;
+    try {
+      const userRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_reset_password', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer '+ accessToken,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+            {user: this.props.data['User Id']},
+        ),
+      });
+      const response = JSON.parse(await userRequest.text());
+      if (userRequest.ok) {
+        this.setState({
+          message: {type: 'success', title: 'Password reseted',
+            body: 'an email has been send to ' + this.props.data['User Id']+ ' with a new password'},
+        });
+        this.displayInfoMessage();
+      } else {
+        this.setState({
+          message: {type: 'danger', title: 'Password reset failed', body: response['error'] },
+        });
+        this.displayInfoMessage();
+      }
+    } catch (e) {
+      console.log('error: ' + e);
+      return;
+    }
   }
 
   render() {
@@ -103,7 +149,26 @@ export default class UserRightPanel extends Component {
       }
     }
 
+    let bottomWell;
+    if (this.state.infoMessage) {
+      bottomWell =
+      <Alert onDismiss={this.dismissInfoMessage} bsStyle={this.state.message.type}>
+        <h4>{ this.state.message.title }</h4>
+        <p>
+          { this.state.message.body }
+        </p>
+        <p>
+          <Button bsStyle={this.state.message.type} onClick={this.dismissInfoMessage}>Ok</Button>
+        </p>
+      </Alert>;
+    } else {
+      bottomWell=
+      <div className='bottomButton'>
+        { upgradePartner }
+        <Button bsStyle='primary' onClick={this.resetPassword}>Reset Password</Button></div>;
+    }
     return (
+
       <div>
         <Collapse in={open} dimension='width' timeout={0}>
           <div>
@@ -139,9 +204,7 @@ export default class UserRightPanel extends Component {
                     </tbody>
                   </Table>
                 </Well>
-                <div className='bottomButton'>
-                  { upgradePartner }
-                  <Button bsStyle='primary'>Reset Password</Button></div>
+                { bottomWell }
               </div>
             </Panel>
           </div>

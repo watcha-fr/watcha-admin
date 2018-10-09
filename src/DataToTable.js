@@ -3,27 +3,77 @@ import Datatorow from './DataToRow';
 import {Table} from 'react-bootstrap';
 import TableToolBar from './TableToolBar';
 import CollapsableRightPanel from './CollapsableRightPanel';
+/*
 
+ */
 const tableType = {
-  'user': {'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watchauserlist',
-    //'JoinTables':
-    //{'matchingKey': {}},
-    'header':
-      {'User Id': {'name': 'name', 'type': 'string'},
-        'date of creation': {'name': 'creation_ts', 'type': 'date'},
-        'Status': {'Admin': {'name': 'admin', 'type': 'boolean'},
-          'Partner': {'name': 'is_partner', 'type': 'boolean'}, 'type': 'merge', 'Default': 'Member'},
-        'Email': {'name': 'email', 'type': 'string'},
-        'Devices': {'name': 'display_name', 'type': 'string'}} },
+  'user':
+  {
+    'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watchauserlist',
+    'JoinTables': {
+      'watchadisplayname': {
+        'matchingKey': {
+          'mainTable': 'User Id',
+          'secondaryTable': 'user_id',
+        },
+        'apiAdress': '_matrix/client/r0/watchadisplayname',
+        'column': 'displayname',
+      },
+    },
+    'header': {
+      'User Id': {
+        'name': 'name',
+        'type': 'string',
+      },
+      'Display Name': {
+        'name': 'watchadisplayname',
+        'type': 'list',
+      },
+      'Email': {
+        'name': 'email',
+        'type': 'string',
+      },
+      'Date of creation': {
+        'name': 'creation_ts',
+        'type': 'date',
+      },
+      'Status': {
+        'Admin': {
+          'name': 'admin',
+          'type': 'boolean',
+        },
+        'Partner':
+        {'name': 'is_partner',
+          'type': 'boolean',
+        },
+        'type': 'merge',
+        'Default': 'Member',
+      },
+    },
+  },
   'room': {
-    'primaryKey': 'Room Id', 'apiAdress': '_matrix/client/r0/watcharoomlist',
-    'JoinTables':
-        {'watcharoomname': {'matchingKey':
-          { 'mainTable': 'Room Id', 'secondaryTable': 'room_id'},
-        'apiAdress': '_matrix/client/r0/watcharoomname', 'column': 'name'} },
-    'header': {'Room Id': {'name': 'room_id', 'type': 'string'},
-      'Name': {'name': 'watcharoomname', 'type': 'list'},
-      'Creator': {'name': 'creator', 'type': 'string'},
+    'primaryKey': 'Room Id',
+    'apiAdress': '_matrix/client/r0/watcharoomlist',
+    'JoinTables': {
+      'watcharoomname': {
+        'matchingKey': {
+          'mainTable': 'Room Id',
+          'secondaryTable': 'room_id',
+        },
+        'apiAdress': '_matrix/client/r0/watcharoomname',
+        'column': 'name',
+      },
+    },
+    'header': {
+      'Room Id': {
+        'name': 'room_id', 'type': 'string',
+      },
+      'Name': {
+        'name': 'watcharoomname', 'type': 'list',
+      },
+      'Creator': {
+        'name': 'creator', 'type': 'string',
+      },
     },
   },
   'stats': {},
@@ -174,7 +224,9 @@ export default class DataToTable extends Component {
           if ({}.hasOwnProperty.call(this.state.arrayOfdata, dataObject)) {
             for (const data in JoinTablesData ) {
               if ({}.hasOwnProperty.call(JoinTablesData, data)) {
-                if (this.state.arrayOfdata[dataObject][mainKey] === JoinTablesData[data][secondaryKey]) {
+                if (this.state.arrayOfdata[dataObject][mainKey] === JoinTablesData[data][secondaryKey] ||
+                   this.simplifiedUserId(this.state.arrayOfdata[dataObject][mainKey]) ===
+                   this.simplifiedUserId(JoinTablesData[data][secondaryKey]) ) {
                   for (const columnHeader in this.state.type['header']) {
                     if ({}.hasOwnProperty.call(this.state.type['header'], columnHeader)) {
                       if (table === this.state.type['header'][columnHeader]['name']) {
@@ -194,6 +246,12 @@ export default class DataToTable extends Component {
     this.setState({finish: true});
   }
 
+  simplifiedUserId = (fulluserId) =>{
+    let simplifiedUserId = fulluserId.replace('@', '');
+    simplifiedUserId = simplifiedUserId.split(':');
+    simplifiedUserId = simplifiedUserId[0];
+    return simplifiedUserId;
+  }
   convertRawData = (rawData, type) => {
     let data;
     let ts;
