@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 import DataToTable from './DataToTable';
+import StatsTab from './StatsTab';
 
 
 export default class AdminHome extends Component {
@@ -11,9 +12,7 @@ export default class AdminHome extends Component {
       refresh: true,
     };
   }
-  onRefresh = () => {
-    this.setState({refresh: !this.state.refresh});
-  }
+
 
   onClose = () => {
     this.setState({
@@ -28,13 +27,13 @@ export default class AdminHome extends Component {
       <div className='AdminHomeContainer'>
         <Tabs defaultActiveKey={1} className='tabsContainer' id='tabs'>
           <Tab eventKey={1} title="Users">
-            <DataToTable tableName='user' token={this.props.token} server={this.props.server} key={this.state.refresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
+            <DataToTable tableName='user' token={this.props.token} server={this.props.server} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
           </Tab>
           <Tab eventKey={2} title="Rooms">
-            <DataToTable tableName='room' token={this.props.token} server={this.props.server} key={this.state.refresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
+            <DataToTable tableName='room' token={this.props.token} server={this.props.server} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
           </Tab>
           <Tab eventKey={3} title="Stats">
-          Tab 3 content
+            <StatsTab token='this.props.token' server={this.props.server} />
           </Tab>
         </Tabs>
 
