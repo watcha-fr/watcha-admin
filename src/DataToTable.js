@@ -63,6 +63,14 @@ const tableType = {
         'apiAdress': '_matrix/client/r0/watcharoomname',
         'column': 'name',
       },
+      'activeRooms': {
+        'matchingKey': {
+          'mainTable': 'Room Id',
+          'secondaryTable': 'rooms',
+        },
+        'apiAdress': '_matrix/client/r0/stats',
+        'column': 'active',
+      },
     },
     'header': {
       'Room Id': {
@@ -73,6 +81,9 @@ const tableType = {
       },
       'Creator': {
         'name': 'creator', 'type': 'string',
+      },
+      'Active': {
+        'name': 'activeRooms', 'type': 'list',
       },
     },
   },
@@ -216,6 +227,8 @@ export default class DataToTable extends Component {
           });
 
           JoinTablesData = JSON.parse(await userRequest.text());
+          console.log(JoinTablesData);
+          console.log(this.state.arrayOfdata);
         } catch (e) {
           console.log('error: ' + e);
         }
