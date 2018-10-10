@@ -173,7 +173,7 @@ export default class UserRightPanel extends Component {
         <Collapse in={open} dimension='width' timeout={0}>
           <div>
 
-            <Panel bsStyle={bsStyle} className='panel'>
+            <Panel bsStyle={bsStyle} className='rightPanel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
                   { title } : { this.props.data['User Id'] }

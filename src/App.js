@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './images/logo.svg';
 import './App.css';
 import AdminHome from './AdminHome.js';
 import {Button, FormGroup, FormControl, Col, Form, Grid, Row} from 'react-bootstrap';

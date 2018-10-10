@@ -4,8 +4,8 @@
 
 }
 
-/*collapsedRightPanel*/
-.panel{
+
+.rightPanel{
   height: 100vh;
   width: 30vw;
 }
@@ -17,10 +17,20 @@
   display: flex;
   justify-content: space-between;
 }
-.pannelContainer{
-
+.statsPanelContent{
+  display: flex;
+    justify-content: space-between;
 }
 
+.statsPanelsContainer{
+  display: flex;
+}
+.statsPanel{
+  flex-grow: 1;
+  margin:2vw;
+  background-color: #337ab7;
+  color: white;
+}
 .dismissRight{
   right: 2px;
   top: 3px;
@@ -64,4 +74,9 @@ display:flex;
 
 .table-responsive{
   flex-grow: 1;
+}
+
+.usersPanel{
+  height: none;
+  width: none;
 }

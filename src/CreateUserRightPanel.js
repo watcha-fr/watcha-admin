@@ -142,7 +142,7 @@ export default class CreateUserRightPanel extends Component {
       <div>
         <Collapse in={true} dimension='width' timeout={0}>
           <div>
-            <Panel className='panel'>
+            <Panel className='rightPanel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
                   Create User

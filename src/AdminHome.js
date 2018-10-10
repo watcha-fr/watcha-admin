@@ -26,14 +26,15 @@ export default class AdminHome extends Component {
 
       <div className='AdminHomeContainer'>
         <Tabs defaultActiveKey={1} className='tabsContainer' id='tabs'>
-          <Tab eventKey={1} title="Users">
-            <DataToTable tableName='user' token={this.props.token} server={this.props.server} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
+          <Tab eventKey={1} title="Stats">
+            <StatsTab token='this.props.token' server={this.props.server} />
+
           </Tab>
           <Tab eventKey={2} title="Rooms">
             <DataToTable tableName='room' token={this.props.token} server={this.props.server} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
           </Tab>
-          <Tab eventKey={3} title="Stats">
-            <StatsTab token='this.props.token' server={this.props.server} />
+          <Tab eventKey={3} title="Users">
+            <DataToTable tableName='user' token={this.props.token} server={this.props.server} setRightPanel={this.setRightPanel} onClose = {this.onClose} />
           </Tab>
         </Tabs>
 
