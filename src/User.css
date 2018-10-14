@@ -1,6 +1,7 @@
 /*User*/
 .rowSelected{
-  background: cyan;
+  background: #00E5E5;
+  color: white !important;
 
 }
 
@@ -8,6 +9,13 @@
 .rightPanel{
   height: 100vh;
   width: 30vw;
+}
+.trueBoolean{
+  color:green;
+}
+
+.falseBoolean{
+  color:red;
 }
 
 .checkboxInfo{

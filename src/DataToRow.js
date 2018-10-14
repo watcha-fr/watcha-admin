@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './User.css';
+import BooleanRow from './BooleanRow';
 
 
 export default class dataToRow extends Component {
@@ -23,9 +24,23 @@ export default class dataToRow extends Component {
     const rowClassName = this.props.data[pk] === this.props.selected[pk] ? 'rowSelected' : 'row';
     for (const property in data) {
       if ({}.hasOwnProperty.call(data, property)) {
-        row.push(
-            <td className={rowClassName} key={property}>{ this.props.data[property] }</td>,
-        );
+        if (typeof this.props.data[property] === 'boolean') {
+          row.push(
+              <td className={rowClassName}
+                key={property}>
+                <BooleanRow
+                  value ={this.props.data[property]}
+                  selected={rowClassName} />
+              </td>);
+        } else {
+          row.push(
+              <td
+                className={rowClassName}
+                key={property}>
+                { this.props.data[property] }
+              </td>,
+          );
+        }
       }
     }
     return row;
@@ -35,7 +50,8 @@ export default class dataToRow extends Component {
     let row = [];
     row = this.dataToRow();
     return (
-      <tr onClick={this.onSelect}>
+      <tr
+        onClick={this.onSelect}>
         { row }
       </tr>
     );
