@@ -17,14 +17,44 @@ export default class TableToolBar extends Component {
 
 
   render() {
-    let userButton;
+    let filtersOption;
     if (this.props.tab === 'user') {
-      userButton = <CreateUserButton onClick={this.createUser} />;
+      filtersOption = <div className='filtersOption'>
+        <CreateUserButton onClick={this.createUser} />
+        <RefreshButton onClick={this.props.refresh} />
+        <div className='checkboxfilter'>
+          <label>Hide members</label>
+          <input type="checkbox" name="hideMembers" onChange = {this.props.handleFilter} />
+        </div>
+        <div className='checkboxfilter'>
+          <label>Hide partners</label>
+          <input type="checkbox" name="hidePartners" onChange = {this.props.handleFilter} />
+        </div>
+        <div className='textFilter'>
+          <input type="text" name="textFilter" onChange = {this.props.handleFilter} />
+        </div>
+      </div>;
+    }
+    if (this.props.tab === 'room') {
+      filtersOption =
+      <div className='filtersOption'>
+        <RefreshButton onClick={this.props.refresh} />
+        <div className='checkboxfilter'>
+          <label>Hide one to one</label>
+          <input type="checkbox" name="hideOneToOne" onChange = {this.props.handleFilter} />
+        </div>
+        <div className='checkboxfilter'>
+          <label>Hide inactive</label>
+          <input type="checkbox" name='hideInactive' onChange = {this.props.handleFilter} />
+        </div>
+        <div className='textFilter'>
+          <input type="text" name="textFilter" onChange = {this.props.handleFilter} />
+        </div>
+      </div>;
     }
     return (
       <div className='TableToolBar'>
-        <RefreshButton onClick={this.props.refresh} />
-        { userButton }
+        { filtersOption }
       </div>
     );
   }
