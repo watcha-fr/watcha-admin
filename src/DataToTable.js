@@ -109,7 +109,7 @@ export default class DataToTable extends Component {
       arrayOfdata: [],
       dataToRow: [],
       type: tableType[this.props.tableName],
-      filter: false,
+      filter: {},
     };
   }
 
@@ -318,11 +318,76 @@ export default class DataToTable extends Component {
     return emailAvailable;
   }
 
+  filterData = (arrayOfdata) => {
+    const filteredData = {};
+    Object.assign(filteredData, arrayOfdata);
+    for (const row in filteredData) {
+      if ({}.hasOwnProperty.call(filteredData, row)) {
+        let hideRow = false;
+        if (this.state.filter['hideOneToOne']) {
+          if (filteredData[row]['Type'] === 'discussion') {
+            hideRow = true;
+          }
+        }
+        if (this.state.filter['hideInactive']) {
+          if (!filteredData[row]['Active']) {
+            hideRow = true;
+          }
+        }
+        if (this.state.filter['hideMembers']) {
+          if (filteredData[row]['Status'] === 'Member') {
+            hideRow = true;
+          }
+        }
+        if (this.state.filter['hidePartners']) {
+          if (filteredData[row]['Status'] === 'Partner') {
+            hideRow = true;
+          }
+        }
+        if (hideRow) {
+          delete filteredData[row];
+        }
+      }
+    }
+    for (const row in filteredData) {
+      if ({}.hasOwnProperty.call(filteredData, row)) {
+        let dismissrow;
+        if (this.state.filter['textFilter']) {
+          dismissrow = true;
+          for (const property in filteredData[row]) {
+            if ({}.hasOwnProperty.call(filteredData[row], property)) {
+              if (filteredData[row][property]) {
+                if (filteredData[row][property].toString().toLowerCase().includes(this.state.filter['textFilter'])) {
+                  dismissrow = false;
+                }
+              }
+            }
+          }
+        }
+        if (dismissrow) {
+          delete filteredData[row];
+        }
+      }
+    }
+    return filteredData;
+  }
+
+  handleFilter = (event) => {
+    const target = event.target;
+    const name = target.name;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const arrayOfFilter = this.state.filter;
+    arrayOfFilter[name] = value;
+    this.setState({
+      filter: arrayOfFilter,
+    });
+  }
 
   render() {
     const dataToRow=[];
+    const filteredData = this.filterData(this.state.arrayOfdata);
 
-    for (const row in this.state.arrayOfdata) {
+    for (const row in filteredData) {
       if ({}.hasOwnProperty.call( this.state.arrayOfdata, row)) {
         dataToRow.push(
             <Datatorow data={this.state.arrayOfdata[row]} onUserSelected={this.onUserSelected} selected={this.state.selected} primaryKey={this.state.type['primaryKey']} key={row} />,
@@ -345,7 +410,7 @@ export default class DataToTable extends Component {
     return (
 
       <div className='DataToTable'>
-        <TableToolBar refresh={this.onRefresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} tab={this.props.tableName} />
+        <TableToolBar refresh={this.onRefresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} handleFilter={this.handleFilter} tab={this.props.tableName} />
 
         <div className='tableContainer'>
           <Table striped bordered condensed hover responsive className='tableBody'>

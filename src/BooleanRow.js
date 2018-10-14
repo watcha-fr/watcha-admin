@@ -13,7 +13,7 @@ export default class BooleanRow extends Component {
 
   render() {
     let row;
-    if (this.props.selected != 'rowSelected') {
+    if (this.props.selected !== 'rowSelected') {
       if (this.props.value) {
         row = <Glyphicon glyph = 'ok' className='trueBoolean' />;
       } else {

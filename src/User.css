@@ -5,11 +5,11 @@
 
 }
 
-
 .rightPanel{
   height: 100vh;
   width: 30vw;
 }
+
 .trueBoolean{
   color:green;
 }
@@ -21,10 +21,15 @@
 .checkboxInfo{
 
 }
+.filtersOption{
+  display: flex;
+}
+
 .panel-title{
   display: flex;
   justify-content: space-between;
 }
+
 .statsPanelContent{
   display: flex;
     justify-content: space-between;
@@ -33,12 +38,14 @@
 .statsPanelsContainer{
   display: flex;
 }
+
 .statsPanel{
   flex-grow: 1;
   margin:2vw;
   background-color: #337ab7;
   color: white;
 }
+
 .dismissRight{
   right: 2px;
   top: 3px;
@@ -69,7 +76,6 @@
 }
 
 .TableToolBar{
-display:flex;
 }
 
 .table-responsive{
@@ -84,6 +90,16 @@ display:flex;
   flex-grow: 1;
 }
 
+.checkboxfilter{
+  display: flex;
+}
+.checkboxfilter label{
+  margin-left: 4px;
+}
+
+.checkboxfilter input{
+  margin-left: 2px;
+}
 .usersPanel{
   height: none;
   width: none;
