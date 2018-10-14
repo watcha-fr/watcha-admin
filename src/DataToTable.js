@@ -6,11 +6,21 @@ import CollapsableRightPanel from './CollapsableRightPanel';
 /*
 
  */
-const tableType = {
-  'user':
+const tableType = // here we declare all the type of table we wish to display
+{
+  'user': //the name of the table
   {
+    /* the primary key is the primary key corresponding to the sql db equivalent of our table,
+     api is the synapse api which the table as json object*/
+
     'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watchauserlist',
+
+    /*if the table we want to display need data from more than one table we add JoinTables property to our dataObject
+    matchingKey are the value that should match between the main table and the joining table, apiAdress
+    is the synapse api adress for the joining table, column is the name of the column containing the value we are
+    want to retrieve in the joining table*/
     'JoinTables': {
+
       'watchadisplayname': {
         'matchingKey': {
           'mainTable': 'User Id',
@@ -20,6 +30,10 @@ const tableType = {
         'column': 'displayname',
       },
     },
+    /*each header objects represent the title of a column in the table we display name being the name of te equivalent
+    column in the db and type the type of data
+    every JoinTables and only JoinTables must be of type list since we could have multiple value for a cell
+    Merge is a special type who handle multiple boolean data from db displayed in one single column*/
     'header': {
       'User Id': {
         'name': 'name',
@@ -53,7 +67,7 @@ const tableType = {
   },
   'room': {
     'primaryKey': 'Room Id',
-    'apiAdress': '_matrix/client/r0/watcharoomlist',
+    'apiAdress': '_matrix/client/r0/watchaextendroomlist',
     'JoinTables': {
       'watcharoomname': {
         'matchingKey': {
@@ -62,14 +76,6 @@ const tableType = {
         },
         'apiAdress': '_matrix/client/r0/watcharoomname',
         'column': 'name',
-      },
-      'activeRooms': {
-        'matchingKey': {
-          'mainTable': 'Room Id',
-          'secondaryTable': 'rooms',
-        },
-        'apiAdress': '_matrix/client/r0/stats',
-        'column': 'active',
       },
     },
     'header': {
@@ -83,7 +89,10 @@ const tableType = {
         'name': 'creator', 'type': 'string',
       },
       'Active': {
-        'name': 'activeRooms', 'type': 'list',
+        'name': 'active', 'type': 'boolean',
+      },
+      'Type': {
+        'name': 'type', 'type': 'string',
       },
     },
   },
@@ -100,6 +109,7 @@ export default class DataToTable extends Component {
       arrayOfdata: [],
       dataToRow: [],
       type: tableType[this.props.tableName],
+      filter: false,
     };
   }
 
@@ -165,7 +175,7 @@ export default class DataToTable extends Component {
     });
   }
 
-  getUserData = async () => {
+  getData = async () => {
     let userData;
     let JoinTablesData;
     const homeServer = this.props.server;
@@ -227,8 +237,6 @@ export default class DataToTable extends Component {
           });
 
           JoinTablesData = JSON.parse(await userRequest.text());
-          console.log(JoinTablesData);
-          console.log(this.state.arrayOfdata);
         } catch (e) {
           console.log('error: ' + e);
         }
@@ -258,7 +266,7 @@ export default class DataToTable extends Component {
 
     this.setState({finish: true});
   }
-
+  //function to convert a full user id to a simplified one since synapse use both forms
   simplifiedUserId = (fulluserId) =>{
     let simplifiedUserId = fulluserId.replace('@', '');
     simplifiedUserId = simplifiedUserId.split(':');
@@ -283,11 +291,8 @@ export default class DataToTable extends Component {
         ts=new Date(rawData*1000);
         data=ts.toLocaleDateString('fr-Fr');
         break;
-      case 'merge':
-        data='merge';
-        break;
       default:
-        data = '';
+        data = rawData;
     }
     return data;
   }
@@ -313,21 +318,6 @@ export default class DataToTable extends Component {
     return emailAvailable;
   }
 
-
-  getData = () => {
-    let data;
-    switch (this.props.tableName) {
-      case 'room':
-        data = this.getUserData();
-        break;
-      case 'user':
-        data = this.getUserData();
-        break;
-      default:
-        data = '';
-    }
-    return data;
-  }
 
   render() {
     const dataToRow=[];

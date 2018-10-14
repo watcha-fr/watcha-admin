@@ -20,7 +20,6 @@ export default class UserRightPanel extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
     if (this.props.data !== prevProps.data) {
       if (this.props.data['Email']) {
         this.setState({emailValue: this.props.data['Email']});
