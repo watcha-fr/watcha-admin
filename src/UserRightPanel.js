@@ -113,7 +113,7 @@ export default class UserRightPanel extends Component {
     bsStyle = 'primary';
     title = 'User';
     const open = this.props.data ? true : false;
-    const isPartner = this.props.data['Status']['data']==='partner';
+    const isPartner = this.props.data['Status']['data']==='Partner';
     let emailPlaceholder='';
 
     if (this.props.data['email']) {

@@ -218,6 +218,7 @@ export default class DataToTable extends Component {
             if (Headers[columnHeader]['type']==='merge') {//in case we want one header for multiple boolean tabl columns
               dataObject[columnHeader] = {
                 'data': this.mergeRow(Headers[columnHeader],
+                    jsonData[row]), 'simplifiedData': this.mergeRow(Headers[columnHeader],
                     jsonData[row]), 'type': 'merge'};
             }
             for (const property in jsonData[row]) { // for each fields that belong to a row
