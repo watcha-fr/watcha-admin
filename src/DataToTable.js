@@ -38,6 +38,7 @@ const tableType = // here we declare all the type of table we wish to display
       'User Id': {
         'name': 'name',
         'type': 'string',
+        'simplify': true,
       },
       'Display Name': {
         'name': 'watchadisplayname',
@@ -80,19 +81,29 @@ const tableType = // here we declare all the type of table we wish to display
     },
     'header': {
       'Room Id': {
-        'name': 'room_id', 'type': 'string',
+        'name': 'room_id',
+        'type': 'string',
+        'simplify': true,
       },
       'Name': {
         'name': 'watcharoomname', 'type': 'list',
       },
       'Creator': {
-        'name': 'creator', 'type': 'string',
+        'name': 'creator',
+        'type': 'string',
+        'simplify': true,
       },
       'Active': {
-        'name': 'active', 'type': 'boolean',
+        'name': 'active',
+        'type': 'boolean',
       },
       'Type': {
-        'name': 'type', 'type': 'string',
+        'name': 'type',
+        'type': 'string',
+      },
+      'Users': {
+        'name': 'members',
+        'type': 'enumerate',
       },
     },
   },
@@ -104,20 +115,19 @@ export default class DataToTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: false,
-      rightPanel: false,
-      arrayOfdata: [],
-      dataToRow: [],
-      type: tableType[this.props.tableName],
-      filter: {},
+      selected: false, //the selected row
+      rightPanel: false, // right panel is hidden at start
+      arrayOfdata: [], // an array with the data collected from server
+      type: tableType[this.props.tableName], // the name of the table
+      filter: {}, //filters to apply to the table
     };
   }
 
   componentDidMount = () => {
-    document.addEventListener('keydown', this.escFunction, false);
-    this.setState({header: this.getHeader(this.state.type)});
-    this.getData();
-    this.setState({finished: true });
+    document.addEventListener('keydown', this.escFunction, false); //allow esc to close right panel
+    this.setState({header: this.getHeader(this.state.type)}); //initialize header
+    this.getData(); //get the data from server
+    this.setState({finished: true }); //refresh render
   }
 
 
@@ -134,7 +144,7 @@ export default class DataToTable extends Component {
 
   escFunction = (event) => {
     if (event.keyCode === 27) {
-      this.setState({selected: false});
+      this.onClose();
     }
   }
 
@@ -176,7 +186,7 @@ export default class DataToTable extends Component {
   }
 
   getData = async () => {
-    let userData;
+    let jsonData;
     let JoinTablesData;
     const homeServer = this.props.server;
     const accessToken = this.props.token;
@@ -191,14 +201,14 @@ export default class DataToTable extends Component {
         },
       });
 
-      userData = JSON.parse(await userRequest.text());
+      jsonData = JSON.parse(await userRequest.text());
     } catch (e) {
       console.log('error: ' + e);
       return;
     }
 
-    for (const user in userData) { //handle the main table by iterating on the users list we get from request;
-      if ({}.hasOwnProperty.call(userData, user)) {
+    for (const row in jsonData) { //handle the main table by iterating on the users list we get from request;
+      if ({}.hasOwnProperty.call(jsonData, row)) {
         const dataObject={};
         for (const columnHeader in Headers) { // for each header we declare in the tabletype
           if ({}.hasOwnProperty.call(Headers, columnHeader)) {
@@ -206,13 +216,20 @@ export default class DataToTable extends Component {
               dataObject[columnHeader] = [];
             }
             if (Headers[columnHeader]['type']==='merge') {//in case we want one header for multiple boolean tabl columns
-              dataObject[columnHeader] = this.mergeRow(Headers[columnHeader], userData[user]);
+              dataObject[columnHeader] = {
+                'data': this.mergeRow(Headers[columnHeader],
+                    jsonData[row]), 'type': 'merge'};
             }
-            for (const property in userData[user]) { // for each fields that belong to a user
-              if ({}.hasOwnProperty.call(userData[user], property)) {
+            for (const property in jsonData[row]) { // for each fields that belong to a row
+              if ({}.hasOwnProperty.call(jsonData[row], property)) {
                 if (property === Headers[columnHeader]['name']) { // we check if the field name match the name excepted by the header
                   dataObject[columnHeader] =
-                    this.convertRawData(userData[user][property], Headers[columnHeader]['type']);//we convert the data from the sql table to more revelant type for javascript
+                    {simplifiedData: this.convertRawData(jsonData[row][property],
+                        Headers[columnHeader]['type'],
+                        Headers[columnHeader]['simplify']),
+                    data: this.convertRawData(jsonData[row][property],
+                        Headers[columnHeader]['type'], false),
+                    type: Headers[columnHeader]['type']};//we convert the data from the sql table to more revelant type for javascript
                 }
               }
             }
@@ -245,13 +262,17 @@ export default class DataToTable extends Component {
           if ({}.hasOwnProperty.call(this.state.arrayOfdata, dataObject)) {
             for (const data in JoinTablesData ) {
               if ({}.hasOwnProperty.call(JoinTablesData, data)) {
-                if (this.state.arrayOfdata[dataObject][mainKey] === JoinTablesData[data][secondaryKey] ||
-                   this.simplifiedUserId(this.state.arrayOfdata[dataObject][mainKey]) ===
+                if (this.state.arrayOfdata[dataObject][mainKey]['data'] === JoinTablesData[data][secondaryKey] ||
+                   this.simplifiedUserId(this.state.arrayOfdata[dataObject][mainKey]['data']) ===
                    this.simplifiedUserId(JoinTablesData[data][secondaryKey]) ) {
                   for (const columnHeader in this.state.type['header']) {
                     if ({}.hasOwnProperty.call(this.state.type['header'], columnHeader)) {
                       if (table === this.state.type['header'][columnHeader]['name']) {
-                        this.state.arrayOfdata[dataObject][columnHeader]=JoinTablesData[data][column];
+                        this.state.arrayOfdata[dataObject][columnHeader]={
+                          'data': JoinTablesData[data][column],
+                          'simplifiedData': this.convertRawData(JoinTablesData[data][column],
+                              Headers[columnHeader]['type'],
+                              Headers[columnHeader]['simplify'])};
                       }
                     }
                   }
@@ -273,12 +294,17 @@ export default class DataToTable extends Component {
     simplifiedUserId = simplifiedUserId[0];
     return simplifiedUserId;
   }
-  convertRawData = (rawData, type) => {
+  convertRawData = (rawData, type, simplify) => {
+    let simplifiedRawData;
     let data;
     let ts;
+    simplifiedRawData = rawData;
+    if (simplify) {
+      simplifiedRawData=this.simplifiedUserId(rawData);
+    }
     switch (type) {
       case 'string':
-        data = rawData;
+        data = simplifiedRawData;
         break;
       case 'boolean':
         if (rawData === 0) {
@@ -290,6 +316,9 @@ export default class DataToTable extends Component {
       case 'date':
         ts=new Date(rawData*1000);
         data=ts.toLocaleDateString('fr-Fr');
+        break;
+      case 'enumerate':
+        data=rawData;
         break;
       default:
         data = rawData;
@@ -325,22 +354,22 @@ export default class DataToTable extends Component {
       if ({}.hasOwnProperty.call(filteredData, row)) {
         let hideRow = false;
         if (this.state.filter['hideOneToOne']) {
-          if (filteredData[row]['Type'] === 'discussion') {
+          if (filteredData[row]['Type']['data'] === 'One to one') {
             hideRow = true;
           }
         }
         if (this.state.filter['hideInactive']) {
-          if (!filteredData[row]['Active']) {
+          if (!filteredData[row]['Active']['data']) {
             hideRow = true;
           }
         }
         if (this.state.filter['hideMembers']) {
-          if (filteredData[row]['Status'] === 'Member') {
+          if (filteredData[row]['Status']['data'] === 'Member') {
             hideRow = true;
           }
         }
         if (this.state.filter['hidePartners']) {
-          if (filteredData[row]['Status'] === 'Partner') {
+          if (filteredData[row]['Status']['data'] === 'Partner') {
             hideRow = true;
           }
         }
@@ -356,8 +385,9 @@ export default class DataToTable extends Component {
           dismissrow = true;
           for (const property in filteredData[row]) {
             if ({}.hasOwnProperty.call(filteredData[row], property)) {
-              if (filteredData[row][property]) {
-                if (filteredData[row][property].toString().toLowerCase().includes(this.state.filter['textFilter'])) {
+              const data = filteredData[row][property]['data'];
+              if (filteredData[row][property] && data) {
+                if (data.toString().toLowerCase().includes(this.state.filter['textFilter'])) {
                   dismissrow = false;
                 }
               }
@@ -390,7 +420,11 @@ export default class DataToTable extends Component {
     for (const row in filteredData) {
       if ({}.hasOwnProperty.call( this.state.arrayOfdata, row)) {
         dataToRow.push(
-            <Datatorow data={this.state.arrayOfdata[row]} onUserSelected={this.onUserSelected} selected={this.state.selected} primaryKey={this.state.type['primaryKey']} key={row} />,
+            <Datatorow
+              data={this.state.arrayOfdata[row]}
+              onUserSelected={this.onUserSelected}
+              selected={this.state.selected}
+              primaryKey={this.state.type['primaryKey']} key={row} />,
         );
       }
     }
