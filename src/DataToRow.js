@@ -24,20 +24,28 @@ export default class dataToRow extends Component {
     const rowClassName = this.props.data[pk] === this.props.selected[pk] ? 'rowSelected' : 'row';
     for (const property in data) {
       if ({}.hasOwnProperty.call(data, property)) {
-        if (typeof this.props.data[property] === 'boolean') {
+        if (typeof this.props.data[property]['data'] === 'boolean') {
           row.push(
               <td className={rowClassName}
                 key={property}>
                 <BooleanRow
-                  value ={this.props.data[property]}
+                  value ={this.props.data[property]['data']}
                   selected={rowClassName} />
               </td>);
+        } else if (this.props.data[property]['type']==='enumerate') {
+          row.push(
+              <td
+                className={rowClassName}
+                key={property}>
+                { this.props.data[property]['simplifiedData'].length }
+              </td>,
+          );
         } else {
           row.push(
               <td
                 className={rowClassName}
                 key={property}>
-                { this.props.data[property] }
+                { this.props.data[property]['simplifiedData'] }
               </td>,
           );
         }

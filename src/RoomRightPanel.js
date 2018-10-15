@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse, Panel, Well, Table, Glyphicon} from 'react-bootstrap';
+import {Collapse, Panel, Well, Table, Glyphicon, ListGroupItem, ListGroup} from 'react-bootstrap';
 
 export default class RoomRightPanel extends Component {
   constructor(props) {
@@ -23,7 +23,12 @@ export default class RoomRightPanel extends Component {
     const bsStyle = 'primary';
     const title = 'Room';
     const open = this.props.data ? true : false;
-
+    const users = [];
+    for (const user in this.props.data['Users']['simplifiedData'] ) {
+      if ({}.hasOwnProperty.call(this.props.data['Users']['simplifiedData'], user)) {
+        users.push(<ListGroupItem key={user}>{ this.props.data['Users']['simplifiedData'][user] }</ListGroupItem>);
+      }
+    }
     return (
       <div>
         <Collapse in={open} dimension='width' timeout={0}>
@@ -32,7 +37,7 @@ export default class RoomRightPanel extends Component {
             <Panel bsStyle={bsStyle} className='rightPanel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
-                  { title } : { this.props.data['Room Id'] }
+                  { title } : { this.props.data['Room Id']['simplifiedData'] }
                   <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose} />
                 </Panel.Title>
               </Panel.Heading>
@@ -42,20 +47,33 @@ export default class RoomRightPanel extends Component {
                   <Table>
                     <tbody>
                       <tr>
-                        <td className='labelText'>Creation:</td>
-                        <td className='infoText'>{ this.props.data['date of creation'] }</td>
+                        <td className='labelText'>Name:</td>
+                        <td className='infoText'>{ this.props.data['Name']['simplifiedData'] }</td>
                       </tr>
                       <tr>
-                        <td className='labelText'>Last Connection:</td>
-                        <td className='infoText'>{ this.props.data['last connection'] }</td>
+                        <td className='labelText'>Creator:</td>
+                        <td className='infoText'>{ this.props.data['Creator']['simplifiedData'] }</td>
                       </tr>
                       <tr>
-                        <td className='labelText'>Devices:</td>
-                        <td className='infoText'>{ this.props.data.device }</td>
+                        <td className='labelText'>Active:</td>
+                        <td className='infoText'>{ this.props.data['Active']['simplifiedData'] }</td>
                       </tr>
                     </tbody>
                   </Table>
                 </Well>
+                <Panel id="collapsible-panel-example-3" defaultCollapsed>
+                  <Panel.Heading>
+                    <Panel.Title>{ this.props.data['Users']['simplifiedData'].length } users in this room</Panel.Title>
+                    <Panel.Toggle componentClass="a">Show users</Panel.Toggle>
+                  </Panel.Heading>
+                  <Panel.Collapse>
+                    <Panel.Body>
+                      <ListGroup>
+                        { users }
+                      </ListGroup>
+                    </Panel.Body>
+                  </Panel.Collapse>
+                </Panel>
               </div>
             </Panel>
           </div>

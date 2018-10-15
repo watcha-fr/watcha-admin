@@ -13,16 +13,16 @@ export default class UserRightPanel extends Component {
     };
   }
   componentDidMount() {
-    if (this.props.data['Email']) {
-      this.setState({emailValue: this.props.data['Email']});
+    if (this.props.data['Email']['data']) {
+      this.setState({emailValue: this.props.data['Email']['data']});
     } else {
       this.setState({emailValue: ' '});
     }
   }
   componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
-      if (this.props.data['Email']) {
-        this.setState({emailValue: this.props.data['Email']});
+      if (this.props.data['Email']['data']) {
+        this.setState({emailValue: this.props.data['Email']['data']});
       } else {
         this.setState({emailValue: ' '});
       }
@@ -83,14 +83,14 @@ export default class UserRightPanel extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(
-            {user: this.props.data['User Id']},
+            {user: this.props.data['User Id']['data']},
         ),
       });
       const response = JSON.parse(await userRequest.text());
       if (userRequest.ok) {
         this.setState({
           message: {type: 'success', title: 'Password reseted',
-            body: 'an email has been send to ' + this.props.data['User Id']+ ' with a new password'},
+            body: 'an email has been send to ' + this.props.data['User Id']['data'] + ' with a new password'},
         });
         this.displayInfoMessage();
       } else {
@@ -113,8 +113,12 @@ export default class UserRightPanel extends Component {
     bsStyle = 'primary';
     title = 'User';
     const open = this.props.data ? true : false;
+    const isPartner = this.props.data['Status']['data']==='partner';
+    let emailPlaceholder='';
 
-    const isPartner = this.props.data['Partner'];
+    if (this.props.data['email']) {
+      emailPlaceholder = this.props.data['email']['data'];
+    }
 
     if (isPartner) {
       upgradePartner=<Button bsStyle='primary'>Upgrade to member</Button>;
@@ -123,7 +127,7 @@ export default class UserRightPanel extends Component {
     }
     editEmail=
     <td>
-      <input className='infoText' value={this.state.emailValue} readOnly type="email" placeholder={this.props.data['email']} />
+      <input className='infoText' value={this.state.emailValue} readOnly type="email" placeholder={emailPlaceholder} />
       <Button onClick={this.onEmailEdit}>
         <Glyphicon glyph="pencil"></Glyphicon>
       </Button>
@@ -132,7 +136,7 @@ export default class UserRightPanel extends Component {
       if (this.state.isEmail) {
         editEmail =
         <td>
-          <input className='infoText' value={this.state.emailValue} type="email" placeholder={this.props.data['email']} onChange={this.onEmailChange} ref='emailInput' />
+          <input className='infoText' value={this.state.emailValue} type="email" placeholder={emailPlaceholder} onChange={this.onEmailChange} ref='emailInput' />
           <Button onClick={this.onEmailValidate}>
             <Glyphicon glyph="ok"></Glyphicon>
           </Button>
@@ -140,7 +144,7 @@ export default class UserRightPanel extends Component {
       } else {
         editEmail=
         <td>
-          <input className='infoText' value={this.state.emailValue} type="email" placeholder={this.props.data['email']} onChange={this.onEmailChange} />
+          <input className='infoText' value={this.state.emailValue} type="email" placeholder={emailPlaceholder} onChange={this.onEmailChange} />
           <Button onClick={this.onCancelEdit}>
             <Glyphicon glyph="remove"></Glyphicon>
           </Button>
@@ -175,7 +179,7 @@ export default class UserRightPanel extends Component {
             <Panel bsStyle={bsStyle} className='rightPanel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
-                  { title } : { this.props.data['User Id'] }
+                  { title } : { this.props.data['User Id']['data'] }
                   <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
                 </Panel.Title>
               </Panel.Heading>
@@ -186,11 +190,7 @@ export default class UserRightPanel extends Component {
                     <tbody>
                       <tr>
                         <td className='labelText'>Creation:</td>
-                        <td className='infoText'>{ this.props.data['date of creation'] }</td>
-                      </tr>
-                      <tr>
-                        <td className='labelText'>Last Connection:</td>
-                        <td className='infoText'>{ this.props.data['last connection'] }</td>
+                        <td className='infoText'>{ this.props.data['Date of creation']['data'] }</td>
                       </tr>
                       <tr>
                         <td className='labelText'>Devices:</td>
