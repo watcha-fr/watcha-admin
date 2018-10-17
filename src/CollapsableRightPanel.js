@@ -26,7 +26,8 @@ export default class CollapsableRightPanel extends Component {
           data={this.props.data}
           onClose={this.onClose}
           server={this.props.server}
-          token={this.props.token} />;
+          token={this.props.token}
+          refresh={this.props.refresh} />;
         break;
 
       case 'room':
@@ -34,7 +35,8 @@ export default class CollapsableRightPanel extends Component {
           data={this.props.data}
           onClose={this.onClose}
           server={this.props.server}
-          token={this.props.token} />;
+          token={this.props.token}
+          refresh={this.props.refresh} />;
         break;
 
       case 'createUser':
@@ -43,6 +45,7 @@ export default class CollapsableRightPanel extends Component {
           onClose={this.onClose}
           server={this.props.server}
           token={this.props.token}
+          refresh={this.props.refresh}
           isEmailAvailable={this.props.isEmailAvailable} />;
         break;
 
@@ -51,7 +54,9 @@ export default class CollapsableRightPanel extends Component {
           data={this.props.data}
           onClose={this.onClose}
           server={this.props.server}
-          token={this.props.token} />;
+          token={this.props.token}
+          refresh={this.props.refresh}
+        />;
     }
     return panel;
   }

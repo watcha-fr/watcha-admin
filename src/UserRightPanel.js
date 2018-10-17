@@ -23,6 +23,10 @@ export default class UserRightPanel extends Component {
     if (this.props.data !== prevProps.data) {
       if (this.props.data['Email']['data']) {
         this.setState({emailValue: this.props.data['Email']['data']});
+        this.setState({editEmail: false});
+        this.setState({
+          infoMessage: false,
+        });
       } else {
         this.setState({emailValue: ' '});
       }
@@ -38,7 +42,7 @@ export default class UserRightPanel extends Component {
   }
 
   onCancelEdit = () => {
-    this.setState({emailValue: ''});
+    this.setState({emailValue: this.props.data['Email']['data']});
     this.setState({editEmail: false});
   }
 
@@ -48,6 +52,7 @@ export default class UserRightPanel extends Component {
     this.setState({isEmail: false});
     if (this.isEmail(ev.target.value)) {
       this.setState({isEmail: true});
+      this.setState({new_email: ev.target.value});
     }
   }
 
@@ -55,9 +60,78 @@ export default class UserRightPanel extends Component {
     this.props.onClose();
   }
 
-  onEmailValidate = () => {
-
+  onEmailValidate = async () => {
+    const homeServer = this.props.server;
+    const accessToken = this.props.token;
+    try {
+      const userRequest
+       = await fetch(homeServer+ '_matrix/client/r0/watchaupdatemail/'+
+        encodeURIComponent(this.props.data['User Id']['data']), {
+         method: 'POST',
+         headers: {
+           'Authorization': 'Bearer '+ accessToken,
+           'Accept': 'application/json',
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(
+             {new_email: this.state.new_email},
+         ),
+       });
+      const response = JSON.parse(await userRequest.text());
+      if (userRequest.ok) {
+        this.setState({
+          message: {type: 'success', title: 'Email updated',
+            body: this.props.data['User Id']['data'] + ' email has been updated'},
+        });
+        this.props.refresh();
+        this.displayInfoMessage();
+        this.setState({
+          editEmail: false,
+        });
+      } else {
+        this.setState({
+          message: {type: 'danger', title: 'Email update failed', body: response['error'] },
+        });
+        this.displayInfoMessage();
+      }
+    } catch (e) {
+      console.log('error: ' + e);
+      return;
+    }
   }
+   upgradePartner = async () => {
+     const homeServer = this.props.server;
+     const accessToken = this.props.token;
+     try {
+       const userRequest
+       = await fetch(homeServer+ '_matrix/client/r0/watchaupdatomember/'+
+        encodeURIComponent(this.props.data['User Id']['data']), {
+         method: 'POST',
+         headers: {
+           'Authorization': 'Bearer '+ accessToken,
+           'Accept': 'application/json',
+           'Content-Type': 'application/json',
+         },
+       });
+       const response = JSON.parse(await userRequest.text());
+       if (userRequest.ok) {
+         this.setState({
+           message: {type: 'success', title: 'Status updated',
+             body: this.props.data['User Id']['data'] + ' account has been upgraded to member'},
+         });
+         this.props.refresh();
+         this.displayInfoMessage();
+       } else {
+         this.setState({
+           message: {type: 'danger', title: 'upgrade failed', body: response['error'] },
+         });
+         this.displayInfoMessage();
+       }
+     } catch (e) {
+       console.log('error: ' + e);
+       return;
+     }
+   }
 
   displayInfoMessage = () => {
     this.setState({
@@ -75,7 +149,8 @@ export default class UserRightPanel extends Component {
     const homeServer = this.props.server;
     const accessToken = this.props.token;
     try {
-      const userRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_reset_password', {
+      const userRequest = await fetch(homeServer+
+        encodeURIComponent(this.props.data['User Id']['data']), {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer '+ accessToken,
@@ -92,10 +167,45 @@ export default class UserRightPanel extends Component {
           message: {type: 'success', title: 'Password reseted',
             body: 'an email has been send to ' + this.props.data['User Id']['data'] + ' with a new password'},
         });
+        this.props.refresh();
         this.displayInfoMessage();
       } else {
         this.setState({
           message: {type: 'danger', title: 'Password reset failed', body: response['error'] },
+        });
+        this.displayInfoMessage();
+      }
+    } catch (e) {
+      console.log('error: ' + e);
+      return;
+    }
+  }
+  deactivateAccount = async () => {
+    const homeServer = this.props.server;
+    const accessToken = this.props.token;
+    try {
+      const userRequest =
+      await fetch(homeServer+
+        '_matrix/client/r0/admin/deactivate/'+encodeURIComponent(this.props.data['User Id']['data']), {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer '+ accessToken,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+
+      });
+      const response = JSON.parse(await userRequest.text());
+      if (userRequest.ok) {
+        this.setState({
+          message: {type: 'success', title: 'Account deactivated',
+            body: this.props.data['User Id']['data'] + ' account have been deactivated'},
+        });
+        this.props.refresh();
+        this.displayInfoMessage();
+      } else {
+        this.setState({
+          message: {type: 'danger', title: 'Deactivation failed', body: response['error'] },
         });
         this.displayInfoMessage();
       }
@@ -121,32 +231,55 @@ export default class UserRightPanel extends Component {
     }
 
     if (isPartner) {
-      upgradePartner=<Button bsStyle='primary'>Upgrade to member</Button>;
+      upgradePartner=<Button bsStyle='primary' onClick={this.upgradePartner}>Upgrade to member</Button>;
       bsStyle='warning';
       title='Partner';
     }
     editEmail=
     <td>
-      <input className='infoText' value={this.state.emailValue} readOnly type="email" placeholder={emailPlaceholder} />
-      <Button onClick={this.onEmailEdit}>
-        <Glyphicon glyph="pencil"></Glyphicon>
+      <input
+        value={this.state.emailValue}
+        readOnly
+        type="email"
+        placeholder={emailPlaceholder}
+        className= 'emailInput' />
+      <Button
+        onClick={this.onEmailEdit}
+        bsStyle='primary'
+        className='editButton'>
+        <Glyphicon glyph="pencil" />
       </Button>
     </td>;
     if (this.state.editEmail) {
       if (this.state.isEmail) {
         editEmail =
         <td>
-          <input className='infoText' value={this.state.emailValue} type="email" placeholder={emailPlaceholder} onChange={this.onEmailChange} ref='emailInput' />
-          <Button onClick={this.onEmailValidate}>
-            <Glyphicon glyph="ok"></Glyphicon>
+          <input
+            value={this.state.emailValue}
+            type="email" placeholder={emailPlaceholder}
+            onChange={this.onEmailChange}
+            ref='emailInput'
+            className= 'emailInput' />
+          <Button
+            onClick={this.onEmailValidate}
+            bsStyle='success'
+            className='validateButton'>
+            <Glyphicon glyph="ok" />
           </Button>
         </td>;
       } else {
         editEmail=
         <td>
-          <input className='infoText' value={this.state.emailValue} type="email" placeholder={emailPlaceholder} onChange={this.onEmailChange} />
-          <Button onClick={this.onCancelEdit}>
-            <Glyphicon glyph="remove"></Glyphicon>
+          <input
+            value={this.state.emailValue}
+            type="email" placeholder={emailPlaceholder}
+            onChange={this.onEmailChange}
+            className= 'emailInput' />
+          <Button
+            onClick={this.onCancelEdit}
+            bsStyle='danger'
+            className='cancelButton'>
+            <Glyphicon glyph="remove" />
           </Button>
         </td>;
       }
@@ -168,7 +301,9 @@ export default class UserRightPanel extends Component {
       bottomWell=
       <div className='bottomButton'>
         { upgradePartner }
-        <Button bsStyle='primary' onClick={this.resetPassword}>Reset Password</Button></div>;
+        <Button bsStyle='primary' onClick={this.resetPassword}>Reset Password</Button>
+        <Button bsStyle='primary' onClick={this.deactivateAccount}>Deactivate Account</Button>
+      </div>;
     }
     return (
 
