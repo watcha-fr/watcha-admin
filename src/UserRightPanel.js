@@ -242,7 +242,7 @@ export default class UserRightPanel extends Component {
         readOnly
         type="email"
         placeholder={emailPlaceholder}
-        className= 'emailInput' />
+        className= 'emailInput disabled' />
       <Button
         onClick={this.onEmailEdit}
         bsStyle='primary'
