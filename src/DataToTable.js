@@ -439,6 +439,7 @@ export default class DataToTable extends Component {
         token={this.props.token}
         server={this.props.server}
         isEmailAvailable = {this.isEmailAvailable}
+        refresh ={this.onRefresh}
       />;
     }
 

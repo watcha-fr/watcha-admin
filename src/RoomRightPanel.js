@@ -56,7 +56,7 @@ export default class RoomRightPanel extends Component {
                       </tr>
                       <tr>
                         <td className='labelText'>Active:</td>
-                        <td className='infoText'>{ this.props.data['Active']['simplifiedData'] }</td>
+                        <td className='infoText'>{ this.props.data['Active']['simplifiedData'].toString() }</td>
                       </tr>
                     </tbody>
                   </Table>
