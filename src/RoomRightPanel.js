@@ -61,7 +61,7 @@ export default class RoomRightPanel extends Component {
                     </tbody>
                   </Table>
                 </Well>
-                <Panel id="collapsible-panel-example-3" defaultCollapsed>
+                <Panel id="collapsible-panel-example-3">
                   <Panel.Heading>
                     <Panel.Title>{ this.props.data['Users']['simplifiedData'].length } users in this room</Panel.Title>
                     <Panel.Toggle componentClass="a">Show users</Panel.Toggle>

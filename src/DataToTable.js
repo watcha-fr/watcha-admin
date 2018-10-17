@@ -48,6 +48,7 @@ const tableType = // here we declare all the type of table we wish to display
         'name': 'email',
         'type': 'string',
       },
+
       'Date of creation': {
         'name': 'creation_ts',
         'type': 'date',
@@ -63,6 +64,10 @@ const tableType = // here we declare all the type of table we wish to display
         },
         'type': 'merge',
         'Default': 'Member',
+      },
+      'Deactivated': {
+        'name': 'is_deactivate',
+        'type': 'boolean',
       },
     },
   },
