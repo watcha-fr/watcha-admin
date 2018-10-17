@@ -346,7 +346,7 @@ export default class DataToTable extends Component {
   isEmailAvailable = (mail) => {
     let emailAvailable = true;
     for (const user in this.state.arrayOfdata) {
-      if (this.state.arrayOfdata[user]['Email'] === mail) {
+      if (this.state.arrayOfdata[user]['Email']['data'] === mail) {
         emailAvailable = false;
       }
     }
