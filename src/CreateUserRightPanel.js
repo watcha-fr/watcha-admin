@@ -55,6 +55,7 @@ export default class CreateUserRightPanel extends Component {
           this.setState({
             message: {type: 'success', title: 'User Created', body: this.state.userIdValue+' has been added to watcha'},
           });
+          this.refresh();
           this.displayInfoMessage();
         } else {
           this.setState({

@@ -149,7 +149,7 @@ export default class UserRightPanel extends Component {
     const homeServer = this.props.server;
     const accessToken = this.props.token;
     try {
-      const userRequest = await fetch(homeServer+
+      const userRequest = await fetch(homeServer+'_matrix/client/r0/watcha_reset_password'+
         encodeURIComponent(this.props.data['User Id']['data']), {
         method: 'POST',
         headers: {
