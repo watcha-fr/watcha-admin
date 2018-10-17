@@ -23,9 +23,9 @@ class App extends Component {
     const password = this.state.password;
 
     try {
-      await this.getserverName();
+      const path = await this.getserverName() + '_matrix/client/r0/login';
       // XHR POST to login
-      const loginRequest = await fetch(this.state.homeserver + '_matrix/client/r0/login', {
+      const loginRequest = await fetch(path, {
         method: 'POST',
         body: JSON.stringify({
           'initial_device_display_name': 'Web setup account',
@@ -54,23 +54,18 @@ class App extends Component {
 
   getserverName = async () => {
     let coreUrl = '';
-    const currentPage = '//' + window.location.hostname + '/';
-    console.log('old currentPage=' + currentPage);
-    if (currentPage.includes('-admin')) {
-      currentPage = currentPage.replace(/-admin/g, '');
-    }
-    console.log('new currentPage=' + currentPage);
     try {
-      const configRequest = await fetch(currentpage + '/config.json');
+      const configRequest = await fetch('/config.json');
       const configData = JSON.parse(await configRequest.text());
       coreUrl = configData['default_hs_url'];
       if (!coreUrl) throw new Error('could not get coreUrl');
     } catch (e) {
-      console.log('error: ' + e);
+      console.log('coreUrl error = ' + e);
       return;
     }
-    console.log(coreUrl);
+    console.log('coreURL = ' + coreUrl);
     this.setState({ homeserver: coreUrl + '/' });
+    return coreUrl + '/';
   }
 
   onNameChange = (evt) => {
