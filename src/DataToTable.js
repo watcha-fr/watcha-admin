@@ -393,7 +393,7 @@ export default class DataToTable extends Component {
             if ({}.hasOwnProperty.call(filteredData[row], property)) {
               const data = filteredData[row][property]['data'];
               if (filteredData[row][property] && data) {
-                if (data.toString().toLowerCase().includes(this.state.filter['textFilter'])) {
+                if (data.toString().toLowerCase().includes(this.state.filter['textFilter'].toLowerCase())) {
                   dismissrow = false;
                 }
               }
