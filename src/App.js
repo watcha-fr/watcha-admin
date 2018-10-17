@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './images/logo.svg';
 import './App.css';
 import AdminHome from './AdminHome.js';
-import {Button, FormGroup, FormControl, Col, Form, Grid, Row} from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Col, Form, Grid, Row } from 'react-bootstrap';
 
 
 class App extends Component {
@@ -17,60 +17,68 @@ class App extends Component {
     };
   }
 
- onConnection = async () => {
-   const self = this;
-   const userName = this.state.userName;
-   const password = this.state.password;
+  onConnection = async () => {
+    const self = this;
+    const userName = this.state.userName;
+    const password = this.state.password;
 
-   try {
-     await this.getserverName();
-     // XHR POST to login
-     const loginRequest = await fetch( this.state.homeserver + '_matrix/client/r0/login', {
-       method: 'POST',
-       body: JSON.stringify({
-         'initial_device_display_name': 'Web setup account',
-         'user': userName,
-         'password': password,
-         'type': 'm.login.password',
-       }),
-       headers: {
-         'Content-Type': 'application/json',
-         'Accept': 'application/json',
-       },
-     });
-     const loginData = JSON.parse(await loginRequest.text());
-     if (loginData['access_token']) {
-       self.setState({accessToken: loginData['access_token']});
-       return this.state.accessToken;
-     }
-   } catch (e) {
-     console.log('error: ' + e);
+    try {
+      await this.getserverName();
+      // XHR POST to login
+      const loginRequest = await fetch(this.state.homeserver + '_matrix/client/r0/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          'initial_device_display_name': 'Web setup account',
+          'user': userName,
+          'password': password,
+          'type': 'm.login.password',
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
+      const loginData = JSON.parse(await loginRequest.text());
+      if (loginData['access_token']) {
+        self.setState({ accessToken: loginData['access_token'] });
+        return this.state.accessToken;
+      } else {
+        throw new Error('no access token');
+      }
+    } catch (e) {
+      console.log('error: ' + e);
 
-     return;
-   }
- }
+      return;
+    }
+  }
 
- getserverName = async () => {
-   let coreUrl = '';
-   const currentpage = window.location.protocol+'//'+window.location.hostname+'/';
-   try {
-     const configRequest = await fetch(currentpage+'/config.json');
-     const configData = JSON.parse(await configRequest.text());
-     coreUrl = configData['default_hs_url'];
-     if (!coreUrl) throw new Error('could not get coreUrl');
-   } catch (e) {
-     console.log('error: ' + e);
-     return;
-   }
-   console.log(coreUrl);
-   this.setState({homeserver: coreUrl+'/'});
- }
+  getserverName = async () => {
+    let coreUrl = '';
+    const currentPage = '//' + window.location.hostname + '/';
+    console.log('old currentPage=' + currentPage);
+    if (currentPage.includes('-admin')) {
+      currentPage = currentPage.replace(/-admin/g, '');
+    }
+    console.log('new currentPage=' + currentPage);
+    try {
+      const configRequest = await fetch(currentpage + '/config.json');
+      const configData = JSON.parse(await configRequest.text());
+      coreUrl = configData['default_hs_url'];
+      if (!coreUrl) throw new Error('could not get coreUrl');
+    } catch (e) {
+      console.log('error: ' + e);
+      return;
+    }
+    console.log(coreUrl);
+    this.setState({ homeserver: coreUrl + '/' });
+  }
+
   onNameChange = (evt) => {
-    this.setState({userName: evt.target.value});
+    this.setState({ userName: evt.target.value });
   }
 
   onPasswordChange = (evt) => {
-    this.setState({password: evt.target.value});
+    this.setState({ password: evt.target.value });
   }
 
   render() {
@@ -82,7 +90,7 @@ class App extends Component {
         <Grid className="container">
           <Row className="logoRow">
             <Col lg={4} sm={12} md={4} xs={12} mdOffset={4} smOffset={0} xsOffset={0}>
-              <img alt="logo "src={logo} className="logo" />
+              <img alt="logo " src={logo} className="logo" />
             </Col>
           </Row>
           <Row className="show-grid">
