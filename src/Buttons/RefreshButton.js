@@ -16,7 +16,7 @@ export default class RefreshButton extends Component {
 
   render() {
     return (
-      <Button onClick={this.onClick} bsSize="small" >
+      <Button onClick={this.onClick} bsStyle={this.props.bsStyle} bsSize="small" >
         <Glyphicon glyph="refresh" />
       </Button>
     );

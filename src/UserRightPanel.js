@@ -242,7 +242,7 @@ export default class UserRightPanel extends Component {
         readOnly
         type="email"
         placeholder={emailPlaceholder}
-        className= 'emailInput disabled' />
+        className= 'inputValue disabled' />
       <Button
         onClick={this.onEmailEdit}
         bsStyle='primary'
@@ -258,8 +258,8 @@ export default class UserRightPanel extends Component {
             value={this.state.emailValue}
             type="email" placeholder={emailPlaceholder}
             onChange={this.onEmailChange}
-            ref='emailInput'
-            className= 'emailInput' />
+            ref='inputValue'
+            className= 'inputValue' />
           <Button
             onClick={this.onEmailValidate}
             bsStyle='success'
@@ -274,7 +274,7 @@ export default class UserRightPanel extends Component {
             value={this.state.emailValue}
             type="email" placeholder={emailPlaceholder}
             onChange={this.onEmailChange}
-            className= 'emailInput' />
+            className= 'inputValue' />
           <Button
             onClick={this.onCancelEdit}
             bsStyle='danger'
@@ -302,7 +302,7 @@ export default class UserRightPanel extends Component {
       <div className='bottomButton'>
         { upgradePartner }
         <Button bsStyle='primary' onClick={this.resetPassword}>Reset Password</Button>
-        <Button bsStyle='primary' onClick={this.deactivateAccount}>Deactivate Account</Button>
+        <Button bsStyle='danger' onClick={this.deactivateAccount}>Deactivate Account</Button>
       </div>;
     }
     return (

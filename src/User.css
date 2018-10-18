@@ -23,6 +23,9 @@
 }
 .filtersOption{
   display: flex;
+  max-width: 35vw;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .panel-title{
@@ -88,6 +91,7 @@
 
 .checkboxfilter{
   display: flex;
+  margin-top: 2vh;
 }
 .checkboxfilter label{
   margin-left: 4px;
@@ -101,13 +105,17 @@
   width: none;
 }
 
-.emailInput{
+.inputValue{
   margin-right: 12px;
   font-size: 14px;
 }
 
-.emailInput.disabled{
+.inputValue.disabled{
   margin-right: 12px;
   font-size: 14px;
   background: #e3e3e3;
+}
+
+.textFilter{
+  margin-top: 1vh;
 }
