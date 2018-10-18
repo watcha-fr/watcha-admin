@@ -104,7 +104,7 @@ export default class UserRightPanel extends Component {
      const accessToken = this.props.token;
      try {
        const userRequest
-       = await fetch(homeServer+ '_matrix/client/r0/watchaupdatomember/'+
+       = await fetch(homeServer+ '_matrix/client/r0/watchaupdatepartnertomember/'+
         encodeURIComponent(this.props.data['User Id']['data']), {
          method: 'PUT',
          headers: {
