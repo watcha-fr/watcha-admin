@@ -12,7 +12,7 @@ export default class CreateUserButton extends Component {
 
   render() {
     return (
-      <Button onClick = {this.props.onClick} >Create User</Button>
+      <Button onClick = {this.props.onClick} bsStyle={this.props.bsStyle}>Create User</Button>
     );
   }
 }

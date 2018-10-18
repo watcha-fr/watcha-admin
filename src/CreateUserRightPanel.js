@@ -7,6 +7,11 @@ export default class CreateUserRightPanel extends Component {
 
     this.state = {
       infoMessage: false,
+      editUserId: false,
+      emailValue: ' ',
+      lastNameValue: '',
+      firstNameValue: '',
+      suggestedUserId: '',
     };
   }
   createUser = async () =>{
@@ -35,9 +40,17 @@ export default class CreateUserRightPanel extends Component {
         message: {type: 'danger', title: 'Email already in use',
           body: this.state.emailValue+ ' is already in use enter a new email '},
       });
+
+      this.displayInfoMessage();
+    } else if (!this.state.userIdValue && !this.state.suggestedUserId) {
+      this.setState({
+        message: {type: 'danger', title: 'User id required',
+          body: 'enter a valid user id' },
+      });
       this.displayInfoMessage();
     } else {
       try {
+        const userId = this.state.userIdValue ? this.state.userIdValue : this.state.suggestedUserId;
         const userRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_register', {
           method: 'POST',
           headers: {
@@ -46,16 +59,15 @@ export default class CreateUserRightPanel extends Component {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(
-              {user: this.state.userIdValue, full_name: this.state.firstNameValue+' '+this.state.lastNameValue,
+              {user: userId, full_name: this.state.firstNameValue+' '+this.state.lastNameValue,
                 email: this.state.emailValue, admin: false},
           ),
         });
         const response = JSON.parse(await userRequest.text());
         if (userRequest.ok) {
           this.setState({
-            message: {type: 'success', title: 'User Created', body: this.state.userIdValue+' has been added to watcha'},
+            message: {type: 'success', title: 'User Created', body: userId+' has been added to watcha'},
           });
-          this.refresh();
           this.displayInfoMessage();
         } else {
           this.setState({
@@ -84,6 +96,18 @@ export default class CreateUserRightPanel extends Component {
     this.props.onClose();
   }
 
+  generateSuggestedUserId = (value, firstName) =>{
+    if (firstName) {
+      this.setState({
+        suggestedUserId: value.toLowerCase()+'.'+this.state.lastNameValue.toLowerCase(),
+      });
+    } else {
+      this.setState({
+        suggestedUserId: this.state.firstNameValue.toLocaleLowerCase()+'.'+value.toLowerCase(),
+      });
+    }
+  }
+
   onEmailChange = (ev) => {
     this.setState({emailValue: ev.target.value});
     this.setState({isEmail: false});
@@ -92,16 +116,20 @@ export default class CreateUserRightPanel extends Component {
     }
   }
   onFirstNameChange = (ev) => {
-    this.setState({firstNameValue: ev.target.value});
+    const value = ev.target.value;
+    this.setState({firstNameValue: value});
+    this.generateSuggestedUserId(value, true);
     this.setState({isFirstName: false});
     if (this.isName(ev.target.value)) {
       this.setState({isFirstName: true});
     }
   }
   onLastNameChange = (ev) => {
-    this.setState({lastNameValue: ev.target.value});
+    const value = ev.target.value;
+    this.setState({lastNameValue: value});
+    this.generateSuggestedUserId(value, false);
     this.setState({isLastName: false});
-    if (this.isName(ev.target.value)) {
+    if (this.isName(value)) {
       this.setState({isLastName: true});
     }
   }
@@ -120,11 +148,46 @@ export default class CreateUserRightPanel extends Component {
       infoMessage: false,
     });
   }
+onUserIdEdit = () =>{
+  this.setState({editUserId: !this.state.editUserId});
+}
 
-  render() {
-    let bottomWell;
-    if (this.state.infoMessage) {
-      bottomWell =
+render() {
+  let bottomWell;
+  let editUserId;
+  editUserId=
+     <td >
+       <input
+         value={this.state.suggestedUserId}
+         className='inputValue disabled'
+         readOnly
+       />
+       <Button
+         onClick={this.onUserIdEdit}
+         bsStyle='primary'
+         className='editButton'>
+         <Glyphicon glyph="pencil" />
+       </Button>
+     </td>;
+  if (this.state.editUserId) {
+    editUserId=
+    <td >
+      <input
+        placeholder={this.state.suggestedUserId}
+        className='inputValue'
+        onChange={this.onUserIdChange}
+      />
+      <Button
+        onClick={this.onUserIdEdit}
+        bsStyle='danger'
+        className='editButton'>
+        <Glyphicon glyph="remove" />
+      </Button>
+    </td>;
+  }
+
+  if (this.state.infoMessage) {
+    bottomWell =
       <Alert onDismiss={this.dismissInfoMessage} bsStyle={this.state.message.type}>
         <h4>{ this.state.message.title }</h4>
         <p>
@@ -134,62 +197,61 @@ export default class CreateUserRightPanel extends Component {
           <Button bsStyle={this.state.message.type} onClick={this.dismissInfoMessage}>Ok</Button>
         </p>
       </Alert>;
-    } else {
-      bottomWell=<div className='bottomButton'>
-        <Button bsStyle='primary' onClick={this.createUser}>Create User</Button>
-      </div>;
-    }
-    return (
-      <div>
-        <Collapse in={true} dimension='width' timeout={0}>
-          <div>
-            <Panel className='rightPanel'>
-              <Panel.Heading>
-                <Panel.Title componentClass='h3'>
-                  Create User
-                  <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
-                </Panel.Title>
-              </Panel.Heading>
-
-              <div className='pannelContainer'>
-                <Well>
-                  <Table>
-                    <tbody>
-                      <tr>
-                        <td className='labelText'>First Name:</td>
-                        <td>
-                          <input onChange={this.onFirstNameChange} />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className='labelText'>Last Name:</td>
-                        <td>
-                          <input onChange={this.onLastNameChange} />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className='labelText'>Email:</td>
-                        <td >
-                          <input onChange={this.onEmailChange} />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className='labelText' >User Id:</td>
-                        <td >
-                          <input onChange={this.onUserIdChange} />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Well>
-                { bottomWell }
-
-              </div>
-            </Panel>
-
-          </div>
-        </Collapse>
-      </div>
-    );
+  } else {
+    bottomWell=<div className='bottomButton'>
+      <Button bsStyle='primary' onClick={this.createUser}>Create User</Button>
+    </div>;
   }
+  return (
+    <div>
+      <Collapse in={true} dimension='width' timeout={0}>
+        <div>
+          <Panel className='rightPanel'>
+            <Panel.Heading>
+              <Panel.Title componentClass='h3'>
+                  Create User
+                <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
+              </Panel.Title>
+            </Panel.Heading>
+
+            <div className='pannelContainer'>
+              <Well>
+                <Table>
+                  <tbody>
+                    <tr>
+                      <td className='labelText'>First Name:</td>
+                      <td>
+                        <input onChange={this.onFirstNameChange} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className='labelText'>Last Name:</td>
+                      <td>
+                        <input onChange={this.onLastNameChange} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className='labelText'>Email:</td>
+                      <td >
+                        <input onChange={this.onEmailChange} />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className='labelText' >User Id:</td>
+                      { editUserId }
+
+                    </tr>
+                  </tbody>
+                </Table>
+              </Well>
+              { bottomWell }
+
+            </div>
+          </Panel>
+
+        </div>
+      </Collapse>
+    </div>
+  );
+}
 }

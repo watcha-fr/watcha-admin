@@ -20,8 +20,8 @@ export default class TableToolBar extends Component {
     let filtersOption;
     if (this.props.tab === 'user') {
       filtersOption = <div className='filtersOption'>
-        <CreateUserButton onClick={this.createUser} />
-        <RefreshButton onClick={this.props.refresh} />
+        <RefreshButton onClick={this.props.refresh} bsStyle='primary' />
+        <CreateUserButton onClick={this.createUser} bsStyle='success' />
         <div className='checkboxfilter'>
           <label>Hide members</label>
           <input type="checkbox" name="hideMembers" onChange = {this.props.handleFilter} />
@@ -31,14 +31,14 @@ export default class TableToolBar extends Component {
           <input type="checkbox" name="hidePartners" onChange = {this.props.handleFilter} />
         </div>
         <div className='textFilter'>
-          <input type="text" name="textFilter" onChange = {this.props.handleFilter} />
+          <input type="text" name="textFilter" placeholder='Search in this Table' onChange = {this.props.handleFilter} />
         </div>
       </div>;
     }
     if (this.props.tab === 'room') {
       filtersOption =
       <div className='filtersOption'>
-        <RefreshButton onClick={this.props.refresh} />
+        <RefreshButton onClick={this.props.refresh} bsStyle='primary' />
         <div className='checkboxfilter'>
           <label>Hide one to one</label>
           <input type="checkbox" name="hideOneToOne" onChange = {this.props.handleFilter} />
@@ -48,7 +48,7 @@ export default class TableToolBar extends Component {
           <input type="checkbox" name='hideInactive' onChange = {this.props.handleFilter} />
         </div>
         <div className='textFilter'>
-          <input type="text" name="textFilter" onChange = {this.props.handleFilter} />
+          <input type="text" name="textFilter" placeholder='Search in this Table' onChange = {this.props.handleFilter} />
         </div>
       </div>;
     }
