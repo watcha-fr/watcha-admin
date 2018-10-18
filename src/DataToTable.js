@@ -66,7 +66,7 @@ const tableType = // here we declare all the type of table we wish to display
         'Default': 'Member',
       },
       'Deactivated': {
-        'name': 'is_deactivate',
+        'name': 'is_deactivated',
         'type': 'boolean',
       },
     },
