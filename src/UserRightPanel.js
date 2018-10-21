@@ -65,7 +65,7 @@ export default class UserRightPanel extends Component {
     const accessToken = this.props.token;
     try {
       const userRequest
-       = await fetch(homeServer+ '_matrix/client/r0/watchaupdatemail/'+
+       = await fetch(homeServer+ '_matrix/client/r0/watcha_update_email/'+
         encodeURIComponent(this.props.data['User Id']['data']), {
          method: 'POST',
          headers: {
@@ -104,7 +104,7 @@ export default class UserRightPanel extends Component {
      const accessToken = this.props.token;
      try {
        const userRequest
-       = await fetch(homeServer+ '_matrix/client/r0/watchaupdatepartnertomember/'+
+       = await fetch(homeServer+ '_matrix/client/r0/watcha_update_partner_to_member/'+
         encodeURIComponent(this.props.data['User Id']['data']), {
          method: 'PUT',
          headers: {

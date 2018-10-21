@@ -20,7 +20,11 @@ export default class BooleanRow extends Component {
         row = <Glyphicon glyph = 'remove' className='falseBoolean' />;
       }
     } else {
-      row = <Glyphicon glyph = 'remove' />;
+      if (this.props.value) {
+        row = <Glyphicon glyph = 'ok' />;
+      } else {
+        row = <Glyphicon glyph = 'remove' />;
+      }
     }
 
     return (

@@ -13,23 +13,13 @@ const tableType = // here we declare all the type of table we wish to display
     /* the primary key is the primary key corresponding to the sql db equivalent of our table,
      api is the synapse api which the table as json object*/
 
-    'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watchauserlist',
+    'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watcha_user_list',
 
     /*if the table we want to display need data from more than one table we add JoinTables property to our dataObject
     matchingKey are the value that should match between the main table and the joining table, apiAdress
     is the synapse api adress for the joining table, column is the name of the column containing the value we are
     want to retrieve in the joining table*/
-    'JoinTables': {
 
-      'watchadisplayname': {
-        'matchingKey': {
-          'mainTable': 'User Id',
-          'secondaryTable': 'user_id',
-        },
-        'apiAdress': '_matrix/client/r0/watchadisplayname',
-        'column': 'displayname',
-      },
-    },
     /*each header objects represent the title of a column in the table we display name being the name of te equivalent
     column in the db and type the type of data
     every JoinTables and only JoinTables must be of type list since we could have multiple value for a cell
@@ -41,8 +31,8 @@ const tableType = // here we declare all the type of table we wish to display
         'simplify': true,
       },
       'Display Name': {
-        'name': 'watchadisplayname',
-        'type': 'list',
+        'name': 'displayname',
+        'type': 'string',
       },
       'Email': {
         'name': 'email',
@@ -73,17 +63,7 @@ const tableType = // here we declare all the type of table we wish to display
   },
   'room': {
     'primaryKey': 'Room Id',
-    'apiAdress': '_matrix/client/r0/watchaextendroomlist',
-    'JoinTables': {
-      'watcharoomname': {
-        'matchingKey': {
-          'mainTable': 'Room Id',
-          'secondaryTable': 'room_id',
-        },
-        'apiAdress': '_matrix/client/r0/watcharoomname',
-        'column': 'name',
-      },
-    },
+    'apiAdress': '_matrix/client/r0/watcha_extend_room_list',
     'header': {
       'Room Id': {
         'name': 'room_id',
@@ -91,7 +71,7 @@ const tableType = // here we declare all the type of table we wish to display
         'simplify': true,
       },
       'Name': {
-        'name': 'watcharoomname', 'type': 'list',
+        'name': 'name', 'type': 'list',
       },
       'Creator': {
         'name': 'creator',
