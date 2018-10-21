@@ -14,7 +14,7 @@ export default class AdminHome extends Component {
   }
 
   componentDidMount = () =>{
-    this.getStats();
+
   }
 
   onClose = () => {
@@ -23,37 +23,11 @@ export default class AdminHome extends Component {
     });
   }
 
-  getStats = async () =>{
-    let statsData;
-    const homeServer = this.props.server;
-    //const accessToken = this.props.token;
-
-    try {
-      const statsRequest = await fetch(homeServer+ '_matrix/client/r0/stats', {
-        method: 'GET',
-        headers: {
-        },
-      });
-
-      statsData = JSON.parse(await statsRequest.text());
-    } catch (e) {
-      console.log('error: ' + e);
-      return;
-    }
-    this.setState({
-      statsData: statsData,
-    });
-  }
-
-
   render() {
-    let statsTab;
-    if (this.state.statsData) {
-      statsTab=<StatsTab
-        token={this.props.token}
-        server={this.props.server}
-        stats={this.state.statsData} />;
-    }
+    const statsTab = <StatsTab
+      token={this.props.token}
+      server={this.props.server} />;
+
     return (
 
       <div className='AdminHomeContainer'>
