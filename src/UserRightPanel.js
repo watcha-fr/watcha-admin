@@ -67,7 +67,7 @@ export default class UserRightPanel extends Component {
       const userRequest
        = await fetch(homeServer+ '_matrix/client/r0/watcha_update_email/'+
         encodeURIComponent(this.props.data['User Id']['data']), {
-         method: 'POST',
+         method: 'PUT',
          headers: {
            'Authorization': 'Bearer '+ accessToken,
            'Accept': 'application/json',
