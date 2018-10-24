@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import CardStats from './CardStats';
-import ServerBar from './serverBar';
 
-import { PageHeader, Panel} from 'react-bootstrap';
+import { PageHeader, Button} from 'react-bootstrap';
 
 
 export default class StatsTab extends Component {
@@ -42,25 +41,25 @@ export default class StatsTab extends Component {
   }
 
   getServerState = async () => {
-    let serverState;
+    let serverReport;
     const homeServer = this.props.server;
     const accessToken = this.props.token;
 
     try {
-      const serverStateRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_server_state', {
+      const serverReportRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_server_state', {
         method: 'GET',
         headers: {
           'Authorization': 'Bearer '+accessToken,
         },
       });
 
-      serverState = JSON.parse(await serverStateRequest.text());
+      serverReport = JSON.parse(await serverReportRequest.text());
     } catch (e) {
       console.log('error: ' + e);
       return;
     }
     this.setState({
-      serverState: serverState,
+      serverReport: serverReport,
     });
   }
 
@@ -71,7 +70,6 @@ export default class StatsTab extends Component {
     let bigRoomsData;
     let oneOnOneData;
     let activeRooms;
-    let serverState;
     const usersLines = [];
     const roomsLines = [];
     if (this.state.stats) {
@@ -86,42 +84,23 @@ export default class StatsTab extends Component {
           {label: 'One on One', data: oneOnOneData},
           {label: 'Inactive', data: bigRoomsData-activeRooms});
     }
-    if (this.state.serverState) {
-      serverState =
+    let buttonReport;
+    if (this.state.serverReport) {
+      buttonReport =
       <div>
-        <ServerBar label='CPU Usage' percent={this.state.serverState['cpu']['average']} />
-        <ServerBar label='Memory Usage' percent={this.state.serverState['memory']['memory']['percent']} />
-        <ServerBar label='Disk Usage' percent={this.state.serverState['disk']['percent']} />
+        <Button>Generate report</Button>
       </div>;
     }
     return (
       <div>
         <PageHeader>
-        Statistics for Watcha server { this.props.server.replace('https://', '').replace('/', '') }
+        Statistics for Watcha server
         </PageHeader>
         <div className='statsPanelsContainer'>
           <CardStats lines={usersLines} icon='user' title='Users' />
           <CardStats lines={roomsLines} icon='comment' title='Rooms' />
         </div>
-        <div className='statsPanelsContainer'>
-          <Panel bsStyle="primary" className='statsPanel'>
-            <Panel.Heading>
-              <Panel.Title componentClass="h3">Server State</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-              { serverState }
-            </Panel.Body>
-          </Panel>
-
-          <Panel bsStyle="primary" className="statsPanel">
-            <Panel.Heading>
-              <Panel.Title componentClass="h3">Server Log</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>
-              log
-            </Panel.Body>
-          </Panel>
-        </div>
+        { buttonReport }
       </div>
     );
   }
