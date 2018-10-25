@@ -55,8 +55,8 @@ const tableType = // here we declare all the type of table we wish to display
         'type': 'merge',
         'Default': 'Member',
       },
-      'Deactivated': {
-        'name': 'is_deactivated',
+      'Active': {
+        'name': 'is_active',
         'type': 'boolean',
       },
     },
