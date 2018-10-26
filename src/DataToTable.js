@@ -13,7 +13,7 @@ const tableType = // here we declare all the type of table we wish to display
     /* the primary key is the primary key corresponding to the sql db equivalent of our table,
      api is the synapse api which the table as json object*/
 
-    'primaryKey': 'User Id', 'apiAdress': '_matrix/client/r0/watcha_user_list',
+    'primaryKey': 'User name', 'apiAdress': '_matrix/client/r0/watcha_user_list',
 
     /*if the table we want to display need data from more than one table we add JoinTables property to our dataObject
     matchingKey are the value that should match between the main table and the joining table, apiAdress
@@ -25,10 +25,14 @@ const tableType = // here we declare all the type of table we wish to display
     every JoinTables and only JoinTables must be of type list since we could have multiple value for a cell
     Merge is a special type who handle multiple boolean data from db displayed in one single column*/
     'header': {
-      'User Id': {
+      'User name': {
         'name': 'name',
         'type': 'string',
         'simplify': true,
+      },
+      'Last seen': {
+        'name': 'last_seen',
+        'type': 'shortDate',
       },
       'Display Name': {
         'name': 'displayname',
@@ -112,6 +116,9 @@ export default class DataToTable extends Component {
     document.addEventListener('keydown', this.escFunction, false); //allow esc to close right panel
     this.setState({header: this.getHeader(this.state.type)}); //initialize header
     this.getData(); //get the data from server
+    if (this.props.selected) {
+      this.onUserSelected(this.props.selected);
+    }
     this.setState({finished: true }); //refresh render
   }
 
@@ -126,6 +133,13 @@ export default class DataToTable extends Component {
       rightPanel: {type: this.props.tableName, data: data},
     });
   };
+
+onTabsSelected = (data) => {
+  this.setState({ selected: data });
+  this.setState({
+    rightPanel: {type: this.props.tableName, data: data},
+  });
+};
 
   escFunction = (event) => {
     if (event.keyCode === 27) {
@@ -284,6 +298,7 @@ export default class DataToTable extends Component {
     let simplifiedRawData;
     let data;
     let ts;
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     simplifiedRawData = rawData;
     if (simplify) {
       simplifiedRawData=this.simplifiedUserId(rawData);
@@ -300,8 +315,20 @@ export default class DataToTable extends Component {
         }
         break;
       case 'date':
-        ts=new Date(rawData*1000);
-        data=ts.toLocaleDateString('fr-Fr');
+        if (rawData) {
+          ts=new Date(rawData*1000);
+          data=ts.toLocaleDateString('en-En', options);
+        } else {
+          data='';
+        }
+        break;
+      case 'shortDate':
+        if (rawData) {
+          ts=new Date(rawData);
+          data=ts.toLocaleDateString('en-En', options);
+        } else {
+          data='';
+        }
         break;
       case 'enumerate':
         data=rawData;
@@ -425,6 +452,7 @@ export default class DataToTable extends Component {
         server={this.props.server}
         isEmailAvailable = {this.isEmailAvailable}
         refresh ={this.onRefresh}
+        onUserSelected ={this.onUserSelected}
       />;
     }
 

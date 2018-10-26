@@ -66,7 +66,7 @@ export default class UserRightPanel extends Component {
     try {
       const userRequest
        = await fetch(homeServer+ '_matrix/client/r0/watcha_update_email/'+
-        encodeURIComponent(this.props.data['User Id']['data']), {
+        encodeURIComponent(this.props.data['User name']['data']), {
          method: 'PUT',
          headers: {
            'Authorization': 'Bearer '+ accessToken,
@@ -81,7 +81,7 @@ export default class UserRightPanel extends Component {
       if (userRequest.ok) {
         this.setState({
           message: {type: 'success', title: 'Email updated',
-            body: this.props.data['User Id']['data'] + ' email has been updated'},
+            body: this.props.data['User name']['data'] + ' email has been updated'},
         });
         this.props.refresh();
         this.displayInfoMessage();
@@ -105,7 +105,7 @@ export default class UserRightPanel extends Component {
      try {
        const userRequest
        = await fetch(homeServer+ '_matrix/client/r0/watcha_update_partner_to_member/'+
-        encodeURIComponent(this.props.data['User Id']['data']), {
+        encodeURIComponent(this.props.data['User name']['data']), {
          method: 'PUT',
          headers: {
            'Authorization': 'Bearer '+ accessToken,
@@ -117,7 +117,7 @@ export default class UserRightPanel extends Component {
        if (userRequest.ok) {
          this.setState({
            message: {type: 'success', title: 'Status updated',
-             body: this.props.data['User Id']['data'] + ' account has been upgraded to member'},
+             body: this.props.data['User name']['data'] + ' account has been upgraded to member'},
          });
          this.props.refresh();
          this.displayInfoMessage();
@@ -150,7 +150,7 @@ export default class UserRightPanel extends Component {
     const accessToken = this.props.token;
     try {
       const userRequest = await fetch(homeServer+'_matrix/client/r0/watcha_reset_password'+
-        encodeURIComponent(this.props.data['User Id']['data']), {
+        encodeURIComponent(this.props.data['User name']['data']), {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer '+ accessToken,
@@ -158,14 +158,14 @@ export default class UserRightPanel extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(
-            {user: this.props.data['User Id']['data']},
+            {user: this.props.data['User name']['data']},
         ),
       });
       const response = JSON.parse(await userRequest.text());
       if (userRequest.ok) {
         this.setState({
           message: {type: 'success', title: 'Password reseted',
-            body: 'an email has been send to ' + this.props.data['User Id']['data'] + ' with a new password'},
+            body: 'an email has been send to ' + this.props.data['User name']['data'] + ' with a new password'},
         });
         this.props.refresh();
         this.displayInfoMessage();
@@ -186,7 +186,7 @@ export default class UserRightPanel extends Component {
     try {
       const userRequest =
       await fetch(homeServer+
-        '_matrix/client/r0/admin/deactivate/'+encodeURIComponent(this.props.data['User Id']['data']), {
+        '_matrix/client/r0/admin/deactivate/'+encodeURIComponent(this.props.data['User name']['data']), {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer '+ accessToken,
@@ -199,7 +199,7 @@ export default class UserRightPanel extends Component {
       if (userRequest.ok) {
         this.setState({
           message: {type: 'success', title: 'Account deactivated',
-            body: this.props.data['User Id']['data'] + ' account have been deactivated'},
+            body: this.props.data['User name']['data'] + ' account have been deactivated'},
         });
         this.props.refresh();
         this.displayInfoMessage();
@@ -314,7 +314,7 @@ export default class UserRightPanel extends Component {
             <Panel bsStyle={bsStyle} className='rightPanel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
-                  { title } : { this.props.data['User Id']['data'] }
+                  { title } : { this.props.data['User name']['data'] }
                   <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
                 </Panel.Title>
               </Panel.Heading>
