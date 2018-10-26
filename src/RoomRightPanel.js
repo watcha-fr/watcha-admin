@@ -18,6 +18,10 @@ export default class RoomRightPanel extends Component {
     this.props.onClose();
   }
 
+  onUSerClicked = () => {
+
+  }
+
 
   render() {
     const bsStyle = 'primary';
@@ -26,7 +30,11 @@ export default class RoomRightPanel extends Component {
     const users = [];
     for (const user in this.props.data['Users']['simplifiedData'] ) {
       if ({}.hasOwnProperty.call(this.props.data['Users']['simplifiedData'], user)) {
-        users.push(<ListGroupItem key={user}>{ this.props.data['Users']['simplifiedData'][user] }</ListGroupItem>);
+        users.push(<ListGroupItem
+          key={user}
+          onClick={this.onUSerClicked}>
+          { this.props.data['Users']['simplifiedData'][user] }
+        </ListGroupItem>);
       }
     }
     return (
