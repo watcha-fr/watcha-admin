@@ -18,8 +18,8 @@ export default class RoomRightPanel extends Component {
     this.props.onClose();
   }
 
-  onUSerClicked = () => {
-
+  onUSerClicked = (ev) => {
+    this.props.onTabSelected(2, ev.target.textContent);
   }
 
 

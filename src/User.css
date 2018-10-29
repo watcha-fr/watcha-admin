@@ -40,6 +40,8 @@
 
 .statsPanelsContainer{
   display: flex;
+  font-size: 18px;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
 }
 
 .statsPanel{
@@ -120,6 +122,15 @@
   margin-top: 1vh;
 }
 
+.AdminName{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .ServerStatePanelBody{
-  background:grey;
+  background: grey;
+}
+
+.StatsTitle{
+  cursor: pointer;
 }
