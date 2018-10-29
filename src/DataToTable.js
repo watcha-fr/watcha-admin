@@ -389,7 +389,7 @@ export default class DataToTable extends Component {
           }
         }
         if (this.state.filter['hideMembers']) {
-          if (filteredData[row]['Status']['data'] === 'Member') {
+          if (filteredData[row]['Status']['data'] === 'Member' || filteredData[row]['Status']['data'] === 'Admin') {
             hideRow = true;
           }
         }
