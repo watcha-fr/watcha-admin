@@ -17,6 +17,7 @@ export default class ServerBar extends Component {
         <div>{ this.props.label }</div>
         <ProgressBar now={this.props.percent} label={`${this.props.percent}%`} />
       </div>
+
     );
   }
 }

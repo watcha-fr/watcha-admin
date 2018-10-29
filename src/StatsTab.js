@@ -21,12 +21,13 @@ export default class StatsTab extends Component {
   getStats = async () => {
     let statsData;
     const homeServer = this.props.server;
-    //const accessToken = this.props.token;
+    const accessToken = this.props.token;
 
     try {
-      const statsRequest = await fetch(homeServer+ '_matrix/client/r0/stats', {
+      const statsRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_admin_stats', {
         method: 'GET',
         headers: {
+          'Authorization': 'Bearer '+accessToken,
         },
       });
 
@@ -70,6 +71,7 @@ export default class StatsTab extends Component {
     let bigRoomsData;
     let oneOnOneData;
     let activeRooms;
+    let Admin;
     const usersLines = [];
     const roomsLines = [];
     if (this.state.stats) {
@@ -78,11 +80,12 @@ export default class StatsTab extends Component {
       bigRoomsData = this.state.stats['rooms']['one_one_rooms_count'];
       oneOnOneData = this.state.stats['rooms']['big_rooms_count'];
       activeRooms = this.state.stats['rooms']['big_rooms_count_active'];
-      usersLines.push( {label: 'members', data: membersData},
-          {label: 'partners', data: partnersData});
-      roomsLines.push( {label: 'Active', data: activeRooms},
-          {label: 'One on One', data: oneOnOneData},
-          {label: 'Inactive', data: bigRoomsData-activeRooms});
+      Admin = this.state.stats['admins'];
+      usersLines.push( {label: 'Members', data: membersData},
+          {label: 'Partners', data: partnersData}, {label: 'Admin', data: Admin});
+      roomsLines.push( {label: 'Active rooms', data: activeRooms},
+          {label: 'Personal conversation', data: oneOnOneData},
+          {label: 'Inactive Rooms', data: bigRoomsData-activeRooms});
     }
     let buttonReport;
     if (this.state.serverReport) {
@@ -97,8 +100,8 @@ export default class StatsTab extends Component {
         Statistics for Watcha server
         </PageHeader>
         <div className='statsPanelsContainer'>
-          <CardStats lines={usersLines} icon='user' title='Users' />
-          <CardStats lines={roomsLines} icon='comment' title='Rooms' />
+          <CardStats lines={usersLines} title='Users' onTabSelected={this.props.onTabSelected} />
+          <CardStats lines={roomsLines} title='Rooms' onTabSelected={this.props.onTabSelected} />
         </div>
         { buttonReport }
       </div>

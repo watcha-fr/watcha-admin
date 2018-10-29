@@ -78,7 +78,7 @@ class App extends Component {
 
   render() {
     if (this.state.accessToken) {
-      return (<AdminHome token={this.state.accessToken} server={this.state.homeserver}></AdminHome>);
+      return (<AdminHome token={this.state.accessToken} server={this.state.homeserver} className='AdminHome'></AdminHome>);
     }
     return (
       <div>

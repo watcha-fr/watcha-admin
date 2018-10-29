@@ -116,12 +116,16 @@ export default class DataToTable extends Component {
     document.addEventListener('keydown', this.escFunction, false); //allow esc to close right panel
     this.setState({header: this.getHeader(this.state.type)}); //initialize header
     this.getData(); //get the data from server
-    if (this.props.selected) {
-      this.onUserSelected(this.props.selected);
-    }
     this.setState({finished: true }); //refresh render
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (this.props.value !== prevProps.value) {
+      if (this.props.value) {
+        this.findDataByPrimaryKey(this.props.value);
+      }
+    }
+  }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.escFunction, false);
@@ -134,12 +138,20 @@ export default class DataToTable extends Component {
     });
   };
 
-onTabsSelected = (data) => {
-  this.setState({ selected: data });
-  this.setState({
-    rightPanel: {type: this.props.tableName, data: data},
-  });
-};
+  findDataByPrimaryKey = (value) => {
+    for ( const data in this.state.arrayOfdata) {
+      if (this.state.arrayOfdata[data][this.state.type['primaryKey']]['data'] === value) {
+        this.onUserSelected(this.state.arrayOfdata[data]);
+      }
+    }
+  }
+
+  onTabsSelected = (data) => {
+    this.setState({ selected: data });
+    this.setState({
+      rightPanel: {type: this.props.tableName, data: data},
+    });
+  };
 
   escFunction = (event) => {
     if (event.keyCode === 27) {
@@ -452,14 +464,17 @@ onTabsSelected = (data) => {
         server={this.props.server}
         isEmailAvailable = {this.isEmailAvailable}
         refresh ={this.onRefresh}
-        onUserSelected ={this.onUserSelected}
+        onTabSelected ={this.props.onTabSelected}
       />;
     }
 
     return (
 
       <div className='DataToTable'>
-        <TableToolBar refresh={this.onRefresh} setRightPanel={this.setRightPanel} onClose = {this.onClose} handleFilter={this.handleFilter} tab={this.props.tableName} />
+        <TableToolBar refresh={this.onRefresh}
+          setRightPanel={this.setRightPanel}
+          onClose = {this.onClose} handleFilter={this.handleFilter}
+          tab={this.props.tableName} />
 
         <div className='tableContainer'>
           <Table striped bordered condensed hover responsive className='tableBody'>
