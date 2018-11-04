@@ -15,8 +15,8 @@ export default class CreateUserRightPanel extends Component {
     };
   }
   createUser = async () =>{
-    const homeServer = this.props.server;
-    const accessToken = this.props.token;
+    const HOME_SERVER = this.props.server;
+    const ACCESS_TOKEN = this.props.token;
     if (!this.state.isEmail) {
       this.setState({
         message: {type: 'danger', title: 'Invalid Email',
@@ -40,7 +40,6 @@ export default class CreateUserRightPanel extends Component {
         message: {type: 'danger', title: 'Email already in use',
           body: this.state.emailValue+ ' is already in use enter a new email '},
       });
-
       this.displayInfoMessage();
     } else if (!this.state.userIdValue && !this.state.suggestedUserId) {
       this.setState({
@@ -50,28 +49,28 @@ export default class CreateUserRightPanel extends Component {
       this.displayInfoMessage();
     } else {
       try {
-        const userId = this.state.userIdValue ? this.state.userIdValue : this.state.suggestedUserId;
-        const userRequest = await fetch(homeServer+ '_matrix/client/r0/watcha_register', {
+        const USER_ID = this.state.userIdValue ? this.state.userIdValue : this.state.suggestedUserId;
+        const USER_REQUEST = await fetch(HOME_SERVER+ '_matrix/client/r0/watcha_register', {
           method: 'POST',
           headers: {
-            'Authorization': 'Bearer '+ accessToken,
+            'Authorization': 'Bearer '+ ACCESS_TOKEN,
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(
-              {user: userId, full_name: this.state.firstNameValue+' '+this.state.lastNameValue,
+              {user: USER_ID, full_name: this.state.firstNameValue+' '+this.state.lastNameValue,
                 email: this.state.emailValue, admin: false},
           ),
         });
-        const response = JSON.parse(await userRequest.text());
-        if (userRequest.ok) {
+        const RESPONSE = JSON.parse(await USER_REQUEST.text());
+        if (USER_REQUEST.ok) {
           this.setState({
-            message: {type: 'success', title: 'User Created', body: userId+' has been added to watcha'},
+            message: {type: 'success', title: 'User Created', body: USER_ID+' has been added to watcha'},
           });
           this.displayInfoMessage();
         } else {
           this.setState({
-            message: {type: 'danger', title: 'User Creation Failed', body: response['error'] },
+            message: {type: 'danger', title: 'User Creation Failed', body: RESPONSE['error'] },
           });
           this.displayInfoMessage();
         }
@@ -115,21 +114,23 @@ export default class CreateUserRightPanel extends Component {
       this.setState({isEmail: true});
     }
   }
+
   onFirstNameChange = (ev) => {
-    const value = ev.target.value;
-    this.setState({firstNameValue: value});
-    this.generateSuggestedUserId(value, true);
+    const FIRST_NAME = ev.target.value;
+    this.setState({firstNameValue: FIRST_NAME});
+    this.generateSuggestedUserId(FIRST_NAME, true);
     this.setState({isFirstName: false});
     if (this.isName(ev.target.value)) {
       this.setState({isFirstName: true});
     }
   }
+
   onLastNameChange = (ev) => {
-    const value = ev.target.value;
-    this.setState({lastNameValue: value});
-    this.generateSuggestedUserId(value, false);
+    const NAME = ev.target.value;
+    this.setState({lastNameValue: NAME});
+    this.generateSuggestedUserId(NAME, false);
     this.setState({isLastName: false});
-    if (this.isName(value)) {
+    if (this.isName(NAME)) {
       this.setState({isLastName: true});
     }
   }

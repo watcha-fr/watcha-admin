@@ -6,7 +6,7 @@ import CollapsableRightPanel from './CollapsableRightPanel';
 /*
 
  */
-const tableType = // here we declare all the type of table we wish to display
+const TABLE_TYPE = // here we declare all the type of table we wish to display
 {
   'user': //the name of the table
   {
@@ -31,7 +31,7 @@ const tableType = // here we declare all the type of table we wish to display
         'simplify': true,
       },
       'Last seen': {
-        'name': 'last_seen',
+        'name': 'MAX(last_seen)',
         'type': 'shortDate',
       },
       'Display Name': {
@@ -107,7 +107,7 @@ export default class DataToTable extends Component {
       selected: false, //the selected row
       rightPanel: false, // right panel is hidden at start
       arrayOfdata: [], // an array with the data collected from server
-      type: tableType[this.props.tableName], // the name of the table
+      type: TABLE_TYPE[this.props.tableName], // the name of the table
       filter: {}, //filters to apply to the table
     };
   }
@@ -139,9 +139,9 @@ export default class DataToTable extends Component {
   };
 
   findDataByPrimaryKey = (value) => {
-    for ( const data in this.state.arrayOfdata) {
-      if (this.state.arrayOfdata[data][this.state.type['primaryKey']]['data'] === value) {
-        this.onUserSelected(this.state.arrayOfdata[data]);
+    for ( const DATA in this.state.arrayOfdata) {
+      if (this.state.arrayOfdata[DATA][this.state.type['primaryKey']]['data'] === value) {
+        this.onUserSelected(this.state.arrayOfdata[DATA]);
       }
     }
   }
@@ -166,15 +166,15 @@ export default class DataToTable extends Component {
   }
 
   getHeader = (type) => {
-    const header = [];
-    for (const elem in type['header']) {
-      if ({}.hasOwnProperty.call(type['header'], elem)) {
-        header.push(<th key={elem}> { elem } </th>);
+    const HEADER = [];
+    for (const ELEM in type['header']) {
+      if ({}.hasOwnProperty.call(type['header'], ELEM)) {
+        HEADER.push(<th key={ELEM}> { ELEM } </th>);
       }
     }
 
 
-    return header;
+    return HEADER;
   }
 
   onRefresh = () =>{
@@ -199,92 +199,89 @@ export default class DataToTable extends Component {
   getData = async () => {
     let jsonData;
     let JoinTablesData;
-    const homeServer = this.props.server;
-    const accessToken = this.props.token;
-    const JoinTables = this.state.type['JoinTables'];
-    const Headers = this.state.type['header'];
-
+    const HOME_SERVER = this.props.server;
+    const ACCESS_TOKEN = this.props.token;
+    const JOIN_TABLES = this.state.type['JOIN_TABLES'];
+    const HEADERS = this.state.type['header'];
     try {
-      const userRequest = await fetch(homeServer+ this.state.type['apiAdress'], {
+      const TABLE_REQUEST = await fetch(HOME_SERVER+ this.state.type['apiAdress'], {
         method: 'GET',
         headers: {
-          'Authorization': 'Bearer '+accessToken,
+          'Authorization': 'Bearer '+ACCESS_TOKEN,
         },
       });
-
-      jsonData = JSON.parse(await userRequest.text());
+      jsonData = JSON.parse(await TABLE_REQUEST.text());
     } catch (e) {
       console.log('error: ' + e);
       return;
     }
-
-    for (const row in jsonData) { //handle the main table by iterating on the users list we get from request;
-      if ({}.hasOwnProperty.call(jsonData, row)) {
-        const dataObject={};
-        for (const columnHeader in Headers) { // for each header we declare in the tabletype
-          if ({}.hasOwnProperty.call(Headers, columnHeader)) {
-            if (Headers[columnHeader]['type']==='list') {// in case we want one cell to handle multiple values useful for JoinTables
-              dataObject[columnHeader] = [];
+    for (const ROW in jsonData) { //handle the main table by iterating on the users list we get from request;
+      if ({}.hasOwnProperty.call(jsonData, ROW)) {
+        const DATAOBJECT={};
+        for (const COLUMNHEADER in HEADERS) { // for each header we declare in the tabletype
+          if ({}.hasOwnProperty.call(HEADERS, COLUMNHEADER)) {
+            if (HEADERS[COLUMNHEADER]['type']==='list') {// in case we want one cell to handle multiple values useful for JOIN_TABLES
+              DATAOBJECT[COLUMNHEADER] = [];
             }
-            if (Headers[columnHeader]['type']==='merge') {//in case we want one header for multiple boolean tabl columns
-              dataObject[columnHeader] = {
-                'data': this.mergeRow(Headers[columnHeader],
-                    jsonData[row]), 'simplifiedData': this.mergeRow(Headers[columnHeader],
-                    jsonData[row]), 'type': 'merge'};
+            if (HEADERS[COLUMNHEADER]['type']==='merge') {//in case we want one header for multiple boolean tabl columns
+              DATAOBJECT[COLUMNHEADER] = {
+                'data': this.mergeRow(HEADERS[COLUMNHEADER],
+                    jsonData[ROW]), 'simplifiedData': this.mergeRow(HEADERS[COLUMNHEADER],
+                    jsonData[ROW]), 'type': 'merge'};
             }
-            for (const property in jsonData[row]) { // for each fields that belong to a row
-              if ({}.hasOwnProperty.call(jsonData[row], property)) {
-                if (property === Headers[columnHeader]['name']) { // we check if the field name match the name excepted by the header
-                  dataObject[columnHeader] =
-                    {simplifiedData: this.convertRawData(jsonData[row][property],
-                        Headers[columnHeader]['type'],
-                        Headers[columnHeader]['simplify']),
-                    data: this.convertRawData(jsonData[row][property],
-                        Headers[columnHeader]['type'], false),
-                    type: Headers[columnHeader]['type']};//we convert the data from the sql table to more revelant type for javascript
+            for (const PROPERTY in jsonData[ROW]) { // for each fields that belong to a ROW
+              if ({}.hasOwnProperty.call(jsonData[ROW], PROPERTY)) {
+                if (PROPERTY === HEADERS[COLUMNHEADER]['name']) { // we check if the field name match the name excepted by the header
+                  DATAOBJECT[COLUMNHEADER] =
+                    {simplifiedData: this.convertRawData(jsonData[ROW][PROPERTY],
+                        HEADERS[COLUMNHEADER]['type'],
+                        HEADERS[COLUMNHEADER]['simplify']),
+                    data: this.convertRawData(jsonData[ROW][PROPERTY],
+                        HEADERS[COLUMNHEADER]['type'], false),
+                    type: HEADERS[COLUMNHEADER]['type']};//we convert the data from the sql table to more revelant type for javascript
                 }
               }
             }
           }
         }
 
-        this.state.arrayOfdata.push(dataObject);
+        this.state.arrayOfdata.push(DATAOBJECT);
       }
     }
-    for (const table in JoinTables) {// handle extra tables
-      if ({}.hasOwnProperty.call(JoinTables, table)) {
-        const mainKey= JoinTables[table]['matchingKey'].mainTable;
-        const secondaryKey= JoinTables[table]['matchingKey'].secondaryTable;
-        const apiAdress = JoinTables[table]['apiAdress'];
-        const column = JoinTables[table]['column'];
+    for (const TABLE in JOIN_TABLES) {// handle extra tables
+      if ({}.hasOwnProperty.call(JOIN_TABLES, TABLE)) {
+        const MAINKEY= JOIN_TABLES[TABLE]['matchingKey'].mainTable;
+        const SECONDARYKEY= JOIN_TABLES[TABLE]['matchingKey'].secondaryTable;
+        const APIADRESS = JOIN_TABLES[TABLE]['APIADRESS'];
+        const COLUMN = JOIN_TABLES[TABLE]['COLUMN'];
         try {
-          const userRequest = await fetch(homeServer+ apiAdress, {
+          const TABLE_REQUEST = await fetch(HOME_SERVER+ APIADRESS, {
             method: 'GET',
             headers: {
-              'Authorization': 'Bearer '+accessToken,
+              'Authorization': 'Bearer '+ACCESS_TOKEN,
             },
           });
 
-          JoinTablesData = JSON.parse(await userRequest.text());
+          JoinTablesData = JSON.parse(await TABLE_REQUEST.text());
         } catch (e) {
           console.log('error: ' + e);
         }
 
-        for (const dataObject in this.state.arrayOfdata) {
-          if ({}.hasOwnProperty.call(this.state.arrayOfdata, dataObject)) {
-            for (const data in JoinTablesData ) {
-              if ({}.hasOwnProperty.call(JoinTablesData, data)) {
-                if (this.state.arrayOfdata[dataObject][mainKey]['data'] === JoinTablesData[data][secondaryKey] ||
-                   this.simplifiedUserId(this.state.arrayOfdata[dataObject][mainKey]['data']) ===
-                   this.simplifiedUserId(JoinTablesData[data][secondaryKey]) ) {
-                  for (const columnHeader in this.state.type['header']) {
-                    if ({}.hasOwnProperty.call(this.state.type['header'], columnHeader)) {
-                      if (table === this.state.type['header'][columnHeader]['name']) {
-                        this.state.arrayOfdata[dataObject][columnHeader]={
-                          'data': JoinTablesData[data][column],
-                          'simplifiedData': this.convertRawData(JoinTablesData[data][column],
-                              Headers[columnHeader]['type'],
-                              Headers[columnHeader]['simplify'])};
+        for (const DATAOBJECT in this.state.arrayOfdata) {
+          if ({}.hasOwnProperty.call(this.state.arrayOfdata, DATAOBJECT)) {
+            for (const DATA in JoinTablesData ) {
+              if ({}.hasOwnProperty.call(JoinTablesData, DATA)) {
+                if (this.state.arrayOfdata[DATAOBJECT][MAINKEY]['data'] === JoinTablesData[DATA][SECONDARYKEY] ||
+                   this.simplifiedUserId(this.state.arrayOfdata[DATAOBJECT][MAINKEY]['data']) ===
+                   this.simplifiedUserId(JoinTablesData[DATA][SECONDARYKEY]) ) {
+                  for (const COLUMN_HEADER in this.state.type['header']) {
+                    if ({}.hasOwnProperty.call(this.state.type['header'], COLUMN_HEADER)) {
+                      if (TABLE === this.state.type['header'][COLUMN_HEADER]['name']) {
+                        this.state.arrayOfdata[DATAOBJECT][COLUMN_HEADER]={
+                          'data': JoinTablesData[DATA][COLUMN],
+                          'simplifiedData': this.convertRawData(JoinTablesData[DATA][COLUMN],
+                              HEADERS[COLUMN_HEADER]['type'],
+                              HEADERS[COLUMN_HEADER]['simplify'])};
                       }
                     }
                   }
@@ -310,7 +307,7 @@ export default class DataToTable extends Component {
     let simplifiedRawData;
     let data;
     let ts;
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const OPTIONS = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     simplifiedRawData = rawData;
     if (simplify) {
       simplifiedRawData=this.simplifiedUserId(rawData);
@@ -329,7 +326,7 @@ export default class DataToTable extends Component {
       case 'date':
         if (rawData) {
           ts=new Date(rawData*1000);
-          data=ts.toLocaleDateString('en-En', options);
+          data=ts.toLocaleDateString('en-En', OPTIONS);
         } else {
           data='';
         }
@@ -337,7 +334,7 @@ export default class DataToTable extends Component {
       case 'shortDate':
         if (rawData) {
           ts=new Date(rawData);
-          data=ts.toLocaleDateString('en-En', options);
+          data=ts.toLocaleDateString('en-En', OPTIONS);
         } else {
           data='';
         }
@@ -353,9 +350,9 @@ export default class DataToTable extends Component {
 
   mergeRow = (columns, data) => {
     let value = columns['Default'];
-    for (const columnToMerge in columns ) {
-      if (data[columns[columnToMerge]['name']]===1) {
-        value=columnToMerge;
+    for (const COLUMN_TO_MERGE in columns ) {
+      if (data[columns[COLUMN_TO_MERGE]['name']]===1) {
+        value=COLUMN_TO_MERGE;
       }
     }
 
@@ -364,8 +361,8 @@ export default class DataToTable extends Component {
 
   isEmailAvailable = (mail) => {
     let emailAvailable = true;
-    for (const user in this.state.arrayOfdata) {
-      if (this.state.arrayOfdata[user]['Email']['data'] === mail) {
+    for (const USER in this.state.arrayOfdata) {
+      if (this.state.arrayOfdata[USER]['Email']['data'] === mail) {
         emailAvailable = false;
       }
     }
@@ -373,45 +370,45 @@ export default class DataToTable extends Component {
   }
 
   filterData = (arrayOfdata) => {
-    const filteredData = {};
-    Object.assign(filteredData, arrayOfdata);
-    for (const row in filteredData) {
-      if ({}.hasOwnProperty.call(filteredData, row)) {
+    const FILTERED_DATA = {};
+    Object.assign(FILTERED_DATA, arrayOfdata);
+    for (const row in FILTERED_DATA) {
+      if ({}.hasOwnProperty.call(FILTERED_DATA, row)) {
         let hideRow = false;
         if (this.state.filter['hideOneToOne']) {
-          if (filteredData[row]['Type']['data'] === 'One to one') {
+          if (FILTERED_DATA[row]['Type']['data'] === 'One to one') {
             hideRow = true;
           }
         }
         if (this.state.filter['hideInactive']) {
-          if (!filteredData[row]['Active']['data']) {
+          if (!FILTERED_DATA[row]['Active']['data']) {
             hideRow = true;
           }
         }
         if (this.state.filter['hideMembers']) {
-          if (filteredData[row]['Status']['data'] === 'Member' || filteredData[row]['Status']['data'] === 'Admin') {
+          if (FILTERED_DATA[row]['Status']['data'] === 'Member' || FILTERED_DATA[row]['Status']['data'] === 'Admin') {
             hideRow = true;
           }
         }
         if (this.state.filter['hidePartners']) {
-          if (filteredData[row]['Status']['data'] === 'Partner') {
+          if (FILTERED_DATA[row]['Status']['data'] === 'Partner') {
             hideRow = true;
           }
         }
         if (hideRow) {
-          delete filteredData[row];
+          delete FILTERED_DATA[row];
         }
       }
     }
-    for (const row in filteredData) {
-      if ({}.hasOwnProperty.call(filteredData, row)) {
+    for (const ROW in FILTERED_DATA) {
+      if ({}.hasOwnProperty.call(FILTERED_DATA, ROW)) {
         let dismissrow;
         if (this.state.filter['textFilter']) {
           dismissrow = true;
-          for (const property in filteredData[row]) {
-            if ({}.hasOwnProperty.call(filteredData[row], property)) {
-              const data = filteredData[row][property]['data'];
-              if (filteredData[row][property] && data) {
+          for (const property in FILTERED_DATA[ROW]) {
+            if ({}.hasOwnProperty.call(FILTERED_DATA[ROW], property)) {
+              const data = FILTERED_DATA[ROW][property]['data'];
+              if (FILTERED_DATA[ROW][property] && data) {
                 if (data.toString().toLowerCase().includes(this.state.filter['textFilter'].toLowerCase())) {
                   dismissrow = false;
                 }
@@ -420,40 +417,38 @@ export default class DataToTable extends Component {
           }
         }
         if (dismissrow) {
-          delete filteredData[row];
+          delete FILTERED_DATA[ROW];
         }
       }
     }
-    return filteredData;
+    return FILTERED_DATA;
   }
 
   handleFilter = (event) => {
-    const target = event.target;
-    const name = target.name;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const arrayOfFilter = this.state.filter;
-    arrayOfFilter[name] = value;
+    const TARGET = event.target;
+    const NAME = TARGET.name;
+    const VALUE = TARGET.type === 'checkbox' ? TARGET.checked : TARGET.value;
+    const ARRAY_OF_FILTERS = this.state.filter;
+    ARRAY_OF_FILTERS[NAME] = VALUE;
     this.setState({
-      filter: arrayOfFilter,
+      filter: ARRAY_OF_FILTERS,
     });
   }
 
   render() {
-    const dataToRow=[];
-    const filteredData = this.filterData(this.state.arrayOfdata);
-
-    for (const row in filteredData) {
-      if ({}.hasOwnProperty.call( this.state.arrayOfdata, row)) {
-        dataToRow.push(
+    const DATA_TO_ROW=[];
+    const FILTERED_DATA = this.filterData(this.state.arrayOfdata);
+    for (const ROW in FILTERED_DATA) {
+      if ({}.hasOwnProperty.call( this.state.arrayOfdata, ROW)) {
+        DATA_TO_ROW.push(
             <Datatorow
-              data={this.state.arrayOfdata[row]}
+              data={this.state.arrayOfdata[ROW]}
               onUserSelected={this.onUserSelected}
               selected={this.state.selected}
-              primaryKey={this.state.type['primaryKey']} key={row} />,
+              primaryKey={this.state.type['primaryKey']} key={ROW} />,
         );
       }
     }
-
     let panel;
     if (this.state.rightPanel) {
       panel = <CollapsableRightPanel
@@ -484,7 +479,7 @@ export default class DataToTable extends Component {
               </tr>
             </thead>
             <tbody>
-              { dataToRow }
+              { DATA_TO_ROW }
             </tbody>
           </Table>
           { panel }

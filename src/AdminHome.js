@@ -35,10 +35,10 @@ export default class AdminHome extends Component {
   }
 
   render() {
-    const key= this.state.key? this.state.key : 1;
-    const selected= this.state.data? this.state.data : false;
+    const KEY= this.state.key? this.state.key : 1;
+    const SELECTED= this.state.data? this.state.data : false;
 
-    const statsTab = <StatsTab
+    const STATSTAB = <StatsTab
       token={this.props.token}
       server={this.props.server}
       onTabSelected={this.onTabSelected}
@@ -47,9 +47,9 @@ export default class AdminHome extends Component {
     return (
 
       <div className='AdminHomeContainer'>
-        <Tabs activeKey={key} className='tabsContainer' id='tabs' onSelect={this.handleSelect}>
+        <Tabs activeKey={KEY} className='tabsContainer' id='tabs' onSelect={this.handleSelect}>
           <Tab eventKey={1} title="Stats">
-            { statsTab }
+            { STATSTAB }
           </Tab>
 
           <Tab eventKey={2} title="Users">
@@ -58,7 +58,7 @@ export default class AdminHome extends Component {
               server={this.props.server}
               setRightPanel={this.setRightPanel}
               onClose = {this.onClose}
-              value = {selected}
+              value = {SELECTED}
               onTabSelected={this.onTabSelected} />
           </Tab>
 
@@ -69,7 +69,7 @@ export default class AdminHome extends Component {
               setRightPanel={this.setRightPanel}
               onClose = {this.onClose}
               stats={this.state.statsData}
-              value = {selected}
+              value = {SELECTED}
               onTabSelected={this.onTabSelected} />
           </Tab>
         </Tabs>

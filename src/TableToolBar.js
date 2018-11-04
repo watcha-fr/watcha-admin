@@ -11,8 +11,8 @@ export default class TableToolBar extends Component {
     };
   }
   createUser = () =>{
-    const panel = {'type': 'createUser'};
-    this.props.setRightPanel(panel);
+    const PANEL = {'type': 'createUser'};
+    this.props.setRightPanel(PANEL);
   }
 
 

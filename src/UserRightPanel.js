@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse, Panel, Button, Well, Table, Glyphicon, Alert} from 'react-bootstrap';
+import {Collapse, Panel, Button, Well, Table, Glyphicon, Alert } from 'react-bootstrap';
 
 export default class UserRightPanel extends Component {
   constructor(props) {
@@ -10,6 +10,7 @@ export default class UserRightPanel extends Component {
       editEmail: false,
       isEmail: false,
       emailValue: ' ',
+      busy: false,
     };
   }
   componentDidMount() {
@@ -18,6 +19,7 @@ export default class UserRightPanel extends Component {
     } else {
       this.setState({emailValue: ' '});
     }
+    this.getUsersAdvancedInfos();
   }
   componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
@@ -30,6 +32,7 @@ export default class UserRightPanel extends Component {
       } else {
         this.setState({emailValue: ' '});
       }
+      this.getUsersAdvancedInfos();
     }
   }
 
@@ -60,16 +63,47 @@ export default class UserRightPanel extends Component {
     this.props.onClose();
   }
 
-  onEmailValidate = async () => {
-    const homeServer = this.props.server;
-    const accessToken = this.props.token;
+  getUsersAdvancedInfos = async () =>{
+    const HOME_SERVER = this.props.server;
+    const ACCESS_TOKEN = this.props.token;
     try {
-      const userRequest
-       = await fetch(homeServer+ '_matrix/client/r0/watcha_update_email/'+
+      const SERVER_REQUEST
+       = await fetch(HOME_SERVER+ '_matrix/client/r0/watcha_user_ip/'+
+        encodeURIComponent(this.props.data['User name']['data']), {
+         method: 'GET',
+         headers: {
+           'Authorization': 'Bearer '+ ACCESS_TOKEN,
+           'Accept': 'application/json',
+           'Content-Type': 'application/json',
+         },
+       });
+      const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
+      if (!SERVER_REQUEST.ok) {
+        this.setState({
+          message: {type: 'danger', title: 'Failed to fetch info', body: RESPONSE['error'] },
+        });
+        this.displayInfoMessage();
+      } else {
+        this.setState({
+          userInfos: RESPONSE,
+        });
+      }
+    } catch (e) {
+      console.log('error: ' + e);
+      return;
+    }
+  }
+
+  onEmailValidate = async () => {
+    const HOME_SERVER = this.props.server;
+    const ACCESS_TOKEN = this.props.token;
+    try {
+      const SERVER_REQUEST
+       = await fetch(HOME_SERVER+ '_matrix/client/r0/watcha_update_email/'+
         encodeURIComponent(this.props.data['User name']['data']), {
          method: 'PUT',
          headers: {
-           'Authorization': 'Bearer '+ accessToken,
+           'Authorization': 'Bearer '+ ACCESS_TOKEN,
            'Accept': 'application/json',
            'Content-Type': 'application/json',
          },
@@ -77,8 +111,8 @@ export default class UserRightPanel extends Component {
              {new_email: this.state.new_email},
          ),
        });
-      const response = JSON.parse(await userRequest.text());
-      if (userRequest.ok) {
+      const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
+      if (SERVER_REQUEST.ok) {
         this.setState({
           message: {type: 'success', title: 'Email updated',
             body: this.props.data['User name']['data'] + ' email has been updated'},
@@ -90,7 +124,7 @@ export default class UserRightPanel extends Component {
         });
       } else {
         this.setState({
-          message: {type: 'danger', title: 'Email update failed', body: response['error'] },
+          message: {type: 'danger', title: 'Email update failed', body: RESPONSE['error'] },
         });
         this.displayInfoMessage();
       }
@@ -100,21 +134,21 @@ export default class UserRightPanel extends Component {
     }
   }
    upgradePartner = async () => {
-     const homeServer = this.props.server;
-     const accessToken = this.props.token;
+     const HOME_SERVER = this.props.server;
+     const ACCESS_TOKEN = this.props.token;
      try {
-       const userRequest
-       = await fetch(homeServer+ '_matrix/client/r0/watcha_update_partner_to_member/'+
+       const SERVER_REQUEST
+       = await fetch(HOME_SERVER+ '_matrix/client/r0/watcha_update_partner_to_member/'+
         encodeURIComponent(this.props.data['User name']['data']), {
          method: 'PUT',
          headers: {
-           'Authorization': 'Bearer '+ accessToken,
+           'Authorization': 'Bearer '+ ACCESS_TOKEN,
            'Accept': 'application/json',
            'Content-Type': 'application/json',
          },
        });
-       const response = JSON.parse(await userRequest.text());
-       if (userRequest.ok) {
+       const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
+       if (SERVER_REQUEST.ok) {
          this.setState({
            message: {type: 'success', title: 'Status updated',
              body: this.props.data['User name']['data'] + ' account has been upgraded to member'},
@@ -123,7 +157,7 @@ export default class UserRightPanel extends Component {
          this.displayInfoMessage();
        } else {
          this.setState({
-           message: {type: 'danger', title: 'upgrade failed', body: response['error'] },
+           message: {type: 'danger', title: 'upgrade failed', body: RESPONSE['error'] },
          });
          this.displayInfoMessage();
        }
@@ -146,14 +180,14 @@ export default class UserRightPanel extends Component {
   }
 
   resetPassword = async () => {
-    const homeServer = this.props.server;
-    const accessToken = this.props.token;
+    const HOME_SERVER = this.props.server;
+    const ACCESS_TOKEN = this.props.token;
     try {
-      const userRequest = await fetch(homeServer+'_matrix/client/r0/watcha_reset_password'+
+      const SERVER_REQUEST = await fetch(HOME_SERVER+'_matrix/client/r0/watcha_reset_password'+
         encodeURIComponent(this.props.data['User name']['data']), {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer '+ accessToken,
+          'Authorization': 'Bearer '+ ACCESS_TOKEN,
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
@@ -161,8 +195,8 @@ export default class UserRightPanel extends Component {
             {user: this.props.data['User name']['data']},
         ),
       });
-      const response = JSON.parse(await userRequest.text());
-      if (userRequest.ok) {
+      const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
+      if (SERVER_REQUEST.ok) {
         this.setState({
           message: {type: 'success', title: 'Password reseted',
             body: 'an email has been send to ' + this.props.data['User name']['data'] + ' with a new password'},
@@ -171,7 +205,7 @@ export default class UserRightPanel extends Component {
         this.displayInfoMessage();
       } else {
         this.setState({
-          message: {type: 'danger', title: 'Password reset failed', body: response['error'] },
+          message: {type: 'danger', title: 'Password reset failed', body: RESPONSE['error'] },
         });
         this.displayInfoMessage();
       }
@@ -180,23 +214,50 @@ export default class UserRightPanel extends Component {
       return;
     }
   }
+  identifyUserAgent = (userAgent, elements) =>{
+    const REGEXPS = {
+      'Chrome': [/Chrome\/(\S+)/],
+      'Firefox': [/Firefox\/(\S+)/],
+      'MSIE': [/MSIE (\S+);/],
+      'Opera': [
+        /Opera\/.*?Version\/(\S+)/, /* Opera 10 */
+        /Opera\/(\S+)/, /* Opera 9 and older */
+      ],
+      'Safari': [/Version\/(\S+).*?Safari\//],
+    };
+    let re; let m; let browser; let version;
+    if (userAgent === undefined) {userAgent = navigator.userAgent;}
+    if (elements === undefined) {elements = 2;} else if (elements === 0) {elements = 1337;}
+    for (browser in REGEXPS) {
+      if ({}.hasOwnProperty.call(REGEXPS, browser)) {
+        while ((re = REGEXPS[browser].shift())) {
+          if ((m = userAgent.match(re))) {
+            version = (m[1].match(new RegExp('[^.]+(?:.[^.]+){0,' + --elements + '}')))[0];
+            return browser + ' ' + version;
+          }
+        }
+      }
+    }
+
+    return null;
+  }
   deactivateAccount = async () => {
-    const homeServer = this.props.server;
-    const accessToken = this.props.token;
+    const HOME_SERVER = this.props.server;
+    const ACCESS_TOKEN = this.props.token;
     try {
-      const userRequest =
-      await fetch(homeServer+
+      const SERVER_REQUEST =
+      await fetch(HOME_SERVER+
         '_matrix/client/r0/admin/deactivate/'+encodeURIComponent(this.props.data['User name']['data']), {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer '+ accessToken,
+          'Authorization': 'Bearer '+ ACCESS_TOKEN,
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
 
       });
-      const response = JSON.parse(await userRequest.text());
-      if (userRequest.ok) {
+      const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
+      if (SERVER_REQUEST.ok) {
         this.setState({
           message: {type: 'success', title: 'Account deactivated',
             body: this.props.data['User name']['data'] + ' account have been deactivated'},
@@ -205,7 +266,7 @@ export default class UserRightPanel extends Component {
         this.displayInfoMessage();
       } else {
         this.setState({
-          message: {type: 'danger', title: 'Deactivation failed', body: response['error'] },
+          message: {type: 'danger', title: 'Deactivation failed', body: RESPONSE['error'] },
         });
         this.displayInfoMessage();
       }
@@ -213,6 +274,22 @@ export default class UserRightPanel extends Component {
       console.log('error: ' + e);
       return;
     }
+  }
+
+  addZero = (number) => {
+    if (number < 10) {
+      number = '0' + number;
+    }
+    return number;
+  }
+
+  getDate = (date) => {
+    const OPTIONS = { 'year': 'numeric', 'month': 'long', 'day': 'numeric' };
+    const FORMATED_DATE=date.toLocaleDateString('en-En', OPTIONS) +
+    ' '+this.addZero(date.getHours())+
+    ':'
+    +this.addZero(date.getMinutes());
+    return FORMATED_DATE;
   }
 
   render() {
@@ -222,15 +299,14 @@ export default class UserRightPanel extends Component {
     let title;
     bsStyle = 'primary';
     title = 'User';
-    const open = this.props.data ? true : false;
-    const isPartner = this.props.data['Status']['data']==='Partner';
+    const OPEN = this.props.data ? true : false;
+    const ISPARTNER = this.props.data['Status']['data']==='Partner';
     let emailPlaceholder='';
-
     if (this.props.data['email']) {
       emailPlaceholder = this.props.data['email']['data'];
     }
 
-    if (isPartner) {
+    if (ISPARTNER) {
       upgradePartner=<Button bsStyle='primary' onClick={this.upgradePartner}>Upgrade to member</Button>;
       bsStyle='warning';
       title='Partner';
@@ -284,7 +360,7 @@ export default class UserRightPanel extends Component {
         </td>;
       }
     }
-
+    const ADVANCED_USER_INFOS = [];
     let bottomWell;
     if (this.state.infoMessage) {
       bottomWell =
@@ -305,10 +381,26 @@ export default class UserRightPanel extends Component {
         <Button bsStyle='danger' onClick={this.deactivateAccount}>Deactivate Account</Button>
       </div>;
     }
+
+    if (this.state.userInfos) {
+      for (const CONNECTIONS in this.state.userInfos) {
+        if ({}.hasOwnProperty.call(this.state.userInfos, CONNECTIONS)) {
+          this.identifyUserAgent(this.state.userInfos[CONNECTIONS][1], 2);
+          const DATE = new Date(this.state.userInfos[CONNECTIONS][2]);
+          ADVANCED_USER_INFOS.push(
+              <tr key = {CONNECTIONS}>
+                <td>{ this.state.userInfos[CONNECTIONS][0] }</td>
+                <td>{ this.identifyUserAgent(this.state.userInfos[CONNECTIONS][1]) }</td>
+                <td>{ this.getDate(DATE) }</td>
+              </tr>);
+        }
+      }
+    }
+
     return (
 
       <div>
-        <Collapse in={open} dimension='width' timeout={0}>
+        <Collapse in={OPEN} dimension='width' timeout={0}>
           <div>
 
             <Panel bsStyle={bsStyle} className='rightPanel'>
@@ -336,7 +428,30 @@ export default class UserRightPanel extends Component {
                         { editEmail }
                       </tr>
                     </tbody>
-                  </Table>
+                  </Table >
+                  <Panel id="collapsible-panel-users">
+                    <Panel.Heading>
+                      <Panel.Toggle componentClass="a">Show connection history</Panel.Toggle>
+                    </Panel.Heading>
+                    <Panel.Collapse>
+                      <Panel.Body>
+                        <div className='TableAdvanced'>
+                          <Table striped bordered condensed hover>
+                            <thead>
+                              <tr>
+                                <th>Ip</th>
+                                <th>Device</th>
+                                <th>Connected</th>
+                              </tr>
+                            </thead>
+                            <tbody className='AdvancedUserBody'>
+                              { ADVANCED_USER_INFOS }
+                            </tbody>
+                          </Table>
+                        </div>
+                      </Panel.Body>
+                    </Panel.Collapse>
+                  </Panel>
                 </Well>
                 { bottomWell }
               </div>
