@@ -18,32 +18,32 @@ export default class dataToRow extends Component {
   }
 
   dataToRow = () => {
-    const data = this.props.data;
-    const row = [];
-    const pk = this.props.primaryKey;
-    const rowClassName = this.props.data[pk] === this.props.selected[pk] ? 'rowSelected' : 'row';
-    for (const property in data) {
-      if ({}.hasOwnProperty.call(data, property)) {
+    const DATA = this.props.data;
+    const ROW = [];
+    const PK = this.props.primaryKey;
+    const ROW_CLASS_NAME = this.props.data[PK] === this.props.selected[PK] ? 'rowSelected' : 'row';
+    for (const property in DATA) {
+      if ({}.hasOwnProperty.call(DATA, property)) {
         if (typeof this.props.data[property]['data'] === 'boolean') {
-          row.push(
-              <td className={rowClassName}
+          ROW.push(
+              <td className={ROW_CLASS_NAME}
                 key={property}>
                 <BooleanRow
                   value ={this.props.data[property]['data']}
-                  selected={rowClassName} />
+                  selected={ROW_CLASS_NAME} />
               </td>);
         } else if (this.props.data[property]['type']==='enumerate') {
-          row.push(
+          ROW.push(
               <td
-                className={rowClassName}
+                className={ROW_CLASS_NAME}
                 key={property}>
                 { this.props.data[property]['simplifiedData'].length }
               </td>,
           );
         } else {
-          row.push(
+          ROW.push(
               <td
-                className={rowClassName}
+                className={ROW_CLASS_NAME}
                 key={property}>
                 { this.props.data[property]['simplifiedData'] }
               </td>,
@@ -51,7 +51,7 @@ export default class dataToRow extends Component {
         }
       }
     }
-    return row;
+    return ROW;
   }
 
   render() {

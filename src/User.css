@@ -134,3 +134,9 @@
 .StatsTitle{
   cursor: pointer;
 }
+
+.TableAdvanced{
+  display: block;
+  overflow-y: auto;
+  max-height: 30vh;
+}

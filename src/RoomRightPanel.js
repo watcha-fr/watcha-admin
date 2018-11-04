@@ -24,28 +24,28 @@ export default class RoomRightPanel extends Component {
 
 
   render() {
-    const bsStyle = 'primary';
-    const title = 'Room';
-    const open = this.props.data ? true : false;
-    const users = [];
-    for (const user in this.props.data['Users']['simplifiedData'] ) {
-      if ({}.hasOwnProperty.call(this.props.data['Users']['simplifiedData'], user)) {
-        users.push(<ListGroupItem
-          key={user}
+    const BSSTYLE = 'primary';
+    const TITLE = 'Room';
+    const OPEN = this.props.data ? true : false;
+    const USERS = [];
+    for (const USER in this.props.data['Users']['simplifiedData'] ) {
+      if ({}.hasOwnProperty.call(this.props.data['Users']['simplifiedData'], USER)) {
+        USERS.push(<ListGroupItem
+          key={USER}
           onClick={this.onUSerClicked}>
-          { this.props.data['Users']['simplifiedData'][user] }
+          { this.props.data['Users']['simplifiedData'][USER] }
         </ListGroupItem>);
       }
     }
     return (
       <div>
-        <Collapse in={open} dimension='width' timeout={0}>
+        <Collapse in={OPEN} dimension='width' timeout={0}>
           <div>
 
-            <Panel bsStyle={bsStyle} className='rightPanel'>
+            <Panel bsStyle={BSSTYLE} className='rightPanel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
-                  { title } : { this.props.data['Room Id']['simplifiedData'] }
+                  { TITLE } : { this.props.data['Room Id']['simplifiedData'] }
                   <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose} />
                 </Panel.Title>
               </Panel.Heading>
@@ -69,15 +69,15 @@ export default class RoomRightPanel extends Component {
                     </tbody>
                   </Table>
                 </Well>
-                <Panel id="collapsible-panel-example-3">
+                <Panel id="collapsible-panel-USERS">
                   <Panel.Heading>
-                    <Panel.Title>{ this.props.data['Users']['simplifiedData'].length } users in this room</Panel.Title>
-                    <Panel.Toggle componentClass="a">Show users</Panel.Toggle>
+                    <Panel.Title>{ this.props.data['Users']['simplifiedData'].length } USERS in this room</Panel.Title>
+                    <Panel.Toggle componentClass="a">Show USERS</Panel.Toggle>
                   </Panel.Heading>
                   <Panel.Collapse>
                     <Panel.Body>
                       <ListGroup>
-                        { users }
+                        { USERS }
                       </ListGroup>
                     </Panel.Body>
                   </Panel.Collapse>

@@ -67,10 +67,10 @@ export default class CollapsableRightPanel extends Component {
     return panel;
   }
   render() {
-    const panel=this.getPanel();
+    const PANEL=this.getPanel();
 
     return (
-      <div > { panel } </div>
+      <div > { PANEL } </div>
     );
   }
 }

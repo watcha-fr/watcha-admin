@@ -11,32 +11,32 @@ export default class CardStats extends Component {
     };
   }
   getPanelContent = () => {
-    const panelContent = [];
-    for (const line in this.props.lines) {
-      if ({}.hasOwnProperty.call(this.props.lines, line)) {
-        if (this.props.lines[line].label === 'Admin') {
-          const admins =[];
-          for (const data in this.props.lines[line].data) {
-            if (this.props.lines[line].data.hasOwnProperty(data)) {
-              admins.push(
-                  <div key={this.props.lines[line].data[data]}>
+    const PANEL_CONTENT = [];
+    for (const LINE in this.props.lines) {
+      if ({}.hasOwnProperty.call(this.props.lines, LINE)) {
+        if (this.props.lines[LINE].label === 'Admin') {
+          const ADMINS =[];
+          for (const data in this.props.lines[LINE].data) {
+            if (this.props.lines[LINE].data.hasOwnProperty(data)) {
+              ADMINS.push(
+                  <div key={this.props.lines[LINE].data[data]}>
                     <div
                       className='AdminName'
                       onClick={this.onUserClicked}>
-                      { this.props.lines[line].data[data] }
+                      { this.props.lines[LINE].data[data] }
                     </div>
                   </div>,
               );
             }
           }
-          panelContent.push(<div key={this.props.lines[line].label}> Admins: { admins } </div>);
+          PANEL_CONTENT.push(<div key={this.props.lines[LINE].label}> Admins: { ADMINS } </div>);
         } else {
-          panelContent.push(
-              <div key={this.props.lines[line].label}>{ this.props.lines[line].label+': '+this.props.lines[line].data }</div>);
+          PANEL_CONTENT.push(
+              <div key={this.props.lines[LINE].label}>{ this.props.lines[LINE].label+': '+this.props.lines[LINE].data }</div>);
         }
       }
     }
-    return panelContent;
+    return PANEL_CONTENT;
   }
 
   onCardClicked = () => {
@@ -52,7 +52,7 @@ export default class CardStats extends Component {
   }
 
   render() {
-    const panelContent = this.getPanelContent();
+    const PANEL_CONTENT = this.getPanelContent();
     return (
       <Panel bsStyle="primary" className='statsPanel'>
         <Panel.Heading>
@@ -61,7 +61,7 @@ export default class CardStats extends Component {
         <Panel.Body>
           <div className='statsPanelContent'>
             <div>
-              { panelContent }
+              { PANEL_CONTENT }
             </div>
           </div>
         </Panel.Body>
