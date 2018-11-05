@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {Tab, Tabs} from 'react-bootstrap';
 import DataToTable from './DataToTable';
 import StatsTab from './StatsTab';
+import { withNamespaces } from 'react-i18next';
 
-
-export default class AdminHome extends Component {
+class AdminHome extends Component {
   constructor(props) {
     super(props);
 
@@ -37,7 +37,7 @@ export default class AdminHome extends Component {
   render() {
     const KEY= this.state.key? this.state.key : 1;
     const SELECTED= this.state.data? this.state.data : false;
-
+    const {t}=this.props;
     const STATSTAB = <StatsTab
       token={this.props.token}
       server={this.props.server}
@@ -48,11 +48,11 @@ export default class AdminHome extends Component {
 
       <div className='AdminHomeContainer'>
         <Tabs activeKey={KEY} className='tabsContainer' id='tabs' onSelect={this.handleSelect}>
-          <Tab eventKey={1} title="Stats">
+          <Tab eventKey={1} title={t('Stats')}>
             { STATSTAB }
           </Tab>
 
-          <Tab eventKey={2} title="Users">
+          <Tab eventKey={2} title={t('Users')}>
             <DataToTable tableName='user'
               token={this.props.token}
               server={this.props.server}
@@ -62,7 +62,7 @@ export default class AdminHome extends Component {
               onTabSelected={this.onTabSelected} />
           </Tab>
 
-          <Tab eventKey={3} title="Rooms">
+          <Tab eventKey={3} title={t('Rooms')}>
             <DataToTable tableName='room'
               token={this.props.token}
               server={this.props.server}
@@ -78,3 +78,5 @@ export default class AdminHome extends Component {
     );
   }
 }
+
+export default withNamespaces('common')(AdminHome);

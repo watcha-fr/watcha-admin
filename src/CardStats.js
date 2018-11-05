@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap';
+import { withNamespaces } from 'react-i18next';
 
-
-export default class CardStats extends Component {
+class CardStats extends Component {
   constructor(props) {
     super(props);
 
@@ -11,10 +11,11 @@ export default class CardStats extends Component {
     };
   }
   getPanelContent = () => {
+    const { t } = this.props;
     const PANEL_CONTENT = [];
     for (const LINE in this.props.lines) {
       if ({}.hasOwnProperty.call(this.props.lines, LINE)) {
-        if (this.props.lines[LINE].label === 'Admin') {
+        if (this.props.lines[LINE].label === t('Admin')) {
           const ADMINS =[];
           for (const data in this.props.lines[LINE].data) {
             if (this.props.lines[LINE].data.hasOwnProperty(data)) {
@@ -40,9 +41,10 @@ export default class CardStats extends Component {
   }
 
   onCardClicked = () => {
-    if (this.props.title==='Users') {
+    const { t } = this.props;
+    if (this.props.title===t('Users')) {
       this.props.onTabSelected(2, false);
-    } else if (this.props.title === 'Rooms') {
+    } else if (this.props.title === t('Rooms')) {
       this.props.onTabSelected(3, false);
     }
   }
@@ -69,3 +71,5 @@ export default class CardStats extends Component {
     );
   }
 }
+
+export default withNamespaces('common')(CardStats);
