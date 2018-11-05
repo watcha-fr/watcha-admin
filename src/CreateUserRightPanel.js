@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Collapse, Panel, Glyphicon, Well, Table, Button, Alert } from 'react-bootstrap';
 import { withNamespaces } from 'react-i18next';
+
 class CreateUserRightPanel extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +42,7 @@ class CreateUserRightPanel extends Component {
     } else if (!this.props.isEmailAvailable(this.state.emailValue)) {
       this.setState({
         message: {type: 'danger', title: t('Email already in use'),
-          body: this.state.emailValue+ t('is already in use enter a new email')},
+          body: this.state.emailValue+ t(' is already in use enter a new email')},
       });
       this.displayInfoMessage();
     } else if (!this.state.userIdValue && !this.state.suggestedUserId) {
@@ -71,7 +72,7 @@ class CreateUserRightPanel extends Component {
         const RESPONSE = JSON.parse(await USER_REQUEST.text());
         if (USER_REQUEST.ok) {
           this.setState({
-            message: {type: 'success', title: 'User Created', body: USER_ID+' has been added to watcha'},
+            message: {type: 'success', title: t('User Created'), body: USER_ID+t(' has been added to watcha')},
             busy: false,
             clearForm: true,
           });

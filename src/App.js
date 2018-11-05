@@ -3,6 +3,7 @@ import logo from './images/logo.svg';
 import './App.css';
 import AdminHome from './AdminHome.js';
 import { Button, FormGroup, FormControl, Col, Form, Grid, Row } from 'react-bootstrap';
+import { withNamespaces } from 'react-i18next';
 
 
 class App extends Component {
@@ -18,19 +19,19 @@ class App extends Component {
   }
 
   onConnection = async () => {
-    const self = this;
-    const userName = this.state.userName;
-    const password = this.state.password;
+    const SELF = this;
+    const USERNAME = this.state.userName;
+    const PASSWORD = this.state.password;
 
     try {
-      const path = await this.getserverName() + '_matrix/client/r0/login';
+      const PATH = await this.getserverName() + '_matrix/client/r0/login';
       // XHR POST to login
-      const loginRequest = await fetch(path, {
+      const LOGIN_REQUEST = await fetch(PATH, {
         method: 'POST',
         body: JSON.stringify({
           'initial_device_display_name': 'Web setup account',
-          'user': userName,
-          'password': password,
+          'user': USERNAME,
+          'password': PASSWORD,
           'type': 'm.login.password',
         }),
         headers: {
@@ -38,9 +39,9 @@ class App extends Component {
           'Accept': 'application/json',
         },
       });
-      const loginData = JSON.parse(await loginRequest.text());
-      if (loginData['access_token']) {
-        self.setState({ accessToken: loginData['access_token'] });
+      const LOGIN_DATA = JSON.parse(await LOGIN_REQUEST.text());
+      if (LOGIN_DATA['access_token']) {
+        SELF.setState({ accessToken: LOGIN_DATA['access_token'] });
         return this.state.accessToken;
       } else {
         throw new Error('no access token');
@@ -76,9 +77,19 @@ class App extends Component {
     this.setState({ password: evt.target.value });
   }
 
+  onLanguageChange =(evt) => {
+    const { i18n } = this.props;
+    i18n.changeLanguage(evt.target.id);
+  }
+
   render() {
     if (this.state.accessToken) {
-      return (<AdminHome token={this.state.accessToken} server={this.state.homeserver} className='AdminHome'></AdminHome>);
+      return (<AdminHome
+        token={this.state.accessToken}
+        server={this.state.homeserver}
+        className='AdminHome'
+        onLanguageChange={this.onLanguageChange}>
+      </AdminHome>);
     }
     return (
       <div>
@@ -92,7 +103,7 @@ class App extends Component {
             <Col lg={6} sm={12} md={6} xs={12} mdOffset={3} smOffset={0} xsOffset={0}>
               <Form className='loginInput'>
                 <FormGroup controlId="formHorizontalName">
-                  <FormControl type="text" placeholder="Name" onChange={this.onNameChange} />
+                  <FormControl type="text" placeholder={this.props.t('Name')} onChange={this.onNameChange} />
                 </FormGroup>
                 <FormGroup controlId="formHorizontalPassword">
                   <FormControl type="password" placeholder="Password" onChange={this.onPasswordChange} />
@@ -100,11 +111,11 @@ class App extends Component {
               </Form>
             </Col>
           </Row>
-          <Button bsStyle="primary" className='SubmitButton' onClick={this.onConnection}>Sign in</Button>
+          <Button bsStyle="primary" className='SubmitButton' onClick={this.onConnection}>{ this.props.t('Sign in') }</Button>
         </Grid>
       </div>
     );
   }
 }
 
-export default App;
+export default withNamespaces('common')(App);

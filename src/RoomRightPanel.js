@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {Collapse, Panel, Well, Table, Glyphicon, ListGroupItem, ListGroup} from 'react-bootstrap';
+import { withNamespaces } from 'react-i18next';
 
-export default class RoomRightPanel extends Component {
+class RoomRightPanel extends Component {
   constructor(props) {
     super(props);
 
@@ -24,6 +25,7 @@ export default class RoomRightPanel extends Component {
 
 
   render() {
+    const {t} =this.props;
     const BSSTYLE = 'primary';
     const TITLE = 'Room';
     const OPEN = this.props.data ? true : false;
@@ -55,24 +57,24 @@ export default class RoomRightPanel extends Component {
                   <Table>
                     <tbody>
                       <tr>
-                        <td className='labelText'>Name:</td>
+                        <td className='labelText'>{ t('Name') }:</td>
                         <td className='infoText'>{ this.props.data['Name']['simplifiedData'] }</td>
                       </tr>
                       <tr>
-                        <td className='labelText'>Creator:</td>
+                        <td className='labelText'>{ t('Creator') }:</td>
                         <td className='infoText'>{ this.props.data['Creator']['simplifiedData'] }</td>
                       </tr>
                       <tr>
-                        <td className='labelText'>Active:</td>
+                        <td className='labelText'>{ t('Active') }:</td>
                         <td className='infoText'>{ this.props.data['Active']['simplifiedData'].toString() }</td>
                       </tr>
                     </tbody>
                   </Table>
                 </Well>
-                <Panel id="collapsible-panel-USERS">
+                <Panel id="collapsible-panel-users">
                   <Panel.Heading>
-                    <Panel.Title>{ this.props.data['Users']['simplifiedData'].length } USERS in this room</Panel.Title>
-                    <Panel.Toggle componentClass="a">Show USERS</Panel.Toggle>
+                    <Panel.Title>{ this.props.data['Users']['simplifiedData'].length } { t('Users in this room') }</Panel.Title>
+                    <Panel.Toggle componentClass="a">{ t('Show users') }</Panel.Toggle>
                   </Panel.Heading>
                   <Panel.Collapse>
                     <Panel.Body>
@@ -90,3 +92,4 @@ export default class RoomRightPanel extends Component {
     );
   }
 }
+export default withNamespaces('common')(RoomRightPanel);

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {Collapse, Panel, Button, Well, Table, Glyphicon, Alert } from 'react-bootstrap';
+import { withNamespaces } from 'react-i18next';
 
-export default class UserRightPanel extends Component {
+class UserRightPanel extends Component {
   constructor(props) {
     super(props);
 
@@ -182,6 +183,7 @@ export default class UserRightPanel extends Component {
   resetPassword = async () => {
     const HOME_SERVER = this.props.server;
     const ACCESS_TOKEN = this.props.token;
+    const {t} = this.props;
     try {
       const SERVER_REQUEST = await fetch(HOME_SERVER+'_matrix/client/r0/watcha_reset_password'+
         encodeURIComponent(this.props.data['User name']['data']), {
@@ -199,13 +201,13 @@ export default class UserRightPanel extends Component {
       if (SERVER_REQUEST.ok) {
         this.setState({
           message: {type: 'success', title: 'Password reseted',
-            body: 'an email has been send to ' + this.props.data['User name']['data'] + ' with a new password'},
+            body: t('an email has been send to ') + this.props.data['User name']['data'] + t(' with a new password')},
         });
         this.props.refresh();
         this.displayInfoMessage();
       } else {
         this.setState({
-          message: {type: 'danger', title: 'Password reset failed', body: RESPONSE['error'] },
+          message: {type: 'danger', title: t('Password reset failed'), body: RESPONSE['error'] },
         });
         this.displayInfoMessage();
       }
@@ -244,6 +246,7 @@ export default class UserRightPanel extends Component {
   deactivateAccount = async () => {
     const HOME_SERVER = this.props.server;
     const ACCESS_TOKEN = this.props.token;
+    const {t} = this.props;
     try {
       const SERVER_REQUEST =
       await fetch(HOME_SERVER+
@@ -259,14 +262,14 @@ export default class UserRightPanel extends Component {
       const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
       if (SERVER_REQUEST.ok) {
         this.setState({
-          message: {type: 'success', title: 'Account deactivated',
-            body: this.props.data['User name']['data'] + ' account have been deactivated'},
+          message: {type: 'success', title: t('Account deactivated'),
+            body: this.props.data['User name']['data'] + t(' account have been deactivated')},
         });
         this.props.refresh();
         this.displayInfoMessage();
       } else {
         this.setState({
-          message: {type: 'danger', title: 'Deactivation failed', body: RESPONSE['error'] },
+          message: {type: 'danger', title: t('Deactivation failed'), body: RESPONSE['error'] },
         });
         this.displayInfoMessage();
       }
@@ -297,8 +300,9 @@ export default class UserRightPanel extends Component {
     let editEmail;
     let bsStyle;
     let title;
+    const {t} = this.props;
     bsStyle = 'primary';
-    title = 'User';
+    title = t('User');
     const OPEN = this.props.data ? true : false;
     const ISPARTNER = this.props.data['Status']['data']==='Partner';
     let emailPlaceholder='';
@@ -307,9 +311,9 @@ export default class UserRightPanel extends Component {
     }
 
     if (ISPARTNER) {
-      upgradePartner=<Button bsStyle='primary' onClick={this.upgradePartner}>Upgrade to member</Button>;
+      upgradePartner=<Button bsStyle='primary' onClick={this.upgradePartner}>{ t('Upgrade to member') }</Button>;
       bsStyle='warning';
-      title='Partner';
+      title=t('Partner');
     }
     editEmail=
     <td>
@@ -377,8 +381,8 @@ export default class UserRightPanel extends Component {
       bottomWell=
       <div className='bottomButton'>
         { upgradePartner }
-        <Button bsStyle='primary' onClick={this.resetPassword}>Reset Password</Button>
-        <Button bsStyle='danger' onClick={this.deactivateAccount}>Deactivate Account</Button>
+        <Button bsStyle='primary' onClick={this.resetPassword}>{ t('Reset Password') }</Button>
+        <Button bsStyle='danger' onClick={this.deactivateAccount}>{ t('Deactivate Account') }</Button>
       </div>;
     }
 
@@ -416,13 +420,15 @@ export default class UserRightPanel extends Component {
                   <Table>
                     <tbody>
                       <tr>
-                        <td className='labelText'>Creation:</td>
+                        <td className='labelText'>{ t('Creation') }:</td>
                         <td className='infoText'>{ this.props.data['Date of creation']['data'] }</td>
                       </tr>
-                      <tr>
-                        <td className='labelText'>Devices:</td>
-                        <td className='infoText'>{ this.props.data.device }</td>
-                      </tr>
+                      { /* we don't display device yet but may be useful for e2e
+                        <tr>
+                          <td className='labelText'>Devices:</td>
+                          <td className='infoText'>{ this.props.data.device }</td>
+                        </tr>
+                      */ }
                       <tr>
                         <td className='labelText'>Email :</td>
                         { editEmail }
@@ -431,7 +437,7 @@ export default class UserRightPanel extends Component {
                   </Table >
                   <Panel id="collapsible-panel-users">
                     <Panel.Heading>
-                      <Panel.Toggle componentClass="a">Show connection history</Panel.Toggle>
+                      <Panel.Toggle componentClass="a">{ t('Show connection history') }</Panel.Toggle>
                     </Panel.Heading>
                     <Panel.Collapse>
                       <Panel.Body>
@@ -440,8 +446,8 @@ export default class UserRightPanel extends Component {
                             <thead>
                               <tr>
                                 <th>Ip</th>
-                                <th>Device</th>
-                                <th>Connected</th>
+                                <th>{ t('Device') }</th>
+                                <th>{ t('Connected') }</th>
                               </tr>
                             </thead>
                             <tbody className='AdvancedUserBody'>
@@ -462,3 +468,5 @@ export default class UserRightPanel extends Component {
     );
   }
 }
+
+export default withNamespaces('common')(UserRightPanel);
