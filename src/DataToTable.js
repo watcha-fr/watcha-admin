@@ -3,6 +3,7 @@ import Datatorow from './DataToRow';
 import {Table} from 'react-bootstrap';
 import TableToolBar from './TableToolBar';
 import CollapsableRightPanel from './CollapsableRightPanel';
+import { withNamespaces } from 'react-i18next';
 /*
 
  */
@@ -100,7 +101,7 @@ const TABLE_TYPE = // here we declare all the type of table we wish to display
 };
 
 
-export default class DataToTable extends Component {
+class DataToTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -167,9 +168,10 @@ export default class DataToTable extends Component {
 
   getHeader = (type) => {
     const HEADER = [];
+    const {t} = this.props;
     for (const ELEM in type['header']) {
       if ({}.hasOwnProperty.call(type['header'], ELEM)) {
-        HEADER.push(<th key={ELEM}> { ELEM } </th>);
+        HEADER.push(<th key={ELEM}> { t(ELEM) } </th>);
       }
     }
 
@@ -489,3 +491,4 @@ export default class DataToTable extends Component {
     );
   }
 }
+export default withNamespaces('common')(DataToTable);
