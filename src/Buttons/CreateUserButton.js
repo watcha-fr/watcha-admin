@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
-
-export default class CreateUserButton extends Component {
+import { withNamespaces } from 'react-i18next';
+class CreateUserButton extends Component {
   constructor(props) {
     super(props);
 
@@ -12,7 +12,8 @@ export default class CreateUserButton extends Component {
 
   render() {
     return (
-      <Button onClick = {this.props.onClick} bsStyle={this.props.bsStyle}>Create User</Button>
+      <Button onClick = {this.props.onClick} bsStyle={this.props.bsStyle}>{ this.props.t('Create User') }</Button>
     );
   }
 }
+export default withNamespaces('common')(CreateUserButton);

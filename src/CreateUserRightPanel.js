@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Collapse, Panel, Glyphicon, Well, Table, Button, Alert } from 'react-bootstrap';
-
-export default class CreateUserRightPanel extends Component {
+import { withNamespaces } from 'react-i18next';
+class CreateUserRightPanel extends Component {
   constructor(props) {
     super(props);
 
@@ -12,43 +12,49 @@ export default class CreateUserRightPanel extends Component {
       lastNameValue: '',
       firstNameValue: '',
       suggestedUserId: '',
+      userIdValue: '',
+      busy: false,
     };
   }
   createUser = async () =>{
     const HOME_SERVER = this.props.server;
     const ACCESS_TOKEN = this.props.token;
+    const {t} = this.props;
     if (!this.state.isEmail) {
       this.setState({
-        message: {type: 'danger', title: 'Invalid Email',
-          body: 'this email adress seems to be incorrect please enter a valid email adress '},
+        message: {type: 'danger', title: t('Invalid Email'),
+          body: t('this email adress seems to be incorrect please enter a valid email adress ')},
       });
       this.displayInfoMessage();
     } else if (!this.state.isFirstName) {
       this.setState({
-        message: {type: 'danger', title: 'Invalid First Name',
-          body: 'First Name must contain at least two characters '},
+        message: {type: 'danger', title: t('Invalid First Name'),
+          body: t('First Name must contain at least two characters ')},
       });
       this.displayInfoMessage();
     } else if (!this.state.isLastName) {
       this.setState({
-        message: {type: 'danger', title: 'Invalid Last Name',
-          body: 'Last Name must contain at least two characters '},
+        message: {type: 'danger', title: t('Invalid Last Name'),
+          body: t('Last Name must contain at least two characters ')},
       });
       this.displayInfoMessage();
     } else if (!this.props.isEmailAvailable(this.state.emailValue)) {
       this.setState({
-        message: {type: 'danger', title: 'Email already in use',
-          body: this.state.emailValue+ ' is already in use enter a new email '},
+        message: {type: 'danger', title: t('Email already in use'),
+          body: this.state.emailValue+ t('is already in use enter a new email')},
       });
       this.displayInfoMessage();
     } else if (!this.state.userIdValue && !this.state.suggestedUserId) {
       this.setState({
-        message: {type: 'danger', title: 'User id required',
-          body: 'enter a valid user id' },
+        message: {type: 'danger', title: t('User id required'),
+          body: t('enter a valid user id') },
       });
       this.displayInfoMessage();
     } else {
       try {
+        this.setState({
+          busy: true,
+        });
         const USER_ID = this.state.userIdValue ? this.state.userIdValue : this.state.suggestedUserId;
         const USER_REQUEST = await fetch(HOME_SERVER+ '_matrix/client/r0/watcha_register', {
           method: 'POST',
@@ -66,16 +72,22 @@ export default class CreateUserRightPanel extends Component {
         if (USER_REQUEST.ok) {
           this.setState({
             message: {type: 'success', title: 'User Created', body: USER_ID+' has been added to watcha'},
+            busy: false,
+            clearForm: true,
           });
           this.displayInfoMessage();
         } else {
           this.setState({
-            message: {type: 'danger', title: 'User Creation Failed', body: RESPONSE['error'] },
+            message: {type: 'danger', title: t('User Creation Failed'), body: RESPONSE['error'] },
+            busy: false,
           });
           this.displayInfoMessage();
         }
       } catch (e) {
         console.log('error: ' + e);
+        this.setState({
+          busy: false,
+        });
         return;
       }
     }
@@ -148,12 +160,22 @@ export default class CreateUserRightPanel extends Component {
     this.setState({
       infoMessage: false,
     });
+    if (this.state.clearForm) {
+      this.setState({
+        clearForm: false,
+        emailValue: '',
+        userIdValue: '',
+        lastNameValue: '',
+        firstNameValue: '',
+      });
+    }
   }
 onUserIdEdit = () =>{
   this.setState({editUserId: !this.state.editUserId});
 }
 
 render() {
+  const {t} = this.props;
   let bottomWell;
   let editUserId;
   editUserId=
@@ -174,6 +196,7 @@ render() {
     editUserId=
     <td >
       <input
+        value={this.state.userIdValue}
         placeholder={this.state.suggestedUserId}
         className='inputValue'
         onChange={this.onUserIdChange}
@@ -200,17 +223,17 @@ render() {
       </Alert>;
   } else {
     bottomWell=<div className='bottomButton'>
-      <Button bsStyle='primary' onClick={this.createUser}>Create User</Button>
+      <Button bsStyle='primary' onClick={this.createUser} disabled={this.state.busy}>{ t('Create User') }</Button>
     </div>;
   }
   return (
     <div>
       <Collapse in={true} dimension='width' timeout={0}>
         <div>
-          <Panel className='rightPanel'>
+          <Panel className='rightPanel' bsStyle="primary">
             <Panel.Heading>
-              <Panel.Title componentClass='h3'>
-                  Create User
+              <Panel.Title componentClass='h3'>{ t('Create User') }
+
                 <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
               </Panel.Title>
             </Panel.Heading>
@@ -220,13 +243,13 @@ render() {
                 <Table>
                   <tbody>
                     <tr>
-                      <td className='labelText'>First Name:</td>
+                      <td className='labelText'>{ t('First Name') }:</td>
                       <td>
                         <input onChange={this.onFirstNameChange} />
                       </td>
                     </tr>
                     <tr>
-                      <td className='labelText'>Last Name:</td>
+                      <td className='labelText'>{ t('Last Name') }:</td>
                       <td>
                         <input onChange={this.onLastNameChange} />
                       </td>
@@ -238,7 +261,7 @@ render() {
                       </td>
                     </tr>
                     <tr>
-                      <td className='labelText' >User Id:</td>
+                      <td className='labelText' >{ t('User Id') }:</td>
                       { editUserId }
 
                     </tr>
@@ -256,3 +279,4 @@ render() {
   );
 }
 }
+export default withNamespaces('common')(CreateUserRightPanel);

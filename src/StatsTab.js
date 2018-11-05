@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import CardStats from './CardStats';
-
+import { withNamespaces } from 'react-i18next';
 import { PageHeader, Button} from 'react-bootstrap';
 
-
-export default class StatsTab extends Component {
+class StatsTab extends Component {
   constructor(props) {
     super(props);
 
@@ -72,6 +71,7 @@ export default class StatsTab extends Component {
     let oneOnOneData;
     let activeRooms;
     let Admin;
+    const { t } = this.props;
     const USER_LINES = [];
     const ROOM_LINES = [];
     if (this.state.stats) {
@@ -81,11 +81,11 @@ export default class StatsTab extends Component {
       oneOnOneData = this.state.stats['rooms']['big_rooms_count'];
       activeRooms = this.state.stats['rooms']['big_rooms_count_active'];
       Admin = this.state.stats['admins'];
-      USER_LINES.push( {label: 'Members', data: membersData},
-          {label: 'Partners', data: partnersData}, {label: 'Admin', data: Admin});
-      ROOM_LINES.push( {label: 'Active rooms', data: activeRooms},
-          {label: 'Personal conversation', data: oneOnOneData},
-          {label: 'Inactive Rooms', data: bigRoomsData-activeRooms});
+      USER_LINES.push( {label: t('Members'), data: membersData},
+          {label: t('Partners'), data: partnersData}, {label: t('Admin'), data: Admin});
+      ROOM_LINES.push( {label: t('Active rooms'), data: activeRooms},
+          {label: t('Personal conversation'), data: oneOnOneData},
+          {label: t('Inactive Rooms'), data: bigRoomsData-activeRooms});
     }
     let buttonReport;
     if (this.state.serverReport) {
@@ -97,14 +97,15 @@ export default class StatsTab extends Component {
     return (
       <div>
         <PageHeader>
-        Statistics for Watcha server
+          { t('Statistics for Watcha server') }
         </PageHeader>
         <div className='statsPanelsContainer'>
-          <CardStats lines={USER_LINES} title='Users' onTabSelected={this.props.onTabSelected} />
-          <CardStats lines={ROOM_LINES} title='Rooms' onTabSelected={this.props.onTabSelected} />
+          <CardStats lines={USER_LINES} title={t('Users')} onTabSelected={this.props.onTabSelected} />
+          <CardStats lines={ROOM_LINES} title={t('Rooms')} onTabSelected={this.props.onTabSelected} />
         </div>
         { buttonReport }
       </div>
     );
   }
 }
+export default withNamespaces('common')(StatsTab);
