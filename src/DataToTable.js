@@ -106,6 +106,7 @@ class DataToTable extends Component {
     super(props);
     this.state = {
       selected: false, //the selected row
+      update: false,
       rightPanel: false, // right panel is hidden at start
       arrayOfdata: [], // an array with the data collected from server
       type: TABLE_TYPE[this.props.tableName], // the name of the table
@@ -147,13 +148,6 @@ class DataToTable extends Component {
     }
   }
 
-  onTabsSelected = (data) => {
-    this.setState({ selected: data });
-    this.setState({
-      rightPanel: {type: this.props.tableName, data: data},
-    });
-  };
-
   escFunction = (event) => {
     if (event.keyCode === 27) {
       this.onClose();
@@ -165,6 +159,13 @@ class DataToTable extends Component {
       selected: false,
     });
   }
+
+refreshRightPanel = async (data) => {
+  this.setState({
+    update: data,
+  });
+  this.onRefresh();
+}
 
   getHeader = (type) => {
     const HEADER = [];
@@ -295,7 +296,12 @@ class DataToTable extends Component {
       }
     }
 
-
+    if (this.state.update) {
+      this.findDataByPrimaryKey(this.state.update);
+      this.setState({
+        update: false,
+      });
+    }
     this.setState({finish: true});
   }
   //function to convert a full user id to a simplified one since synapse use both forms
@@ -462,6 +468,7 @@ class DataToTable extends Component {
         isEmailAvailable = {this.isEmailAvailable}
         refresh ={this.onRefresh}
         onTabSelected ={this.props.onTabSelected}
+        refreshRightPanel={this.refreshRightPanel}
       />;
     }
 
