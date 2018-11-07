@@ -180,6 +180,11 @@ class UserRightPanel extends Component {
     });
   }
 
+  onInfoMessageValidate =() => {
+    this.props.refreshRightPanel(this.props.data['User name']['data']);
+    this.dismissInfoMessage();
+  }
+
   resetPassword = async () => {
     const HOME_SERVER = this.props.server;
     const ACCESS_TOKEN = this.props.token;
@@ -200,10 +205,10 @@ class UserRightPanel extends Component {
       const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
       if (SERVER_REQUEST.ok) {
         this.setState({
-          message: {type: 'success', title: 'Password reseted',
+          message: {type: 'success', title: t('Password reseted'),
             body: t('an email has been send to ') + this.props.data['User name']['data'] + t(' with a new password')},
         });
-        this.props.refresh();
+        await this.props.refresh();
         this.displayInfoMessage();
       } else {
         this.setState({
@@ -216,6 +221,7 @@ class UserRightPanel extends Component {
       return;
     }
   }
+
   identifyUserAgent = (userAgent, elements) =>{
     const REGEXPS = {
       'Chrome': [/Chrome\/(\S+)/],
@@ -243,6 +249,7 @@ class UserRightPanel extends Component {
 
     return null;
   }
+
   deactivateAccount = async () => {
     const HOME_SERVER = this.props.server;
     const ACCESS_TOKEN = this.props.token;
@@ -296,25 +303,60 @@ class UserRightPanel extends Component {
   }
 
   render() {
-    let upgradePartner;
+    const ISPARTNER = this.props.data['Status']['data']==='Partner';
+    const {t} = this.props;
+    const OPEN = this.props.data ? true : false;
+    const ISDEACTIVATE = !this.props.data['Active']['data'];
     let editEmail;
     let bsStyle;
     let title;
-    const {t} = this.props;
+    const bottomButtons =[];
     bsStyle = 'primary';
     title = t('User');
-    const OPEN = this.props.data ? true : false;
-    const ISPARTNER = this.props.data['Status']['data']==='Partner';
+
+    if (ISDEACTIVATE) {
+      bottomButtons.push(
+          <Button
+            key="activateAccount"
+            bsStyle='success'
+            onClick={this.resetPassword}>{
+              t('Activate account') }
+          </Button>,
+      );
+    } else {
+      bottomButtons.push(
+          <Button
+            key="resetPassword"
+            bsStyle='primary'
+            onClick={this.resetPassword}>
+            { t('Reset Password') }
+          </Button>);
+
+      bottomButtons.push(
+          <Button
+            key="deactivateAccount"
+            bsStyle='danger'
+            onClick={this.deactivateAccount}>
+            { t('Deactivate Account') }
+          </Button>);
+
+      if (ISPARTNER) {
+        title=t('Partner');
+        bsStyle='warning';
+        bottomButtons.push(
+            <Button bsStyle='primary'
+              key="upgradeToMember"
+              onClick={this.upgradePartner}>
+              { t('Upgrade to member') }
+            </Button>);
+      }
+    }
     let emailPlaceholder='';
     if (this.props.data['email']) {
       emailPlaceholder = this.props.data['email']['data'];
     }
 
-    if (ISPARTNER) {
-      upgradePartner=<Button bsStyle='primary' onClick={this.upgradePartner}>{ t('Upgrade to member') }</Button>;
-      bsStyle='warning';
-      title=t('Partner');
-    }
+
     editEmail=
     <td>
       <input
@@ -374,15 +416,13 @@ class UserRightPanel extends Component {
           { this.state.message.body }
         </p>
         <p>
-          <Button bsStyle={this.state.message.type} onClick={this.dismissInfoMessage}>Ok</Button>
+          <Button bsStyle={this.state.message.type} onClick={this.onInfoMessageValidate}>Ok</Button>
         </p>
       </Alert>;
     } else {
       bottomWell=
       <div className='bottomButton'>
-        { upgradePartner }
-        <Button bsStyle='primary' onClick={this.resetPassword}>{ t('Reset Password') }</Button>
-        <Button bsStyle='danger' onClick={this.deactivateAccount}>{ t('Deactivate Account') }</Button>
+        { bottomButtons }
       </div>;
     }
 

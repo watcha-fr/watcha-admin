@@ -57,5 +57,7 @@
 "User name":"Nom d'utilisateur",
 "Display Name":"Nom d'affichage",
 "Date of creation":"Date de création",
-"Room Id":"Identifiant du salon"
+"Room Id":"Identifiant du salon",
+"Password reseted":"Mot de passe réinitialisé",
+"Activate account":"Activer le compte"
 }
