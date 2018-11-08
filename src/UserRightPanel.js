@@ -118,7 +118,6 @@ class UserRightPanel extends Component {
           message: {type: 'success', title: 'Email updated',
             body: this.props.data['User name']['data'] + ' email has been updated'},
         });
-        this.props.refresh();
         this.displayInfoMessage();
         this.setState({
           editEmail: false,
@@ -154,7 +153,6 @@ class UserRightPanel extends Component {
            message: {type: 'success', title: 'Status updated',
              body: this.props.data['User name']['data'] + ' account has been upgraded to member'},
          });
-         this.props.refresh();
          this.displayInfoMessage();
        } else {
          this.setState({
@@ -208,7 +206,6 @@ class UserRightPanel extends Component {
           message: {type: 'success', title: t('Password reseted'),
             body: t('an email has been send to ') + this.props.data['User name']['data'] + t(' with a new password')},
         });
-        await this.props.refresh();
         this.displayInfoMessage();
       } else {
         this.setState({
@@ -256,23 +253,22 @@ class UserRightPanel extends Component {
     const {t} = this.props;
     try {
       const SERVER_REQUEST =
-      await fetch(HOME_SERVER+
+        await fetch(HOME_SERVER+
         '_matrix/client/r0/admin/deactivate/'+encodeURIComponent(this.props.data['User name']['data']), {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer '+ ACCESS_TOKEN,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer '+ ACCESS_TOKEN,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
 
-      });
+        });
       const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
       if (SERVER_REQUEST.ok) {
         this.setState({
           message: {type: 'success', title: t('Account deactivated'),
             body: this.props.data['User name']['data'] + t(' account have been deactivated')},
         });
-        this.props.refresh();
         this.displayInfoMessage();
       } else {
         this.setState({
