@@ -181,9 +181,6 @@ refreshRightPanel = async (data) => {
   }
 
   onRefresh = () =>{
-    this.setState({
-      arrayOfdata: [],
-    });
     this.getData();
   }
 
@@ -202,6 +199,7 @@ refreshRightPanel = async (data) => {
   getData = async () => {
     let jsonData;
     let JoinTablesData;
+    const arrayData = [];
     const HOME_SERVER = this.props.server;
     const ACCESS_TOKEN = this.props.token;
     const JOIN_TABLES = this.state.type['JOIN_TABLES'];
@@ -248,7 +246,10 @@ refreshRightPanel = async (data) => {
           }
         }
 
-        this.state.arrayOfdata.push(DATAOBJECT);
+        arrayData.push(DATAOBJECT);
+        this.setState({
+          arrayOfdata: arrayData,
+        });
       }
     }
     for (const TABLE in JOIN_TABLES) {// handle extra tables
@@ -324,7 +325,7 @@ refreshRightPanel = async (data) => {
       case 'string':
         data = simplifiedRawData;
         break;
-      case 'boolean':
+      case 'boolean'://data=rawData !==0
         if (rawData === 0) {
           data = false;
         } else {
