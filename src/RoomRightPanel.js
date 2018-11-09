@@ -29,13 +29,13 @@ class RoomRightPanel extends Component {
     const BSSTYLE = 'primary';
     const TITLE = 'Room';
     const OPEN = this.props.data ? true : false;
-    const USERS = [];
-    for (const USER in this.props.data['Users']['simplifiedData'] ) {
-      if ({}.hasOwnProperty.call(this.props.data['Users']['simplifiedData'], USER)) {
-        USERS.push(<ListGroupItem
-          key={USER}
+    const users = [];
+    for (const user in this.props.data['Users']['simplifiedData'] ) {
+      if ({}.hasOwnProperty.call(this.props.data['Users']['simplifiedData'], user)) {
+        users.push(<ListGroupItem
+          key={user}
           onClick={this.onUSerClicked}>
-          { this.props.data['Users']['simplifiedData'][USER] }
+          { this.props.data['Users']['simplifiedData'][user] }
         </ListGroupItem>);
       }
     }
@@ -79,7 +79,7 @@ class RoomRightPanel extends Component {
                   <Panel.Collapse>
                     <Panel.Body>
                       <ListGroup>
-                        { USERS }
+                        { users }
                       </ListGroup>
                     </Panel.Body>
                   </Panel.Collapse>

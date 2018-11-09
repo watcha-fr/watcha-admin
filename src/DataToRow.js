@@ -19,13 +19,13 @@ export default class dataToRow extends Component {
 
   dataToRow = () => {
     const DATA = this.props.data;
-    const ROW = [];
+    const row = [];
     const PK = this.props.primaryKey;
     const ROW_CLASS_NAME = this.props.data[PK] === this.props.selected[PK] ? 'rowSelected' : 'row';
     for (const property in DATA) {
       if ({}.hasOwnProperty.call(DATA, property)) {
         if (typeof this.props.data[property]['data'] === 'boolean') {
-          ROW.push(
+          row.push(
               <td className={ROW_CLASS_NAME}
                 key={property}>
                 <BooleanRow
@@ -33,7 +33,7 @@ export default class dataToRow extends Component {
                   selected={ROW_CLASS_NAME} />
               </td>);
         } else if (this.props.data[property]['type']==='enumerate') {
-          ROW.push(
+          row.push(
               <td
                 className={ROW_CLASS_NAME}
                 key={property}>
@@ -41,7 +41,7 @@ export default class dataToRow extends Component {
               </td>,
           );
         } else {
-          ROW.push(
+          row.push(
               <td
                 className={ROW_CLASS_NAME}
                 key={property}>
@@ -51,7 +51,7 @@ export default class dataToRow extends Component {
         }
       }
     }
-    return ROW;
+    return row;
   }
 
   render() {

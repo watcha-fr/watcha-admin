@@ -72,8 +72,8 @@ class StatsTab extends Component {
     let activeRooms;
     let Admin;
     const { t } = this.props;
-    const USER_LINES = [];
-    const ROOM_LINES = [];
+    const userLines = [];
+    const roomLines = [];
     if (this.state.stats) {
       membersData = this.state.stats['users']['local'];
       partnersData = this.state.stats['users']['partners'];
@@ -81,9 +81,9 @@ class StatsTab extends Component {
       oneOnOneData = this.state.stats['rooms']['big_rooms_count'];
       activeRooms = this.state.stats['rooms']['big_rooms_count_active'];
       Admin = this.state.stats['admins'];
-      USER_LINES.push( {label: t('Members'), data: membersData},
+      userLines.push( {label: t('Members'), data: membersData},
           {label: t('Partners'), data: partnersData}, {label: t('Admin'), data: Admin});
-      ROOM_LINES.push( {label: t('Active rooms'), data: activeRooms},
+      roomLines.push( {label: t('Active rooms'), data: activeRooms},
           {label: t('Personal conversation'), data: oneOnOneData},
           {label: t('Inactive Rooms'), data: bigRoomsData-activeRooms});
     }
@@ -100,8 +100,8 @@ class StatsTab extends Component {
           { t('Statistics for Watcha server') }
         </PageHeader>
         <div className='statsPanelsContainer'>
-          <CardStats lines={USER_LINES} title={t('Users')} onTabSelected={this.props.onTabSelected} />
-          <CardStats lines={ROOM_LINES} title={t('Rooms')} onTabSelected={this.props.onTabSelected} />
+          <CardStats lines={userLines} title={t('Users')} onTabSelected={this.props.onTabSelected} />
+          <CardStats lines={roomLines} title={t('Rooms')} onTabSelected={this.props.onTabSelected} />
         </div>
         { buttonReport }
       </div>
