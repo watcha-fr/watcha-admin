@@ -402,7 +402,7 @@ class UserRightPanel extends Component {
         </td>;
       }
     }
-    const ADVANCED_USER_INFOS = [];
+    const advancedUserInfos = [];
     let bottomWell;
     if (this.state.infoMessage) {
       bottomWell =
@@ -423,14 +423,14 @@ class UserRightPanel extends Component {
     }
 
     if (this.state.userInfos) {
-      for (const CONNECTIONS in this.state.userInfos) {
-        if ({}.hasOwnProperty.call(this.state.userInfos, CONNECTIONS)) {
-          this.identifyUserAgent(this.state.userInfos[CONNECTIONS][1], 2);
-          const DATE = new Date(this.state.userInfos[CONNECTIONS][2]);
-          ADVANCED_USER_INFOS.push(
-              <tr key = {CONNECTIONS}>
-                <td>{ this.state.userInfos[CONNECTIONS][0] }</td>
-                <td>{ this.identifyUserAgent(this.state.userInfos[CONNECTIONS][1]) }</td>
+      for (const connections in this.state.userInfos) {
+        if ({}.hasOwnProperty.call(this.state.userInfos, connections)) {
+          this.identifyUserAgent(this.state.userInfos[connections][1], 2);
+          const DATE = new Date(this.state.userInfos[connections][2]);
+          advancedUserInfos.push(
+              <tr key = {connections}>
+                <td>{ this.state.userInfos[connections][0] }</td>
+                <td>{ this.identifyUserAgent(this.state.userInfos[connections][1]) }</td>
                 <td>{ this.getDate(DATE) }</td>
               </tr>);
         }
@@ -487,7 +487,7 @@ class UserRightPanel extends Component {
                               </tr>
                             </thead>
                             <tbody className='AdvancedUserBody'>
-                              { ADVANCED_USER_INFOS }
+                              { advancedUserInfos }
                             </tbody>
                           </Table>
                         </div>

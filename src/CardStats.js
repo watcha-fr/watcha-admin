@@ -12,14 +12,14 @@ class CardStats extends Component {
   }
   getPanelContent = () => {
     const { t } = this.props;
-    const PANEL_CONTENT = [];
+    const panelContent = [];
     for (const LINE in this.props.lines) {
       if ({}.hasOwnProperty.call(this.props.lines, LINE)) {
         if (this.props.lines[LINE].label === t('Admin')) {
-          const ADMINS =[];
+          const admins =[];
           for (const data in this.props.lines[LINE].data) {
             if (this.props.lines[LINE].data.hasOwnProperty(data)) {
-              ADMINS.push(
+              admins.push(
                   <div key={this.props.lines[LINE].data[data]}>
                     <div
                       className='AdminName'
@@ -30,14 +30,14 @@ class CardStats extends Component {
               );
             }
           }
-          PANEL_CONTENT.push(<div key={this.props.lines[LINE].label}> { t('Admins') }: { ADMINS } </div>);
+          panelContent.push(<div key={this.props.lines[LINE].label}> { t('Admins') }: { admins } </div>);
         } else {
-          PANEL_CONTENT.push(
+          panelContent.push(
               <div key={this.props.lines[LINE].label}>{ this.props.lines[LINE].label+': '+this.props.lines[LINE].data }</div>);
         }
       }
     }
-    return PANEL_CONTENT;
+    return panelContent;
   }
 
   onCardClicked = () => {
