@@ -54,7 +54,8 @@ class App extends Component {
   }
 
   getserverName = async () => {
-    let coreUrl = '';
+    /*
+    let coreUrl = '';/*
     try {
       const configRequest = await fetch('/config.json');
       const configData = JSON.parse(await configRequest.text());
@@ -66,9 +67,22 @@ class App extends Component {
     }
     console.log('coreURL = ' + coreUrl);
     this.setState({ homeserver: coreUrl + '/' });
-    return coreUrl + '/';
+    return coreUrl + '/';*
+
+    */
+    this.setState({
+      homeserver: 'http://localhost:8008/',
+    });
+    return 'http://localhost:8008/';
+  }
+  /*
+    this.setState({
+      homeserver: 'https://pit-core.watcha.fr/',
+    });
+    return 'https://pit-core.watcha.fr/';
   }
 
+  */
   onNameChange = (evt) => {
     this.setState({ userName: evt.target.value });
   }
