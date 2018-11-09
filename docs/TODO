@@ -1,5 +1,4 @@
-dataToRow.push(
-    <Datatorow data={userData[elements]} onUserSelected={onUserSelected} selected={selected} primaryKey={primaryKey} key={elements} />,
+
 
 User Admin:
 
@@ -168,3 +167,5 @@ Sylvain
 good
 Alexandre Storelli
 Pour les logs, après réflexion, je suis favorable à donner l'intégralité des accès à l'intégrateur. Présenté sous forme d'onglets selon chaque thématique (serveur, conf, système...). Ça facilitera la communication entre l'intégrateur et nous s'il faut faire du debug ou analyser des attaques. François G & Sylvain quelle est votre position sur la question?
+
+Review francois
