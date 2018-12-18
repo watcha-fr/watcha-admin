@@ -18,6 +18,20 @@ class App extends Component {
     };
   }
 
+  componentDidMount = () => {
+    document.addEventListener('keydown', this.onEnterPressed, false);
+  }
+
+  componentWillUnmount = () => {
+    document.removeEventListener('keydown', this.onEnterPressed, false);
+  }
+
+    onEnterPressed = (event) => {
+    if(event.keyCode === 13) {
+        this.onConnection();
+    }
+  }
+
   onConnection = async () => {
     const SELF = this;
     const USERNAME = this.state.userName;
