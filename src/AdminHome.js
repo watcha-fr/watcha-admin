@@ -73,6 +73,7 @@ class AdminHome extends Component {
               value = {SELECTED}
               onTabSelected={this.onTabSelected} />
           </Tab>
+          {/*
           <Tab eventKey={4} title={t('Monitoring')}
             token={this.props.token}
             server={this.props.server}
@@ -83,6 +84,7 @@ class AdminHome extends Component {
               onTabSelected={this.onTabSelected}
             />
           </Tab>
+        */}
           <button id='fr' onClick={this.props.onLanguageChange}>fr</button>
           <button id='en' onClick={this.props.onLanguageChange}>en</button>
         </Tabs>

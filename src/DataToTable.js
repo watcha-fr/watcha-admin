@@ -32,7 +32,7 @@ const TABLE_TYPE = // here we declare all the type of table we wish to display
         'simplify': true,
       },
       'Last seen': {
-        'name': 'MAX(last_seen)',
+        'name': 'last_seen',
         'type': 'shortDate',
       },
       'Display Name': {
