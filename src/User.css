@@ -140,3 +140,15 @@
   overflow-y: auto;
   max-height: 30vh;
 }
+
+.Error{
+  color:black;
+}
+
+.Warning{
+  color:rgb(245, 153, 16);
+
+}
+.Log{
+  color:blue;
+}
