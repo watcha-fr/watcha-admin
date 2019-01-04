@@ -23,9 +23,12 @@
 }
 .filtersOption{
   display: flex;
-  max-width: 35vw;
   justify-content: space-between;
   align-items: center;
+}
+
+.refreshButton{
+  margin-right:20px;
 }
 
 .panel-title{
@@ -77,6 +80,8 @@
 }
 
 .TableToolBar{
+ margin-left:20px;
+ margin-right:20px;
 }
 
 .table-responsive{
@@ -85,6 +90,8 @@
 
 .tableContainer{
   display: flex;
+  margin-left:20px;
+  margin-right:20px;
 }
 
 .table-responsive{

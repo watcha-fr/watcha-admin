@@ -127,6 +127,9 @@ class DataToTable extends Component {
         this.findDataByPrimaryKey(this.props.value);
       }
     }
+    if (this.props.lang !== prevProps.lang) {
+	    this.onRefresh();
+    }
   }
 
   componentWillUnmount() {
@@ -313,7 +316,8 @@ refreshRightPanel = async (data) => {
     let simplifiedRawData;
     let data;
     let ts;
-    const OPTIONS = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const lang = this.props.lang;
+    const OPTIONS = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit', second:'2-digit'};
     simplifiedRawData = rawData;
     if (simplify) {
       simplifiedRawData=this.simplifiedUserId(rawData);
@@ -328,7 +332,7 @@ refreshRightPanel = async (data) => {
       case 'date':
         if (rawData) {
           ts=new Date(rawData*1000);
-          data=ts.toLocaleDateString('en-En', OPTIONS);
+          data=ts.toLocaleDateString(lang, OPTIONS);
         } else {
           data='';
         }
@@ -336,7 +340,7 @@ refreshRightPanel = async (data) => {
       case 'shortDate':
         if (rawData) {
           ts=new Date(rawData);
-          data=ts.toLocaleDateString('en-En', OPTIONS);
+          data=ts.toLocaleDateString(lang, OPTIONS);
         } else {
           data='';
         }
