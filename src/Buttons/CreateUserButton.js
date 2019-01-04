@@ -12,7 +12,7 @@ class CreateUserButton extends Component {
 
   render() {
     return (
-      <Button onClick = {this.props.onClick} bsStyle={this.props.bsStyle}>{ this.props.t('Create User') }</Button>
+      <Button onClick = {this.props.onClick} bsStyle={this.props.bsStyle}>{ this.props.t('Create user') }</Button>
     );
   }
 }
