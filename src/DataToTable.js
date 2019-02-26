@@ -31,8 +31,13 @@ const TABLE_TYPE = // here we declare all the type of table we wish to display
         'type': 'string',
         'simplify': true,
       },
+        /*
+      'Last password reset': {
+        'name': 'last_password_reset',
+        'type': 'shortDate',
+      },*/
       'Last seen': {
-        'name': 'MAX(last_seen)',
+        'name': 'last_seen',
         'type': 'shortDate',
       },
       'Display Name': {

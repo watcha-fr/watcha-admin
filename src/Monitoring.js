@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Alert } from 'react-bootstrap';
+import { Well } from 'react-bootstrap';
 class Monitoring extends Component {
   constructor(props) {
     super(props);
@@ -63,14 +63,13 @@ class Monitoring extends Component {
         const list = [];
         const LOG = this.state.log;
         let i;
-        for ( i=0; i<10000; i++) {
+        for ( i=0; i<1000; i++) {
           if (LOG[i]['type'] === ' INFO ') {
-            list.push(<Alert bsStyle='info' key={i}>{ LOG[i]['date'] + ' '+ LOG[i]['type'] +' '+ LOG[i]['text'] }</Alert>);
+            list.push(<div className='Log' key={i}>{ LOG[i]['date'] + ' '+ LOG[i]['type'] +' '+ LOG[i]['text'] }</div>);
           } else if (LOG[i]['type'] === ' ERROR ') {
-            console.log('error');
-            list.push(<Alert bsStyle='danger' key={i}>{ LOG[i]['date'] + ' '+ LOG[i]['text'] }</Alert>);
+            list.push(<div className='Error' key={i}>{ LOG[i]['date'] + ' '+ LOG[i]['text'] }</div>);
           } else if (LOG[i]['type'] === ' WARNING ') {
-            list.push(<Alert bsStyle='warning' key={i}>{ LOG[i]['date'] + ' '+ LOG[i]['text'] } </Alert>);
+            list.push(<div className='Warning' key={i}>{ LOG[i]['date'] + ' '+ LOG[i]['text'] } </div>);
           }
         }
         this.setState({
@@ -84,9 +83,9 @@ class Monitoring extends Component {
           log =this.state.list;
         }
         return (
-          <div>
+          <Well>
             { log }
-          </div>
+          </Well>
         );
       }
 }

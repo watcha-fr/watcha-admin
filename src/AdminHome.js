@@ -3,7 +3,7 @@ import {Tab, Tabs} from 'react-bootstrap';
 import DataToTable from './DataToTable';
 import StatsTab from './StatsTab';
 import { withNamespaces } from 'react-i18next';
-import Monitoring from './Monitoring';
+//import Monitoring from './Monitoring';
 
 class AdminHome extends Component {
     constructor(props) {
@@ -76,6 +76,7 @@ class AdminHome extends Component {
                                 lang={t('lang')}
                                 onTabSelected={this.onTabSelected} />
                             </Tab>
+                            {/* not functional yet
                             <Tab eventKey={4} title={t('Monitoring')}
                                 token={this.props.token}
                                 server={this.props.server} >
@@ -84,6 +85,7 @@ class AdminHome extends Component {
                                     server={this.props.server}
                                     onTabSelected={this.onTabSelected} />
                                 </Tab>
+                                */}
                                 <button id='fr' onClick={this.props.onLanguageChange}>fr</button>
                                 <button id='en' onClick={this.props.onLanguageChange}>en</button>
                             </Tabs>
