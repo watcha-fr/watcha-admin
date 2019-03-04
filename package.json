@@ -1,5 +1,5 @@
 {
-  "name": "console_admin",
+  "name": "watcha-admin",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,5 +24,5 @@
     "eslint-plugin-react": "^7.11.1",
     "react-bootstrap": "^0.32.3"
   },
-  "homepage": "./admin"
+  "homepage": "/admin"
 }
