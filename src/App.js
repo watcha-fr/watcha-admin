@@ -68,31 +68,25 @@ class App extends Component {
   }
 
   getserverName = async () => {
-    /*
-    let coreUrl = '';/*
+    let coreUrl = '';
+    // Uncomment either line below based on local need
+    //coreUrl = 'http://localhost:8008';
+    //coreUrl = 'https://pit-core.watcha.fr';
     try {
       const configRequest = await fetch('/config.json');
       const configData = JSON.parse(await configRequest.text());
       coreUrl = configData['default_hs_url'];
-      if (!coreUrl) throw new Error('could not get coreUrl');
+      if (!coreUrl) throw new Error('could not get coreUrl from configuration');
     } catch (e) {
       console.log('coreUrl error = ' + e);
-      return;
+      if (coreUrl === '') {
+        return;
+      }
     }
+      
     console.log('coreURL = ' + coreUrl);
     this.setState({ homeserver: coreUrl + '/' });
-    return coreUrl + '/';*
-    
-    this.setState({
-      homeserver: 'http://localhost:8008/',
-    });
-    return 'http://localhost:8008/';
-  }
-  */ 
-    this.setState({
-      homeserver: 'https://pit-core.watcha.fr/',
-    });
-    return 'https://pit-core.watcha.fr/';
+    return coreUrl + '/';
   }
   
 

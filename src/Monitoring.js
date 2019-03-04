@@ -63,7 +63,7 @@ class Monitoring extends Component {
         const list = [];
         const LOG = this.state.log;
         let i;
-        for ( i=0; i<1000; i++) {
+        for ( i=0; i < 10000 && i < LOG.length; i++) {
           if (LOG[i]['type'] === ' INFO ') {
             list.push(<div className='Log' key={i}>{ LOG[i]['date'] + ' '+ LOG[i]['type'] +' '+ LOG[i]['text'] }</div>);
           } else if (LOG[i]['type'] === ' ERROR ') {
