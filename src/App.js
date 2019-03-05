@@ -13,9 +13,26 @@ class App extends Component {
     this.state = {
       userName: '',
       password: '',
-      token: '',
+      accessToken: '',
       connected: false,
     };
+  }
+
+  componentWillMount = () => {
+    if (this.state.accessToken === '') {
+      // eslint-disable-next-line
+      const search =  new String(window.location);
+      if (search.includes("=")) {
+        // Get token if passed from Riot
+        // see riot-web.git/src/components/structures/WatchaAdmin.js
+        const key = search.split("=")[1];
+        const accessToken = localStorage.getItem(key);
+        if (accessToken !== null) {
+          localStorage.removeItem(key);        
+          this.setState({ accessToken: accessToken });
+        }
+      }
+    }
   }
 
   componentDidMount = () => {
@@ -26,7 +43,7 @@ class App extends Component {
     document.removeEventListener('keydown', this.onEnterPressed, false);
   }
 
-    onEnterPressed = (event) => {
+  onEnterPressed = (event) => {
     if(event.keyCode === 13) {
         this.onConnection();
     }
