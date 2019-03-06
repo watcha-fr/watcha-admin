@@ -14,25 +14,38 @@ class App extends Component {
       userName: '',
       password: '',
       accessToken: '',
-      connected: false,
+      homeserver: '',
     };
   }
 
   componentWillMount = () => {
-    if (this.state.accessToken === '') {
-      // eslint-disable-next-line
-      const search =  new String(window.location);
-      if (search.includes("=")) {
-        // Get token if passed from Riot
-        // see riot-web.git/src/components/structures/WatchaAdmin.js
-        const key = search.split("=")[1];
-        const accessToken = localStorage.getItem(key);
-        if (accessToken !== null) {
-          localStorage.removeItem(key);        
-          this.setState({ accessToken: accessToken });
-        }
+    let state = { };
+    const search =  window.location.search;
+    if (search.includes("=")) {
+      // Retrieving the token passed from Riot
+      // see riot-web.git/src/components/structures/WatchaAdmin.js
+      const key = search.split("=")[1];
+      const accessToken = localStorage.getItem(key);
+      if (accessToken !== null) {
+        localStorage.removeItem(key);
+        state = { accessToken: accessToken };
+      }
+      else {
+        // if the token was incorrect, or was already retrieved,
+        // then redirect to Riot for security
+        window.location = window.location.protocol + '//' + window.location.host;
+        return;
       }
     }
+
+    // it seems we can only call setState once ??
+    // probably because we shouldn't be doing things asyncly...
+    // anyhow, as a workaround we merge the two states into one before calling
+    fetch('/config.json').then(response => response.json())
+      .then(data =>
+            this.setState(Object.assign(
+              { homeserver: (data['default_hs_url'] + '/') },
+              state)))
   }
 
   componentDidMount = () => {
@@ -55,7 +68,7 @@ class App extends Component {
     const PASSWORD = this.state.password;
 
     try {
-      const PATH = await this.getserverName() + '_matrix/client/r0/login';
+      const PATH = await this.state.homeserver + '_matrix/client/r0/login';
       // XHR POST to login
       const LOGIN_REQUEST = await fetch(PATH, {
         method: 'POST',
@@ -83,29 +96,6 @@ class App extends Component {
       return;
     }
   }
-
-  getserverName = async () => {
-    let coreUrl = '';
-    // Uncomment either line below based on local need
-    //coreUrl = 'http://localhost:8008';
-    //coreUrl = 'https://pit-core.watcha.fr';
-    try {
-      const configRequest = await fetch('/config.json');
-      const configData = JSON.parse(await configRequest.text());
-      coreUrl = configData['default_hs_url'];
-      if (!coreUrl) throw new Error('could not get coreUrl from configuration');
-    } catch (e) {
-      console.log('coreUrl error = ' + e);
-      if (coreUrl === '') {
-        return;
-      }
-    }
-      
-    console.log('coreURL = ' + coreUrl);
-    this.setState({ homeserver: coreUrl + '/' });
-    return coreUrl + '/';
-  }
-  
 
   onNameChange = (evt) => {
     this.setState({ userName: evt.target.value });
