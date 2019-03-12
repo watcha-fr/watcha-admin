@@ -33,7 +33,7 @@ class TableToolBar extends Component {
                         <input type="checkbox" name="hidePartners" onChange = {this.props.handleFilter} />
                     </div>
                     <div className='textFilter'>
-                        <input type="text" name="textFilter" placeholder={t('Search in this Table')} onChange={this.props.handleFilter} />
+                        <input type="text" name="textFilter" placeholder={t('Search')} onChange={this.props.handleFilter} />
                     </div>
                 </div>;
         }
@@ -42,7 +42,7 @@ class TableToolBar extends Component {
                 <div className='filtersOption'>
                     <RefreshButton onClick={this.props.refresh} bsStyle='primary' />
                     <div className='checkboxfilter'>
-                        <label>{ t('Hide Personals conversations') }</label>
+                        <label>{ t('Hide one-to-one conversations') }</label>
                         <input type="checkbox" name={t('hideOneToOne')} onChange = {this.props.handleFilter} />
                     </div>
                     <div className='checkboxfilter'>
@@ -50,7 +50,7 @@ class TableToolBar extends Component {
                         <input type="checkbox" name={t('hideInactive')} onChange = {this.props.handleFilter} />
                     </div>
                     <div className='textFilter'>
-                        <input type="text" name="textFilter" placeholder={t('Search in this Table')} onChange = {this.props.handleFilter} />
+                        <input type="text" name="textFilter" placeholder={t('Search')} onChange = {this.props.handleFilter} />
                     </div>
                 </div>;
         }

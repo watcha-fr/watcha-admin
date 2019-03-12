@@ -68,7 +68,7 @@ class StatsTab extends Component {
     let membersData;
     let partnersData;
     let bigRoomsData;
-    let oneOnOneData;
+    let oneToOneData;
     let activeRooms;
     let Admin;
     const { t } = this.props;
@@ -78,13 +78,13 @@ class StatsTab extends Component {
       membersData = this.state.stats['users']['local'];
       partnersData = this.state.stats['users']['partners'];
       bigRoomsData = this.state.stats['rooms']['one_one_rooms_count'];
-      oneOnOneData = this.state.stats['rooms']['big_rooms_count'];
+      oneToOneData = this.state.stats['rooms']['big_rooms_count'];
       activeRooms = this.state.stats['rooms']['big_rooms_count_active'];
       Admin = this.state.stats['admins'];
       userLines.push( {label: t('Members'), data: membersData},
           {label: t('Partners'), data: partnersData}, {label: t('Admin'), data: Admin});
       roomLines.push( {label: t('Active rooms'), data: activeRooms},
-          {label: t('Personal conversation'), data: oneOnOneData},
+          {label: t('One-to-one conversations'), data: oneToOneData},
           {label: t('Inactive Rooms'), data: bigRoomsData-activeRooms});
     }
     let buttonReport;
