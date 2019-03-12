@@ -24,7 +24,7 @@ class CreateUserRightPanel extends Component {
     if (!this.state.isEmail) {
       this.setState({
         message: {type: 'danger', title: t('Invalid Email'),
-          body: t('this email adress seems to be incorrect please enter a valid email adress ')},
+          body: t('This email address seems to be invalid. Please enter a valid email address.')},
       });
       this.displayInfoMessage();
     } else if (!this.state.isFirstName) {
@@ -50,7 +50,7 @@ class CreateUserRightPanel extends Component {
     } else if (!this.state.userIdValue && !this.state.suggestedUserId) {
       this.setState({
         message: {type: 'danger', title: t('User id required'),
-          body: t('enter a valid user id') },
+          body: t('Enter a valid user id') },
       });
       this.displayInfoMessage();
     } else {
@@ -74,7 +74,7 @@ class CreateUserRightPanel extends Component {
         const RESPONSE = JSON.parse(await USER_REQUEST.text());
         if (USER_REQUEST.ok) {
           this.setState({
-            message: {type: 'success', title: t('User Created'), body: USER_ID+t(' has been added to watcha')},
+            message: {type: 'success', title: t('User Created'), body: USER_ID+t(' has been added to Watcha')},
             busy: false,
             clearForm: true,
           });

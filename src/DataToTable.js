@@ -18,7 +18,7 @@ const TABLE_TYPE = // here we declare all the type of table we wish to display
 
     /*if the table we want to display need data from more than one table we add JoinTables property to our dataObject
     matchingKey are the value that should match between the main table and the joining table, apiAdress
-    is the synapse api adress for the joining table, column is the name of the column containing the value we are
+    is the synapse api address for the joining table, column is the name of the column containing the value we are
     want to retrieve in the joining table*/
 
     /*each header objects represent the title of a column in the table we display name being the name of te equivalent
@@ -387,7 +387,7 @@ refreshRightPanel = async (data) => {
       if ({}.hasOwnProperty.call(filteredData, row)) {
         let hideRow = false;
         if (this.state.filter['hideOneToOne']) {
-          if (filteredData[row]['Type']['data'] === 'One to one') {
+          if (filteredData[row]['Type']['data'] === 'One to one') { // FIXME: will probably not worked once localized
             hideRow = true;
           }
         }

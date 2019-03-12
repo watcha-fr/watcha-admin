@@ -30,7 +30,7 @@ class CardStats extends Component {
               );
             }
           }
-          panelContent.push(<div key={this.props.lines[LINE].label}> { t('Admins') }: { admins } </div>);
+          panelContent.push(<div key={this.props.lines[LINE].label}> { t('Administrators') }: { admins } </div>);
         } else {
           panelContent.push(
               <div key={this.props.lines[LINE].label}>{ this.props.lines[LINE].label+': '+this.props.lines[LINE].data }</div>);
