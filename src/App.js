@@ -13,22 +13,21 @@ class App extends Component {
     this.state = {
       userName: '',
       password: '',
-      accessToken: '',
+      accessToken: null, // TODO: to test (was '' before)
       homeserver: '',
     };
   }
 
   componentWillMount = () => {
-    let state = { };
+    let accessToken = null;
     const search =  window.location.search;
     if (search.includes("=")) {
       // Retrieving the token passed from Riot
       // see riot-web.git/src/components/structures/WatchaAdmin.js
       const key = search.split("=")[1];
-      const accessToken = localStorage.getItem(key);
+      accessToken = localStorage.getItem(key);
       if (accessToken !== null) {
         localStorage.removeItem(key);
-        state = { accessToken: accessToken };
       }
       else {
         // if the token was incorrect, or was already retrieved,
@@ -38,14 +37,12 @@ class App extends Component {
       }
     }
 
-    // it seems we can only call setState once ??
-    // probably because we shouldn't be doing things asyncly...
-    // anyhow, as a workaround we merge the two states into one before calling
     fetch('/config.json').then(response => response.json())
       .then(data =>
             this.setState(Object.assign(
-              { homeserver: (data['default_hs_url'] + '/') },
-              state)))
+                { homeserver: (data['default_hs_url'] + '/') },
+                // TODO: to test (was a { } instead of { accessToken: null })
+                accessToken: accessToken };))
   }
 
   componentDidMount = () => {
@@ -63,19 +60,17 @@ class App extends Component {
   }
 
   onConnection = async () => {
-    const SELF = this;
-    const USERNAME = this.state.userName;
-    const PASSWORD = this.state.password;
+    const self = this;
 
     try {
-      const PATH = await this.state.homeserver + '_matrix/client/r0/login';
-      // XHR POST to login
-      const LOGIN_REQUEST = await fetch(PATH, {
+      const path = await this.state.homeserver + '_matrix/client/r0/login';
+
+      const loginRequest = await fetch(path, {
         method: 'POST',
         body: JSON.stringify({
           'initial_device_display_name': 'Web setup account',
-          'user': USERNAME,
-          'password': PASSWORD,
+          'user': self.state.userName,
+          'password': self.state.password,
           'type': 'm.login.password',
         }),
         headers: {
@@ -83,14 +78,17 @@ class App extends Component {
           'Accept': 'application/json',
         },
       });
-      const LOGIN_DATA = JSON.parse(await LOGIN_REQUEST.text());
-      if (LOGIN_DATA['access_token']) {
-        SELF.setState({ accessToken: LOGIN_DATA['access_token'] });
+      const loginData = JSON.parse(await loginRequest.text());
+      if (loginData['access_token']) {
+        self.setState({ accessToken: loginData['access_token'] });
         return this.state.accessToken;
       } else {
-        throw new Error('no access token');
+        // TODO: to test
+        console.log('error: no access token');
+        return;
       }
     } catch (e) {
+        // TODO: is this useful ??
       console.log('error: ' + e);
 
       return;
