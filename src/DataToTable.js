@@ -116,6 +116,7 @@ class DataToTable extends Component {
       arrayOfdata: [], // an array with the data collected from server
       type: TABLE_TYPE[this.props.tableName], // the name of the table
       filter: {}, //filters to apply to the table
+      loading:true,
     };
   }
 
@@ -254,7 +255,9 @@ refreshRightPanel = async (data) => {
         arrayData.push(dataObject);
         this.setState({
           arrayOfdata: arrayData,
+          loading:false,
         });
+
       }
     }
     for (const table in JOIN_TABLES) {// handle extra tables
@@ -309,6 +312,7 @@ refreshRightPanel = async (data) => {
       });
     }
     this.setState({finish: true});
+    this.props.finishLoading()
   }
   //function to convert a full user id to a simplified one since synapse use both forms
   simplifiedUserId = (fulluserId) =>{
@@ -475,6 +479,12 @@ refreshRightPanel = async (data) => {
       />;
     }
 
+    if (this.props.loading){
+      return(
+        <div>
+        </div>
+      )
+    }
     return (
 
       <div className='DataToTable'>
