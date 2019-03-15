@@ -9,6 +9,8 @@ class StatsTab extends Component {
 
 
     this.state = {
+
+      loading:!this.props.finishLoading,
     };
   }
 
@@ -31,6 +33,7 @@ class StatsTab extends Component {
       });
 
       statsData = JSON.parse(await STATS_REQUEST.text());
+      this.props.finishLoading()
     } catch (e) {
       console.log('error: ' + e);
       return;
@@ -65,6 +68,12 @@ class StatsTab extends Component {
 
 
   render() {
+    if (this.state.finishLoading){
+      return(
+        <div>
+        </div>
+      )
+    }
     let membersData;
     let partnersData;
     let bigRoomsData;
@@ -103,7 +112,7 @@ class StatsTab extends Component {
           <CardStats lines={userLines} title={t('Users')} onTabSelected={this.props.onTabSelected} />
           <CardStats lines={roomLines} title={t('Rooms')} onTabSelected={this.props.onTabSelected} />
         </div>
-        { buttonReport }
+        {/* buttonReport */ }
       </div>
     );
   }

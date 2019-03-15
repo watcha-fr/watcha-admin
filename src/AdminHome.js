@@ -3,6 +3,7 @@ import {Tab, Tabs} from 'react-bootstrap';
 import DataToTable from './DataToTable';
 import StatsTab from './StatsTab';
 import { withNamespaces } from 'react-i18next';
+import LoadingPage from './LoadingPage'
 //import Monitoring from './Monitoring';
 
 class AdminHome extends Component {
@@ -12,6 +13,9 @@ class AdminHome extends Component {
         this.state = {
             refresh: true,
             key: 1.,
+            loadingRooms: true,
+            loadingStats: true,
+            loadingUsers: true,
         };
     }
 
@@ -31,11 +35,22 @@ class AdminHome extends Component {
         });
     }
 
+    finishLoadingStats = () =>{
+      this.setState({loadingStats:false})
+    }
+    finishLoadingUsers = () =>{
+      this.setState({loadingRooms:false})
+    }
+    finishLoadingRooms = () =>{
+      this.setState({loadingUsers:false})
+    }
+
     handleSelect = (key) => {
         this.setState({ key: key });
     }
 
     render() {
+        let finishLoading=(this.state.loadingRooms&&this.state.loadingUsers&&this.state.loadingStats);
         const KEY= this.state.key? this.state.key : 1;
         const SELECTED= this.state.data? this.state.data : false;
         const {t}=this.props;
@@ -44,7 +59,49 @@ class AdminHome extends Component {
                 token={this.props.token}
                 server={this.props.server}
                 onTabSelected={this.onTabSelected}
+                loading={!finishLoading}
+                finishLoading={this.finishLoadingStats}
             />;
+
+        const USERSTAB =
+           <DataToTable tableName='user'
+                token={this.props.token}
+                server={this.props.server}
+                setRightPanel={this.setRightPanel}
+                onClose = {this.onClose}
+                value = {SELECTED}
+                lang={t('lang')}
+                loading={!finishLoading}
+                finishLoading={this.finishLoadingUsers}
+                onTabSelected={this.onTabSelected} />;
+
+         const ROOMSTAB=
+          <DataToTable tableName='room'
+                token={this.props.token}
+                server={this.props.server}
+                setRightPanel={this.setRightPanel}
+                onClose = {this.onClose}
+                stats={this.state.statsData}
+                value = {SELECTED}
+                lang={t('lang')}
+                loading={!finishLoading}
+                finishLoading={this.finishLoadingRooms}
+                onTabSelected={this.onTabSelected} />;
+
+                console.log(finishLoading);
+
+
+                if (finishLoading){
+                    return (
+                      <div>
+                      <LoadingPage/>
+                      {ROOMSTAB}
+                      {USERSTAB}
+                      {STATSTAB}
+                      </div>
+                    )
+                }
+
 
         return (
 
@@ -55,27 +112,12 @@ class AdminHome extends Component {
                     </Tab>
 
                     <Tab eventKey={2} title={t('Users')}>
-                        <DataToTable tableName='user'
-                            token={this.props.token}
-                            server={this.props.server}
-                            setRightPanel={this.setRightPanel}
-                            onClose = {this.onClose}
-                            value = {SELECTED}
-                            lang={t('lang')}
-                            onTabSelected={this.onTabSelected} />
+                       { USERSTAB }
                         </Tab>
 
                         <Tab eventKey={3} title={t('Rooms')}>
-                            <DataToTable tableName='room'
-                                token={this.props.token}
-                                server={this.props.server}
-                                setRightPanel={this.setRightPanel}
-                                onClose = {this.onClose}
-                                stats={this.state.statsData}
-                                value = {SELECTED}
-                                lang={t('lang')}
-                                onTabSelected={this.onTabSelected} />
-                            </Tab>
+                        { ROOMSTAB }
+                          </Tab>
                             {/* not functional yet
                             <Tab eventKey={4} title={t('Monitoring')}
                                 token={this.props.token}

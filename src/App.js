@@ -15,34 +15,35 @@ class App extends Component {
       password: '',
       accessToken: null, // TODO: to test (was '' before)
       homeserver: '',
+      loading:true,
     };
   }
 
   componentWillMount = () => {
-    let accessToken = null;
-    const search =  window.location.search;
-    if (search.includes("=")) {
-      // Retrieving the token passed from Riot
-      // see riot-web.git/src/components/structures/WatchaAdmin.js
-      const key = search.split("=")[1];
-      accessToken = localStorage.getItem(key);
-      if (accessToken !== null) {
-        localStorage.removeItem(key);
-      }
-      else {
-        // if the token was incorrect, or was already retrieved,
-        // then redirect to Riot for security
-        window.location = window.location.protocol + '//' + window.location.host;
-        return;
-      }
-    }
-
-    fetch('/config.json').then(response => response.json())
-      .then(data =>
-            this.setState(Object.assign(
-                { homeserver: (data['default_hs_url'] + '/') },
-                // TODO: to test (was a { } instead of { accessToken: null })
-                accessToken: accessToken };))
+    //let accessToken = null;
+    //const search =  window.location.search;
+    //if (search.includes("=")) {
+    //  // Retrieving the token passed from Riot
+    //  // see riot-web.git/src/components/structures/WatchaAdmin.js
+    //  const key = search.split("=")[1];
+    //  accessToken = localStorage.getItem(key);
+    //  if (accessToken !== null) {
+    //    localStorage.removeItem(key);
+    //  }
+    //  else {
+    //    // if the token was incorrect, or was already retrieved,
+    //    // then redirect to Riot for security
+    //    window.location = window.location.protocol + '//' + window.location.host;
+    //    return;
+    //  }
+    //}
+//
+    //fetch('/config.json').then(response => response.json())
+    //  .then(data =>
+    //        this.setState(Object.assign(
+    //            { homeserver: (data['default_hs_url'] + '/') },
+    //            // TODO: to test (was a { } instead of { accessToken: null })
+    //            accessToken: accessToken };))
   }
 
   componentDidMount = () => {
@@ -63,7 +64,8 @@ class App extends Component {
     const self = this;
 
     try {
-      const path = await this.state.homeserver + '_matrix/client/r0/login';
+      //const path =  this.state.homeserver + '_matrix/client/r0/login';
+      const path = 'https://dev-core.watcha.fr/_matrix/client/r0/login';
 
       const loginRequest = await fetch(path, {
         method: 'POST',
@@ -112,7 +114,8 @@ class App extends Component {
     if (this.state.accessToken) {
       return (<AdminHome
         token={this.state.accessToken}
-        server={this.state.homeserver}
+        //server={this.state.homeserver}
+        server={'https://dev-core.watcha.fr/'}
         className='AdminHome'
         onLanguageChange={this.onLanguageChange}>
       </AdminHome>);
@@ -122,7 +125,7 @@ class App extends Component {
         <Grid className="container">
           <Row className="logoRow">
             <Col lg={4} sm={12} md={4} xs={12} mdOffset={4} smOffset={0} xsOffset={0}>
-              <img alt="logo " src={logo} className="logo" />
+<img alt="logo " src={logo} className="logo" />
             </Col>
           </Row>
           <Row className="show-grid">
