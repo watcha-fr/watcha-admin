@@ -31,7 +31,7 @@ const TABLE_TYPE = // here we declare all the type of table we wish to display
         'type': 'string',
         'simplify': true,
       },
-        /*
+      /*
       'Last password reset': {
         'name': 'last_password_reset',
         'type': 'shortDate',
@@ -116,7 +116,6 @@ class DataToTable extends Component {
       arrayOfdata: [], // an array with the data collected from server
       type: TABLE_TYPE[this.props.tableName], // the name of the table
       filter: {}, //filters to apply to the table
-      loading:true,
     };
   }
 
@@ -134,7 +133,7 @@ class DataToTable extends Component {
       }
     }
     if (this.props.lang !== prevProps.lang) {
-	    this.onRefresh();
+      this.onRefresh();
     }
   }
 
@@ -255,9 +254,7 @@ refreshRightPanel = async (data) => {
         arrayData.push(dataObject);
         this.setState({
           arrayOfdata: arrayData,
-          loading:false,
         });
-
       }
     }
     for (const table in JOIN_TABLES) {// handle extra tables
@@ -312,8 +309,8 @@ refreshRightPanel = async (data) => {
       });
     }
     this.setState({finish: true});
-    this.props.finishLoading()
   }
+
   //function to convert a full user id to a simplified one since synapse use both forms
   simplifiedUserId = (fulluserId) =>{
     let simplifiedUserId = fulluserId.replace('@', '');
@@ -321,12 +318,14 @@ refreshRightPanel = async (data) => {
     simplifiedUserId = simplifiedUserId[0];
     return simplifiedUserId;
   }
+
   convertRawData = (rawData, type, simplify) => {
     let simplifiedRawData;
     let data;
     let ts;
     const lang = this.props.lang;
-    const OPTIONS = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit', second:'2-digit'};
+    const OPTIONS =
+    { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'};
     simplifiedRawData = rawData;
     if (simplify) {
       simplifiedRawData=this.simplifiedUserId(rawData);
@@ -479,12 +478,6 @@ refreshRightPanel = async (data) => {
       />;
     }
 
-    if (this.props.loading){
-      return(
-        <div>
-        </div>
-      )
-    }
     return (
 
       <div className='DataToTable'>

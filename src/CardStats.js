@@ -10,6 +10,14 @@ class CardStats extends Component {
 
     };
   }
+
+  simplifiedAdminId = (fulluserId) =>{
+    let simplifiedUserId = fulluserId[0].replace('@', '');
+    simplifiedUserId = simplifiedUserId.split(':');
+    simplifiedUserId = simplifiedUserId[0];
+    return simplifiedUserId;
+  }
+
   getPanelContent = () => {
     const { t } = this.props;
     const panelContent = [];
@@ -20,11 +28,11 @@ class CardStats extends Component {
           for (const data in this.props.lines[LINE].data) {
             if (this.props.lines[LINE].data.hasOwnProperty(data)) {
               admins.push(
-                  <div key={this.props.lines[LINE].data[data]}>
+                  <div key={this.props.lines[LINE].data[data]} adminname={this.props.lines[LINE].data[data]}>
                     <div
                       className='AdminName'
                       onClick={this.onUserClicked}>
-                      { this.props.lines[LINE].data[data] }
+                      { this.simplifiedAdminId( this.props.lines[LINE].data[data]) }
                     </div>
                   </div>,
               );
@@ -33,7 +41,7 @@ class CardStats extends Component {
           panelContent.push(<div key={this.props.lines[LINE].label}> { t('Administrators') }: { admins } </div>);
         } else {
           panelContent.push(
-              <div key={this.props.lines[LINE].label}>{ this.props.lines[LINE].label+': '+this.props.lines[LINE].data }</div>);
+              <div key={this.props.lines[LINE].label} >{ this.props.lines[LINE].label+': '+this.props.lines[LINE].data }</div>);
         }
       }
     }
@@ -50,6 +58,8 @@ class CardStats extends Component {
   }
 
   onUserClicked = (ev) => {
+    console.log(ev.target.getAttribute('key') );
+    console.log(ev.target.attributes.getNamedItem('adminname').value);
     this.props.onTabSelected(2, ev.target.textContent);
   }
 
