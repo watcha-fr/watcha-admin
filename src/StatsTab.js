@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import CardStats from './CardStats';
 import { withNamespaces } from 'react-i18next';
-import { PageHeader, Button} from 'react-bootstrap';
-
+import { PageHeader} from 'react-bootstrap';
+import logo from './images/logo.svg';
 class StatsTab extends Component {
   constructor(props) {
     super(props);
 
 
     this.state = {
-
-      loading:!this.props.finishLoading,
     };
   }
 
@@ -33,7 +31,6 @@ class StatsTab extends Component {
       });
 
       statsData = JSON.parse(await STATS_REQUEST.text());
-      this.props.finishLoading()
     } catch (e) {
       console.log('error: ' + e);
       return;
@@ -68,12 +65,6 @@ class StatsTab extends Component {
 
 
   render() {
-    if (this.state.finishLoading){
-      return(
-        <div>
-        </div>
-      )
-    }
     let membersData;
     let partnersData;
     let bigRoomsData;
@@ -96,12 +87,26 @@ class StatsTab extends Component {
           {label: t('One-to-one conversations'), data: oneToOneData},
           {label: t('Inactive Rooms'), data: bigRoomsData-activeRooms});
     }
+    /*
     let buttonReport;
     if (this.state.serverReport) {
       buttonReport =
       <div>
         <Button>Generate report</Button>
       </div>;
+    }
+    */
+    if ( !this.state.stats) {
+      return (
+        <div className='loading'>
+          <div>
+            <div className='logoRow'>
+              <img alt="logo " src={logo} className="logo" />
+            </div>
+            <div className="loadingText">Loading<span>.</span><span>.</span><span>.</span></div>
+          </div>
+        </div>
+      );
     }
     return (
       <div>
@@ -112,7 +117,7 @@ class StatsTab extends Component {
           <CardStats lines={userLines} title={t('Users')} onTabSelected={this.props.onTabSelected} />
           <CardStats lines={roomLines} title={t('Rooms')} onTabSelected={this.props.onTabSelected} />
         </div>
-        {/* buttonReport */ }
+        { /* buttonReport */ }
       </div>
     );
   }
