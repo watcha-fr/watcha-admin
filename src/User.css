@@ -12,7 +12,11 @@
   color: white !important;
 
 }
-
+.bottomButtons{
+  margin: auto;
+  width: 200px;
+  margin-bottom: 10px;
+}
 .rightPanel{
   height: 90vh;
   width: 30vw;
@@ -157,7 +161,7 @@
 
 .bottomButton{
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
 }
 
 .TableToolBar{
@@ -173,7 +177,6 @@
 .tableContainer{
   display: flex;
   margin-left:20px;
-  margin-right:20px;
 }
 
 .table-responsive{
@@ -213,6 +216,7 @@
 
 .textFilter{
   margin-top: 1vh;
+  margin-right: 8px;
 }
 
 .AdminName{
