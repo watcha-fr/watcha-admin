@@ -15,7 +15,6 @@ class App extends Component {
       password: '',
       accessToken: null, // TODO: to test (was '' before)
       homeserver: '',
-      loading:true,
     };
   }
 
@@ -26,9 +25,12 @@ class App extends Component {
       // Retrieving the token passed from Riot
       // see riot-web.git/src/components/structures/WatchaAdmin.js
       const key = search.split("=")[1];
-      accessToken = localStorage.getItem(key);
-      if (accessToken !== null) {
+      const value = localStorage.getItem('watcha-' + key);
+      if (value !== null) {
         localStorage.removeItem(key);
+
+        i18n.changeLanguage(value.split('-')[0]);
+        accessToken = value.split('-')[1];
       }
       else {
         // if the token was incorrect, or was already retrieved,
