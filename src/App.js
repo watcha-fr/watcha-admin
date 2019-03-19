@@ -27,7 +27,7 @@ class App extends Component {
       const key = search.split("=")[1];
       const value = localStorage.getItem('watcha-' + key);
       if (value !== null) {
-        localStorage.removeItem(key);
+        localStorage.removeItem('watcha-' + key);
 
         i18n.changeLanguage(value.split('-')[0]);
         accessToken = value.split('-')[1];
