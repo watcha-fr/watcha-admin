@@ -20,30 +20,30 @@ class App extends Component {
   }
 
   componentWillMount = () => {
-    //let accessToken = null;
-    //const search =  window.location.search;
-    //if (search.includes("=")) {
-    //  // Retrieving the token passed from Riot
-    //  // see riot-web.git/src/components/structures/WatchaAdmin.js
-    //  const key = search.split("=")[1];
-    //  accessToken = localStorage.getItem(key);
-    //  if (accessToken !== null) {
-    //    localStorage.removeItem(key);
-    //  }
-    //  else {
-    //    // if the token was incorrect, or was already retrieved,
-    //    // then redirect to Riot for security
-    //    window.location = window.location.protocol + '//' + window.location.host;
-    //    return;
-    //  }
-    //}
-//
-    //fetch('/config.json').then(response => response.json())
-    //  .then(data =>
-    //        this.setState(Object.assign(
-    //            { homeserver: (data['default_hs_url'] + '/') },
-    //            // TODO: to test (was a { } instead of { accessToken: null })
-    //            accessToken: accessToken };))
+    let accessToken = null;
+    const search =  window.location.search;
+    if (search.includes("=")) {
+      // Retrieving the token passed from Riot
+      // see riot-web.git/src/components/structures/WatchaAdmin.js
+      const key = search.split("=")[1];
+      accessToken = localStorage.getItem(key);
+      if (accessToken !== null) {
+        localStorage.removeItem(key);
+      }
+      else {
+        // if the token was incorrect, or was already retrieved,
+        // then redirect to Riot for security
+        window.location = window.location.protocol + '//' + window.location.host;
+        return;
+      }
+    }
+
+    fetch('/config.json').then(response => response.json())
+        .then((data) =>
+          this.setState(
+              { homeserver: data['default_hs_url'] + '/',
+                // TODO: to test (was a { } instead of { accessToken: null })
+                accessToken: accessToken }))
   }
 
   componentDidMount = () => {
