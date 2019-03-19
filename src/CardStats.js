@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap';
 import { withNamespaces } from 'react-i18next';
+import AdminCardStats from './AdminCardStats';
 
 class CardStats extends Component {
   constructor(props) {
@@ -29,11 +30,7 @@ class CardStats extends Component {
             if (this.props.lines[LINE].data.hasOwnProperty(data)) {
               admins.push(
                   <div key={this.props.lines[LINE].data[data]} adminname={this.props.lines[LINE].data[data]}>
-                    <div
-                      className='AdminName'
-                      onClick={this.onUserClicked}>
-                      { this.simplifiedAdminId( this.props.lines[LINE].data[data]) }
-                    </div>
+                    <AdminCardStats simplifiedname={this.simplifiedAdminId( this.props.lines[LINE].data[data])} onUserClicked={this.onUserClicked} adminName={( this.props.lines[LINE].data[data])} />
                   </div>,
               );
             }
@@ -57,10 +54,9 @@ class CardStats extends Component {
     }
   }
 
-  onUserClicked = (ev) => {
-    console.log(ev.target.getAttribute('key') );
-    console.log(ev.target.attributes.getNamedItem('adminname').value);
-    this.props.onTabSelected(2, ev.target.textContent);
+  onUserClicked = (username) => {
+    console.log(username);
+    this.props.onTabSelected(2, username);
   }
 
   render() {

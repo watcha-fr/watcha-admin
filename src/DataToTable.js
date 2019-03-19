@@ -31,19 +31,12 @@ const TABLE_TYPE = // here we declare all the type of table we wish to display
         'type': 'string',
         'simplify': true,
       },
-      /*
-      'Last password reset': {
-        'name': 'last_password_reset',
-        'type': 'shortDate',
-      },*/
-      'Last seen': {
-        'name': 'last_seen',
-        'type': 'shortDate',
-      },
+
       'Display Name': {
         'name': 'displayname',
         'type': 'string',
       },
+
       'Email': {
         'name': 'email',
         'type': 'string',
@@ -53,24 +46,42 @@ const TABLE_TYPE = // here we declare all the type of table we wish to display
         'name': 'creation_ts',
         'type': 'date',
       },
+
+      /*
+      'Last password reset': {
+        'name': 'last_password_reset',
+        'type': 'shortDate',
+      },*/
+
+      'Last seen': {
+        'name': 'last_seen',
+        'type': 'shortDate',
+      },
+
       'Status': {
         'Admin': {
           'name': 'admin',
           'type': 'boolean',
         },
+
         'Partner':
         {'name': 'is_partner',
           'type': 'boolean',
         },
+
         'type': 'merge',
         'Default': 'Member',
       },
+
       'Active': {
         'name': 'is_active',
         'type': 'boolean',
       },
+
     },
+
   },
+
   'room': {
     'primaryKey': 'Room Id',
     'apiAdress': '_matrix/client/r0/watcha_extend_room_list',
@@ -80,25 +91,31 @@ const TABLE_TYPE = // here we declare all the type of table we wish to display
         'type': 'string',
         'simplify': true,
       },
+
       'Name': {
         'name': 'name', 'type': 'list',
       },
+
       'Creator': {
         'name': 'creator',
         'type': 'string',
         'simplify': true,
       },
-      'Active': {
-        'name': 'active',
-        'type': 'boolean',
+
+      'Users': {
+        'name': 'members',
+        'type': 'enumerate',
       },
+
       'Type': {
         'name': 'type',
         'type': 'string',
       },
-      'Users': {
-        'name': 'members',
-        'type': 'enumerate',
+
+
+      'Active': {
+        'name': 'active',
+        'type': 'boolean',
       },
     },
   },
@@ -450,6 +467,7 @@ refreshRightPanel = async (data) => {
   }
 
   render() {
+    const header = this.getHeader(this.state.type);
     const dataToRow=[];
     const FILTERED_DATA = this.filterData(this.state.arrayOfdata);
     for (const row in FILTERED_DATA) {
@@ -490,7 +508,7 @@ refreshRightPanel = async (data) => {
           <Table striped bordered condensed hover responsive className='tableBody'>
             <thead>
               <tr>
-                { this.state.header }
+                { header }
               </tr>
             </thead>
             <tbody>
