@@ -66,8 +66,7 @@ class App extends Component {
     const self = this;
 
     try {
-      //const path =  this.state.homeserver + '_matrix/client/r0/login';
-      const path = 'https://dev-core.watcha.fr/_matrix/client/r0/login';
+      const path =  this.state.homeserver + '_matrix/client/r0/login';
 
       const loginRequest = await fetch(path, {
         method: 'POST',
@@ -116,8 +115,7 @@ class App extends Component {
     if (this.state.accessToken) {
       return (<AdminHome
         token={this.state.accessToken}
-        //server={this.state.homeserver}
-        server={'https://dev-core.watcha.fr/'}
+        server={this.state.homeserver}
         className='AdminHome'
         onLanguageChange={this.onLanguageChange}>
       </AdminHome>);
