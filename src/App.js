@@ -29,8 +29,9 @@ class App extends Component {
       if (value !== null) {
         localStorage.removeItem('watcha-' + key);
 
-        i18n.changeLanguage(value.split('-')[0]);
-        accessToken = value.split('-')[1];
+        const { i18n } = this.props;
+        i18n.changeLanguage(value.split('|')[0]);
+        accessToken = value.split('|')[1];
       }
       else {
         // if the token was incorrect, or was already retrieved,
@@ -41,11 +42,18 @@ class App extends Component {
     }
 
     fetch('/config.json').then(response => response.json())
-        .then((data) =>
-          this.setState(
+      .then((data) =>
+            this.setState(
               { homeserver: data['default_hs_url'] + '/',
-                // TODO: to test (was a { } instead of { accessToken: null })
                 accessToken: accessToken }))
+      .catch((error) => {
+        // should only happen in dev - without token
+        const defaultHomeServer = process.env.REACT_APP_CORE || 'http://localhost:8008';
+        console.log("Defaulting homeserver to " + defaultHomeServer);
+        this.setState(Object.assign(
+          { homeserver: defaultHomeServer + '/',
+            accessToken: accessToken }));
+      });
   }
 
   componentDidMount = () => {
