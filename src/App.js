@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       userName: '',
       password: '',
-      accessToken: null, // TODO: to test (was '' before)
+      accessToken: null,
       homeserver: '',
     };
   }
