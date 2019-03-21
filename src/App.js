@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './images/logo.svg';
 import './App.css';
 import AdminHome from './AdminHome.js';
-import { Button, FormGroup, FormControl, Col, Form, Grid, Row } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Col, Form, Grid, Row, Dropdown} from 'react-bootstrap';
 import { withNamespaces } from 'react-i18next';
 
 
@@ -20,11 +20,11 @@ class App extends Component {
 
   componentWillMount = () => {
     let accessToken = null;
-    const search =  window.location.search;
-    if (search.includes("=")) {
+    const search = window.location.search;
+    if (search.includes('=')) {
       // Retrieving the token passed from Riot
       // see riot-web.git/src/components/structures/WatchaAdmin.js
-      const key = search.split("=")[1];
+      const key = search.split('=')[1];
       const value = localStorage.getItem('watcha-' + key);
       if (value !== null) {
         localStorage.removeItem('watcha-' + key);
@@ -32,8 +32,7 @@ class App extends Component {
         const { i18n } = this.props;
         i18n.changeLanguage(value.split('|')[0]);
         accessToken = value.split('|')[1];
-      }
-      else {
+      } else {
         // if the token was incorrect, or was already retrieved,
         // then redirect to Riot for security
         window.location = window.location.protocol + '//' + window.location.host;
@@ -41,19 +40,19 @@ class App extends Component {
       }
     }
 
-    fetch('/config.json').then(response => response.json())
-      .then((data) =>
-            this.setState(
+    fetch('/config.json').then((response) => response.json())
+        .then((data) =>
+          this.setState(
               { homeserver: data['default_hs_url'] + '/',
                 accessToken: accessToken }))
-      .catch((error) => {
+        .catch((error) => {
         // should only happen in dev - without token
-        const defaultHomeServer = process.env.REACT_APP_CORE || 'http://localhost:8008';
-        console.log("Defaulting homeserver to " + defaultHomeServer);
-        this.setState(Object.assign(
-          { homeserver: defaultHomeServer + '/',
-            accessToken: accessToken }));
-      });
+          const defaultHomeServer = process.env.REACT_APP_CORE || 'http://localhost:8008';
+          console.log('Defaulting homeserver to ' + defaultHomeServer);
+          this.setState(Object.assign(
+              { homeserver: defaultHomeServer + '/',
+                accessToken: accessToken }));
+        });
   }
 
   componentDidMount = () => {
@@ -65,8 +64,8 @@ class App extends Component {
   }
 
   onEnterPressed = (event) => {
-    if(event.keyCode === 13) {
-        this.onConnection();
+    if (event.keyCode === 13) {
+      this.onConnection();
     }
   }
 
@@ -74,7 +73,7 @@ class App extends Component {
     const self = this;
 
     try {
-      const path =  this.state.homeserver + '_matrix/client/r0/login';
+      const path = this.state.homeserver + '_matrix/client/r0/login';
 
       const loginRequest = await fetch(path, {
         method: 'POST',
@@ -99,7 +98,7 @@ class App extends Component {
         return;
       }
     } catch (e) {
-        // TODO: is this useful ??
+      // TODO: is this useful ??
       console.log('error: ' + e);
 
       return;
@@ -133,7 +132,7 @@ class App extends Component {
         <Grid className="container">
           <Row className="logoRow">
             <Col lg={4} sm={12} md={4} xs={12} mdOffset={4} smOffset={0} xsOffset={0}>
-<img alt="logo " src={logo} className="logo" />
+              <img alt="logo " src={logo} className="logo" />
             </Col>
           </Row>
           <Row className="show-grid">
