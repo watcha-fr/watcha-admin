@@ -313,6 +313,7 @@ class UserRightPanel extends Component {
     if (ISDEACTIVATE) {
       bottomButtons.push(
           <Button
+            className='ActivationButton'
             key="activateAccount"
             bsStyle='success'
             onClick={this.resetPassword}>{
@@ -322,6 +323,7 @@ class UserRightPanel extends Component {
     } else {
       bottomButtons.push(
           <Button
+            className='ActivationButton'
             key="resetPassword"
             bsStyle='primary'
             onClick={this.resetPassword}>
@@ -330,6 +332,7 @@ class UserRightPanel extends Component {
 
       bottomButtons.push(
           <Button
+            className='ActivationButton'
             key="deactivateAccount"
             bsStyle='danger'
             onClick={this.deactivateAccount}>
@@ -340,7 +343,9 @@ class UserRightPanel extends Component {
         title=t('Partner');
         bsStyle='warning';
         bottomButtons.push(
-            <Button bsStyle='primary'
+            <Button
+              className='ActivationButton'
+              bsStyle='success'
               key="upgradeToMember"
               onClick={this.upgradePartner}>
               { t('Upgrade to member') }
@@ -361,12 +366,14 @@ class UserRightPanel extends Component {
         type="email"
         placeholder={emailPlaceholder}
         className= 'inputValue disabled' />
+      { /*
       <Button
         onClick={this.onEmailEdit}
         bsStyle='primary'
         className='editButton'>
         <Glyphicon glyph="pencil" />
       </Button>
+      */ }
     </td>;
     if (this.state.editEmail) {
       if (this.state.isEmail) {

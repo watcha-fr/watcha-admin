@@ -162,6 +162,12 @@
 .bottomButton{
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.ActivationButton{
+  width: 200px;
+  margin-bottom: 10px;
 }
 
 .TableToolBar{
