@@ -47,7 +47,7 @@ class RoomRightPanel extends Component {
             <Panel bsStyle={BSSTYLE} className='rightPanel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
-                  { TITLE } : { this.props.data['Room Id']['simplifiedData'] }
+                  { TITLE }: { this.props.data['Room Id']['simplifiedData'] }
                   <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose} />
                 </Panel.Title>
               </Panel.Heading>
