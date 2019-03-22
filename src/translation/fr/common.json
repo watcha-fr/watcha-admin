@@ -57,6 +57,9 @@
 "Deactivation failed": "L'opération a échoué",
 "an email has been send to ":"un email a été envoyé à ",
 " with a new password":" avec un nouveau de mot de passe",
+"Account reactivated":"Compte réactivé",
+"The account ":"Le compte ",
+" has been reactivated, and an email has been sent to the user with a new password": " a été réactivé, et un nouveau mot de passe a été envoyé à l'utilisateur",
 "Password reset failed": "L'opération a échoué",
 "Name":"Nom",
 "Active":"Actif",
@@ -67,7 +70,7 @@
 "Display Name":"Nom d'affichage",
 "Date of creation":"Créé le",
 "Room Id":"Identifiant du salon",
-"Password reseted":"Mot de passe réinitialisé",
+"Password reset":"Mot de passe réinitialisé",
 "Activate account":"Activer le compte",
 "lang":"fr-FR"
 }
