@@ -103,7 +103,7 @@ class StatsTab extends Component {
             <div className='logoRow'>
               <img alt="logo " src={logo} className="logo" />
             </div>
-            <div className="loadingText">Loading<span>.</span><span>.</span><span>.</span></div>
+            <div className="loadingText">{ t('Loading') }<span>.</span><span>.</span><span>.</span></div>
           </div>
         </div>
       );
