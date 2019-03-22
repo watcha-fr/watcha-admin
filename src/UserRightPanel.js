@@ -125,7 +125,7 @@ simplifiedUserId = (fulluserId) =>{
       if (SERVER_REQUEST.ok) {
         this.setState({
           message: {type: 'success', title: 'Email updated',
-            body: this.props.data['User name']['data'] + ' email has been updated'},
+                    body: this.simplifiedUserId(this.props.data['User name']['data']) + ' email has been updated'},
         });
         this.displayInfoMessage();
         this.setState({
@@ -159,8 +159,8 @@ simplifiedUserId = (fulluserId) =>{
        const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
        if (SERVER_REQUEST.ok) {
          this.setState({
-           message: {type: 'success', title: 'Status updated',
-             body: this.props.data['User name']['data'] + ' account has been upgraded to member'},
+           message: {type: 'success', title: 'Role updated',
+                     body: this.simplifiedUserId(this.props.data['User name']['data']) + ' account has been upgraded to internal user'},
          });
          this.displayInfoMessage();
        } else {
@@ -276,7 +276,7 @@ simplifiedUserId = (fulluserId) =>{
       if (SERVER_REQUEST.ok) {
         this.setState({
           message: {type: 'success', title: t('Account deactivated'),
-            body: this.props.data['User name']['data'] + t(' account have been deactivated')},
+                    body: this.simplifiedUserId(this.props.data['User name']['data']) + t(' account has been deactivated')},
         });
         this.displayInfoMessage();
       } else {
@@ -330,6 +330,18 @@ simplifiedUserId = (fulluserId) =>{
           </Button>,
       );
     } else {
+      if (ISPARTNER) {
+        title=t('Partner');
+        bsStyle='warning';
+        bottomButtons.push(
+            <Button
+              className='ActivationButton'
+              bsStyle='success'
+              key="upgradeToMember"
+              onClick={this.upgradePartner}>
+              { t('Upgrade to internal user') }
+            </Button>);
+      }
       bottomButtons.push(
           <Button
             className='ActivationButton'
@@ -347,19 +359,6 @@ simplifiedUserId = (fulluserId) =>{
             onClick={this.deactivateAccount}>
             { t('Deactivate Account') }
           </Button>);
-
-      if (ISPARTNER) {
-        title=t('Partner');
-        bsStyle='warning';
-        bottomButtons.push(
-            <Button
-              className='ActivationButton'
-              bsStyle='success'
-              key="upgradeToMember"
-              onClick={this.upgradePartner}>
-              { t('Upgrade to member') }
-            </Button>);
-      }
     }
     let emailPlaceholder='';
     if (this.props.data['email']) {
