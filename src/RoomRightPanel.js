@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Collapse, Panel, Well, Table, Glyphicon, ListGroupItem, ListGroup} from 'react-bootstrap';
 import { withNamespaces } from 'react-i18next';
+import UserInRoom from './UserInRoom';
 
 class RoomRightPanel extends Component {
   constructor(props) {
@@ -19,8 +20,15 @@ class RoomRightPanel extends Component {
     this.props.onClose();
   }
 
-  onUSerClicked = (ev) => {
-    this.props.onTabSelected(2, ev.target.textContent);
+  onUserClicked = (userName) => {
+    this.props.onTabSelected(2, userName);
+  }
+
+  simplifiedUserId = (fulluserId) =>{
+    let simplifiedUserId = fulluserId.replace('@', '');
+    simplifiedUserId = simplifiedUserId.split(':');
+    simplifiedUserId = simplifiedUserId[0];
+    return simplifiedUserId;
   }
 
 
@@ -33,9 +41,8 @@ class RoomRightPanel extends Component {
     for (const user in this.props.data['Users']['simplifiedData'] ) {
       if ({}.hasOwnProperty.call(this.props.data['Users']['simplifiedData'], user)) {
         users.push(<ListGroupItem
-          key={user}
-          onClick={this.onUSerClicked}>
-          { this.props.data['Users']['simplifiedData'][user] }
+          key={user}>
+          <UserInRoom simplifiedName={this.simplifiedUserId(this.props.data['Users']['simplifiedData'][user])} onUserClicked={this.onUserClicked} userName={this.props.data['Users']['simplifiedData'][user]} />
         </ListGroupItem>);
       }
     }
