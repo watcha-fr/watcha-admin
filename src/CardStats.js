@@ -12,7 +12,7 @@ class CardStats extends Component {
     };
   }
 
-  simplifiedAdminId = (fulluserId) =>{
+  simplifiedUserId = (fulluserId) =>{
     let simplifiedUserId = fulluserId[0].replace('@', '');
     simplifiedUserId = simplifiedUserId.split(':');
     simplifiedUserId = simplifiedUserId[0];
@@ -30,7 +30,7 @@ class CardStats extends Component {
             if (this.props.lines[LINE].data.hasOwnProperty(data)) {
               admins.push(
                   <div key={this.props.lines[LINE].data[data]} adminname={this.props.lines[LINE].data[data]}>
-                    <AdminCardStats simplifiedname={this.simplifiedAdminId( this.props.lines[LINE].data[data])} onUserClicked={this.onUserClicked} adminName={( this.props.lines[LINE].data[data])} />
+                    <AdminCardStats simplifiedname={this.simplifiedUserId( this.props.lines[LINE].data[data])} onUserClicked={this.onUserClicked} adminName={( this.props.lines[LINE].data[data])} />
                   </div>,
               );
             }

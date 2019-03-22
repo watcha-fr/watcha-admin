@@ -471,7 +471,6 @@ refreshRightPanel = async (data) => {
     this.setState({
       filter: arrayOfFilter,
     });
-    console.log(this.state[NAME]);
   }
 
   render() {
