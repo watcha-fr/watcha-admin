@@ -55,7 +55,6 @@ class CardStats extends Component {
   }
 
   onUserClicked = (username) => {
-    console.log(username);
     this.props.onTabSelected(2, username);
   }
 
