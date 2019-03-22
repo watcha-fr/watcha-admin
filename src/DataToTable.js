@@ -411,7 +411,7 @@ refreshRightPanel = async (data) => {
       if ({}.hasOwnProperty.call(filteredData, row)) {
         let hideRow = false;
         if (this.state.filter['hideOneToOne']) {
-          if (filteredData[row]['Type']['data'] === ('One to one')) { // FIXME: will probably not worked once localized
+          if (filteredData[row]['Type']['data'] === 'One to one') { // no need to localize
             hideRow = true;
           }
         }
