@@ -453,7 +453,7 @@ class UserRightPanel extends Component {
             <Panel bsStyle={bsStyle} className='rightPanel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
-                  { title } : { this.props.data['User name']['data'] }
+                  { title }: { this.props.data['User name']['data'] }
                   <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
                 </Panel.Title>
               </Panel.Heading>
@@ -473,7 +473,7 @@ class UserRightPanel extends Component {
                         </tr>
                       */ }
                       <tr>
-                        <td className='labelText'>Email :</td>
+                        <td className='labelText'>{ t('Email') }:</td>
                         { editEmail }
                       </tr>
                     </tbody>
