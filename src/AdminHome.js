@@ -85,9 +85,6 @@ class AdminHome extends Component {
                                     server={this.props.server}
                                     onTabSelected={this.onTabSelected} />
                                 </Tab>
-
-            <button id='fr' onClick={this.props.onLanguageChange}>fr</button>
-            <button id='en' onClick={this.props.onLanguageChange}>en</button>
             */ }
           </Tabs>
         </div>
