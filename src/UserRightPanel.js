@@ -291,7 +291,7 @@ class UserRightPanel extends Component {
 
   getDate = (date) => {
     const OPTIONS = { 'year': 'numeric', 'month': 'long', 'day': 'numeric' };
-    const FORMATED_DATE=date.toLocaleDateString('en-En', OPTIONS) +
+    const FORMATED_DATE=date.toLocaleDateString(this.props.lang, OPTIONS) +
     ' '+this.addZero(date.getHours())+
     ':'
     +this.addZero(date.getMinutes());
@@ -436,9 +436,9 @@ class UserRightPanel extends Component {
           const DATE = new Date(this.state.userInfos[connections][2]);
           advancedUserInfos.push(
               <tr key = {connections}>
-                <td>{ this.state.userInfos[connections][0] }</td>
-                <td>{ this.identifyUserAgent(this.state.userInfos[connections][1]) }</td>
                 <td>{ this.getDate(DATE) }</td>
+                <td>{ this.identifyUserAgent(this.state.userInfos[connections][1]) }</td>
+                <td>{ this.state.userInfos[connections][0] }</td>
               </tr>);
         }
       }
@@ -488,9 +488,9 @@ class UserRightPanel extends Component {
                           <Table striped bordered condensed hover>
                             <thead>
                               <tr>
-                                <th>Ip</th>
-                                <th>{ t('Device') }</th>
                                 <th>{ t('Connected') }</th>
+                                <th>{ t('Device') }</th>
+                                <th>Ip</th>
                               </tr>
                             </thead>
                             <tbody className='AdvancedUserBody'>

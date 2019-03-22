@@ -39,7 +39,7 @@ class CreateUserRightPanel extends Component {
           body: t('Last Name must contain at least two characters ')},
       });
       this.displayInfoMessage();
-        /*
+      /*
     } else if (!this.props.isEmailAvailable(this.state.emailValue)) {
       this.setState({
         message: {type: 'danger', title: t('Email already in use'),
@@ -226,7 +226,7 @@ render() {
       </Alert>;
   } else {
     bottomWell=<div className='bottomButton'>
-      <Button bsStyle='primary' onClick={this.createUser} disabled={this.state.busy}>{ t('Create User') }</Button>
+      <Button bsStyle='primary' onClick={this.createUser} disabled={this.state.busy}>{ t('Create user') }</Button>
     </div>;
   }
   return (
@@ -235,7 +235,7 @@ render() {
         <div>
           <Panel className='rightPanel' bsStyle="primary">
             <Panel.Heading>
-              <Panel.Title componentClass='h3'>{ t('Create User') }
+              <Panel.Title componentClass='h3'>{ t('Create user') }
 
                 <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
               </Panel.Title>

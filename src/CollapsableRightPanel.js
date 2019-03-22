@@ -27,6 +27,7 @@ export default class CollapsableRightPanel extends Component {
           onClose={this.onClose}
           server={this.props.server}
           token={this.props.token}
+          lang={this.props.lang}
           refresh={this.props.refresh}
           onTabSelected={this.props.onTabSelected}
           refreshRightPanel={this.props.refreshRightPanel}
@@ -64,6 +65,7 @@ export default class CollapsableRightPanel extends Component {
           server={this.props.server}
           token={this.props.token}
           refresh={this.props.refresh}
+          lang={this.props.lang}
         />;
     }
     return panel;

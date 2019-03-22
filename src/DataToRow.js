@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './User.css';
 import BooleanRow from './BooleanRow';
+import { withNamespaces } from 'react-i18next';
 
 
-export default class dataToRow extends Component {
+class DataToRow extends Component {
   constructor(props) {
     super(props);
 
@@ -19,8 +20,10 @@ export default class dataToRow extends Component {
 
   dataToRow = () => {
     const DATA = this.props.data;
+    const {t} = this.props;
     const row = [];
     const PK = this.props.primaryKey;
+    const DATES=['date', 'shortDate'];
     const ROW_CLASS_NAME = this.props.data[PK] === this.props.selected[PK] ? 'rowSelected' : 'row';
     for (const property in DATA) {
       if ({}.hasOwnProperty.call(DATA, property)) {
@@ -40,12 +43,20 @@ export default class dataToRow extends Component {
                 { this.props.data[property]['simplifiedData'].length }
               </td>,
           );
-        } else {
+        } else if ( DATES.includes(this.props.data[property]['type'])) {
           row.push(
               <td
                 className={ROW_CLASS_NAME}
                 key={property}>
                 { this.props.data[property]['simplifiedData'] }
+              </td>,
+          );
+        } else {
+          row.push(
+              <td
+                className={ROW_CLASS_NAME}
+                key={property}>
+                { t(this.props.data[property]['simplifiedData']) }
               </td>,
           );
         }
@@ -65,3 +76,4 @@ export default class dataToRow extends Component {
     );
   }
 }
+export default withNamespaces('common')(DataToRow);
