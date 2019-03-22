@@ -50,7 +50,7 @@ class AdminHome extends Component {
 
         <div className='AdminHomeContainer'>
           <Tabs activeKey={KEY} className='tabsContainer' id='tabs' onSelect={this.handleSelect}>
-            <Tab eventKey={1} title={t('Stats')}>
+            <Tab eventKey={1} title={t('Overview')}>
               { STATSTAB }
             </Tab>
 

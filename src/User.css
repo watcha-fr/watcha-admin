@@ -12,6 +12,12 @@
   color: white !important;
 
 }
+
+.languageDropdown{
+    margin-top: 20px;
+    width: 130px;
+}
+
 .bottomButtons{
   margin: auto;
   width: 200px;

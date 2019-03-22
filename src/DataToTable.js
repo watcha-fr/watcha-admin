@@ -133,6 +133,10 @@ class DataToTable extends Component {
       arrayOfdata: [], // an array with the data collected from server
       type: TABLE_TYPE[this.props.tableName], // the name of the table
       filter: {}, //filters to apply to the table
+      hideOneToOne: true,
+      hideMembers: true,
+      hideInactive: true,
+      hidePartners: true,
     };
   }
 
@@ -407,7 +411,7 @@ refreshRightPanel = async (data) => {
       if ({}.hasOwnProperty.call(filteredData, row)) {
         let hideRow = false;
         if (this.state.filter['hideOneToOne']) {
-          if (filteredData[row]['Type']['data'] === 'One to one') { // FIXME: will probably not worked once localized
+          if (filteredData[row]['Type']['data'] === ('One to one')) { // FIXME: will probably not worked once localized
             hideRow = true;
           }
         }
@@ -457,13 +461,17 @@ refreshRightPanel = async (data) => {
 
   handleFilter = (event) => {
     const TARGET = event.target;
-    const NAME = TARGET.name;
+    const newState = {};
+    const NAME = (TARGET.name);
     const VALUE = TARGET.type === 'checkbox' ? TARGET.checked : TARGET.value;
     const arrayOfFilter = this.state.filter;
-    arrayOfFilter[NAME] = VALUE;
+    newState[NAME] = !this.state[NAME];
+    arrayOfFilter[NAME] = !VALUE;
+    this.setState(newState);
     this.setState({
       filter: arrayOfFilter,
     });
+    console.log(this.state[NAME]);
   }
 
   render() {
@@ -487,6 +495,7 @@ refreshRightPanel = async (data) => {
         panelType={this.state.rightPanel['type']}
         data={this.state.rightPanel['data']}
         onClose={this.onClose}
+        lang={this.props.lang}
         token={this.props.token}
         server={this.props.server}
         isEmailAvailable = {this.isEmailAvailable}
@@ -502,7 +511,12 @@ refreshRightPanel = async (data) => {
         <TableToolBar refresh={this.onRefresh}
           setRightPanel={this.setRightPanel}
           onClose = {this.onClose} handleFilter={this.handleFilter}
-          tab={this.props.tableName} />
+          tab={this.props.tableName}
+          hideMembers={this.state.hideMembers}
+          hideInactive={this.state.hideInactive}
+          hideOneToOne={this.state.hideOneToOne}
+          hidePartners={this.state.hidePartners}
+        />
 
         <div className='tableContainer'>
           <Table striped bordered condensed hover responsive className='tableBody'>

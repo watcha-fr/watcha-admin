@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './images/logo.svg';
 import './App.css';
 import AdminHome from './AdminHome.js';
-import { Button, FormGroup, FormControl, Col, Form, Grid, Row, Dropdown} from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Col, Form, Grid, Row} from 'react-bootstrap';
 import { withNamespaces } from 'react-i18next';
 
 
@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       userName: '',
       password: '',
-      accessToken: null, // TODO: to test (was '' before)
+      accessToken: null,
       homeserver: '',
     };
   }
@@ -115,8 +115,10 @@ class App extends Component {
 
   onLanguageChange =(evt) => {
     const { i18n } = this.props;
-    i18n.changeLanguage(evt.target.id);
+    console.log(evt.target.value);
+    i18n.changeLanguage(evt.target.value);
   }
+
 
   render() {
     if (this.state.accessToken) {
@@ -148,6 +150,12 @@ class App extends Component {
             </Col>
           </Row>
           <Button bsStyle="primary" className='SubmitButton' onClick={this.onConnection}>{ this.props.t('Sign in') }</Button>
+          <div>
+            <select className='languageDropdown' onClick={this.onLanguageChange}>
+              <option value="fr">Français</option>
+              <option value="en" >English</option>
+            </select>
+          </div>
         </Grid>
       </div>
     );
