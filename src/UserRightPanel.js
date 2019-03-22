@@ -14,6 +14,7 @@ class UserRightPanel extends Component {
       busy: false,
     };
   }
+
   componentDidMount() {
     if (this.props.data['Email']['data']) {
       this.setState({emailValue: this.props.data['Email']['data']});
@@ -22,6 +23,7 @@ class UserRightPanel extends Component {
     }
     this.getUsersAdvancedInfos();
   }
+
   componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       if (this.props.data['Email']['data']) {
@@ -40,6 +42,13 @@ class UserRightPanel extends Component {
   onEmailEdit = () => {
     this.setState({editEmail: !this.state.editEmail});
   }
+
+simplifiedUserId = (fulluserId) =>{
+  let simplifiedUserId = fulluserId.replace('@', '');
+  simplifiedUserId = simplifiedUserId.split(':');
+  simplifiedUserId = simplifiedUserId[0];
+  return simplifiedUserId;
+}
 
   isEmail = (query) => {
     return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
@@ -453,7 +462,7 @@ class UserRightPanel extends Component {
             <Panel bsStyle={bsStyle} className='rightPanel'>
               <Panel.Heading>
                 <Panel.Title componentClass='h3'>
-                  { title }: { this.props.data['User name']['data'] }
+                  { title }: { this.simplifiedUserId(this.props.data['User name']['data']) }
                   <Glyphicon glyph="remove" className='dismissRight' onClick={this.onClose}></Glyphicon>
                 </Panel.Title>
               </Panel.Heading>
