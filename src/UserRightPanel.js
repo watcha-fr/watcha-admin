@@ -192,10 +192,27 @@ simplifiedUserId = (fulluserId) =>{
     this.dismissInfoMessage();
   }
 
+  activateAccount =() => {
+    this._doResetPassword(true);
+  }
+
   resetPassword = async () => {
+    this._doResetPassword(false);
+  }
+
+  _doResetPassword = async (isActivating) => {
     const HOME_SERVER = this.props.server;
     const ACCESS_TOKEN = this.props.token;
     const {t} = this.props;
+    // activating is the same as resetting the password,
+    // but with a different success message
+    const messageTitle = isActivating ? t('Account reactivated') : t('Password reset');
+    const messageBody = isActivating ? ((t('The account ') +
+                                         this.simplifiedUserId(this.props.data['User name']['data']) +
+                                         t(' has been reactivated, and an email has been sent to the user with a new password'))) : (
+                                           (t('an email has been send to ') +
+                                            this.simplifiedUserId(this.props.data['User name']['data']) +
+                                            t(' with a new password')));
     try {
       const SERVER_REQUEST = await fetch(HOME_SERVER+'_matrix/client/r0/watcha_reset_password'+
         encodeURIComponent(this.props.data['User name']['data']), {
@@ -212,8 +229,8 @@ simplifiedUserId = (fulluserId) =>{
       const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
       if (SERVER_REQUEST.ok) {
         this.setState({
-          message: {type: 'success', title: t('Password reseted'),
-            body: t('an email has been send to ') + this.props.data['User name']['data'] + t(' with a new password')},
+          message: {type: 'success', title: messageTitle,
+                    body: messageBody},
         });
         this.displayInfoMessage();
       } else {
@@ -325,7 +342,7 @@ simplifiedUserId = (fulluserId) =>{
             className='ActivationButton'
             key="activateAccount"
             bsStyle='success'
-            onClick={this.resetPassword}>{
+            onClick={this.activateAccount}>{
               t('Activate account') }
           </Button>,
       );
