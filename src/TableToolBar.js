@@ -42,7 +42,7 @@ class TableToolBar extends Component {
                 <div className='filtersOption'>
                   <RefreshButton onClick={this.props.refresh} bsStyle='primary' />
                   <div className='checkboxfilter'>
-                    <label>{ t('One to one Conversations') }</label>
+                    <label>{ t('One-to-one conversations') }</label>
                     <input type="checkbox" name={t('hideOneToOne')} checked={this.props.hideOneToOne} onChange = {this.props.handleFilter} />
                   </div>
                   <div className='checkboxfilter'>
