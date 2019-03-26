@@ -39,14 +39,14 @@ class CreateUserRightPanel extends Component {
           body: t('Last Name must contain at least two characters ')},
       });
       this.displayInfoMessage();
-      /*
+
     } else if (!this.props.isEmailAvailable(this.state.emailValue)) {
       this.setState({
         message: {type: 'danger', title: t('Email already in use'),
           body: this.state.emailValue+ t(' is already in use enter a new email')},
       });
       this.displayInfoMessage();
-      */
+
     } else if (!this.state.userIdValue && !this.state.suggestedUserId) {
       this.setState({
         message: {type: 'danger', title: t('User id required'),
