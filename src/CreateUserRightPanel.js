@@ -43,7 +43,7 @@ class CreateUserRightPanel extends Component {
     } else if (!this.props.isEmailAvailable(this.state.emailValue)) {
       this.setState({
         message: {type: 'danger', title: t('Email already in use'),
-          body: this.state.emailValue+ t(' is already in use enter a new email')},
+                  body: this.state.emailValue+ t(' is already in use for a different account.')},
       });
       this.displayInfoMessage();
 
