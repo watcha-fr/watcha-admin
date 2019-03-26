@@ -36,7 +36,7 @@
 "Last Name must contain at least two characters ":"Le Nom doit contenir au moins deux caractères",
 "Email already in use":"Email utilisé",
 "Invalid First Name":"Prénom invalide",
-" is already in use enter a new email":" est déjà associé à un compte ",
+" is already in use for a different account.":" est déjà associé à un compte.",
 "User id required":"Nom d'utilisateur requis",
 "Enter a valid user id":" Entrez un nom d'utilisateur valide ",
 "User Creation Failed":" Échec lors de la création de l'utilisateur ",
