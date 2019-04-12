@@ -225,11 +225,11 @@ refreshRightPanel = async (data) => {
 
   getData = async () => {
     let jsonData;
-    let JoinTablesData;
+    //  let JoinTablesData;
     const arrayData = [];
     const HOME_SERVER = this.props.server;
     const ACCESS_TOKEN = this.props.token;
-    const JOIN_TABLES = this.state.type['JOIN_TABLES'];
+    // const JOIN_TABLES = this.state.type['JOIN_TABLES'];
     const HEADERS = this.state.type['header'];
     try {
       const TABLE_REQUEST = await fetch(HOME_SERVER+ this.state.type['apiAdress'], {
@@ -273,12 +273,13 @@ refreshRightPanel = async (data) => {
           }
         }
         arrayData.push(dataObject);
-        this.setState({
-          arrayOfdata: arrayData,
-        });
       }
     }
-    for (const table in JOIN_TABLES) {// handle extra tables
+    this.setState({
+      arrayOfdata: arrayData,
+    });
+    //TODO we don't use this code now could it be used latter or should we delete
+    /*for (const table in JOIN_TABLES) {// handle extra tables
       if ({}.hasOwnProperty.call(JOIN_TABLES, table)) {
         const MAINKEY= JOIN_TABLES[table]['matchingKey'].mainTable;
         const SECONDARYKEY= JOIN_TABLES[table]['matchingKey'].secondaryTable;
@@ -311,7 +312,8 @@ refreshRightPanel = async (data) => {
                           'data': JoinTablesData[data][COLUMN],
                           'simplifiedData': this.convertRawData(JoinTablesData[data][COLUMN],
                               HEADERS[columnHeader]['type'],
-                              HEADERS[columnHeader]['simplify'])};
+                              HEADERS[columnHeader]['simplify']),
+                        };
                       }
                     }
                   }
@@ -322,6 +324,7 @@ refreshRightPanel = async (data) => {
         }
       }
     }
+    */
 
     if (this.state.update) {
       this.findDataByPrimaryKey(this.state.update);
@@ -466,7 +469,11 @@ refreshRightPanel = async (data) => {
     const VALUE = TARGET.type === 'checkbox' ? TARGET.checked : TARGET.value;
     const arrayOfFilter = this.state.filter;
     newState[NAME] = !this.state[NAME];
-    arrayOfFilter[NAME] = !VALUE;
+    if (TARGET.name==='checkbox') {
+      arrayOfFilter[NAME] = !VALUE;
+    } else {
+      arrayOfFilter[NAME] = VALUE;
+    }
     this.setState(newState);
     this.setState({
       filter: arrayOfFilter,
@@ -476,18 +483,21 @@ refreshRightPanel = async (data) => {
   render() {
     const header = this.getHeader(this.state.type);
     const dataToRow=[];
-    const FILTERED_DATA = this.filterData(this.state.arrayOfdata);
-    for (const row in FILTERED_DATA) {
-      if ({}.hasOwnProperty.call( this.state.arrayOfdata, row)) {
-        dataToRow.push(
-            <Datatorow
-              data={this.state.arrayOfdata[row]}
-              onUserSelected={this.onUserSelected}
-              selected={this.state.selected}
-              primaryKey={this.state.type['primaryKey']} key={row} />,
-        );
+    if (this.state.finish) {
+      const FILTERED_DATA = this.filterData(this.state.arrayOfdata);
+      for (const row in FILTERED_DATA) {
+        if ({}.hasOwnProperty.call( this.state.arrayOfdata, row)) {
+          dataToRow.push(
+              <Datatorow
+                data={this.state.arrayOfdata[row]}
+                onUserSelected={this.onUserSelected}
+                selected={this.state.selected}
+                primaryKey={this.state.type['primaryKey']} key={row} />,
+          );
+        }
       }
     }
+
     let panel;
     if (this.state.rightPanel) {
       panel = <CollapsableRightPanel
