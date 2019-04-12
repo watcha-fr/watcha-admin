@@ -225,11 +225,9 @@ refreshRightPanel = async (data) => {
 
   getData = async () => {
     let jsonData;
-    //  let JoinTablesData;
     const arrayData = [];
     const HOME_SERVER = this.props.server;
     const ACCESS_TOKEN = this.props.token;
-    // const JOIN_TABLES = this.state.type['JOIN_TABLES'];
     const HEADERS = this.state.type['header'];
     try {
       const TABLE_REQUEST = await fetch(HOME_SERVER+ this.state.type['apiAdress'], {
@@ -278,53 +276,6 @@ refreshRightPanel = async (data) => {
     this.setState({
       arrayOfdata: arrayData,
     });
-    //TODO we don't use this code now could it be used latter or should we delete
-    /*for (const table in JOIN_TABLES) {// handle extra tables
-      if ({}.hasOwnProperty.call(JOIN_TABLES, table)) {
-        const MAINKEY= JOIN_TABLES[table]['matchingKey'].mainTable;
-        const SECONDARYKEY= JOIN_TABLES[table]['matchingKey'].secondaryTable;
-        const APIADRESS = JOIN_TABLES[table]['APIADRESS'];
-        const COLUMN = JOIN_TABLES[table]['COLUMN'];
-        try {
-          const TABLE_REQUEST = await fetch(HOME_SERVER+ APIADRESS, {
-            method: 'GET',
-            headers: {
-              'Authorization': 'Bearer '+ACCESS_TOKEN,
-            },
-          });
-
-          JoinTablesData = JSON.parse(await TABLE_REQUEST.text());
-        } catch (e) {
-          console.log('error: ' + e);
-        }
-
-        for (const dataobject in this.state.arrayOfdata) {
-          if ({}.hasOwnProperty.call(this.state.arrayOfdata, dataobject)) {
-            for (const data in JoinTablesData ) {
-              if ({}.hasOwnProperty.call(JoinTablesData, data)) {
-                if (this.state.arrayOfdata[dataobject][MAINKEY]['data'] === JoinTablesData[data][SECONDARYKEY] ||
-                   this.simplifiedUserId(this.state.arrayOfdata[dataobject][MAINKEY]['data']) ===
-                   this.simplifiedUserId(JoinTablesData[data][SECONDARYKEY]) ) {
-                  for (const columnHeader in this.state.type['header']) {
-                    if ({}.hasOwnProperty.call(this.state.type['header'], columnHeader)) {
-                      if (table === this.state.type['header'][columnHeader]['name']) {
-                        this.state.arrayOfdata[dataobject][columnHeader]={
-                          'data': JoinTablesData[data][COLUMN],
-                          'simplifiedData': this.convertRawData(JoinTablesData[data][COLUMN],
-                              HEADERS[columnHeader]['type'],
-                              HEADERS[columnHeader]['simplify']),
-                        };
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    */
 
     if (this.state.update) {
       this.findDataByPrimaryKey(this.state.update);
