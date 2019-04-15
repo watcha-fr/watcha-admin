@@ -416,15 +416,11 @@ refreshRightPanel = async (data) => {
   handleFilter = (event) => {
       const TARGET = event.target;
       const newState = {};
-      const NAME = (TARGET.name);
-      const VALUE = TARGET.type === 'checkbox' ? TARGET.checked : TARGET.value;
+      const NAME = TARGET.name;
+      const VALUE = TARGET.type === 'checkbox' ? !TARGET.checked : TARGET.value;
       const arrayOfFilter = this.state.filter;
       newState[NAME] = !this.state[NAME];
-      if (TARGET.name==='checkbox') {
-          arrayOfFilter[NAME] = !VALUE;
-      } else {
-          arrayOfFilter[NAME] = VALUE;
-      }
+      arrayOfFilter[NAME] = VALUE;
       this.setState(newState);
       this.setState({
           filter: arrayOfFilter,
@@ -433,7 +429,7 @@ refreshRightPanel = async (data) => {
 
   render() {
       const header = this.getHeader(this.state.type);
-      const dataToRow=[];
+      const dataToRow = [];
       if (this.state.finish) {
           const FILTERED_DATA = this.filterData(this.state.arrayOfdata);
           for (const row in FILTERED_DATA) {
