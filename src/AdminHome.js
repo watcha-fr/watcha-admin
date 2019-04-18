@@ -6,78 +6,78 @@ import { withNamespaces } from 'react-i18next';
 //import Monitoring from './Monitoring';
 
 class AdminHome extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      refresh: true,
-      key: 1.,
-    };
-  }
+        this.state = {
+            refresh: true,
+            key: 1.,
+        };
+    }
 
     componentDidMount = () =>{
 
     }
 
     onTabSelected = (tabKey, data) =>{
-      this.setState({
-        key: tabKey,
-        data: data,
-      });
+        this.setState({
+            key: tabKey,
+            data: data,
+        });
     }
 
     onClose = () => {
-      this.setState({
-        rightPanel: false,
-      });
+        this.setState({
+            rightPanel: false,
+        });
     }
 
     handleSelect = (key) => {
-      this.setState({ key: key });
+        this.setState({ key: key });
     }
 
     render() {
-      const KEY= this.state.key? this.state.key : 1;
-      const SELECTED= this.state.data? this.state.data : false;
-      const {t}=this.props;
-      const STATSTAB =
+        const KEY= this.state.key? this.state.key : 1;
+        const SELECTED= this.state.data? this.state.data : false;
+        const {t}=this.props;
+        const STATSTAB =
             <StatsTab
-              token={this.props.token}
-              server={this.props.server}
-              onTabSelected={this.onTabSelected}
+                token={this.props.token}
+                server={this.props.server}
+                onTabSelected={this.onTabSelected}
             />;
 
-      return (
+        return (
 
-        <div className='AdminHomeContainer'>
-          <Tabs activeKey={KEY} className='tabsContainer' id='tabs' onSelect={this.handleSelect}>
-            <Tab eventKey={1} title={t('Overview')}>
-              { STATSTAB }
-            </Tab>
+            <div className='AdminHomeContainer'>
+                <Tabs activeKey={KEY} className='tabsContainer' id='tabs' onSelect={this.handleSelect}>
+                    <Tab eventKey={1} title={t('Overview')}>
+                        { STATSTAB }
+                    </Tab>
 
-            <Tab eventKey={2} title={t('Users')}>
-              <DataToTable tableName='user'
-                token={this.props.token}
-                server={this.props.server}
-                setRightPanel={this.setRightPanel}
-                onClose = {this.onClose}
-                value = {SELECTED}
-                lang={t('lang')}
-                onTabSelected={this.onTabSelected} />
-            </Tab>
+                    <Tab eventKey={2} title={t('Users')}>
+                        <DataToTable tableName='user'
+                            token={this.props.token}
+                            server={this.props.server}
+                            setRightPanel={this.setRightPanel}
+                            onClose = {this.onClose}
+                            value = {SELECTED}
+                            lang={t('lang')}
+                            onTabSelected={this.onTabSelected} />
+                    </Tab>
 
-            <Tab eventKey={3} title={t('Rooms')}>
-              <DataToTable tableName='room'
-                token={this.props.token}
-                server={this.props.server}
-                setRightPanel={this.setRightPanel}
-                onClose = {this.onClose}
-                stats={this.state.statsData}
-                value = {SELECTED}
-                lang={t('lang')}
-                onTabSelected={this.onTabSelected} />
-            </Tab>
-            { /* not functional yet
+                    <Tab eventKey={3} title={t('Rooms')}>
+                        <DataToTable tableName='room'
+                            token={this.props.token}
+                            server={this.props.server}
+                            setRightPanel={this.setRightPanel}
+                            onClose = {this.onClose}
+                            stats={this.state.statsData}
+                            value = {SELECTED}
+                            lang={t('lang')}
+                            onTabSelected={this.onTabSelected} />
+                    </Tab>
+                    { /* not functional yet
                             <Tab eventKey={4} title={t('Monitoring')}
                                 token={this.props.token}
                                 server={this.props.server} >
@@ -87,9 +87,9 @@ class AdminHome extends Component {
                                     onTabSelected={this.onTabSelected} />
                                 </Tab>
             */ }
-          </Tabs>
-        </div>
-      );
+                </Tabs>
+            </div>
+        );
     }
 }
 

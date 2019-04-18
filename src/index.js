@@ -9,20 +9,20 @@ import commonEn from './translation/en/common.json';
 import commonFr from './translation/fr/common.json';
 
 i18next.init({
-  interpolation: { escapeValue: false },
-  lng: 'fr', // language to use
-  resources: {
-    en: {
-      common: commonEn,
+    interpolation: { escapeValue: false },
+    lng: 'fr', // language to use
+    resources: {
+        en: {
+            common: commonEn,
+        },
+        fr: {
+            common: commonFr,
+        },
     },
-    fr: {
-      common: commonFr,
-    },
-  },
 });
 
 ReactDOM.render(<I18nextProvider i18n={i18next}>
-  <App />
+    <App />
 </I18nextProvider>,
 document.getElementById('root'));
 registerServiceWorker();
