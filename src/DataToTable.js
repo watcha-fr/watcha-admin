@@ -417,10 +417,10 @@ refreshRightPanel = async (data) => {
       const TARGET = event.target;
       const newState = {};
       const NAME = TARGET.name;
-      const VALUE = TARGET.type === 'checkbox' ? !TARGET.checked : TARGET.value;
+      const FILTER_VALUE = TARGET.type === 'checkbox' ? !TARGET.checked : TARGET.value;
       const arrayOfFilter = this.state.filter;
       newState[NAME] = !this.state[NAME];
-      arrayOfFilter[NAME] = VALUE;
+      arrayOfFilter[NAME] = FILTER_VALUE;
       this.setState(newState);
       this.setState({
           filter: arrayOfFilter,
