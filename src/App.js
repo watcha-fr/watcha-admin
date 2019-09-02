@@ -43,7 +43,7 @@ class App extends Component {
     fetch('/config.json').then((response) => response.json())
         .then((data) =>
           this.setState(
-              { homeserver: data['default_hs_url'] + '/',
+              { homeserver: data["default_server_config"]["m.homeserver"]["base_url"] + '/',
                 accessToken: accessToken }))
         .catch((error) => {
         // should only happen in dev - without token
