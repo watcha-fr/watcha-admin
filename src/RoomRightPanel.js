@@ -81,7 +81,10 @@ class RoomRightPanel extends Component {
                               <Panel id="collapsible-panel-users">
                                   <Panel.Heading>
                                       <Panel.Title>{ this.props.data['Users']['simplifiedData'].length } { t('Users in this room') }</Panel.Title>
-                                      <Panel.Toggle componentClass="a">{ t('Show users') }</Panel.Toggle>
+                                      {
+                                          this.props.data['Users']['simplifiedData'].length > 0 &&
+                                          <Panel.Toggle componentClass="a">{ t('Show users') }</Panel.Toggle>
+                                      }
                                   </Panel.Heading>
                                   <Panel.Collapse>
                                       <Panel.Body>
