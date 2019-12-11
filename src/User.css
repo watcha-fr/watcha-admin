@@ -111,9 +111,6 @@
   color:red;
 }
 
-.checkboxInfo{
-
-}
 .filtersOption{
   display: flex;
   justify-content: space-between;
@@ -216,10 +213,6 @@
 .inputValue{
   margin-right: 12px;
   font-size: 14px;
-}
-
-.logoRow{
-
 }
 
 .inputValue.disabled{

@@ -18,7 +18,7 @@ class App extends Component {
     };
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     let accessToken = null;
     const search = window.location.search;
     if (search.includes('=')) {
