@@ -55,20 +55,6 @@ class App extends Component {
         });
   }
 
-  componentDidMount = () => {
-    document.addEventListener('keydown', this.onEnterPressed, false);
-  }
-
-  componentWillUnmount = () => {
-    document.removeEventListener('keydown', this.onEnterPressed, false);
-  }
-
-  onEnterPressed = (event) => {
-    if (event.keyCode === 13) {
-      this.onConnection();
-    }
-  }
-
   onConnection = async () => {
     const self = this;
 
@@ -105,13 +91,8 @@ class App extends Component {
     }
   }
 
-  onNameChange = (evt) => {
-    this.setState({ userName: evt.target.value });
-  }
-
-  onPasswordChange = (evt) => {
-    this.setState({ password: evt.target.value });
-  }
+  handleChange = event =>
+    this.setState({ [event.target.name]: event.target.value });
 
   onLanguageChange =(evt) => {
     const { i18n } = this.props;
@@ -139,17 +120,20 @@ class App extends Component {
           </Row>
           <Row className="show-grid">
             <Col lg={6} sm={12} md={6} xs={12} mdOffset={3} smOffset={0} xsOffset={0}>
-              <Form className='loginInput'>
+              <Form className='loginInput' onSubmit={event => {
+                event.preventDefault();
+                this.onConnection();
+              }}>
                 <FormGroup controlId="formHorizontalName">
-                  <FormControl type="text" placeholder={this.props.t('Name')} onChange={this.onNameChange} />
+                  <FormControl name="userName" type="text" placeholder={this.props.t('Name')} autoComplete="username" value={this.state.userName} onChange={this.handleChange} />
                 </FormGroup>
                 <FormGroup controlId="formHorizontalPassword">
-                  <FormControl type="password" placeholder="Password" onChange={this.onPasswordChange} />
+                  <FormControl name="password" type="password" placeholder="Password" autoComplete="current-password" value={this.state.password} onChange={this.handleChange} />
                 </FormGroup>
+                <Button bsStyle="primary" className='SubmitButton' type="submit">{ this.props.t('Sign in') }</Button>
               </Form>
             </Col>
           </Row>
-          <Button bsStyle="primary" className='SubmitButton' onClick={this.onConnection}>{ this.props.t('Sign in') }</Button>
           <div>
             <select className='languageDropdown' onClick={this.onLanguageChange}>
               <option value="fr">Français</option>
