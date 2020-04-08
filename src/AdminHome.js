@@ -17,16 +17,16 @@ class AdminHome extends Component {
 
     componentDidMount = () => {};
 
+    onClose = () => {
+        this.setState({
+            rightPanel: false,
+        });
+    };
+
     onTabSelected = (tabKey, data) => {
         this.setState({
             key: tabKey,
             data: data,
-        });
-    };
-
-    onClose = () => {
-        this.setState({
-            rightPanel: false,
         });
     };
 

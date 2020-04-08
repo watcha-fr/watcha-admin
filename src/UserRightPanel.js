@@ -47,24 +47,13 @@ class UserRightPanel extends Component {
         }
     }
 
-    onEmailEdit = () => {
-        this.setState({ editEmail: !this.state.editEmail });
-    };
-
-    simplifiedUserId = fulluserId => {
-        let simplifiedUserId = fulluserId.replace("@", "");
-        simplifiedUserId = simplifiedUserId.split(":");
-        simplifiedUserId = simplifiedUserId[0];
-        return simplifiedUserId;
-    };
-
-    isEmail = query => {
-        return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-    };
-
     onCancelEdit = () => {
         this.setState({ emailValue: this.props.data["Email"]["data"] });
         this.setState({ editEmail: false });
+    };
+
+    onClose = () => {
+        this.props.onClose();
     };
 
     onEmailChange = ev => {
@@ -76,46 +65,8 @@ class UserRightPanel extends Component {
         }
     };
 
-    onClose = () => {
-        this.props.onClose();
-    };
-
-    getUsersAdvancedInfos = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
-        try {
-            const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/watcha_user_ip/" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-            const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
-            if (!SERVER_REQUEST.ok) {
-                this.setState({
-                    message: {
-                        type: "danger",
-                        title: "Failed to fetch info",
-                        body: RESPONSE["error"],
-                    },
-                });
-                this.displayInfoMessage();
-            } else {
-                this.setState({
-                    userInfos: RESPONSE,
-                });
-            }
-        } catch (e) {
-            console.log("error: " + e);
-            return;
-        }
+    onEmailEdit = () => {
+        this.setState({ editEmail: !this.state.editEmail });
     };
 
     onEmailValidate = async () => {
@@ -167,16 +118,33 @@ class UserRightPanel extends Component {
             return;
         }
     };
-    upgradePartner = async () => {
+
+    onInfoMessageValidate = () => {
+        this.props.refreshRightPanel(this.props.data["User name"]["data"]);
+        this.dismissInfoMessage();
+    };
+
+    getDate = date => {
+        const OPTIONS = { year: "numeric", month: "long", day: "numeric" };
+        const FORMATED_DATE =
+            date.toLocaleDateString(this.props.lang, OPTIONS) +
+            " " +
+            this.addZero(date.getHours()) +
+            ":" +
+            this.addZero(date.getMinutes());
+        return FORMATED_DATE;
+    };
+
+    getUsersAdvancedInfos = async () => {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
         try {
             const SERVER_REQUEST = await fetch(
                 HOME_SERVER +
-                    "_matrix/client/r0/watcha_update_partner_to_member/" +
+                    "_matrix/client/r0/watcha_user_ip/" +
                     encodeURIComponent(this.props.data["User name"]["data"]),
                 {
-                    method: "PUT",
+                    method: "GET",
                     headers: {
                         Authorization: "Bearer " + ACCESS_TOKEN,
                         Accept: "application/json",
@@ -185,59 +153,25 @@ class UserRightPanel extends Component {
                 }
             );
             const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
-            if (SERVER_REQUEST.ok) {
+            if (!SERVER_REQUEST.ok) {
                 this.setState({
                     message: {
-                        type: "success",
-                        title: "Role updated",
-                        body:
-                            this.simplifiedUserId(
-                                this.props.data["User name"]["data"]
-                            ) + " account has been upgraded to internal user",
+                        type: "danger",
+                        title: "Failed to fetch info",
+                        body: RESPONSE["error"],
                     },
                 });
                 this.displayInfoMessage();
             } else {
                 this.setState({
-                    message: {
-                        type: "danger",
-                        title: "upgrade failed",
-                        body: RESPONSE["error"],
-                    },
+                    userInfos: RESPONSE,
                 });
-                this.displayInfoMessage();
             }
         } catch (e) {
             console.log("error: " + e);
             return;
         }
     };
-
-    displayInfoMessage = () => {
-        this.setState({
-            infoMessage: true,
-        });
-    };
-
-    dismissInfoMessage = () => {
-        this.setState({
-            infoMessage: false,
-        });
-    };
-
-    onInfoMessageValidate = () => {
-        this.props.refreshRightPanel(this.props.data["User name"]["data"]);
-        this.dismissInfoMessage();
-    };
-
-    activateAccount = () => {
-        this._doResetPassword(true);
-    };
-
-    resetPassword = async () => {
-        this._doResetPassword(false);
-    };
-
     _doResetPassword = async isActivating => {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
@@ -299,43 +233,15 @@ class UserRightPanel extends Component {
         }
     };
 
-    identifyUserAgent = (userAgent, elements) => {
-        const REGEXPS = {
-            Chrome: [/Chrome\/(\S+)/],
-            Firefox: [/Firefox\/(\S+)/],
-            MSIE: [/MSIE (\S+);/],
-            Opera: [
-                /Opera\/.*?Version\/(\S+)/ /* Opera 10 */,
-                /Opera\/(\S+)/ /* Opera 9 and older */,
-            ],
-            Safari: [/Version\/(\S+).*?Safari\//],
-        };
-        let re;
-        let m;
-        let browser;
-        let version;
-        if (userAgent === undefined) {
-            userAgent = navigator.userAgent;
-        }
-        if (elements === undefined) {
-            elements = 2;
-        } else if (elements === 0) {
-            elements = 1337;
-        }
-        for (browser in REGEXPS) {
-            if ({}.hasOwnProperty.call(REGEXPS, browser)) {
-                while ((re = REGEXPS[browser].shift())) {
-                    if ((m = userAgent.match(re))) {
-                        version = m[1].match(
-                            new RegExp("[^.]+(?:.[^.]+){0," + --elements + "}")
-                        )[0];
-                        return browser + " " + version;
-                    }
-                }
-            }
-        }
+    activateAccount = () => {
+        this._doResetPassword(true);
+    };
 
-        return null;
+    addZero = number => {
+        if (number < 10) {
+            number = "0" + number;
+        }
+        return number;
     };
 
     deactivateAccount = async () => {
@@ -385,22 +291,116 @@ class UserRightPanel extends Component {
         }
     };
 
-    addZero = number => {
-        if (number < 10) {
-            number = "0" + number;
-        }
-        return number;
+    dismissInfoMessage = () => {
+        this.setState({
+            infoMessage: false,
+        });
     };
 
-    getDate = date => {
-        const OPTIONS = { year: "numeric", month: "long", day: "numeric" };
-        const FORMATED_DATE =
-            date.toLocaleDateString(this.props.lang, OPTIONS) +
-            " " +
-            this.addZero(date.getHours()) +
-            ":" +
-            this.addZero(date.getMinutes());
-        return FORMATED_DATE;
+    displayInfoMessage = () => {
+        this.setState({
+            infoMessage: true,
+        });
+    };
+
+    identifyUserAgent = (userAgent, elements) => {
+        const REGEXPS = {
+            Chrome: [/Chrome\/(\S+)/],
+            Firefox: [/Firefox\/(\S+)/],
+            MSIE: [/MSIE (\S+);/],
+            Opera: [
+                /Opera\/.*?Version\/(\S+)/ /* Opera 10 */,
+                /Opera\/(\S+)/ /* Opera 9 and older */,
+            ],
+            Safari: [/Version\/(\S+).*?Safari\//],
+        };
+        let re;
+        let m;
+        let browser;
+        let version;
+        if (userAgent === undefined) {
+            userAgent = navigator.userAgent;
+        }
+        if (elements === undefined) {
+            elements = 2;
+        } else if (elements === 0) {
+            elements = 1337;
+        }
+        for (browser in REGEXPS) {
+            if ({}.hasOwnProperty.call(REGEXPS, browser)) {
+                while ((re = REGEXPS[browser].shift())) {
+                    if ((m = userAgent.match(re))) {
+                        version = m[1].match(
+                            new RegExp("[^.]+(?:.[^.]+){0," + --elements + "}")
+                        )[0];
+                        return browser + " " + version;
+                    }
+                }
+            }
+        }
+
+        return null;
+    };
+
+    isEmail = query => {
+        return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    };
+
+    resetPassword = async () => {
+        this._doResetPassword(false);
+    };
+
+    simplifiedUserId = fulluserId => {
+        let simplifiedUserId = fulluserId.replace("@", "");
+        simplifiedUserId = simplifiedUserId.split(":");
+        simplifiedUserId = simplifiedUserId[0];
+        return simplifiedUserId;
+    };
+
+    upgradePartner = async () => {
+        const HOME_SERVER = this.props.server;
+        const ACCESS_TOKEN = this.props.token;
+        try {
+            const SERVER_REQUEST = await fetch(
+                HOME_SERVER +
+                    "_matrix/client/r0/watcha_update_partner_to_member/" +
+                    encodeURIComponent(this.props.data["User name"]["data"]),
+                {
+                    method: "PUT",
+                    headers: {
+                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
+            if (SERVER_REQUEST.ok) {
+                this.setState({
+                    message: {
+                        type: "success",
+                        title: "Role updated",
+                        body:
+                            this.simplifiedUserId(
+                                this.props.data["User name"]["data"]
+                            ) + " account has been upgraded to internal user",
+                    },
+                });
+                this.displayInfoMessage();
+            } else {
+                this.setState({
+                    message: {
+                        type: "danger",
+                        title: "upgrade failed",
+                        body: RESPONSE["error"],
+                    },
+                });
+                this.displayInfoMessage();
+            }
+        } catch (e) {
+            console.log("error: " + e);
+            return;
+        }
     };
 
     render() {

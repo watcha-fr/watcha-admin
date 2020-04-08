@@ -158,68 +158,20 @@ class DataToTable extends Component {
         document.removeEventListener("keydown", this.escFunction, false);
     }
 
-    onUserSelected = data => {
-        this.setState({ selected: data });
-        this.setState({
-            rightPanel: { type: this.props.tableName, data: data },
-        });
-    };
-
-    findDataByPrimaryKey = value => {
-        for (const data in this.state.arrayOfdata) {
-            if (
-                this.state.arrayOfdata[data][this.state.type["primaryKey"]][
-                    "data"
-                ] === value
-            ) {
-                this.onUserSelected(this.state.arrayOfdata[data]);
-            }
-        }
-    };
-
-    escFunction = event => {
-        if (event.keyCode === 27) {
-            this.onClose();
-        }
-    };
-
-    closeRightPanel = () => {
-        this.setState({
-            selected: false,
-        });
-    };
-
-    refreshRightPanel = async data => {
-        this.setState({
-            update: data,
-        });
-        this.onRefresh();
-    };
-
-    getHeader = type => {
-        const header = [];
-        const { t } = this.props;
-        for (const elem in type["header"]) {
-            if ({}.hasOwnProperty.call(type["header"], elem)) {
-                header.push(<th key={elem}> {t(elem)} </th>);
-            }
-        }
-        return header;
-    };
-
-    onRefresh = () => {
-        this.getData();
-    };
-
     onClose = () => {
         this.setState({
             rightPanel: false,
         });
     };
 
-    setRightPanel = panel => {
+    onRefresh = () => {
+        this.getData();
+    };
+
+    onUserSelected = data => {
+        this.setState({ selected: data });
         this.setState({
-            rightPanel: panel,
+            rightPanel: { type: this.props.tableName, data: data },
         });
     };
 
@@ -312,12 +264,27 @@ class DataToTable extends Component {
         this.setState({ finish: true });
     };
 
-    //function to convert a full user id to a simplified one since synapse use both forms
-    simplifiedUserId = fulluserId => {
-        let simplifiedUserId = fulluserId.replace("@", "");
-        simplifiedUserId = simplifiedUserId.split(":");
-        simplifiedUserId = simplifiedUserId[0];
-        return simplifiedUserId;
+    getHeader = type => {
+        const header = [];
+        const { t } = this.props;
+        for (const elem in type["header"]) {
+            if ({}.hasOwnProperty.call(type["header"], elem)) {
+                header.push(<th key={elem}> {t(elem)} </th>);
+            }
+        }
+        return header;
+    };
+
+    setRightPanel = panel => {
+        this.setState({
+            rightPanel: panel,
+        });
+    };
+
+    closeRightPanel = () => {
+        this.setState({
+            selected: false,
+        });
     };
 
     convertRawData = (rawData, type, simplify) => {
@@ -369,25 +336,10 @@ class DataToTable extends Component {
         return data;
     };
 
-    mergeRow = (columns, data) => {
-        let value = columns["Default"];
-        for (const columnToMerge in columns) {
-            if (data[columns[columnToMerge]["name"]] === 1) {
-                value = columnToMerge;
-            }
+    escFunction = event => {
+        if (event.keyCode === 27) {
+            this.onClose();
         }
-
-        return value;
-    };
-
-    isEmailAvailable = mail => {
-        let emailAvailable = true;
-        for (const user in this.state.arrayOfdata) {
-            if (this.state.arrayOfdata[user]["Email"]["data"] === mail) {
-                emailAvailable = false;
-            }
-        }
-        return emailAvailable;
     };
 
     filterData = arrayOfdata => {
@@ -460,6 +412,18 @@ class DataToTable extends Component {
         return filteredData;
     };
 
+    findDataByPrimaryKey = value => {
+        for (const data in this.state.arrayOfdata) {
+            if (
+                this.state.arrayOfdata[data][this.state.type["primaryKey"]][
+                    "data"
+                ] === value
+            ) {
+                this.onUserSelected(this.state.arrayOfdata[data]);
+            }
+        }
+    };
+
     handleFilter = event => {
         const TARGET = event.target;
         const newState = {};
@@ -473,6 +437,42 @@ class DataToTable extends Component {
         this.setState({
             filter: arrayOfFilter,
         });
+    };
+
+    isEmailAvailable = mail => {
+        let emailAvailable = true;
+        for (const user in this.state.arrayOfdata) {
+            if (this.state.arrayOfdata[user]["Email"]["data"] === mail) {
+                emailAvailable = false;
+            }
+        }
+        return emailAvailable;
+    };
+
+    mergeRow = (columns, data) => {
+        let value = columns["Default"];
+        for (const columnToMerge in columns) {
+            if (data[columns[columnToMerge]["name"]] === 1) {
+                value = columnToMerge;
+            }
+        }
+
+        return value;
+    };
+
+    refreshRightPanel = async data => {
+        this.setState({
+            update: data,
+        });
+        this.onRefresh();
+    };
+
+    //function to convert a full user id to a simplified one since synapse use both forms
+    simplifiedUserId = fulluserId => {
+        let simplifiedUserId = fulluserId.replace("@", "");
+        simplifiedUserId = simplifiedUserId.split(":");
+        simplifiedUserId = simplifiedUserId[0];
+        return simplifiedUserId;
     };
 
     render() {

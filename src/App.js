@@ -109,14 +109,14 @@ class App extends Component {
         }
     };
 
-    handleChange = event =>
-        this.setState({ [event.target.name]: event.target.value });
-
     onLanguageChange = evt => {
         const { i18n } = this.props;
         console.log(evt.target.value);
         i18n.changeLanguage(evt.target.value);
     };
+
+    handleChange = event =>
+        this.setState({ [event.target.name]: event.target.value });
 
     render() {
         if (this.state.accessToken) {

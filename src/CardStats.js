@@ -10,11 +10,17 @@ class CardStats extends Component {
         this.state = {};
     }
 
-    simplifiedUserId = fulluserId => {
-        let simplifiedUserId = fulluserId[0].replace("@", "");
-        simplifiedUserId = simplifiedUserId.split(":");
-        simplifiedUserId = simplifiedUserId[0];
-        return simplifiedUserId;
+    onCardClicked = () => {
+        const { t } = this.props;
+        if (this.props.title === t("Users")) {
+            this.props.onTabSelected(2, false);
+        } else if (this.props.title === t("Rooms")) {
+            this.props.onTabSelected(3, false);
+        }
+    };
+
+    onUserClicked = username => {
+        this.props.onTabSelected(2, username);
     };
 
     getPanelContent = () => {
@@ -66,17 +72,11 @@ class CardStats extends Component {
         return panelContent;
     };
 
-    onCardClicked = () => {
-        const { t } = this.props;
-        if (this.props.title === t("Users")) {
-            this.props.onTabSelected(2, false);
-        } else if (this.props.title === t("Rooms")) {
-            this.props.onTabSelected(3, false);
-        }
-    };
-
-    onUserClicked = username => {
-        this.props.onTabSelected(2, username);
+    simplifiedUserId = fulluserId => {
+        let simplifiedUserId = fulluserId[0].replace("@", "");
+        simplifiedUserId = simplifiedUserId.split(":");
+        simplifiedUserId = simplifiedUserId[0];
+        return simplifiedUserId;
     };
 
     render() {

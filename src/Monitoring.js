@@ -11,31 +11,6 @@ class Monitoring extends Component {
         this.getLogs();
         this.getServerState();
     };
-    getServerState = async () => {
-        let serverReport;
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
-
-        try {
-            const SERVER_REPORT_REQUET = await fetch(
-                HOME_SERVER + "_matrix/client/r0/watcha_server_state",
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
-                    },
-                }
-            );
-
-            serverReport = JSON.parse(await SERVER_REPORT_REQUET.text());
-        } catch (e) {
-            console.log("error: " + e);
-            return;
-        }
-        this.setState({
-            serverReport: serverReport,
-        });
-    };
     getLogs = async () => {
         let logData;
         const HOME_SERVER = this.props.server;
@@ -61,6 +36,31 @@ class Monitoring extends Component {
             log: logData,
         });
         this.displayLogs();
+    };
+    getServerState = async () => {
+        let serverReport;
+        const HOME_SERVER = this.props.server;
+        const ACCESS_TOKEN = this.props.token;
+
+        try {
+            const SERVER_REPORT_REQUET = await fetch(
+                HOME_SERVER + "_matrix/client/r0/watcha_server_state",
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer " + ACCESS_TOKEN,
+                    },
+                }
+            );
+
+            serverReport = JSON.parse(await SERVER_REPORT_REQUET.text());
+        } catch (e) {
+            console.log("error: " + e);
+            return;
+        }
+        this.setState({
+            serverReport: serverReport,
+        });
     };
 
     displayLogs = () => {

@@ -15,32 +15,6 @@ class StatsTab extends Component {
         this.getServerState();
     };
 
-    getStats = async () => {
-        let statsData;
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
-
-        try {
-            const STATS_REQUEST = await fetch(
-                HOME_SERVER + "_matrix/client/r0/watcha_admin_stats",
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
-                    },
-                }
-            );
-
-            statsData = JSON.parse(await STATS_REQUEST.text());
-        } catch (e) {
-            console.log("error: " + e);
-            return;
-        }
-        this.setState({
-            stats: statsData,
-        });
-    };
-
     getServerState = async () => {
         let serverReport;
         const HOME_SERVER = this.props.server;
@@ -64,6 +38,32 @@ class StatsTab extends Component {
         }
         this.setState({
             serverReport: serverReport,
+        });
+    };
+
+    getStats = async () => {
+        let statsData;
+        const HOME_SERVER = this.props.server;
+        const ACCESS_TOKEN = this.props.token;
+
+        try {
+            const STATS_REQUEST = await fetch(
+                HOME_SERVER + "_matrix/client/r0/watcha_admin_stats",
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer " + ACCESS_TOKEN,
+                    },
+                }
+            );
+
+            statsData = JSON.parse(await STATS_REQUEST.text());
+        } catch (e) {
+            console.log("error: " + e);
+            return;
+        }
+        this.setState({
+            stats: statsData,
         });
     };
 

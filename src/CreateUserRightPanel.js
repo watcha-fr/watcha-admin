@@ -25,6 +25,44 @@ class CreateUserRightPanel extends Component {
             busy: false,
         };
     }
+    onClose = () => {
+        this.props.onClose();
+    };
+
+    onEmailChange = ev => {
+        this.setState({ emailValue: ev.target.value });
+        this.setState({ isEmail: false });
+        if (this.isEmail(ev.target.value)) {
+            this.setState({ isEmail: true });
+        }
+    };
+    onFirstNameChange = ev => {
+        const FIRST_NAME = ev.target.value;
+        this.setState({ firstNameValue: FIRST_NAME });
+        this.generateSuggestedUserId(FIRST_NAME, true);
+        this.setState({ isFirstName: false });
+        if (this.isName(ev.target.value)) {
+            this.setState({ isFirstName: true });
+        }
+    };
+    onLastNameChange = ev => {
+        const NAME = ev.target.value;
+        this.setState({ lastNameValue: NAME });
+        this.generateSuggestedUserId(NAME, false);
+        this.setState({ isLastName: false });
+        if (this.isName(NAME)) {
+            this.setState({ isLastName: true });
+        }
+    };
+
+    onUserIdChange = ev => {
+        this.setState({ userIdValue: ev.target.value });
+    };
+
+    onUserIdEdit = () => {
+        this.setState({ editUserId: !this.state.editUserId });
+    };
+
     createUser = async () => {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
@@ -139,20 +177,26 @@ class CreateUserRightPanel extends Component {
         }
     };
 
-    isEmail = query => {
-        return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-    };
-    isName = query => {
-        return query.length > 1;
-    };
-    isFirstName = query => {
-        return query.length > 1;
+    dismissInfoMessage = () => {
+        this.setState({
+            infoMessage: false,
+        });
+        if (this.state.clearForm) {
+            this.setState({
+                clearForm: false,
+                emailValue: "",
+                userIdValue: "",
+                lastNameValue: "",
+                firstNameValue: "",
+            });
+        }
     };
 
-    onClose = () => {
-        this.props.onClose();
+    displayInfoMessage = () => {
+        this.setState({
+            infoMessage: true,
+        });
     };
-
     generateSuggestedUserId = (value, firstName) => {
         if (firstName) {
             this.setState({
@@ -171,59 +215,15 @@ class CreateUserRightPanel extends Component {
         }
     };
 
-    onEmailChange = ev => {
-        this.setState({ emailValue: ev.target.value });
-        this.setState({ isEmail: false });
-        if (this.isEmail(ev.target.value)) {
-            this.setState({ isEmail: true });
-        }
+    isEmail = query => {
+        return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     };
 
-    onFirstNameChange = ev => {
-        const FIRST_NAME = ev.target.value;
-        this.setState({ firstNameValue: FIRST_NAME });
-        this.generateSuggestedUserId(FIRST_NAME, true);
-        this.setState({ isFirstName: false });
-        if (this.isName(ev.target.value)) {
-            this.setState({ isFirstName: true });
-        }
+    isFirstName = query => {
+        return query.length > 1;
     };
-
-    onLastNameChange = ev => {
-        const NAME = ev.target.value;
-        this.setState({ lastNameValue: NAME });
-        this.generateSuggestedUserId(NAME, false);
-        this.setState({ isLastName: false });
-        if (this.isName(NAME)) {
-            this.setState({ isLastName: true });
-        }
-    };
-    onUserIdChange = ev => {
-        this.setState({ userIdValue: ev.target.value });
-    };
-
-    displayInfoMessage = () => {
-        this.setState({
-            infoMessage: true,
-        });
-    };
-
-    dismissInfoMessage = () => {
-        this.setState({
-            infoMessage: false,
-        });
-        if (this.state.clearForm) {
-            this.setState({
-                clearForm: false,
-                emailValue: "",
-                userIdValue: "",
-                lastNameValue: "",
-                firstNameValue: "",
-            });
-        }
-    };
-    onUserIdEdit = () => {
-        this.setState({ editUserId: !this.state.editUserId });
+    isName = query => {
+        return query.length > 1;
     };
 
     render() {
