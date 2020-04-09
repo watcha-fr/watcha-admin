@@ -65,10 +65,10 @@ class App extends Component {
                     process.env.REACT_APP_CORE || "http://localhost:8008";
                 console.log("Defaulting homeserver to " + defaultHomeServer);
                 this.setState(
-                    Object.assign({
+                    {
                         homeserver: defaultHomeServer + "/",
-                        accessToken,
-                    })
+                        accessToken
+                    }
                 );
             });
     };
