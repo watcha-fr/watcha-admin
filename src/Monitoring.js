@@ -59,7 +59,7 @@ class Monitoring extends Component {
             return;
         }
         this.setState({
-            serverReport: serverReport,
+            serverReport,
         });
     };
 
@@ -93,7 +93,7 @@ class Monitoring extends Component {
             }
         }
         this.setState({
-            list: list,
+            list,
         });
     };
 

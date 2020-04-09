@@ -171,7 +171,7 @@ class DataToTable extends Component {
     onUserSelected = data => {
         this.setState({ selected: data });
         this.setState({
-            rightPanel: { type: this.props.tableName, data: data },
+            rightPanel: { type: this.props.tableName, data },
         });
     };
 

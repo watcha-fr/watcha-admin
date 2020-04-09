@@ -26,12 +26,12 @@ class AdminHome extends Component {
     onTabSelected = (tabKey, data) => {
         this.setState({
             key: tabKey,
-            data: data,
+            data,
         });
     };
 
     handleSelect = key => {
-        this.setState({ key: key });
+        this.setState({ key });
     };
 
     render() {

@@ -56,7 +56,7 @@ class App extends Component {
                         data["default_server_config"]["m.homeserver"][
                             "base_url"
                         ] + "/",
-                    accessToken: accessToken,
+                    accessToken,
                 })
             )
             .catch(error => {
@@ -67,7 +67,7 @@ class App extends Component {
                 this.setState(
                     Object.assign({
                         homeserver: defaultHomeServer + "/",
-                        accessToken: accessToken,
+                        accessToken,
                     })
                 );
             });

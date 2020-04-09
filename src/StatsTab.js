@@ -37,7 +37,7 @@ class StatsTab extends Component {
             return;
         }
         this.setState({
-            serverReport: serverReport,
+            serverReport,
         });
     };
 
