@@ -64,12 +64,10 @@ class App extends Component {
                 const defaultHomeServer =
                     process.env.REACT_APP_CORE || "http://localhost:8008";
                 console.log("Defaulting homeserver to " + defaultHomeServer);
-                this.setState(
-                    {
-                        homeserver: defaultHomeServer + "/",
-                        accessToken
-                    }
-                );
+                this.setState({
+                    homeserver: defaultHomeServer + "/",
+                    accessToken,
+                });
             });
     };
 
