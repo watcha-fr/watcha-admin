@@ -1,37 +1,36 @@
 /*User*/
-.loading{
-  height: stretch;
-  width: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: progress;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  font-style: italic;
+.loading {
+    height: stretch;
+    width: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: progress;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-style: italic;
 }
-.rowSelected{
-  background: #00E5E5;
-  color: white !important;
-
+.rowSelected {
+    background: #00e5e5;
+    color: white !important;
 }
 
-.languageDropdown{
+.languageDropdown {
     margin-top: 20px;
     width: 130px;
 }
 
-.bottomButtons{
-  margin: auto;
-  width: 200px;
-  margin-bottom: 10px;
+.bottomButtons {
+    margin: auto;
+    width: 200px;
+    margin-bottom: 10px;
 }
-.rightPanel{
-  height: 90vh;
-  width: 30vw;
+.rightPanel {
+    height: 90vh;
+    width: 30vw;
 }
 
-.trueBoolean{
-  color:green;
+.trueBoolean {
+    color: green;
 }
 @keyframes blink {
     /**
@@ -39,26 +38,26 @@
      * has an opacity of .2
      */
     0% {
-      opacity: .2;
+        opacity: 0.2;
     }
     /**
      * At 20% the dot is fully visible and
      * then fades out slowly
      */
     20% {
-      opacity: 1;
+        opacity: 1;
     }
     /**
      * Until it reaches an opacity of .2 and
      * the animation can start again
      */
     100% {
-      opacity: .2;
+        opacity: 0.2;
     }
 }
 
 .loading span {
-      text-align: center;
+    text-align: center;
     /**
      * Use the blink animation, which is defined above
      */
@@ -80,9 +79,9 @@
      */
     animation-fill-mode: both;
 }
-.loadingText{
-  text-align: center;
-  font-size:x-large;
+.loadingText {
+    text-align: center;
+    font-size: x-large;
 }
 
 .loadingText span:nth-child(2) {
@@ -91,11 +90,11 @@
      * with a delay of .2s, otherwise all dots
      * would animate at the same time
      */
-    animation-delay: .2s;
+    animation-delay: 0.2s;
 }
 
-.page-header{
-  margin: 40px 49px 20px;
+.page-header {
+    margin: 40px 49px 20px;
 }
 
 .loadingText span:nth-child(3) {
@@ -104,155 +103,154 @@
      * with a delay of .4s, otherwise all dots
      * would animate at the same time
      */
-    animation-delay: .4s;
+    animation-delay: 0.4s;
 }
 
-.falseBoolean{
-  color:red;
+.falseBoolean {
+    color: red;
 }
 
-.filtersOption{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.filtersOption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.refreshButton{
-  margin-right:20px;
+.refreshButton {
+    margin-right: 20px;
 }
 
-.panel-title{
-  display: flex;
-  justify-content: space-between;
-}
-
-.statsPanelContent{
-  display: flex;
+.panel-title {
+    display: flex;
     justify-content: space-between;
 }
 
-.statsPanelsContainer{
-  display: flex;
-  font-size: 18px;
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+.statsPanelContent {
+    display: flex;
+    justify-content: space-between;
 }
 
-.statsPanel{
-  flex-grow: 1;
-  margin:2vw;
-  background-color: #337ab7;
-  color: white;
+.statsPanelsContainer {
+    display: flex;
+    font-size: 18px;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
 }
 
-.dismissRight{
-  right: 2px;
-  top: 3px;
-  cursor: pointer;
+.statsPanel {
+    flex-grow: 1;
+    margin: 2vw;
+    background-color: #337ab7;
+    color: white;
 }
 
-.email.form-group{
-  display: flex;
-  align-items: baseline;
+.dismissRight {
+    right: 2px;
+    top: 3px;
+    cursor: pointer;
 }
 
-.form-control{
-  margin-left: 10px;
+.email.form-group {
+    display: flex;
+    align-items: baseline;
 }
 
-.labelText{
-  font-size: 14px;
-  font-weight: 700;
+.form-control {
+    margin-left: 10px;
 }
 
-.bottomButton{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.labelText {
+    font-size: 14px;
+    font-weight: 700;
 }
 
-.ActivationButton{
-  width: 250px;
-  margin-bottom: 10px;
+.bottomButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.TableToolBar{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 20px;
+.ActivationButton {
+    width: 250px;
+    margin-bottom: 10px;
 }
 
-.table-responsive{
-  max-height: 92vh;
+.TableToolBar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
 }
 
-.tableContainer{
-  display: flex;
-  margin-left:20px;
+.table-responsive {
+    max-height: 92vh;
 }
 
-.table-responsive{
-  flex-grow: 1;
+.tableContainer {
+    display: flex;
+    margin-left: 20px;
 }
 
-.checkboxfilter{
-  display: flex;
-  margin-top: 2vh;
-}
-.checkboxfilter label{
-  margin-left: 4px;
+.table-responsive {
+    flex-grow: 1;
 }
 
-.checkboxfilter input{
-  margin-left: 2px;
+.checkboxfilter {
+    display: flex;
+    margin-top: 2vh;
 }
-.usersPanel{
-  height: none;
-  width: none;
-}
-
-.inputValue{
-  margin-right: 12px;
-  font-size: 14px;
+.checkboxfilter label {
+    margin-left: 4px;
 }
 
-.inputValue.disabled{
-  margin-right: 12px;
-  font-size: 14px;
-  background: #e3e3e3;
+.checkboxfilter input {
+    margin-left: 2px;
+}
+.usersPanel {
+    height: none;
+    width: none;
 }
 
-.textFilter{
-  margin-top: 1vh;
-  margin-right: 8px;
+.inputValue {
+    margin-right: 12px;
+    font-size: 14px;
 }
 
-.AdminName{
-  text-decoration: underline;
-  cursor: pointer;
+.inputValue.disabled {
+    margin-right: 12px;
+    font-size: 14px;
+    background: #e3e3e3;
 }
 
-.ServerStatePanelBody{
-  background: grey;
+.textFilter {
+    margin-top: 1vh;
+    margin-right: 8px;
 }
 
-.StatsTitle{
-  cursor: pointer;
+.AdminName {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-.TableAdvanced{
-  display: block;
-  overflow-y: auto;
-  max-height: 30vh;
+.ServerStatePanelBody {
+    background: grey;
 }
 
-.Error{
-  color:red;
+.StatsTitle {
+    cursor: pointer;
 }
 
-.Warning{
-  color:rgb(245, 153, 16);
-
+.TableAdvanced {
+    display: block;
+    overflow-y: auto;
+    max-height: 30vh;
 }
-.Log{
-  color:blue;
+
+.Error {
+    color: red;
+}
+
+.Warning {
+    color: rgb(245, 153, 16);
+}
+.Log {
+    color: blue;
 }

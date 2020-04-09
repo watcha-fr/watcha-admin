@@ -1,24 +1,27 @@
-import React, { Component } from 'react';
-import {Glyphicon, Button} from 'react-bootstrap';
+import React, { Component } from "react";
+import { Glyphicon, Button } from "react-bootstrap";
 
 export default class RefreshButton extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
+        this.state = {};
+    }
 
+    onClick = () => {
+        this.props.onClick();
     };
-  }
 
-  onClick = () =>{
-    this.props.onClick();
-  }
-
-  render() {
-    return (
-      <Button onClick={this.onClick} bsStyle={this.props.bsStyle} bsSize="small" className='refreshButton' >
-        <Glyphicon glyph="refresh" />
-      </Button>
-    );
-  }
+    render() {
+        return (
+            <Button
+                onClick={this.onClick}
+                bsStyle={this.props.bsStyle}
+                bsSize="small"
+                className="refreshButton"
+            >
+                <Glyphicon glyph="refresh" />
+            </Button>
+        );
+    }
 }
