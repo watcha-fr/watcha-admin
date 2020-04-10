@@ -16,7 +16,7 @@ export default class RefreshButton extends Component {
         return (
             <Button
                 onClick={this.onClick}
-                bsStyle={this.props.bsStyle}
+                variant={this.props.variant}
                 bsSize="small"
                 className="refreshButton"
             >

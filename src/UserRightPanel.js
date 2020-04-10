@@ -408,10 +408,10 @@ class UserRightPanel extends Component {
         const OPEN = this.props.data ? true : false;
         const ISDEACTIVATE = !this.props.data["Active"]["data"];
         let editEmail;
-        let bsStyle;
+        let variant;
         let title;
         const bottomButtons = [];
-        bsStyle = "primary";
+        variant = "primary";
         title = t("User");
 
         if (ISDEACTIVATE) {
@@ -419,7 +419,7 @@ class UserRightPanel extends Component {
                 <Button
                     className="ActivationButton"
                     key="activateAccount"
-                    bsStyle="success"
+                    variant="success"
                     onClick={this.activateAccount}
                 >
                     {t("Activate account")}
@@ -428,11 +428,11 @@ class UserRightPanel extends Component {
         } else {
             if (ISPARTNER) {
                 title = t("Partner");
-                bsStyle = "warning";
+                variant = "warning";
                 bottomButtons.push(
                     <Button
                         className="ActivationButton"
-                        bsStyle="success"
+                        variant="success"
                         key="upgradeToMember"
                         onClick={this.upgradePartner}
                     >
@@ -444,7 +444,7 @@ class UserRightPanel extends Component {
                 <Button
                     className="ActivationButton"
                     key="resetPassword"
-                    bsStyle="primary"
+                    variant="primary"
                     onClick={this.resetPassword}
                 >
                     {t("Reset Password")}
@@ -455,7 +455,7 @@ class UserRightPanel extends Component {
                 <Button
                     className="ActivationButton"
                     key="deactivateAccount"
-                    bsStyle="danger"
+                    variant="danger"
                     onClick={this.deactivateAccount}
                 >
                     {t("Deactivate Account")}
@@ -478,7 +478,7 @@ class UserRightPanel extends Component {
                 />
                 {/* <Button
                     onClick={this.onEmailEdit}
-                    bsStyle='primary'
+                    variant='primary'
                     className='editButton'>
                     <i className="fas fa-pencil-alt"></i>
                 </Button> */}
@@ -498,7 +498,7 @@ class UserRightPanel extends Component {
                         />
                         <Button
                             onClick={this.onEmailValidate}
-                            bsStyle="success"
+                            variant="success"
                             className="validateButton"
                         >
                             <i className="fas fa-check"></i>
@@ -517,7 +517,7 @@ class UserRightPanel extends Component {
                         />
                         <Button
                             onClick={this.onCancelEdit}
-                            bsStyle="danger"
+                            variant="danger"
                             className="cancelButton"
                         >
                             <i className="fas fa-times"></i>
@@ -532,13 +532,13 @@ class UserRightPanel extends Component {
             bottomWell = (
                 <Alert
                     onDismiss={this.dismissInfoMessage}
-                    bsStyle={this.state.message.type}
+                    variant={this.state.message.type}
                 >
                     <h4>{this.state.message.title}</h4>
                     <p>{this.state.message.body}</p>
                     <p>
                         <Button
-                            bsStyle={this.state.message.type}
+                            variant={this.state.message.type}
                             onClick={this.onInfoMessageValidate}
                         >
                             Ok

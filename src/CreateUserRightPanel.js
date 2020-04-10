@@ -231,7 +231,7 @@ class CreateUserRightPanel extends Component {
                 />
                 <Button
                     onClick={this.onUserIdEdit}
-                    bsStyle="primary"
+                    variant="primary"
                     className="editButton"
                 >
                     <i className="fas fa-pencil-alt"></i>
@@ -249,7 +249,7 @@ class CreateUserRightPanel extends Component {
                     />
                     <Button
                         onClick={this.onUserIdEdit}
-                        bsStyle="danger"
+                        variant="danger"
                         className="editButton"
                     >
                         <i className="fas fa-times"></i>
@@ -262,13 +262,13 @@ class CreateUserRightPanel extends Component {
             bottomWell = (
                 <Alert
                     onDismiss={this.dismissInfoMessage}
-                    bsStyle={this.state.message.type}
+                    variant={this.state.message.type}
                 >
                     <h4>{this.state.message.title}</h4>
                     <p>{this.state.message.body}</p>
                     <p>
                         <Button
-                            bsStyle={this.state.message.type}
+                            variant={this.state.message.type}
                             onClick={this.dismissInfoMessage}
                         >
                             Ok
@@ -280,7 +280,7 @@ class CreateUserRightPanel extends Component {
             bottomWell = (
                 <div className="bottomButton">
                     <Button
-                        bsStyle="primary"
+                        variant="primary"
                         onClick={this.createUser}
                         disabled={this.state.busy}
                     >
