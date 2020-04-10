@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Collapse, Card, Well, Table, Button, Alert } from "react-bootstrap";
+import { Collapse, Card, Table, Button, Alert } from "react-bootstrap";
 import { withNamespaces } from "react-i18next";
 
 class CreateUserRightPanel extends Component {
@@ -293,7 +293,7 @@ class CreateUserRightPanel extends Component {
             <div>
                 <Collapse in={true} dimension="width" timeout={0}>
                     <div>
-                        <Card className="rightPanel" bsStyle="primary">
+                        <Card className="rightPanel" bg="light">
                             <Card.Header>
                                 <Card.Title componentClass="h3">
                                     {t("Create user")}
@@ -305,7 +305,7 @@ class CreateUserRightPanel extends Component {
                             </Card.Header>
 
                             <div className="pannelContainer">
-                                <Well>
+                                <Card.Body>
                                     <Table>
                                         <tbody>
                                             <tr>
@@ -354,7 +354,7 @@ class CreateUserRightPanel extends Component {
                                             </tr>
                                         </tbody>
                                     </Table>
-                                </Well>
+                                </Card.Body>
                                 {bottomWell}
                             </div>
                         </Card>

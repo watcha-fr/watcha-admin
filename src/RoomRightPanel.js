@@ -4,7 +4,6 @@ import {
     Collapse,
     Card,
     Button,
-    Well,
     Table,
     ListGroupItem,
     ListGroup,
@@ -41,7 +40,6 @@ class RoomRightPanel extends Component {
 
     render() {
         const { t } = this.props;
-        const BSSTYLE = "primary";
         const TITLE = "Room";
         const OPEN = this.props.data ? true : false;
         const users = [];
@@ -71,7 +69,7 @@ class RoomRightPanel extends Component {
             <div>
                 <Collapse in={OPEN} dimension="width" timeout={0}>
                     <div>
-                        <Card bsStyle={BSSTYLE} className="rightPanel">
+                        <Card className="rightPanel" bg="light">
                             <Card.Header>
                                 <Card.Title componentClass="h3">
                                     {t(TITLE)}:{" "}
@@ -88,7 +86,7 @@ class RoomRightPanel extends Component {
                             </Card.Header>
 
                             <div className="pannelContainer">
-                                <Well>
+                                <Card.Body>
                                     <Table>
                                         <tbody>
                                             <tr>
@@ -127,7 +125,7 @@ class RoomRightPanel extends Component {
                                             </tr>
                                         </tbody>
                                     </Table>
-                                </Well>
+                                </Card.Body>
                                 <Accordion>
                                     <Card id="collapsible-panel-users">
                                         <Card.Header>

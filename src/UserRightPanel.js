@@ -4,7 +4,6 @@ import {
     Collapse,
     Card,
     Button,
-    Well,
     Table,
     Alert,
 } from "react-bootstrap";
@@ -578,7 +577,7 @@ class UserRightPanel extends Component {
             <div>
                 <Collapse in={OPEN} dimension="width" timeout={0}>
                     <div>
-                        <Card bsStyle={bsStyle} className="rightPanel">
+                        <Card className="rightPanel" bg="light">
                             <Card.Header>
                                 <Card.Title componentClass="h3">
                                     {title}:{" "}
@@ -593,7 +592,7 @@ class UserRightPanel extends Component {
                             </Card.Header>
 
                             <div className="pannelContainer">
-                                <Well>
+                                <Card.Body>
                                     <Table>
                                         <tbody>
                                             <tr>
@@ -670,7 +669,7 @@ class UserRightPanel extends Component {
                                             </Accordion.Collapse>
                                         </Card>
                                     </Accordion>
-                                </Well>
+                                </Card.Body>
                                 {bottomWell}
                             </div>
                         </Card>
