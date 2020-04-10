@@ -70,19 +70,16 @@ class RoomRightPanel extends Component {
                 <Collapse in={OPEN} dimension="width" timeout={0}>
                     <div>
                         <Card className="rightPanel" bg="light">
-                            <Card.Header>
-                                <Card.Title componentClass="h3">
-                                    {t(TITLE)}:{" "}
-                                    {
-                                        this.props.data["Room Id"][
-                                            "simplifiedData"
-                                        ]
-                                    }
-                                    <i
-                                        className="fas fa-times dismissRight"
-                                        onClick={this.onClose}
-                                    ></i>
-                                </Card.Title>
+                            <Card.Header className="header-with-button">
+                                {t(TITLE) +
+                                    " : " +
+                                    this.props.data["Room Id"][
+                                        "simplifiedData"
+                                    ]}
+                                <i
+                                    className="fas fa-times dismissRight"
+                                    onClick={this.onClose}
+                                ></i>
                             </Card.Header>
 
                             <div className="pannelContainer">
@@ -129,14 +126,11 @@ class RoomRightPanel extends Component {
                                 <Accordion>
                                     <Card id="collapsible-panel-users">
                                         <Card.Header>
-                                            <Card.Title>
-                                                {
-                                                    this.props.data["Users"][
-                                                        "simplifiedData"
-                                                    ].length
-                                                }{" "}
-                                                {t("Users in this room")}
-                                            </Card.Title>
+                                            {this.props.data["Users"][
+                                                "simplifiedData"
+                                            ].length +
+                                                " " +
+                                                t("Users in this room")}
                                             {this.props.data["Users"][
                                                 "simplifiedData"
                                             ].length > 0 && (

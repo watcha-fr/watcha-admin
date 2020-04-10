@@ -84,14 +84,9 @@ class CardStats extends Component {
         return (
             <Card bsStyle="primary" className="statsPanel">
                 <Card.Header>
-                    <Card.Title
-                        componentClass="h3"
-                        onClick={this.onCardClicked}
-                        className="StatsTitle"
-                    >
-                        {" "}
-                        {this.props.title}{" "}
-                    </Card.Title>
+                    <span className="StatsTitle" onClick={this.onCardClicked}>
+                        {this.props.title}
+                    </span>
                 </Card.Header>
                 <Card.Body>
                     <div className="statsPanelContent">

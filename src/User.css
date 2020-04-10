@@ -120,9 +120,13 @@
     margin-right: 20px;
 }
 
-.panel-title {
+.card-header.header-with-button {
     display: flex;
     justify-content: space-between;
+}
+
+.fas {
+    line-height: inherit
 }
 
 .statsPanelContent {
@@ -144,8 +148,6 @@
 }
 
 .dismissRight {
-    right: 2px;
-    top: 3px;
     cursor: pointer;
 }
 

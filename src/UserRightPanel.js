@@ -578,17 +578,16 @@ class UserRightPanel extends Component {
                 <Collapse in={OPEN} dimension="width" timeout={0}>
                     <div>
                         <Card className="rightPanel" bg="light">
-                            <Card.Header>
-                                <Card.Title componentClass="h3">
-                                    {title}:{" "}
-                                    {this.simplifiedUserId(
+                            <Card.Header className="header-with-button">
+                                {title +
+                                    " : " +
+                                    this.simplifiedUserId(
                                         this.props.data["User name"]["data"]
                                     )}
-                                    <i
-                                        className="fas fa-times dismissRight"
-                                        onClick={this.onClose}
-                                    ></i>
-                                </Card.Title>
+                                <i
+                                    className="fas fa-times dismissRight"
+                                    onClick={this.onClose}
+                                ></i>
                             </Card.Header>
 
                             <div className="pannelContainer">
