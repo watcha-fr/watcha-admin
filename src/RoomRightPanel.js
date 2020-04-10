@@ -149,7 +149,7 @@ class RoomRightPanel extends Component {
                                                 </Accordion.Toggle>
                                             )}
                                         </Card.Header>
-                                        <Accordion.Collapse>
+                                        <Accordion.Collapse eventKey="0">
                                             <Card.Body>
                                                 <ListGroup>{users}</ListGroup>
                                             </Card.Body>
