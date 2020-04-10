@@ -95,15 +95,14 @@ class StatsTab extends Component {
                 { label: t("Inactive Rooms"), data: bigRoomsData - activeRooms }
             );
         }
-        /*
-    let buttonReport;
-    if (this.state.serverReport) {
-      buttonReport =
-      <div>
-        <Button>Generate report</Button>
-      </div>;
-    }
-    */
+        // let buttonReport;
+        // if (this.state.serverReport) {
+        //     buttonReport = (
+        //         <div>
+        //             <Button>Generate report</Button>
+        //         </div>
+        //     );
+        // }
         if (!this.state.stats) {
             return (
                 <div className="loading">

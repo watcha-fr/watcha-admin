@@ -608,11 +608,10 @@ class UserRightPanel extends Component {
                                                 </td>
                                             </tr>
                                             {/* we don't display device yet but may be useful for e2e
-                        <tr>
-                          <td className='labelText'>Devices:</td>
-                          <td className='infoText'>{ this.props.data.device }</td>
-                        </tr>
-                      */}
+                                            <tr>
+                                                <td className='labelText'>Devices:</td>
+                                                <td className='infoText'>{ this.props.data.device }</td>
+                                            </tr> */}
                                             <tr>
                                                 <td className="labelText">
                                                     {t("Email")}:
