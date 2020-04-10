@@ -6,7 +6,6 @@ import {
     Button,
     Well,
     Table,
-    Glyphicon,
     Alert,
 } from "react-bootstrap";
 import { withNamespaces } from "react-i18next";
@@ -478,14 +477,12 @@ class UserRightPanel extends Component {
                     placeholder={emailPlaceholder}
                     className="inputValue disabled"
                 />
-                {/*
-      <Button
-        onClick={this.onEmailEdit}
-        bsStyle='primary'
-        className='editButton'>
-        <Glyphicon glyph="pencil" />
-      </Button>
-      */}
+                {/* <Button
+                    onClick={this.onEmailEdit}
+                    bsStyle='primary'
+                    className='editButton'>
+                    <i className="fas fa-pencil-alt"></i>
+                </Button> */}
             </td>
         );
         if (this.state.editEmail) {
@@ -505,7 +502,7 @@ class UserRightPanel extends Component {
                             bsStyle="success"
                             className="validateButton"
                         >
-                            <Glyphicon glyph="ok" />
+                            <i className="fas fa-check"></i>
                         </Button>
                     </td>
                 );
@@ -524,7 +521,7 @@ class UserRightPanel extends Component {
                             bsStyle="danger"
                             className="cancelButton"
                         >
-                            <Glyphicon glyph="remove" />
+                            <i className="fas fa-times"></i>
                         </Button>
                     </td>
                 );
@@ -588,11 +585,10 @@ class UserRightPanel extends Component {
                                     {this.simplifiedUserId(
                                         this.props.data["User name"]["data"]
                                     )}
-                                    <Glyphicon
-                                        glyph="remove"
-                                        className="dismissRight"
+                                    <i
+                                        className="fas fa-times dismissRight"
                                         onClick={this.onClose}
-                                    ></Glyphicon>
+                                    ></i>
                                 </Card.Title>
                             </Card.Header>
 

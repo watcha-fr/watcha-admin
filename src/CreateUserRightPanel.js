@@ -1,13 +1,5 @@
 import React, { Component } from "react";
-import {
-    Collapse,
-    Card,
-    Glyphicon,
-    Well,
-    Table,
-    Button,
-    Alert,
-} from "react-bootstrap";
+import { Collapse, Card, Well, Table, Button, Alert } from "react-bootstrap";
 import { withNamespaces } from "react-i18next";
 
 class CreateUserRightPanel extends Component {
@@ -242,7 +234,7 @@ class CreateUserRightPanel extends Component {
                     bsStyle="primary"
                     className="editButton"
                 >
-                    <Glyphicon glyph="pencil" />
+                    <i className="fas fa-pencil-alt"></i>
                 </Button>
             </td>
         );
@@ -260,7 +252,7 @@ class CreateUserRightPanel extends Component {
                         bsStyle="danger"
                         className="editButton"
                     >
-                        <Glyphicon glyph="remove" />
+                        <i className="fas fa-times"></i>
                     </Button>
                 </td>
             );
@@ -305,12 +297,10 @@ class CreateUserRightPanel extends Component {
                             <Card.Header>
                                 <Card.Title componentClass="h3">
                                     {t("Create user")}
-
-                                    <Glyphicon
-                                        glyph="remove"
-                                        className="dismissRight"
+                                    <i
+                                        className="fas fa-times dismissRight"
                                         onClick={this.onClose}
-                                    ></Glyphicon>
+                                    ></i>
                                 </Card.Title>
                             </Card.Header>
 

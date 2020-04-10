@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Glyphicon, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export default class RefreshButton extends Component {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class RefreshButton extends Component {
                 bsSize="small"
                 className="refreshButton"
             >
-                <Glyphicon glyph="refresh" />
+                <i className="fas fa-sync-alt"></i>
             </Button>
         );
     }

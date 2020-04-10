@@ -6,7 +6,6 @@ import {
     Button,
     Well,
     Table,
-    Glyphicon,
     ListGroupItem,
     ListGroup,
 } from "react-bootstrap";
@@ -81,11 +80,10 @@ class RoomRightPanel extends Component {
                                             "simplifiedData"
                                         ]
                                     }
-                                    <Glyphicon
-                                        glyph="remove"
-                                        className="dismissRight"
+                                    <i
+                                        className="fas fa-times dismissRight"
                                         onClick={this.onClose}
-                                    />
+                                    ></i>
                                 </Card.Title>
                             </Card.Header>
 
