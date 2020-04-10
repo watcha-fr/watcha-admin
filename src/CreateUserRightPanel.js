@@ -293,7 +293,7 @@ class CreateUserRightPanel extends Component {
             <div>
                 <Collapse in={true} dimension="width" timeout={0}>
                     <div>
-                        <Card className="rightPanel" bg="light">
+                        <Card className="rightPanel">
                             <Card.Header className="header-with-button">
                                 {t("Create user")}
                                 <i
@@ -304,54 +304,57 @@ class CreateUserRightPanel extends Component {
 
                             <div className="pannelContainer">
                                 <Card.Body>
-                                    <Table>
-                                        <tbody>
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("First Name")}:
-                                                </td>
-                                                <td>
-                                                    <input
-                                                        onChange={
-                                                            this
-                                                                .onFirstNameChange
-                                                        }
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("Last Name")}:
-                                                </td>
-                                                <td>
-                                                    <input
-                                                        onChange={
-                                                            this
-                                                                .onLastNameChange
-                                                        }
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="labelText">
-                                                    Email:
-                                                </td>
-                                                <td>
-                                                    <input
-                                                        onChange={
-                                                            this.onEmailChange
-                                                        }
-                                                    />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("User Id")}:
-                                                </td>
-                                                {editUserId}
-                                            </tr>
-                                        </tbody>
-                                    </Table>
+                                    <Card body bg="light">
+                                        <Table>
+                                            <tbody>
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("First Name")}:
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            onChange={
+                                                                this
+                                                                    .onFirstNameChange
+                                                            }
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("Last Name")}:
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            onChange={
+                                                                this
+                                                                    .onLastNameChange
+                                                            }
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="labelText">
+                                                        Email:
+                                                    </td>
+                                                    <td>
+                                                        <input
+                                                            onChange={
+                                                                this
+                                                                    .onEmailChange
+                                                            }
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("User Id")}:
+                                                    </td>
+                                                    {editUserId}
+                                                </tr>
+                                            </tbody>
+                                        </Table>
+                                    </Card>
                                 </Card.Body>
                                 {bottomWell}
                             </div>

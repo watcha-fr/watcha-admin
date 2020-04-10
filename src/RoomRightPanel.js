@@ -69,7 +69,7 @@ class RoomRightPanel extends Component {
             <div>
                 <Collapse in={OPEN} dimension="width" timeout={0}>
                     <div>
-                        <Card className="rightPanel" bg="light">
+                        <Card className="rightPanel">
                             <Card.Header className="header-with-button">
                                 {t(TITLE) +
                                     " : " +
@@ -84,72 +84,78 @@ class RoomRightPanel extends Component {
 
                             <div className="pannelContainer">
                                 <Card.Body>
-                                    <Table>
-                                        <tbody>
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("Name")}:
-                                                </td>
-                                                <td className="infoText">
-                                                    {
-                                                        this.props.data["Name"][
+                                    <Card body bg="light">
+                                        <Table>
+                                            <tbody>
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("Name")}:
+                                                    </td>
+                                                    <td className="infoText">
+                                                        {
+                                                            this.props.data[
+                                                                "Name"
+                                                            ]["simplifiedData"]
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("Creator")}:
+                                                    </td>
+                                                    <td className="infoText">
+                                                        {
+                                                            this.props.data[
+                                                                "Creator"
+                                                            ]["simplifiedData"]
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("Active")}:
+                                                    </td>
+                                                    <td className="infoText">
+                                                        {this.props.data[
+                                                            "Active"
+                                                        ][
                                                             "simplifiedData"
-                                                        ]
-                                                    }
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("Creator")}:
-                                                </td>
-                                                <td className="infoText">
-                                                    {
-                                                        this.props.data[
-                                                            "Creator"
-                                                        ]["simplifiedData"]
-                                                    }
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("Active")}:
-                                                </td>
-                                                <td className="infoText">
-                                                    {this.props.data["Active"][
+                                                        ].toString()}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </Table>
+                                        <Accordion>
+                                            <Card id="collapsible-panel-users">
+                                                <Card.Header>
+                                                    {this.props.data["Users"][
                                                         "simplifiedData"
-                                                    ].toString()}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </Table>
-                                </Card.Body>
-                                <Accordion>
-                                    <Card id="collapsible-panel-users">
-                                        <Card.Header>
-                                            {this.props.data["Users"][
-                                                "simplifiedData"
-                                            ].length +
-                                                " " +
-                                                t("Users in this room")}
-                                            {this.props.data["Users"][
-                                                "simplifiedData"
-                                            ].length > 0 && (
-                                                <Accordion.Toggle
-                                                    as={Button}
-                                                    variant="link"
-                                                    eventKey="0"
-                                                >
-                                                    {t("Show users")}
-                                                </Accordion.Toggle>
-                                            )}
-                                        </Card.Header>
-                                        <Accordion.Collapse eventKey="0">
-                                            <Card.Body>
-                                                <ListGroup>{users}</ListGroup>
-                                            </Card.Body>
-                                        </Accordion.Collapse>
+                                                    ].length +
+                                                        " " +
+                                                        t("Users in this room")}
+                                                    {this.props.data["Users"][
+                                                        "simplifiedData"
+                                                    ].length > 0 && (
+                                                        <Accordion.Toggle
+                                                            as={Button}
+                                                            variant="link"
+                                                            eventKey="0"
+                                                        >
+                                                            {t("Show users")}
+                                                        </Accordion.Toggle>
+                                                    )}
+                                                </Card.Header>
+                                                <Accordion.Collapse eventKey="0">
+                                                    <Card.Body>
+                                                        <ListGroup>
+                                                            {users}
+                                                        </ListGroup>
+                                                    </Card.Body>
+                                                </Accordion.Collapse>
+                                            </Card>
+                                        </Accordion>
                                     </Card>
-                                </Accordion>
+                                </Card.Body>
                             </div>
                         </Card>
                     </div>

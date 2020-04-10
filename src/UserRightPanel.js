@@ -577,7 +577,7 @@ class UserRightPanel extends Component {
             <div>
                 <Collapse in={OPEN} dimension="width" timeout={0}>
                     <div>
-                        <Card className="rightPanel" bg="light">
+                        <Card className="rightPanel">
                             <Card.Header className="header-with-button">
                                 {title +
                                     " : " +
@@ -592,81 +592,85 @@ class UserRightPanel extends Component {
 
                             <div className="pannelContainer">
                                 <Card.Body>
-                                    <Table>
-                                        <tbody>
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("Creation")}:
-                                                </td>
-                                                <td className="infoText">
-                                                    {
-                                                        this.props.data[
-                                                            "Date of creation"
-                                                        ]["data"]
-                                                    }
-                                                </td>
-                                            </tr>
-                                            {/* we don't display device yet but may be useful for e2e
-                                            <tr>
-                                                <td className='labelText'>Devices:</td>
-                                                <td className='infoText'>{ this.props.data.device }</td>
-                                            </tr> */}
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("Email")}:
-                                                </td>
-                                                {editEmail}
-                                            </tr>
-                                        </tbody>
-                                    </Table>
-                                    <Accordion>
-                                        <Card id="collapsible-panel-users">
-                                            <Card.Header>
-                                                <Accordion.Toggle
-                                                    as={Button}
-                                                    variant="link"
-                                                    eventKey="0"
-                                                >
-                                                    {t(
-                                                        "Show connection history"
-                                                    )}
-                                                </Accordion.Toggle>
-                                            </Card.Header>
-                                            <Accordion.Collapse eventKey="0">
-                                                <Card.Body>
-                                                    <div className="TableAdvanced">
-                                                        <Table
-                                                            striped
-                                                            bordered
-                                                            condensed
-                                                            hover
-                                                        >
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>
-                                                                        {t(
-                                                                            "Connected"
-                                                                        )}
-                                                                    </th>
-                                                                    <th>
-                                                                        {t(
-                                                                            "Device"
-                                                                        )}
-                                                                    </th>
-                                                                    <th>Ip</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody className="AdvancedUserBody">
-                                                                {
-                                                                    advancedUserInfos
-                                                                }
-                                                            </tbody>
-                                                        </Table>
-                                                    </div>
-                                                </Card.Body>
-                                            </Accordion.Collapse>
-                                        </Card>
-                                    </Accordion>
+                                    <Card body bg="light">
+                                        <Table>
+                                            <tbody>
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("Creation")}:
+                                                    </td>
+                                                    <td className="infoText">
+                                                        {
+                                                            this.props.data[
+                                                                "Date of creation"
+                                                            ]["data"]
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                {/* we don't display device yet but may be useful for e2e
+                                                <tr>
+                                                    <td className='labelText'>Devices:</td>
+                                                    <td className='infoText'>{ this.props.data.device }</td>
+                                                </tr> */}
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("Email")}:
+                                                    </td>
+                                                    {editEmail}
+                                                </tr>
+                                            </tbody>
+                                        </Table>
+                                        <Accordion>
+                                            <Card id="collapsible-panel-users">
+                                                <Card.Header>
+                                                    <Accordion.Toggle
+                                                        as={Button}
+                                                        variant="link"
+                                                        eventKey="0"
+                                                    >
+                                                        {t(
+                                                            "Show connection history"
+                                                        )}
+                                                    </Accordion.Toggle>
+                                                </Card.Header>
+                                                <Accordion.Collapse eventKey="0">
+                                                    <Card.Body>
+                                                        <div className="TableAdvanced">
+                                                            <Table
+                                                                striped
+                                                                bordered
+                                                                condensed
+                                                                hover
+                                                            >
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            {t(
+                                                                                "Connected"
+                                                                            )}
+                                                                        </th>
+                                                                        <th>
+                                                                            {t(
+                                                                                "Device"
+                                                                            )}
+                                                                        </th>
+                                                                        <th>
+                                                                            Ip
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody className="AdvancedUserBody">
+                                                                    {
+                                                                        advancedUserInfos
+                                                                    }
+                                                                </tbody>
+                                                            </Table>
+                                                        </div>
+                                                    </Card.Body>
+                                                </Accordion.Collapse>
+                                            </Card>
+                                        </Accordion>
+                                    </Card>
                                 </Card.Body>
                                 {bottomWell}
                             </div>
