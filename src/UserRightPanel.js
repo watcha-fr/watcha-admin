@@ -627,44 +627,52 @@ class UserRightPanel extends Component {
                                         </tbody>
                                     </Table>
                                     <Accordion>
-                                    <Card id="collapsible-panel-users">
-                                        <Card.Header>
-                                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                                {t("Show connection history")}
-                                            </Accordion.Toggle>
-                                        </Card.Header>
-                                        <Accordion.Collapse>
-                                            <Card.Body>
-                                                <div className="TableAdvanced">
-                                                    <Table
-                                                        striped
-                                                        bordered
-                                                        condensed
-                                                        hover
-                                                    >
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    {t(
-                                                                        "Connected"
-                                                                    )}
-                                                                </th>
-                                                                <th>
-                                                                    {t(
-                                                                        "Device"
-                                                                    )}
-                                                                </th>
-                                                                <th>Ip</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody className="AdvancedUserBody">
-                                                            {advancedUserInfos}
-                                                        </tbody>
-                                                    </Table>
-                                                </div>
-                                            </Card.Body>
-                                        </Accordion.Collapse>
-                                    </Card>
+                                        <Card id="collapsible-panel-users">
+                                            <Card.Header>
+                                                <Accordion.Toggle
+                                                    as={Button}
+                                                    variant="link"
+                                                    eventKey="0"
+                                                >
+                                                    {t(
+                                                        "Show connection history"
+                                                    )}
+                                                </Accordion.Toggle>
+                                            </Card.Header>
+                                            <Accordion.Collapse>
+                                                <Card.Body>
+                                                    <div className="TableAdvanced">
+                                                        <Table
+                                                            striped
+                                                            bordered
+                                                            condensed
+                                                            hover
+                                                        >
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        {t(
+                                                                            "Connected"
+                                                                        )}
+                                                                    </th>
+                                                                    <th>
+                                                                        {t(
+                                                                            "Device"
+                                                                        )}
+                                                                    </th>
+                                                                    <th>Ip</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody className="AdvancedUserBody">
+                                                                {
+                                                                    advancedUserInfos
+                                                                }
+                                                            </tbody>
+                                                        </Table>
+                                                    </div>
+                                                </Card.Body>
+                                            </Accordion.Collapse>
+                                        </Card>
                                     </Accordion>
                                 </Well>
                                 {bottomWell}

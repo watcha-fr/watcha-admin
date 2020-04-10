@@ -374,4 +374,5 @@ class CreateUserRightPanel extends Component {
         );
     }
 }
+
 export default withNamespaces("common")(CreateUserRightPanel);
