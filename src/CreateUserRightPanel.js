@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
     Collapse,
-    Panel,
+    Card,
     Glyphicon,
     Well,
     Table,
@@ -301,9 +301,9 @@ class CreateUserRightPanel extends Component {
             <div>
                 <Collapse in={true} dimension="width" timeout={0}>
                     <div>
-                        <Panel className="rightPanel" bsStyle="primary">
-                            <Panel.Heading>
-                                <Panel.Title componentClass="h3">
+                        <Card className="rightPanel" bsStyle="primary">
+                            <Card.Header>
+                                <Card.Title componentClass="h3">
                                     {t("Create user")}
 
                                     <Glyphicon
@@ -311,8 +311,8 @@ class CreateUserRightPanel extends Component {
                                         className="dismissRight"
                                         onClick={this.onClose}
                                     ></Glyphicon>
-                                </Panel.Title>
-                            </Panel.Heading>
+                                </Card.Title>
+                            </Card.Header>
 
                             <div className="pannelContainer">
                                 <Well>
@@ -367,7 +367,7 @@ class CreateUserRightPanel extends Component {
                                 </Well>
                                 {bottomWell}
                             </div>
-                        </Panel>
+                        </Card>
                     </div>
                 </Collapse>
             </div>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import {
+    Accordion,
     Collapse,
-    Panel,
+    Card,
     Button,
     Well,
     Table,
@@ -580,9 +581,9 @@ class UserRightPanel extends Component {
             <div>
                 <Collapse in={OPEN} dimension="width" timeout={0}>
                     <div>
-                        <Panel bsStyle={bsStyle} className="rightPanel">
-                            <Panel.Heading>
-                                <Panel.Title componentClass="h3">
+                        <Card bsStyle={bsStyle} className="rightPanel">
+                            <Card.Header>
+                                <Card.Title componentClass="h3">
                                     {title}:{" "}
                                     {this.simplifiedUserId(
                                         this.props.data["User name"]["data"]
@@ -592,8 +593,8 @@ class UserRightPanel extends Component {
                                         className="dismissRight"
                                         onClick={this.onClose}
                                     ></Glyphicon>
-                                </Panel.Title>
-                            </Panel.Heading>
+                                </Card.Title>
+                            </Card.Header>
 
                             <div className="pannelContainer">
                                 <Well>
@@ -625,14 +626,15 @@ class UserRightPanel extends Component {
                                             </tr>
                                         </tbody>
                                     </Table>
-                                    <Panel id="collapsible-panel-users">
-                                        <Panel.Heading>
-                                            <Panel.Toggle componentClass="a">
+                                    <Accordion>
+                                    <Card id="collapsible-panel-users">
+                                        <Card.Header>
+                                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                                 {t("Show connection history")}
-                                            </Panel.Toggle>
-                                        </Panel.Heading>
-                                        <Panel.Collapse>
-                                            <Panel.Body>
+                                            </Accordion.Toggle>
+                                        </Card.Header>
+                                        <Accordion.Collapse>
+                                            <Card.Body>
                                                 <div className="TableAdvanced">
                                                     <Table
                                                         striped
@@ -660,13 +662,14 @@ class UserRightPanel extends Component {
                                                         </tbody>
                                                     </Table>
                                                 </div>
-                                            </Panel.Body>
-                                        </Panel.Collapse>
-                                    </Panel>
+                                            </Card.Body>
+                                        </Accordion.Collapse>
+                                    </Card>
+                                    </Accordion>
                                 </Well>
                                 {bottomWell}
                             </div>
-                        </Panel>
+                        </Card>
                     </div>
                 </Collapse>
             </div>

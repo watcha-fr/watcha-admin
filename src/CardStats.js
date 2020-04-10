@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Panel } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { withNamespaces } from "react-i18next";
 import AdminCardStats from "./AdminCardStats";
 
@@ -82,23 +82,23 @@ class CardStats extends Component {
     render() {
         const PANEL_CONTENT = this.getPanelContent();
         return (
-            <Panel bsStyle="primary" className="statsPanel">
-                <Panel.Heading>
-                    <Panel.Title
+            <Card bsStyle="primary" className="statsPanel">
+                <Card.Header>
+                    <Card.Title
                         componentClass="h3"
                         onClick={this.onCardClicked}
                         className="StatsTitle"
                     >
                         {" "}
                         {this.props.title}{" "}
-                    </Panel.Title>
-                </Panel.Heading>
-                <Panel.Body>
+                    </Card.Title>
+                </Card.Header>
+                <Card.Body>
                     <div className="statsPanelContent">
                         <div>{PANEL_CONTENT}</div>
                     </div>
-                </Panel.Body>
-            </Panel>
+                </Card.Body>
+            </Card>
         );
     }
 }

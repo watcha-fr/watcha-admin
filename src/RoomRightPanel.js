@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import {
+    Accordion,
     Collapse,
-    Panel,
+    Card,
+    Button,
     Well,
     Table,
     Glyphicon,
@@ -70,9 +72,9 @@ class RoomRightPanel extends Component {
             <div>
                 <Collapse in={OPEN} dimension="width" timeout={0}>
                     <div>
-                        <Panel bsStyle={BSSTYLE} className="rightPanel">
-                            <Panel.Heading>
-                                <Panel.Title componentClass="h3">
+                        <Card bsStyle={BSSTYLE} className="rightPanel">
+                            <Card.Header>
+                                <Card.Title componentClass="h3">
                                     {t(TITLE)}:{" "}
                                     {
                                         this.props.data["Room Id"][
@@ -84,8 +86,8 @@ class RoomRightPanel extends Component {
                                         className="dismissRight"
                                         onClick={this.onClose}
                                     />
-                                </Panel.Title>
-                            </Panel.Heading>
+                                </Card.Title>
+                            </Card.Header>
 
                             <div className="pannelContainer">
                                 <Well>
@@ -128,32 +130,34 @@ class RoomRightPanel extends Component {
                                         </tbody>
                                     </Table>
                                 </Well>
-                                <Panel id="collapsible-panel-users">
-                                    <Panel.Heading>
-                                        <Panel.Title>
+                                <Accordion>
+                                <Card id="collapsible-panel-users">
+                                    <Card.Header>
+                                        <Card.Title>
                                             {
                                                 this.props.data["Users"][
                                                     "simplifiedData"
                                                 ].length
                                             }{" "}
                                             {t("Users in this room")}
-                                        </Panel.Title>
+                                        </Card.Title>
                                         {this.props.data["Users"][
                                             "simplifiedData"
                                         ].length > 0 && (
-                                            <Panel.Toggle componentClass="a">
+                                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
                                                 {t("Show users")}
-                                            </Panel.Toggle>
+                                            </Accordion.Toggle>
                                         )}
-                                    </Panel.Heading>
-                                    <Panel.Collapse>
-                                        <Panel.Body>
+                                    </Card.Header>
+                                    <Accordion.Collapse>
+                                        <Card.Body>
                                             <ListGroup>{users}</ListGroup>
-                                        </Panel.Body>
-                                    </Panel.Collapse>
-                                </Panel>
+                                        </Card.Body>
+                                    </Accordion.Collapse>
+                                </Card>
+                                </Accordion>
                             </div>
-                        </Panel>
+                        </Card>
                     </div>
                 </Collapse>
             </div>
