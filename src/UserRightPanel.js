@@ -408,11 +408,8 @@ class UserRightPanel extends Component {
         const OPEN = this.props.data ? true : false;
         const ISDEACTIVATE = !this.props.data["Active"]["data"];
         let editEmail;
-        let variant;
-        let title;
         const bottomButtons = [];
-        variant = "primary";
-        title = t("User");
+        let title = t("User");
 
         if (ISDEACTIVATE) {
             bottomButtons.push(
@@ -428,7 +425,6 @@ class UserRightPanel extends Component {
         } else {
             if (ISPARTNER) {
                 title = t("Partner");
-                variant = "warning";
                 bottomButtons.push(
                     <Button
                         className="ActivationButton"
@@ -478,8 +474,9 @@ class UserRightPanel extends Component {
                 />
                 {/* <Button
                     onClick={this.onEmailEdit}
-                    variant='primary'
-                    className='editButton'>
+                    variant="primary"
+                    className="editButton"
+                >
                     <i className="fas fa-pencil-alt"></i>
                 </Button> */}
             </td>
@@ -639,7 +636,7 @@ class UserRightPanel extends Component {
                                                             <Table
                                                                 striped
                                                                 bordered
-                                                                condensed
+                                                                size="sm"
                                                                 hover
                                                             >
                                                                 <thead>

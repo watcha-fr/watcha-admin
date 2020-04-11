@@ -17,7 +17,6 @@ export default class RefreshButton extends Component {
             <Button
                 onClick={this.onClick}
                 variant={this.props.variant}
-                bsSize="small"
                 className="refreshButton"
             >
                 <i className="fas fa-sync-alt"></i>

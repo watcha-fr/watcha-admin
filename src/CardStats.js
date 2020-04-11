@@ -82,7 +82,7 @@ class CardStats extends Component {
     render() {
         const PANEL_CONTENT = this.getPanelContent();
         return (
-            <Card bsStyle="primary" className="statsPanel">
+            <Card className="statsPanel">
                 <Card.Header>
                     <span className="StatsTitle" onClick={this.onCardClicked}>
                         {this.props.title}
