@@ -24,7 +24,7 @@ class DataToRow extends Component {
         const ROW_CLASS_NAME =
             this.props.data[PK] === this.props.selected[PK]
                 ? "rowSelected"
-                : "row";
+                : undefined;
         for (const property in DATA) {
             if ({}.hasOwnProperty.call(DATA, property)) {
                 if (typeof this.props.data[property]["data"] === "boolean") {

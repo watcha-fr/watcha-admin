@@ -531,7 +531,7 @@ class DataToTable extends Component {
                     <Table
                         striped
                         bordered
-                        condensed
+                        size="sm"
                         hover
                         responsive
                         className="tableBody"

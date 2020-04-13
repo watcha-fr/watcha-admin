@@ -10,7 +10,7 @@ class CreateUserButton extends Component {
 
     render() {
         return (
-            <Button onClick={this.props.onClick} bsStyle={this.props.bsStyle}>
+            <Button onClick={this.props.onClick} variant={this.props.variant}>
                 {this.props.t("Create user")}
             </Button>
         );

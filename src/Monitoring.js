@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import { Card } from "react-bootstrap";
 
-import { Well } from "react-bootstrap";
 class Monitoring extends Component {
     constructor(props) {
         super(props);
@@ -102,7 +102,11 @@ class Monitoring extends Component {
         if (this.state.list) {
             log = this.state.list;
         }
-        return <Well>{log}</Well>;
+        return (
+            <Card body bg="light">
+                {log}
+            </Card>
+        );
     }
 }
 
