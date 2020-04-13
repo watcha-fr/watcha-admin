@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import {
+    Accordion,
     Collapse,
-    Panel,
+    Card,
     Button,
-    Well,
     Table,
-    Glyphicon,
     Alert,
 } from "react-bootstrap";
 import { withNamespaces } from "react-i18next";
@@ -409,18 +408,15 @@ class UserRightPanel extends Component {
         const OPEN = this.props.data ? true : false;
         const ISDEACTIVATE = !this.props.data["Active"]["data"];
         let editEmail;
-        let bsStyle;
-        let title;
         const bottomButtons = [];
-        bsStyle = "primary";
-        title = t("User");
+        let title = t("User");
 
         if (ISDEACTIVATE) {
             bottomButtons.push(
                 <Button
                     className="ActivationButton"
                     key="activateAccount"
-                    bsStyle="success"
+                    variant="success"
                     onClick={this.activateAccount}
                 >
                     {t("Activate account")}
@@ -429,11 +425,10 @@ class UserRightPanel extends Component {
         } else {
             if (ISPARTNER) {
                 title = t("Partner");
-                bsStyle = "warning";
                 bottomButtons.push(
                     <Button
                         className="ActivationButton"
-                        bsStyle="success"
+                        variant="success"
                         key="upgradeToMember"
                         onClick={this.upgradePartner}
                     >
@@ -445,7 +440,7 @@ class UserRightPanel extends Component {
                 <Button
                     className="ActivationButton"
                     key="resetPassword"
-                    bsStyle="primary"
+                    variant="primary"
                     onClick={this.resetPassword}
                 >
                     {t("Reset Password")}
@@ -456,7 +451,7 @@ class UserRightPanel extends Component {
                 <Button
                     className="ActivationButton"
                     key="deactivateAccount"
-                    bsStyle="danger"
+                    variant="danger"
                     onClick={this.deactivateAccount}
                 >
                     {t("Deactivate Account")}
@@ -477,14 +472,13 @@ class UserRightPanel extends Component {
                     placeholder={emailPlaceholder}
                     className="inputValue disabled"
                 />
-                {/*
-      <Button
-        onClick={this.onEmailEdit}
-        bsStyle='primary'
-        className='editButton'>
-        <Glyphicon glyph="pencil" />
-      </Button>
-      */}
+                {/* <Button
+                    onClick={this.onEmailEdit}
+                    variant="primary"
+                    className="editButton"
+                >
+                    <i className="fas fa-pencil-alt"></i>
+                </Button> */}
             </td>
         );
         if (this.state.editEmail) {
@@ -501,10 +495,10 @@ class UserRightPanel extends Component {
                         />
                         <Button
                             onClick={this.onEmailValidate}
-                            bsStyle="success"
+                            variant="success"
                             className="validateButton"
                         >
-                            <Glyphicon glyph="ok" />
+                            <i className="fas fa-check"></i>
                         </Button>
                     </td>
                 );
@@ -520,10 +514,10 @@ class UserRightPanel extends Component {
                         />
                         <Button
                             onClick={this.onCancelEdit}
-                            bsStyle="danger"
+                            variant="danger"
                             className="cancelButton"
                         >
-                            <Glyphicon glyph="remove" />
+                            <i className="fas fa-times"></i>
                         </Button>
                     </td>
                 );
@@ -535,13 +529,13 @@ class UserRightPanel extends Component {
             bottomWell = (
                 <Alert
                     onDismiss={this.dismissInfoMessage}
-                    bsStyle={this.state.message.type}
+                    variant={this.state.message.type}
                 >
                     <h4>{this.state.message.title}</h4>
                     <p>{this.state.message.body}</p>
                     <p>
                         <Button
-                            bsStyle={this.state.message.type}
+                            variant={this.state.message.type}
                             onClick={this.onInfoMessageValidate}
                         >
                             Ok
@@ -580,93 +574,104 @@ class UserRightPanel extends Component {
             <div>
                 <Collapse in={OPEN} dimension="width" timeout={0}>
                     <div>
-                        <Panel bsStyle={bsStyle} className="rightPanel">
-                            <Panel.Heading>
-                                <Panel.Title componentClass="h3">
-                                    {title}:{" "}
-                                    {this.simplifiedUserId(
+                        <Card className="rightPanel">
+                            <Card.Header className="header-with-button">
+                                {title +
+                                    " : " +
+                                    this.simplifiedUserId(
                                         this.props.data["User name"]["data"]
                                     )}
-                                    <Glyphicon
-                                        glyph="remove"
-                                        className="dismissRight"
-                                        onClick={this.onClose}
-                                    ></Glyphicon>
-                                </Panel.Title>
-                            </Panel.Heading>
+                                <i
+                                    className="fas fa-times dismissRight"
+                                    onClick={this.onClose}
+                                ></i>
+                            </Card.Header>
 
                             <div className="pannelContainer">
-                                <Well>
-                                    <Table>
-                                        <tbody>
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("Creation")}:
-                                                </td>
-                                                <td className="infoText">
-                                                    {
-                                                        this.props.data[
-                                                            "Date of creation"
-                                                        ]["data"]
-                                                    }
-                                                </td>
-                                            </tr>
-                                            {/* we don't display device yet but may be useful for e2e
-                        <tr>
-                          <td className='labelText'>Devices:</td>
-                          <td className='infoText'>{ this.props.data.device }</td>
-                        </tr>
-                      */}
-                                            <tr>
-                                                <td className="labelText">
-                                                    {t("Email")}:
-                                                </td>
-                                                {editEmail}
-                                            </tr>
-                                        </tbody>
-                                    </Table>
-                                    <Panel id="collapsible-panel-users">
-                                        <Panel.Heading>
-                                            <Panel.Toggle componentClass="a">
-                                                {t("Show connection history")}
-                                            </Panel.Toggle>
-                                        </Panel.Heading>
-                                        <Panel.Collapse>
-                                            <Panel.Body>
-                                                <div className="TableAdvanced">
-                                                    <Table
-                                                        striped
-                                                        bordered
-                                                        condensed
-                                                        hover
+                                <Card.Body>
+                                    <Card body bg="light">
+                                        <Table>
+                                            <tbody>
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("Creation")}:
+                                                    </td>
+                                                    <td className="infoText">
+                                                        {
+                                                            this.props.data[
+                                                                "Date of creation"
+                                                            ]["data"]
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                {/* we don't display device yet but may be useful for e2e
+                                                <tr>
+                                                    <td className='labelText'>Devices:</td>
+                                                    <td className='infoText'>{ this.props.data.device }</td>
+                                                </tr> */}
+                                                <tr>
+                                                    <td className="labelText">
+                                                        {t("Email")}:
+                                                    </td>
+                                                    {editEmail}
+                                                </tr>
+                                            </tbody>
+                                        </Table>
+                                        <Accordion>
+                                            <Card id="collapsible-panel-users">
+                                                <Card.Header>
+                                                    <Accordion.Toggle
+                                                        as={Button}
+                                                        variant="link"
+                                                        eventKey="0"
                                                     >
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    {t(
-                                                                        "Connected"
-                                                                    )}
-                                                                </th>
-                                                                <th>
-                                                                    {t(
-                                                                        "Device"
-                                                                    )}
-                                                                </th>
-                                                                <th>Ip</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody className="AdvancedUserBody">
-                                                            {advancedUserInfos}
-                                                        </tbody>
-                                                    </Table>
-                                                </div>
-                                            </Panel.Body>
-                                        </Panel.Collapse>
-                                    </Panel>
-                                </Well>
+                                                        {t(
+                                                            "Show connection history"
+                                                        )}
+                                                    </Accordion.Toggle>
+                                                </Card.Header>
+                                                <Accordion.Collapse eventKey="0">
+                                                    <Card.Body>
+                                                        <div className="TableAdvanced">
+                                                            <Table
+                                                                striped
+                                                                bordered
+                                                                size="sm"
+                                                                hover
+                                                            >
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            {t(
+                                                                                "Connected"
+                                                                            )}
+                                                                        </th>
+                                                                        <th>
+                                                                            {t(
+                                                                                "Device"
+                                                                            )}
+                                                                        </th>
+                                                                        <th>
+                                                                            Ip
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody className="AdvancedUserBody">
+                                                                    {
+                                                                        advancedUserInfos
+                                                                    }
+                                                                </tbody>
+                                                            </Table>
+                                                        </div>
+                                                    </Card.Body>
+                                                </Accordion.Collapse>
+                                            </Card>
+                                        </Accordion>
+                                    </Card>
+                                </Card.Body>
                                 {bottomWell}
                             </div>
-                        </Panel>
+                        </Card>
                     </div>
                 </Collapse>
             </div>

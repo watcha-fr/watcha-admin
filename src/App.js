@@ -1,17 +1,11 @@
 import React, { Component } from "react";
-import logo from "./images/logo.svg";
-import "./App.css";
-import AdminHome from "./AdminHome.js";
-import {
-    Button,
-    FormGroup,
-    FormControl,
-    Col,
-    Form,
-    Grid,
-    Row,
-} from "react-bootstrap";
+import { Button, Form, InputGroup } from "react-bootstrap";
 import { withNamespaces } from "react-i18next";
+
+import AdminHome from "./AdminHome.js";
+
+import "./App.css";
+import logo from "./images/logo.svg";
 
 class App extends Component {
     constructor(props, context) {
@@ -71,7 +65,8 @@ class App extends Component {
             });
     };
 
-    onConnection = async () => {
+    onConnection = async event => {
+        event.preventDefault();
         const self = this;
 
         try {
@@ -113,7 +108,7 @@ class App extends Component {
         i18n.changeLanguage(evt.target.value);
     };
 
-    handleChange = event =>
+    onChange = event =>
         this.setState({ [event.target.name]: event.target.value });
 
     render() {
@@ -128,78 +123,65 @@ class App extends Component {
             );
         }
         return (
-            <div>
-                <Grid className="container">
-                    <Row className="logoRow">
-                        <Col
-                            lg={4}
-                            sm={12}
-                            md={4}
-                            xs={12}
-                            mdOffset={4}
-                            smOffset={0}
-                            xsOffset={0}
-                        >
-                            <img alt="logo " src={logo} className="logo" />
-                        </Col>
-                    </Row>
-                    <Row className="show-grid">
-                        <Col
-                            lg={6}
-                            sm={12}
-                            md={6}
-                            xs={12}
-                            mdOffset={3}
-                            smOffset={0}
-                            xsOffset={0}
-                        >
-                            <Form
-                                className="loginInput"
-                                onSubmit={event => {
-                                    event.preventDefault();
-                                    this.onConnection();
-                                }}
-                            >
-                                <FormGroup controlId="formHorizontalName">
-                                    <FormControl
-                                        name="userName"
-                                        type="text"
-                                        placeholder={this.props.t("Name")}
-                                        autoComplete="username"
-                                        value={this.state.userName}
-                                        onChange={this.handleChange}
-                                    />
-                                </FormGroup>
-                                <FormGroup controlId="formHorizontalPassword">
-                                    <FormControl
-                                        name="password"
-                                        type="password"
-                                        placeholder="Password"
-                                        autoComplete="current-password"
-                                        value={this.state.password}
-                                        onChange={this.handleChange}
-                                    />
-                                </FormGroup>
-                                <Button
-                                    bsStyle="primary"
-                                    className="SubmitButton"
-                                    type="submit"
-                                >
-                                    {this.props.t("Sign in")}
-                                </Button>
-                            </Form>
-                        </Col>
-                    </Row>
-                    <div>
-                        <select
-                            className="languageDropdown"
-                            onClick={this.onLanguageChange}
-                        >
-                            <option value="fr">Français</option>
-                            <option value="en">English</option>
-                        </select>
-                    </div>
-                </Grid>
+            <div className="loginForm container mx-auto">
+                <Form.Control
+                    className="my-4"
+                    as="select"
+                    custom
+                    onClick={this.onLanguageChange}
+                >
+                    <option value="fr">Français</option>
+                    <option value="en">English</option>
+                </Form.Control>
+                <img
+                    alt="logo"
+                    className="logo mx-auto mb-4"
+                    src={logo}
+                />
+                <div className="text-center mb-4">
+                    {this.props.t("Administration interface")}
+                </div>
+                <Form onSubmit={this.onConnection}>
+                    <Form.Group>
+                        <InputGroup className="flex-nowrap">
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>
+                                    <i className="fas fa-user fa-fw"></i>
+                                </InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <Form.Control
+                                autoComplete="username"
+                                name="userName"
+                                onChange={this.onChange}
+                                placeholder={this.props.t("Name")}
+                                required
+                                type="text"
+                                value={this.state.userName}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+                    <Form.Group>
+                        <InputGroup className="flex-nowrap">
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>
+                                    <i className="fas fa-key fa-fw"></i>
+                                </InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <Form.Control
+                                autoComplete="current-password"
+                                name="password"
+                                onChange={this.onChange}
+                                placeholder="Password"
+                                required
+                                type="password"
+                                value={this.state.password}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+                    <Button variant="outline-primary btn-block" type="submit">
+                        {this.props.t("Sign in")}
+                    </Button>
+                </Form>
             </div>
         );
     }

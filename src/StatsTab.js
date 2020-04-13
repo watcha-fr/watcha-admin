@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import CardStats from "./CardStats";
 import { withNamespaces } from "react-i18next";
-import { PageHeader } from "react-bootstrap";
 import logo from "./images/logo.svg";
 class StatsTab extends Component {
     constructor(props) {
@@ -95,15 +94,14 @@ class StatsTab extends Component {
                 { label: t("Inactive Rooms"), data: bigRoomsData - activeRooms }
             );
         }
-        /*
-    let buttonReport;
-    if (this.state.serverReport) {
-      buttonReport =
-      <div>
-        <Button>Generate report</Button>
-      </div>;
-    }
-    */
+        // let buttonReport;
+        // if (this.state.serverReport) {
+        //     buttonReport = (
+        //         <div>
+        //             <Button>Generate report</Button>
+        //         </div>
+        //     );
+        // }
         if (!this.state.stats) {
             return (
                 <div className="loading">
@@ -123,7 +121,6 @@ class StatsTab extends Component {
         }
         return (
             <div>
-                <PageHeader>{t("Statistics for Watcha server")}</PageHeader>
                 <div className="statsPanelsContainer">
                     <CardStats
                         lines={userLines}

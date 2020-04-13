@@ -85,15 +85,18 @@ class AdminHome extends Component {
                         />
                     </Tab>
                     {/* not functional yet
-                            <Tab eventKey={4} title={t('Monitoring')}
-                                token={this.props.token}
-                                server={this.props.server} >
-                                <Monitoring
-                                    token={this.props.token}
-                                    server={this.props.server}
-                                    onTabSelected={this.onTabSelected} />
-                                </Tab>
-            */}
+                    <Tab
+                        eventKey={4}
+                        title={t("Monitoring")}
+                        token={this.props.token}
+                        server={this.props.server}
+                    >
+                        <Monitoring
+                            token={this.props.token}
+                            server={this.props.server}
+                            onTabSelected={this.onTabSelected}
+                        />
+                    </Tab> */}
                 </Tabs>
             </div>
         );

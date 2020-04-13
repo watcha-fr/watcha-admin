@@ -21,11 +21,11 @@ class TableToolBar extends Component {
                     <div className="buttonsGroup">
                         <RefreshButton
                             onClick={this.props.refresh}
-                            bsStyle="primary"
+                            variant="primary"
                         />
                         <CreateUserButton
                             onClick={this.createUser}
-                            bsStyle="success"
+                            variant="success"
                         />
                     </div>
                     <div className="checkboxfilter">
@@ -62,7 +62,7 @@ class TableToolBar extends Component {
                 <div className="filtersOption">
                     <RefreshButton
                         onClick={this.props.refresh}
-                        bsStyle="primary"
+                        variant="primary"
                     />
                     <div className="checkboxfilter">
                         <label>{t("One-to-one conversations")}</label>
