@@ -1,25 +1,21 @@
 import React, { Component } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
 import { withNamespaces } from "react-i18next";
 
+import Login from "./Login.js";
 import AdminHome from "./AdminHome.js";
 
 import "./App.css";
-import logo from "./images/logo.svg";
 
 class App extends Component {
-    constructor(props, context) {
-        super(props, context);
-
+    constructor(props) {
+        super(props);
         this.state = {
-            userName: "",
-            password: "",
             accessToken: null,
-            homeserver: "",
+            homeserver: null,
         };
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         let accessToken = null;
         const search = window.location.search;
         if (search.includes("=")) {
@@ -63,12 +59,9 @@ class App extends Component {
                     accessToken,
                 });
             });
-    };
+    }
 
-    onConnection = async event => {
-        event.preventDefault();
-        const self = this;
-
+    connection = async (userName, password) => {
         try {
             const path = this.state.homeserver + "_matrix/client/r0/login";
 
@@ -76,8 +69,8 @@ class App extends Component {
                 method: "POST",
                 body: JSON.stringify({
                     initial_device_display_name: "Web setup account",
-                    user: self.state.userName,
-                    password: self.state.password,
+                    user: userName,
+                    password: password,
                     type: "m.login.password",
                 }),
                 headers: {
@@ -87,7 +80,7 @@ class App extends Component {
             });
             const loginData = JSON.parse(await loginRequest.text());
             if (loginData["access_token"]) {
-                self.setState({ accessToken: loginData["access_token"] });
+                this.setState({ accessToken: loginData["access_token"] });
                 return this.state.accessToken;
             } else {
                 // TODO: to test
@@ -102,87 +95,15 @@ class App extends Component {
         }
     };
 
-    onLanguageChange = evt => {
-        const { i18n } = this.props;
-        console.log(evt.target.value);
-        i18n.changeLanguage(evt.target.value);
-    };
-
-    onChange = event =>
-        this.setState({ [event.target.name]: event.target.value });
-
     render() {
-        if (this.state.accessToken) {
-            return (
-                <AdminHome
-                    token={this.state.accessToken}
-                    server={this.state.homeserver}
-                    className="AdminHome"
-                    onLanguageChange={this.onLanguageChange}
-                ></AdminHome>
-            );
-        }
-        return (
-            <div className="loginForm container mx-auto">
-                <Form.Control
-                    className="my-4"
-                    as="select"
-                    custom
-                    onClick={this.onLanguageChange}
-                >
-                    <option value="fr">Français</option>
-                    <option value="en">English</option>
-                </Form.Control>
-                <img
-                    alt="logo"
-                    className="logo mx-auto mb-4"
-                    src={logo}
-                />
-                <div className="text-center mb-4">
-                    {this.props.t("Administration interface")}
-                </div>
-                <Form onSubmit={this.onConnection}>
-                    <Form.Group>
-                        <InputGroup className="flex-nowrap">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    <i className="fas fa-user fa-fw"></i>
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Form.Control
-                                autoComplete="username"
-                                name="userName"
-                                onChange={this.onChange}
-                                placeholder={this.props.t("Name")}
-                                required
-                                type="text"
-                                value={this.state.userName}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    <Form.Group>
-                        <InputGroup className="flex-nowrap">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    <i className="fas fa-key fa-fw"></i>
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Form.Control
-                                autoComplete="current-password"
-                                name="password"
-                                onChange={this.onChange}
-                                placeholder="Password"
-                                required
-                                type="password"
-                                value={this.state.password}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    <Button variant="outline-primary btn-block" type="submit">
-                        {this.props.t("Sign in")}
-                    </Button>
-                </Form>
-            </div>
+        return this.state.accessToken ? (
+            <AdminHome
+                className="AdminHome"
+                token={this.state.accessToken}
+                server={this.state.homeserver}
+            />
+        ) : (
+            <Login connection={this.connection} />
         );
     }
 }
