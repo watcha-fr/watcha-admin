@@ -4,6 +4,7 @@ import { withNamespaces } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Spinner from "react-bootstrap/Spinner";
 
 import logo from "./images/logo.svg";
 
@@ -11,14 +12,28 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: "",
+            user: "",
             password: "",
+            submitCount: 0,
         };
     }
 
     static propTypes = {
-        connection: PropTypes.func.isRequired,
+        client: PropTypes.object.isRequired,
+        setupClient: PropTypes.func.isRequired,
     };
+
+    login() {
+        const { client, setupClient } = this.props;
+        const { user, password } = this.state;
+        client
+            .loginWithPassword(user, password)
+            .then(() => setupClient(client))
+            .catch(error => {
+                this.setState({ submitCount: 0 });
+                alert(error.message);
+            });
+    }
 
     onChange = event =>
         this.setState({ [event.target.name]: event.target.value });
@@ -28,11 +43,45 @@ class Login extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-        this.props.connection(this.state.userName, this.state.password);
+        this.setState(
+            state => ({
+                submitCount: state.submitCount + 1,
+            }),
+            () => {
+                if (this.state.submitCount === 1) {
+                    this.login();
+                }
+            }
+        );
     };
 
     render() {
         const { t } = this.props;
+        const button =
+            this.state.submitCount === 0 ? (
+                <Button variant="outline-primary" type="submit" block>
+                    {t("Sign in")}
+                </Button>
+            ) : (
+                <Button
+                    className="loadingLoginButton"
+                    variant="outline-primary"
+                    block
+                    disabled
+                >
+                    <span className="loadingLoginText">
+                        {t("Loading") + "..."}
+                    </span>
+                    <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                    />
+                </Button>
+            );
+
         return (
             <div className="loginForm container mx-auto">
                 <Form.Control
@@ -58,7 +107,7 @@ class Login extends Component {
                             </InputGroup.Prepend>
                             <Form.Control
                                 autoComplete="username"
-                                name="userName"
+                                name="user"
                                 onChange={this.onChange}
                                 placeholder={t("Name")}
                                 required
@@ -85,9 +134,7 @@ class Login extends Component {
                             />
                         </InputGroup>
                     </Form.Group>
-                    <Button variant="outline-primary btn-block" type="submit">
-                        {t("Sign in")}
-                    </Button>
+                    {button}
                 </Form>
             </div>
         );

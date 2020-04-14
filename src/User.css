@@ -9,6 +9,15 @@
     max-height: 30vh;
 }
 
+.loadingLoginButton {
+    display: flex;
+    align-items: center;
+}
+
+.loadingLoginText {
+    flex-grow: 1;
+}
+
 .loading {
     height: stretch;
     width: stretch;

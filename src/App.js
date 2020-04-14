@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withNamespaces } from "react-i18next";
+import sdk from "matrix-js-sdk";
 
 import Login from "./Login.js";
 import AdminHome from "./AdminHome.js";
@@ -10,101 +11,85 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            accessToken: null,
-            homeserver: null,
+            client: null,
+            loginError: false,
+            clientPrepared: false,
         };
     }
 
-    componentDidMount() {
-        let accessToken = null;
-        const search = window.location.search;
-        if (search.includes("=")) {
-            // Retrieving the token passed from Riot
-            // see riot-web.git/src/components/structures/WatchaAdmin.js
-            const key = search.split("=")[1];
-            const value = localStorage.getItem("watcha-" + key);
-            if (value !== null) {
-                localStorage.removeItem("watcha-" + key);
+    async componentDidMount() {
+        this.setLanguage();
 
-                const { i18n } = this.props;
-                i18n.changeLanguage(value.split("|")[0]);
-                accessToken = value.split("|")[1];
-            } else {
-                // if the token was incorrect, or was already retrieved,
-                // then redirect to Riot for security
-                window.location =
-                    window.location.protocol + "//" + window.location.host;
-                return;
-            }
+        const baseUrl =
+            localStorage.getItem("mx_hs_url") ||
+            (await this.getBaseUrlFromConfig());
+
+        const client = sdk.createClient({ baseUrl });
+        this.setState({ client });
+
+        const accessToken = localStorage.getItem("mx_access_token");
+        if (accessToken) {
+            await client
+                .loginWithToken(accessToken)
+                .then(() => this.setupClient(client))
+                .catch(error => {
+                    this.setState({ loginError: true });
+                    console.error(error.message);
+                });
+        } else {
+            this.setState({ loginError: true });
         }
+    }
 
-        fetch("/config.json")
+    async getBaseUrlFromConfig() {
+        return await fetch("/config.json")
             .then(response => response.json())
-            .then(data =>
-                this.setState({
-                    homeserver:
-                        data["default_server_config"]["m.homeserver"][
-                            "base_url"
-                        ] + "/",
-                    accessToken,
-                })
+            .then(
+                data =>
+                    data["default_server_config"]["m.homeserver"]["base_url"] +
+                    "/"
             )
             .catch(error => {
-                // should only happen in dev - without token
+                // should only occur in development environment when the chat
+                // and the administration interface do not have the same domain
                 const defaultHomeServer =
-                    process.env.REACT_APP_CORE || "http://localhost:8008";
-                console.log("Defaulting homeserver to " + defaultHomeServer);
-                this.setState({
-                    homeserver: defaultHomeServer + "/",
-                    accessToken,
-                });
+                    (process.env.REACT_APP_CORE || "http://localhost:8008") +
+                    "/";
+                console.log(`Set ${defaultHomeServer} as default home server`);
+                return defaultHomeServer;
             });
     }
 
-    connection = async (userName, password) => {
-        try {
-            const path = this.state.homeserver + "_matrix/client/r0/login";
+    setLanguage() {
+        const localSettings = localStorage.getItem("mx_local_settings");
+        if (localSettings && localSettings.language) {
+            this.props.i18n.changeLanguage(localSettings.language);
+        }
+    }
 
-            const loginRequest = await fetch(path, {
-                method: "POST",
-                body: JSON.stringify({
-                    initial_device_display_name: "Web setup account",
-                    user: userName,
-                    password: password,
-                    type: "m.login.password",
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-            });
-            const loginData = JSON.parse(await loginRequest.text());
-            if (loginData["access_token"]) {
-                this.setState({ accessToken: loginData["access_token"] });
-                return this.state.accessToken;
-            } else {
-                // TODO: to test
-                console.log("error: no access token");
+    setupClient = async client => {
+        await client.startClient({ initialSyncLimit: 10 });
+        client.on("sync", (state, prevState, response) => {
+            if (state === "SYNCING" && prevState === "SYNCING") {
                 return;
             }
-        } catch (e) {
-            // TODO: is this useful ??
-            console.log("error: " + e);
-
-            return;
-        }
+            console.info("MatrixClient sync state => %s", state);
+            if (state === "PREPARED") {
+                this.setState({ clientPrepared: true });
+            }
+        });
     };
 
     render() {
-        return this.state.accessToken ? (
+        return this.state.clientPrepared ? (
             <AdminHome
                 className="AdminHome"
-                token={this.state.accessToken}
-                server={this.state.homeserver}
+                token={this.state.client.getAccessToken()}
+                server={this.state.client.baseUrl + "/"}
             />
-        ) : (
-            <Login connection={this.connection} />
-        );
+        ) : this.state.loginError ? (
+            <Login client={this.state.client} setupClient={this.setupClient} />
+        ) : null;
     }
 }
 
