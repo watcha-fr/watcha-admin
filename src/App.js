@@ -46,15 +46,14 @@ class App extends Component {
             .then(response => response.json())
             .then(
                 data =>
-                    data["default_server_config"]["m.homeserver"]["base_url"] +
-                    "/"
+                    data["default_server_config"]["m.homeserver"]["base_url"]
             )
             .catch(error => {
-                // should only occur in development environment when the chat
-                // and the administration interface do not have the same domain
+                // should only occur if the browser cache was cleared or
+                // in development environment when the chat and the
+                // administration interface do not have the same domain
                 const defaultHomeServer =
-                    (process.env.REACT_APP_CORE || "http://localhost:8008") +
-                    "/";
+                    process.env.REACT_APP_CORE || "http://localhost:8008";
                 console.log(`Set ${defaultHomeServer} as default home server`);
                 return defaultHomeServer;
             });
@@ -85,7 +84,7 @@ class App extends Component {
             <AdminHome
                 className="AdminHome"
                 token={this.state.client.getAccessToken()}
-                server={this.state.client.baseUrl + "/"}
+                server={this.state.client.baseUrl}
             />
         ) : this.state.loginError ? (
             <Login client={this.state.client} setupClient={this.setupClient} />

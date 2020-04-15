@@ -72,10 +72,12 @@ class UserRightPanel extends Component {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
         try {
+            const userId = encodeURIComponent(this.props.data["User name"]["data"])
             const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/watcha_update_email/" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
+                new URL(
+                    `_matrix/client/r0/watcha_update_email/${userId}`,
+                    HOME_SERVER
+                ),
                 {
                     method: "PUT",
                     headers: {
@@ -138,10 +140,12 @@ class UserRightPanel extends Component {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
         try {
+            const userId = encodeURIComponent(this.props.data["User name"]["data"])
             const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/watcha_user_ip/" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
+                new URL(
+                    `_matrix/client/r0/watcha_user_ip/${userId}`,
+                    HOME_SERVER
+                ),
                 {
                     method: "GET",
                     headers: {
@@ -190,10 +194,12 @@ class UserRightPanel extends Component {
               this.simplifiedUserId(this.props.data["User name"]["data"]) +
               t(" with a new password");
         try {
+            const userId = encodeURIComponent(this.props.data["User name"]["data"])
             const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/watcha_reset_password" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
+                new URL(
+                    `_matrix/client/r0/watcha_reset_password/${userId}`,
+                    HOME_SERVER
+                ),
                 {
                     method: "POST",
                     headers: {
@@ -248,10 +254,12 @@ class UserRightPanel extends Component {
         const ACCESS_TOKEN = this.props.token;
         const { t } = this.props;
         try {
+            const userId = encodeURIComponent(this.props.data["User name"]["data"])
             const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/admin/deactivate/" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
+                new URL(
+                    `_matrix/client/r0/admin/deactivate/${userId}`,
+                    HOME_SERVER
+                ),
                 {
                     method: "POST",
                     headers: {
@@ -360,10 +368,12 @@ class UserRightPanel extends Component {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
         try {
+            const userId = encodeURIComponent(this.props.data["User name"]["data"])
             const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/watcha_update_partner_to_member/" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
+                new URL(
+                    `_matrix/client/r0/watcha_update_partner_to_member/${userId}`,
+                    HOME_SERVER
+                ),
                 {
                     method: "PUT",
                     headers: {

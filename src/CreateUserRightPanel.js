@@ -117,7 +117,7 @@ class CreateUserRightPanel extends Component {
                     ? this.state.userIdValue
                     : this.state.suggestedUserId;
                 const USER_REQUEST = await fetch(
-                    HOME_SERVER + "_matrix/client/r0/watcha_register",
+                    new URL("_matrix/client/r0/watcha_register", HOME_SERVER),
                     {
                         method: "POST",
                         headers: {

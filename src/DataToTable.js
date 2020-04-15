@@ -183,7 +183,7 @@ class DataToTable extends Component {
         const HEADERS = this.state.type["header"];
         try {
             const TABLE_REQUEST = await fetch(
-                HOME_SERVER + this.state.type["apiAdress"],
+                new URL(this.state.type["apiAdress"], HOME_SERVER),
                 {
                     method: "GET",
                     headers: {

@@ -21,7 +21,7 @@ class StatsTab extends Component {
 
         try {
             const SERVER_REPORT_REQUET = await fetch(
-                HOME_SERVER + "_matrix/client/r0/watcha_server_state",
+                new URL("_matrix/client/r0/watcha_server_state", HOME_SERVER),
                 {
                     method: "GET",
                     headers: {
@@ -47,7 +47,7 @@ class StatsTab extends Component {
 
         try {
             const STATS_REQUEST = await fetch(
-                HOME_SERVER + "_matrix/client/r0/watcha_admin_stats",
+                new URL("_matrix/client/r0/watcha_admin_stats", HOME_SERVER),
                 {
                     method: "GET",
                     headers: {

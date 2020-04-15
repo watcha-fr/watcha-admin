@@ -18,7 +18,7 @@ class Monitoring extends Component {
 
         try {
             const LOG_REQUEST = await fetch(
-                HOME_SERVER + "_matrix/client/r0/watcha_log",
+                new URL("_matrix/client/r0/watcha_log", HOME_SERVER),
                 {
                     method: "GET",
                     headers: {
@@ -44,7 +44,7 @@ class Monitoring extends Component {
 
         try {
             const SERVER_REPORT_REQUET = await fetch(
-                HOME_SERVER + "_matrix/client/r0/watcha_server_state",
+                new URL("_matrix/client/r0/watcha_server_state", HOME_SERVER),
                 {
                     method: "GET",
                     headers: {
