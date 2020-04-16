@@ -7,6 +7,8 @@ import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 
+import MatrixClientContext from "./MatrixClientContext";
+
 class UserRightPanel extends Component {
     constructor(props) {
         super(props);
@@ -16,8 +18,11 @@ class UserRightPanel extends Component {
             isEmail: false,
             emailValue: " ",
             busy: false,
+            infoMessage: false,
         };
     }
+
+    static contextType = MatrixClientContext;
 
     componentDidMount() {
         if (this.props.data["Email"]["data"]) {
@@ -243,55 +248,41 @@ class UserRightPanel extends Component {
 
     addZero = number => (number < 10 ? "0" + number : number);
 
-    deactivateAccount = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+    deactivateSynapseUser = () => {
         const { t } = this.props;
-        try {
-            const userId = encodeURIComponent(
-                this.props.data["User name"]["data"]
-            );
-            const SERVER_REQUEST = await fetch(
-                new URL(
-                    `_matrix/client/r0/admin/deactivate/${userId}`,
-                    HOME_SERVER
-                ),
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
+        const client = this.context;
+        const userId = this.props.data["User name"]["data"];
+        client
+            .deactivateSynapseUser(userId)
+            .then(response =>
+                this.setState(
+                    {
+                        message: {
+                            type: "success",
+                            title: t("Account deactivated"),
+                            body:
+                                this.simplifiedUserId(
+                                    this.props.data["User name"]["data"]
+                                ) + t(" account has been deactivated"),
+                        },
                     },
-                }
-            );
-            const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
-            if (SERVER_REQUEST.ok) {
-                this.setState({
-                    message: {
-                        type: "success",
-                        title: t("Account deactivated"),
-                        body:
-                            this.simplifiedUserId(
-                                this.props.data["User name"]["data"]
-                            ) + t(" account has been deactivated"),
+                    this.displayInfoMessage()
+                )
+            )
+            .catch(error => {
+                console.error("Failed to deactivate user");
+                console.error(error);
+                this.setState(
+                    {
+                        message: {
+                            type: "danger",
+                            title: t("Deactivation failed"),
+                            body: error.message,
+                        },
                     },
-                });
-                this.displayInfoMessage();
-            } else {
-                this.setState({
-                    message: {
-                        type: "danger",
-                        title: t("Deactivation failed"),
-                        body: RESPONSE["error"],
-                    },
-                });
-                this.displayInfoMessage();
-            }
-        } catch (e) {
-            console.log("error: " + e);
-            return;
-        }
+                    this.displayInfoMessage()
+                );
+            });
     };
 
     dismissInfoMessage = () => this.setState({ infoMessage: false });
@@ -447,7 +438,7 @@ class UserRightPanel extends Component {
                     className="ActivationButton"
                     key="deactivateAccount"
                     variant="danger"
-                    onClick={this.deactivateAccount}
+                    onClick={this.deactivateSynapseUser}
                 >
                     {t("Deactivate Account")}
                 </Button>
