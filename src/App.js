@@ -1,9 +1,10 @@
 import React, { Component, Suspense } from "react";
 import sdk from "matrix-js-sdk";
 
-import Login from "./Login.js";
 import AdminHome from "./AdminHome.js";
 import ErrorBoundary from "./ErrorBoundary.js";
+import Login from "./Login.js";
+import MatrixClientContext from "./MatrixClientContext"
 
 import "./App.css";
 import "./User.css";
@@ -75,18 +76,17 @@ class App extends Component {
         return (
             <Suspense fallback={<div>Loading...</div>}>
                 <ErrorBoundary>
-                    {this.state.clientPrepared ? (
-                        <AdminHome
-                            className="AdminHome"
-                            token={this.state.client.getAccessToken()}
-                            server={this.state.client.baseUrl}
-                        />
-                    ) : this.state.loginError ? (
-                        <Login
-                            client={this.state.client}
-                            setupClient={this.setupClient}
-                        />
-                    ) : null}
+                    <MatrixClientContext.Provider value={this.state.client}>
+                        {this.state.clientPrepared ? (
+                            <AdminHome
+                                className="AdminHome"
+                                token={this.state.client.getAccessToken()}
+                                server={this.state.client.baseUrl}
+                            />
+                        ) : this.state.loginError ? (
+                            <Login setupClient={this.setupClient} />
+                        ) : null}
+                    </MatrixClientContext.Provider>
                 </ErrorBoundary>
             </Suspense>
         );

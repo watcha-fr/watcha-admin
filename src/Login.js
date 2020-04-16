@@ -6,6 +6,8 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Spinner from "react-bootstrap/Spinner";
 
+import MatrixClientContext from "./MatrixClientContext"
+
 import logo from "./images/logo.svg";
 
 class Login extends Component {
@@ -19,12 +21,14 @@ class Login extends Component {
     }
 
     static propTypes = {
-        client: PropTypes.object.isRequired,
         setupClient: PropTypes.func.isRequired,
     };
 
+    static contextType = MatrixClientContext;
+
     login() {
-        const { client, setupClient } = this.props;
+        const client = this.context;
+        const { setupClient } = this.props;
         const { user, password } = this.state;
         client
             .loginWithPassword(user, password)
