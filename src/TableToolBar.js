@@ -68,7 +68,7 @@ class TableToolBar extends Component {
                         <label>{t("One-to-one conversations")}</label>
                         <input
                             type="checkbox"
-                            name={t("hideOneToOne")}
+                            name={"hideOneToOne"}
                             checked={this.props.hideOneToOne}
                             onChange={this.props.handleFilter}
                         />
@@ -77,7 +77,7 @@ class TableToolBar extends Component {
                         <label>{t("Inactive")}</label>
                         <input
                             type="checkbox"
-                            name={t("hideInactive")}
+                            name={"hideInactive"}
                             checked={this.props.hideInactive}
                             onChange={this.props.handleFilter}
                         />

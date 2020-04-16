@@ -17,7 +17,6 @@ class DataToRow extends Component {
 
     dataToRow = () => {
         const DATA = this.props.data;
-        const { t } = this.props;
         const row = [];
         const PK = this.props.primaryKey;
         const DATES = ["date", "shortDate"];
@@ -51,7 +50,7 @@ class DataToRow extends Component {
                 } else {
                     row.push(
                         <td className={ROW_CLASS_NAME} key={property}>
-                            {t(this.props.data[property]["simplifiedData"])}
+                            {this.props.data[property]["simplifiedData"]}
                         </td>
                     );
                 }
