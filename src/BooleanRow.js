@@ -1,22 +1,20 @@
 import React from "react";
+import classNames from "classnames";
 
 function BooleanRow({ selected, value }) {
-    let mark;
-    if (selected !== "rowSelected") {
-        if (value) {
-            mark = <i className="fas fa-check trueBoolean"></i>;
-        } else {
-            mark = <i className="fas fa-times falseBoolean"></i>;
-        }
-    } else {
-        if (value) {
-            mark = <i className="fas fa-check"></i>;
-        } else {
-            mark = <i className="fas fa-times"></i>;
-        }
-    }
-
-    return <span>{mark}</span>;
+    const rowSelected = selected === "rowSelected";
+    return (
+        <span>
+            <i
+                className={classNames("fas", {
+                    "fa-check": value,
+                    "fa-times": !value,
+                    trueBoolean: !rowSelected && value,
+                    falseBoolean: !rowSelected && !value,
+                })}
+            ></i>
+        </span>
+    );
 }
 
 export default BooleanRow;
