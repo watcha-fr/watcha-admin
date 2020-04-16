@@ -232,8 +232,9 @@ class CreateUserRightPanel extends Component {
 
         const bottomWell = this.state.infoMessage ? (
             <Alert
-                onDismiss={this.dismissInfoMessage}
                 variant={this.state.message.type}
+                onClose={this.dismissInfoMessage}
+                dismissible
             >
                 <h4>{this.state.message.title}</h4>
                 <p>{this.state.message.body}</p>

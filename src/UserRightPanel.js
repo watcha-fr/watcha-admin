@@ -523,8 +523,9 @@ class UserRightPanel extends Component {
         if (this.state.infoMessage) {
             bottomWell = (
                 <Alert
-                    onDismiss={this.dismissInfoMessage}
                     variant={this.state.message.type}
+                    onClose={this.onInfoMessageValidate}
+                    dismissible
                 >
                     <h4>{this.state.message.title}</h4>
                     <p>{this.state.message.body}</p>
