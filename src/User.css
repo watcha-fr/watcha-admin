@@ -1,3 +1,11 @@
+.fullCentered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .loginForm {
     max-width: 25em;
 }

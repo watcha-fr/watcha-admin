@@ -3,6 +3,7 @@ import sdk from "matrix-js-sdk";
 
 import Login from "./Login.js";
 import AdminHome from "./AdminHome.js";
+import ErrorBoundary from "./ErrorBoundary.js";
 
 import "./App.css";
 
@@ -72,18 +73,20 @@ class App extends Component {
     render() {
         return (
             <Suspense fallback={<div>Loading...</div>}>
-                {this.state.clientPrepared ? (
-                    <AdminHome
-                        className="AdminHome"
-                        token={this.state.client.getAccessToken()}
-                        server={this.state.client.baseUrl}
-                    />
-                ) : this.state.loginError ? (
-                    <Login
-                        client={this.state.client}
-                        setupClient={this.setupClient}
-                    />
-                ) : null}
+                <ErrorBoundary>
+                    {this.state.clientPrepared ? (
+                        <AdminHome
+                            className="AdminHome"
+                            token={this.state.client.getAccessToken()}
+                            server={this.state.client.baseUrl}
+                        />
+                    ) : this.state.loginError ? (
+                        <Login
+                            client={this.state.client}
+                            setupClient={this.setupClient}
+                        />
+                    ) : null}
+                </ErrorBoundary>
             </Suspense>
         );
     }
