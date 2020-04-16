@@ -1,16 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 
-class UserInRoom extends Component {
-    onUserClicked = () => {
-        this.props.onUserClicked(this.props.userName);
-    };
-    render() {
-        return (
-            <span onClick={this.onUserClicked}>
-                {this.props.simplifiedName}
-            </span>
-        );
+function UserInRoom({ onUserClicked, userName, simplifiedName }) {
+    function onClick() {
+        onUserClicked(userName);
     }
+    return <span {...{ onClick }}>{simplifiedName}</span>;
 }
 
 export default UserInRoom;

@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import { Card } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 
 class Monitoring extends Component {
     constructor(props) {
         super(props);
-
         this.state = {};
     }
-    componentDidMount = () => {
+
+    componentDidMount() {
         this.getLogs();
         this.getServerState();
-    };
+    }
+
     getLogs = async () => {
         let logData;
         const HOME_SERVER = this.props.server;
@@ -32,11 +33,10 @@ class Monitoring extends Component {
             console.log("error: " + e);
             return;
         }
-        this.setState({
-            log: logData,
-        });
+        this.setState({ log: logData });
         this.displayLogs();
     };
+
     getServerState = async () => {
         let serverReport;
         const HOME_SERVER = this.props.server;
@@ -58,9 +58,7 @@ class Monitoring extends Component {
             console.log("error: " + e);
             return;
         }
-        this.setState({
-            serverReport,
-        });
+        this.setState({ serverReport });
     };
 
     displayLogs = () => {
@@ -92,19 +90,13 @@ class Monitoring extends Component {
                 );
             }
         }
-        this.setState({
-            list,
-        });
+        this.setState({ list });
     };
 
     render() {
-        let log;
-        if (this.state.list) {
-            log = this.state.list;
-        }
         return (
             <Card body bg="light">
-                {log}
+                {this.state.list}
             </Card>
         );
     }

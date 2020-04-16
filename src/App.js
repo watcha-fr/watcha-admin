@@ -6,6 +6,7 @@ import AdminHome from "./AdminHome.js";
 import ErrorBoundary from "./ErrorBoundary.js";
 
 import "./App.css";
+import "./User.css";
 
 class App extends Component {
     constructor(props) {

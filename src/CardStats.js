@@ -1,15 +1,10 @@
 import React, { Component } from "react";
-import { Card } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
+import Card from "react-bootstrap/Card";
+
 import AdminCardStats from "./AdminCardStats";
 
 class CardStats extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
-
     onCardClicked = () => {
         const { t } = this.props;
         if (this.props.title === t("Users")) {
@@ -19,9 +14,7 @@ class CardStats extends Component {
         }
     };
 
-    onUserClicked = username => {
-        this.props.onTabSelected(2, username);
-    };
+    onUserClicked = username => this.props.onTabSelected(2, username);
 
     getPanelContent = () => {
         const { t } = this.props;

@@ -1,16 +1,15 @@
-import React, { Component } from "react";
-import { withTranslation } from "react-i18next";
+import React from "react";
 
-class AdminCardStats extends Component {
-    onUserClicked = () => {
-        this.props.onUserClicked(this.props.adminName[[0]]);
-    };
-    render() {
-        return (
-            <div className="AdminName" onClick={this.onUserClicked}>
-                {this.props.simplifiedname}
-            </div>
-        );
+function AdminCardStats({ onUserClicked, adminName, simplifiedname }) {
+    function onClick() {
+        onUserClicked(adminName[[0]]);
     }
+
+    return (
+        <div className="AdminName" {...{ onClick }}>
+            {simplifiedname}
+        </div>
+    );
 }
-export default withTranslation()(AdminCardStats);
+
+export default AdminCardStats;

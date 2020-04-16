@@ -1,18 +1,15 @@
 import React, { Component } from "react";
-import {
-    Accordion,
-    Collapse,
-    Card,
-    Button,
-    Table,
-    Alert,
-} from "react-bootstrap";
 import { withTranslation } from "react-i18next";
+import Accordion from "react-bootstrap/Accordion";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Collapse from "react-bootstrap/Collapse";
+import Table from "react-bootstrap/Table";
 
 class UserRightPanel extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             open: true,
             editEmail: false,
@@ -34,9 +31,9 @@ class UserRightPanel extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.data !== prevProps.data) {
             if (this.props.data["Email"]["data"]) {
-                this.setState({ emailValue: this.props.data["Email"]["data"] });
-                this.setState({ editEmail: false });
                 this.setState({
+                    emailValue: this.props.data["Email"]["data"],
+                    editEmail: false,
                     infoMessage: false,
                 });
             } else {
@@ -46,33 +43,34 @@ class UserRightPanel extends Component {
         }
     }
 
-    onCancelEdit = () => {
-        this.setState({ emailValue: this.props.data["Email"]["data"] });
-        this.setState({ editEmail: false });
-    };
-
-    onClose = () => {
-        this.props.onClose();
-    };
+    onCancelEdit = () =>
+        this.setState({
+            emailValue: this.props.data["Email"]["data"],
+            editEmail: false,
+        });
 
     onEmailChange = ev => {
-        this.setState({ emailValue: ev.target.value });
-        this.setState({ isEmail: false });
+        this.setState({
+            emailValue: ev.target.value,
+            isEmail: false,
+        });
         if (this.isEmail(ev.target.value)) {
-            this.setState({ isEmail: true });
-            this.setState({ new_email: ev.target.value });
+            this.setState({
+                isEmail: true,
+                new_email: ev.target.value,
+            });
         }
     };
 
-    onEmailEdit = () => {
-        this.setState({ editEmail: !this.state.editEmail });
-    };
+    onEmailEdit = () => this.setState({ editEmail: !this.state.editEmail });
 
     onEmailValidate = async () => {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
         try {
-            const userId = encodeURIComponent(this.props.data["User name"]["data"])
+            const userId = encodeURIComponent(
+                this.props.data["User name"]["data"]
+            );
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_update_email/${userId}`,
@@ -101,9 +99,7 @@ class UserRightPanel extends Component {
                     },
                 });
                 this.displayInfoMessage();
-                this.setState({
-                    editEmail: false,
-                });
+                this.setState({ editEmail: false });
             } else {
                 this.setState({
                     message: {
@@ -140,7 +136,9 @@ class UserRightPanel extends Component {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
         try {
-            const userId = encodeURIComponent(this.props.data["User name"]["data"])
+            const userId = encodeURIComponent(
+                this.props.data["User name"]["data"]
+            );
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_user_ip/${userId}`,
@@ -175,6 +173,7 @@ class UserRightPanel extends Component {
             return;
         }
     };
+
     _doResetPassword = async isActivating => {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
@@ -194,7 +193,9 @@ class UserRightPanel extends Component {
               this.simplifiedUserId(this.props.data["User name"]["data"]) +
               t(" with a new password");
         try {
-            const userId = encodeURIComponent(this.props.data["User name"]["data"])
+            const userId = encodeURIComponent(
+                this.props.data["User name"]["data"]
+            );
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_reset_password/${userId}`,
@@ -238,23 +239,18 @@ class UserRightPanel extends Component {
         }
     };
 
-    activateAccount = () => {
-        this._doResetPassword(true);
-    };
+    activateAccount = () => this._doResetPassword(true);
 
-    addZero = number => {
-        if (number < 10) {
-            number = "0" + number;
-        }
-        return number;
-    };
+    addZero = number => (number < 10 ? "0" + number : number);
 
     deactivateAccount = async () => {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
         const { t } = this.props;
         try {
-            const userId = encodeURIComponent(this.props.data["User name"]["data"])
+            const userId = encodeURIComponent(
+                this.props.data["User name"]["data"]
+            );
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/admin/deactivate/${userId}`,
@@ -298,17 +294,9 @@ class UserRightPanel extends Component {
         }
     };
 
-    dismissInfoMessage = () => {
-        this.setState({
-            infoMessage: false,
-        });
-    };
+    dismissInfoMessage = () => this.setState({ infoMessage: false });
 
-    displayInfoMessage = () => {
-        this.setState({
-            infoMessage: true,
-        });
-    };
+    displayInfoMessage = () => this.setState({ infoMessage: true });
 
     identifyUserAgent = (userAgent, elements) => {
         const REGEXPS = {
@@ -345,17 +333,12 @@ class UserRightPanel extends Component {
                 }
             }
         }
-
         return null;
     };
 
-    isEmail = query => {
-        return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-    };
+    isEmail = query => /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(query);
 
-    resetPassword = async () => {
-        this._doResetPassword(false);
-    };
+    resetPassword = async () => this._doResetPassword(false);
 
     simplifiedUserId = fulluserId => {
         let simplifiedUserId = fulluserId.replace("@", "");
@@ -368,7 +351,9 @@ class UserRightPanel extends Component {
         const HOME_SERVER = this.props.server;
         const ACCESS_TOKEN = this.props.token;
         try {
-            const userId = encodeURIComponent(this.props.data["User name"]["data"])
+            const userId = encodeURIComponent(
+                this.props.data["User name"]["data"]
+            );
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_update_partner_to_member/${userId}`,
@@ -593,7 +578,7 @@ class UserRightPanel extends Component {
                                     )}
                                 <i
                                     className="fas fa-times dismissRight"
-                                    onClick={this.onClose}
+                                    onClick={this.props.onClose}
                                 ></i>
                             </Card.Header>
 

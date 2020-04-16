@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import Datatorow from "./DataToRow";
-import { Table } from "react-bootstrap";
-import TableToolBar from "./TableToolBar";
-import CollapsableRightPanel from "./CollapsableRightPanel";
 import { withTranslation } from "react-i18next";
-/*
+import { Table } from "react-bootstrap";
 
- */
+import CollapsableRightPanel from "./CollapsableRightPanel";
+import Datatorow from "./DataToRow";
+import TableToolBar from "./TableToolBar";
+
 const TABLE_TYPE =
     // here we declare all the type of table we wish to display
     {
@@ -49,11 +48,10 @@ const TABLE_TYPE =
                     type: "date",
                 },
 
-                /*
-      'Last password reset': {
-        'name': 'last_password_reset',
-        'type': 'shortDate',
-      },*/
+                // "Last password reset": {
+                //     name: "last_password_reset",
+                //     type: "shortDate",
+                // },
 
                 "Last seen": {
                     name: "last_seen",
@@ -136,12 +134,12 @@ class DataToTable extends Component {
         };
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         document.addEventListener("keydown", this.escFunction, false); //allow esc to close right panel
         this.setState({ header: this.getHeader(this.state.type) }); //initialize header
         this.getData(); //get the data from server
         this.setState({ finished: true }); //refresh render
-    };
+    }
 
     componentDidUpdate = prevProps => {
         if (this.props.value !== prevProps.value) {
@@ -158,19 +156,13 @@ class DataToTable extends Component {
         document.removeEventListener("keydown", this.escFunction, false);
     }
 
-    onClose = () => {
-        this.setState({
-            rightPanel: false,
-        });
-    };
+    onClose = () => this.setState({ rightPanel: false });
 
-    onRefresh = () => {
-        this.getData();
-    };
+    onRefresh = () => this.getData();
 
     onUserSelected = data => {
-        this.setState({ selected: data });
         this.setState({
+            selected: data,
             rightPanel: { type: this.props.tableName, data },
         });
     };
@@ -251,9 +243,7 @@ class DataToTable extends Component {
                 arrayData.push(dataObject);
             }
         }
-        this.setState({
-            arrayOfdata: arrayData,
-        });
+        this.setState({ arrayOfdata: arrayData });
 
         if (this.state.update) {
             this.findDataByPrimaryKey(this.state.update);
@@ -275,17 +265,9 @@ class DataToTable extends Component {
         return header;
     };
 
-    setRightPanel = panel => {
-        this.setState({
-            rightPanel: panel,
-        });
-    };
+    setRightPanel = panel => this.setState({ rightPanel: panel });
 
-    closeRightPanel = () => {
-        this.setState({
-            selected: false,
-        });
-    };
+    closeRightPanel = () => this.setState({ selected: false });
 
     convertRawData = (rawData, type, simplify) => {
         let simplifiedRawData;
@@ -456,14 +438,11 @@ class DataToTable extends Component {
                 value = columnToMerge;
             }
         }
-
         return value;
     };
 
     refreshRightPanel = async data => {
-        this.setState({
-            update: data,
-        });
+        this.setState({ update: data });
         this.onRefresh();
     };
 
@@ -547,4 +526,5 @@ class DataToTable extends Component {
         );
     }
 }
+
 export default withTranslation()(DataToTable);

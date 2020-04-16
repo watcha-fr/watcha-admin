@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import CardStats from "./CardStats";
 import { withTranslation } from "react-i18next";
+
+import CardStats from "./CardStats";
+
 import logo from "./images/logo.svg";
+
 class StatsTab extends Component {
     constructor(props) {
         super(props);
-
         this.state = {};
     }
 
-    componentDidMount = () => {
+    componentDidMount() {
         this.getStats();
         this.getServerState();
-    };
+    }
 
     getServerState = async () => {
         let serverReport;
@@ -29,15 +31,12 @@ class StatsTab extends Component {
                     },
                 }
             );
-
             serverReport = JSON.parse(await SERVER_REPORT_REQUET.text());
         } catch (e) {
             console.log("error: " + e);
             return;
         }
-        this.setState({
-            serverReport,
-        });
+        this.setState({ serverReport });
     };
 
     getStats = async () => {
@@ -55,15 +54,12 @@ class StatsTab extends Component {
                     },
                 }
             );
-
             statsData = JSON.parse(await STATS_REQUEST.text());
         } catch (e) {
             console.log("error: " + e);
             return;
         }
-        this.setState({
-            stats: statsData,
-        });
+        this.setState({ stats: statsData });
     };
 
     render() {
@@ -119,6 +115,7 @@ class StatsTab extends Component {
                 </div>
             );
         }
+
         return (
             <div>
                 <div className="statsPanelsContainer">
@@ -138,4 +135,5 @@ class StatsTab extends Component {
         );
     }
 }
+
 export default withTranslation()(StatsTab);

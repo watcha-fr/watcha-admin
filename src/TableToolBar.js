@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import RefreshButton from "./Buttons/RefreshButton";
-import CreateUserButton from "./Buttons/CreateUserButton";
 import { withTranslation } from "react-i18next";
+
+import CreateUserButton from "./Buttons/CreateUserButton";
+import RefreshButton from "./Buttons/RefreshButton";
+
 class TableToolBar extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
+
     createUser = () => {
         const PANEL = { type: "createUser" };
         this.props.setRightPanel(PANEL);

@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { Collapse, Card, Table, Button, Alert } from "react-bootstrap";
 import { withTranslation } from "react-i18next";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Collapse from "react-bootstrap/Collapse";
+import Table from "react-bootstrap/Table";
 
 class CreateUserRightPanel extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             infoMessage: false,
             editUserId: false,
@@ -17,43 +20,35 @@ class CreateUserRightPanel extends Component {
             busy: false,
         };
     }
-    onClose = () => {
-        this.props.onClose();
-    };
 
     onEmailChange = ev => {
-        this.setState({ emailValue: ev.target.value });
-        this.setState({ isEmail: false });
-        if (this.isEmail(ev.target.value)) {
-            this.setState({ isEmail: true });
-        }
+        this.setState({
+            emailValue: ev.target.value,
+            isEmail: this.isEmail(ev.target.value),
+        });
     };
+
     onFirstNameChange = ev => {
         const FIRST_NAME = ev.target.value;
-        this.setState({ firstNameValue: FIRST_NAME });
+        this.setState({
+            firstNameValue: FIRST_NAME,
+            isFirstName: this.isName(FIRST_NAME),
+        });
         this.generateSuggestedUserId(FIRST_NAME, true);
-        this.setState({ isFirstName: false });
-        if (this.isName(ev.target.value)) {
-            this.setState({ isFirstName: true });
-        }
     };
+
     onLastNameChange = ev => {
         const NAME = ev.target.value;
-        this.setState({ lastNameValue: NAME });
+        this.setState({
+            lastNameValue: NAME,
+            isLastName: this.isName(NAME),
+        });
         this.generateSuggestedUserId(NAME, false);
-        this.setState({ isLastName: false });
-        if (this.isName(NAME)) {
-            this.setState({ isLastName: true });
-        }
     };
 
-    onUserIdChange = ev => {
-        this.setState({ userIdValue: ev.target.value });
-    };
+    onUserIdChange = ev => this.setState({ userIdValue: ev.target.value });
 
-    onUserIdEdit = () => {
-        this.setState({ editUserId: !this.state.editUserId });
-    };
+    onUserIdEdit = () => this.setState({ editUserId: !this.state.editUserId });
 
     createUser = async () => {
         const HOME_SERVER = this.props.server;
@@ -170,9 +165,7 @@ class CreateUserRightPanel extends Component {
     };
 
     dismissInfoMessage = () => {
-        this.setState({
-            infoMessage: false,
-        });
+        this.setState({ infoMessage: false });
         if (this.state.clearForm) {
             this.setState({
                 clearForm: false,
@@ -184,45 +177,43 @@ class CreateUserRightPanel extends Component {
         }
     };
 
-    displayInfoMessage = () => {
-        this.setState({
-            infoMessage: true,
-        });
-    };
+    displayInfoMessage = () => this.setState({ infoMessage: true });
+
     generateSuggestedUserId = (value, firstName) => {
-        if (firstName) {
-            this.setState({
-                suggestedUserId:
-                    value.toLowerCase() +
-                    "." +
-                    this.state.lastNameValue.toLowerCase(),
-            });
-        } else {
-            this.setState({
-                suggestedUserId:
-                    this.state.firstNameValue.toLocaleLowerCase() +
-                    "." +
-                    value.toLowerCase(),
-            });
-        }
+        const suggestedUserId = firstName
+            ? value.toLowerCase() + "." + this.state.lastNameValue.toLowerCase()
+            : this.state.firstNameValue.toLocaleLowerCase() +
+              "." +
+              value.toLowerCase();
+        this.setState({ suggestedUserId });
     };
 
-    isEmail = query => {
-        return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-    };
+    isEmail = query => /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(query);
 
-    isFirstName = query => {
-        return query.length > 1;
-    };
-    isName = query => {
-        return query.length > 1;
-    };
+    isFirstName = query => query.length > 1;
+
+    isName = query => query.length > 1;
 
     render() {
         const { t } = this.props;
-        let bottomWell;
-        let editUserId;
-        editUserId = (
+
+        const editUserId = this.state.editUserId ? (
+            <td>
+                <input
+                    value={this.state.userIdValue}
+                    placeholder={this.state.suggestedUserId}
+                    className="inputValue"
+                    onChange={this.onUserIdChange}
+                />
+                <Button
+                    onClick={this.onUserIdEdit}
+                    variant="danger"
+                    className="editButton"
+                >
+                    <i className="fas fa-times"></i>
+                </Button>
+            </td>
+        ) : (
             <td>
                 <input
                     value={this.state.suggestedUserId}
@@ -238,57 +229,35 @@ class CreateUserRightPanel extends Component {
                 </Button>
             </td>
         );
-        if (this.state.editUserId) {
-            editUserId = (
-                <td>
-                    <input
-                        value={this.state.userIdValue}
-                        placeholder={this.state.suggestedUserId}
-                        className="inputValue"
-                        onChange={this.onUserIdChange}
-                    />
-                    <Button
-                        onClick={this.onUserIdEdit}
-                        variant="danger"
-                        className="editButton"
-                    >
-                        <i className="fas fa-times"></i>
-                    </Button>
-                </td>
-            );
-        }
 
-        if (this.state.infoMessage) {
-            bottomWell = (
-                <Alert
-                    onDismiss={this.dismissInfoMessage}
-                    variant={this.state.message.type}
-                >
-                    <h4>{this.state.message.title}</h4>
-                    <p>{this.state.message.body}</p>
-                    <p>
-                        <Button
-                            variant={this.state.message.type}
-                            onClick={this.dismissInfoMessage}
-                        >
-                            Ok
-                        </Button>
-                    </p>
-                </Alert>
-            );
-        } else {
-            bottomWell = (
-                <div className="bottomButton">
+        const bottomWell = this.state.infoMessage ? (
+            <Alert
+                onDismiss={this.dismissInfoMessage}
+                variant={this.state.message.type}
+            >
+                <h4>{this.state.message.title}</h4>
+                <p>{this.state.message.body}</p>
+                <p>
                     <Button
-                        variant="primary"
-                        onClick={this.createUser}
-                        disabled={this.state.busy}
+                        variant={this.state.message.type}
+                        onClick={this.dismissInfoMessage}
                     >
-                        {t("Create user")}
+                        Ok
                     </Button>
-                </div>
-            );
-        }
+                </p>
+            </Alert>
+        ) : (
+            <div className="bottomButton">
+                <Button
+                    variant="primary"
+                    onClick={this.createUser}
+                    disabled={this.state.busy}
+                >
+                    {t("Create user")}
+                </Button>
+            </div>
+        );
+
         return (
             <div>
                 <Collapse in={true} dimension="width" timeout={0}>
@@ -298,7 +267,7 @@ class CreateUserRightPanel extends Component {
                                 {t("Create user")}
                                 <i
                                     className="fas fa-times dismissRight"
-                                    onClick={this.onClose}
+                                    onClick={this.props.onClose}
                                 ></i>
                             </Card.Header>
 
