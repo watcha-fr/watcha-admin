@@ -7,7 +7,7 @@ import {
     Table,
     Alert,
 } from "react-bootstrap";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 class UserRightPanel extends Component {
     constructor(props) {
@@ -689,4 +689,4 @@ class UserRightPanel extends Component {
     }
 }
 
-export default withNamespaces("common")(UserRightPanel);
+export default withTranslation()(UserRightPanel);

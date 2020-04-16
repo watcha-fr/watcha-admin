@@ -3,7 +3,7 @@ import Datatorow from "./DataToRow";
 import { Table } from "react-bootstrap";
 import TableToolBar from "./TableToolBar";
 import CollapsableRightPanel from "./CollapsableRightPanel";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 /*
 
  */
@@ -547,4 +547,4 @@ class DataToTable extends Component {
         );
     }
 }
-export default withNamespaces("common")(DataToTable);
+export default withTranslation()(DataToTable);

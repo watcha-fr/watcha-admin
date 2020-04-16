@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Tab, Tabs } from "react-bootstrap";
 import DataToTable from "./DataToTable";
 import StatsTab from "./StatsTab";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 //import Monitoring from './Monitoring';
 
 class AdminHome extends Component {
@@ -66,7 +66,6 @@ class AdminHome extends Component {
                             setRightPanel={this.setRightPanel}
                             onClose={this.onClose}
                             value={SELECTED}
-                            lang={t("lang")}
                             onTabSelected={this.onTabSelected}
                         />
                     </Tab>
@@ -80,7 +79,6 @@ class AdminHome extends Component {
                             onClose={this.onClose}
                             stats={this.state.statsData}
                             value={SELECTED}
-                            lang={t("lang")}
                             onTabSelected={this.onTabSelected}
                         />
                     </Tab>
@@ -103,4 +101,4 @@ class AdminHome extends Component {
     }
 }
 
-export default withNamespaces("common")(AdminHome);
+export default withTranslation()(AdminHome);

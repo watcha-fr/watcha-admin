@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 class CreateUserButton extends Component {
     constructor(props) {
         super(props);
@@ -16,4 +16,4 @@ class CreateUserButton extends Component {
         );
     }
 }
-export default withNamespaces("common")(CreateUserButton);
+export default withTranslation()(CreateUserButton);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import RefreshButton from "./Buttons/RefreshButton";
 import CreateUserButton from "./Buttons/CreateUserButton";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 class TableToolBar extends Component {
     constructor(props) {
         super(props);
@@ -97,4 +97,4 @@ class TableToolBar extends Component {
     }
 }
 
-export default withNamespaces("common")(TableToolBar);
+export default withTranslation()(TableToolBar);

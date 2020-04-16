@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import { withNamespaces } from "react-i18next";
+import React, { Component, Suspense } from "react";
 import sdk from "matrix-js-sdk";
 
 import Login from "./Login.js";
@@ -18,8 +17,6 @@ class App extends Component {
     }
 
     async componentDidMount() {
-        this.setLanguage();
-
         const baseUrl =
             localStorage.getItem("mx_hs_url") ||
             (await this.getBaseUrlFromConfig());
@@ -59,13 +56,6 @@ class App extends Component {
             });
     }
 
-    setLanguage() {
-        const localSettings = localStorage.getItem("mx_local_settings");
-        if (localSettings && localSettings.language) {
-            this.props.i18n.changeLanguage(localSettings.language);
-        }
-    }
-
     setupClient = async client => {
         await client.startClient({ initialSyncLimit: 10 });
         client.on("sync", (state, prevState, response) => {
@@ -80,16 +70,23 @@ class App extends Component {
     };
 
     render() {
-        return this.state.clientPrepared ? (
-            <AdminHome
-                className="AdminHome"
-                token={this.state.client.getAccessToken()}
-                server={this.state.client.baseUrl}
-            />
-        ) : this.state.loginError ? (
-            <Login client={this.state.client} setupClient={this.setupClient} />
-        ) : null;
+        return (
+            <Suspense fallback={<div>Loading...</div>}>
+                {this.state.clientPrepared ? (
+                    <AdminHome
+                        className="AdminHome"
+                        token={this.state.client.getAccessToken()}
+                        server={this.state.client.baseUrl}
+                    />
+                ) : this.state.loginError ? (
+                    <Login
+                        client={this.state.client}
+                        setupClient={this.setupClient}
+                    />
+                ) : null}
+            </Suspense>
+        );
     }
 }
 
-export default withNamespaces("common")(App);
+export default App;

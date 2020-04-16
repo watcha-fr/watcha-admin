@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Collapse, Card, Table, Button, Alert } from "react-bootstrap";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 class CreateUserRightPanel extends Component {
     constructor(props) {
@@ -366,4 +366,4 @@ class CreateUserRightPanel extends Component {
     }
 }
 
-export default withNamespaces("common")(CreateUserRightPanel);
+export default withTranslation()(CreateUserRightPanel);

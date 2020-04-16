@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 class AdminCardStats extends Component {
     onUserClicked = () => {
@@ -13,4 +13,4 @@ class AdminCardStats extends Component {
         );
     }
 }
-export default withNamespaces("common")(AdminCardStats);
+export default withTranslation()(AdminCardStats);

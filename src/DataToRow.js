@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./User.css";
 import BooleanRow from "./BooleanRow";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 class DataToRow extends Component {
     constructor(props) {
@@ -65,4 +65,4 @@ class DataToRow extends Component {
         return <tr onClick={this.onSelect}>{row}</tr>;
     }
 }
-export default withNamespaces("common")(DataToRow);
+export default withTranslation()(DataToRow);

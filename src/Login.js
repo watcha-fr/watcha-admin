@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -56,7 +56,7 @@ class Login extends Component {
     };
 
     render() {
-        const { t } = this.props;
+        const { t, i18n } = this.props;
         const button =
             this.state.submitCount === 0 ? (
                 <Button variant="outline-primary" type="submit" block>
@@ -88,10 +88,14 @@ class Login extends Component {
                     className="my-4"
                     as="select"
                     custom
-                    onClick={this.onLanguageChange}
+                    value={i18n.language}
+                    onChange={this.onLanguageChange}
                 >
-                    <option value="fr">Français</option>
-                    <option value="en">English</option>
+                    {["en", "fr"].map(lng => (
+                        <option key={lng} value={lng}>
+                            {t(`language.${lng}`)}
+                        </option>
+                    ))}
                 </Form.Control>
                 <img alt="logo" className="logo mx-auto mb-4" src={logo} />
                 <div className="text-center mb-4">
@@ -141,4 +145,4 @@ class Login extends Component {
     }
 }
 
-export default withNamespaces("common")(Login);
+export default withTranslation()(Login);

@@ -8,7 +8,7 @@ import {
     ListGroupItem,
     ListGroup,
 } from "react-bootstrap";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import UserInRoom from "./UserInRoom";
 
 class RoomRightPanel extends Component {
@@ -165,4 +165,4 @@ class RoomRightPanel extends Component {
     }
 }
 
-export default withNamespaces("common")(RoomRightPanel);
+export default withTranslation()(RoomRightPanel);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CardStats from "./CardStats";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import logo from "./images/logo.svg";
 class StatsTab extends Component {
     constructor(props) {
@@ -138,4 +138,4 @@ class StatsTab extends Component {
         );
     }
 }
-export default withNamespaces("common")(StatsTab);
+export default withTranslation()(StatsTab);

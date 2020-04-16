@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card } from "react-bootstrap";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import AdminCardStats from "./AdminCardStats";
 
 class CardStats extends Component {
@@ -98,4 +98,4 @@ class CardStats extends Component {
     }
 }
 
-export default withNamespaces("common")(CardStats);
+export default withTranslation()(CardStats);
