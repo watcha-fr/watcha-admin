@@ -18,7 +18,10 @@ const mxLanguageDetector = {
         const rawValue = localStorage.getItem("mx_local_settings");
         const localSettings = rawValue ? JSON.parse(rawValue) : {};
         localSettings["language"] = lng;
-        localStorage.setItem("mx_local_settings", JSON.stringify(localSettings));
+        localStorage.setItem(
+            "mx_local_settings",
+            JSON.stringify(localSettings)
+        );
     },
 };
 
@@ -43,6 +46,7 @@ i18n
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
         },
+        backend: { loadPath: "/admin/locales/{{lng}}/{{ns}}.json" },
         detection: {
             order: ["mxLocalSettings", "navigator", "subdomain"],
             caches: ["mxLocalSettings"],
