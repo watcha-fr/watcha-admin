@@ -5,6 +5,7 @@ import AdminHome from "./AdminHome.js";
 import ErrorBoundary from "./ErrorBoundary.js";
 import Login from "./Login.js";
 import MatrixClientContext from "./MatrixClientContext";
+import SuspenseFallback from "./SuspenseFallback.js";
 
 import "./App.css";
 import "./User.css";
@@ -74,7 +75,7 @@ class App extends Component {
 
     render() {
         return (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<SuspenseFallback />}>
                 <ErrorBoundary>
                     <MatrixClientContext.Provider value={this.state.client}>
                         {this.state.clientPrepared ? (
