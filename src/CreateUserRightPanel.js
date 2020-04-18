@@ -194,6 +194,11 @@ class CreateUserRightPanel extends Component {
 
     isName = query => query.length > 1;
 
+    onInfoMessageValidate = () => {
+        this.props.refreshRightPanel();
+        this.dismissInfoMessage();
+    };
+
     render() {
         const { t } = this.props;
 
@@ -233,7 +238,7 @@ class CreateUserRightPanel extends Component {
         const bottomWell = this.state.infoMessage ? (
             <Alert
                 variant={this.state.message.type}
-                onClose={this.dismissInfoMessage}
+                onClose={this.onInfoMessageValidate}
                 dismissible
             >
                 <h4>{this.state.message.title}</h4>
@@ -241,7 +246,7 @@ class CreateUserRightPanel extends Component {
                 <p>
                     <Button
                         variant={this.state.message.type}
-                        onClick={this.dismissInfoMessage}
+                        onClick={this.onInfoMessageValidate}
                     >
                         Ok
                     </Button>

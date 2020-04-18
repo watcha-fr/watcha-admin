@@ -50,6 +50,7 @@ class CollapsableRightPanel extends Component {
                         server={this.props.server}
                         token={this.props.token}
                         refresh={this.props.refresh}
+                        refreshRightPanel={this.props.refreshRightPanel}
                         isEmailAvailable={this.props.isEmailAvailable}
                         onTabSelected={this.props.onTabSelected}
                     />

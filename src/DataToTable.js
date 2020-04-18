@@ -247,9 +247,7 @@ class DataToTable extends Component {
 
         if (this.state.update) {
             this.findDataByPrimaryKey(this.state.update);
-            this.setState({
-                update: false,
-            });
+            this.setState({ update: false });
         }
         this.setState({ finish: true });
     };
