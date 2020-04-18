@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 
+import MatrixClientContext from "./MatrixClientContext";
+
 class Monitoring extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+    constructor() {
+        super();
+        this.state = {
+            log: null,
+            list: null,
+        };
     }
+
+    static contextType = MatrixClientContext;
 
     componentDidMount() {
         this.getLogs();
@@ -13,17 +20,16 @@ class Monitoring extends Component {
     }
 
     getLogs = async () => {
+        const client = this.context;
         let logData;
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
 
         try {
             const LOG_REQUEST = await fetch(
-                new URL("_matrix/client/r0/watcha_log", HOME_SERVER),
+                new URL("_matrix/client/r0/watcha_log", client.baseUrl),
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                     },
                 }
             );
@@ -38,17 +44,19 @@ class Monitoring extends Component {
     };
 
     getServerState = async () => {
+        const client = this.context;
         let serverReport;
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
 
         try {
             const SERVER_REPORT_REQUET = await fetch(
-                new URL("_matrix/client/r0/watcha_server_state", HOME_SERVER),
+                new URL(
+                    "_matrix/client/r0/watcha_server_state",
+                    client.baseUrl
+                ),
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                     },
                 }
             );

@@ -6,6 +6,8 @@ import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 
+import MatrixClientContext from "./MatrixClientContext";
+
 class CreateUserRightPanel extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +22,8 @@ class CreateUserRightPanel extends Component {
             busy: false,
         };
     }
+
+    static contextType = MatrixClientContext;
 
     onEmailChange = ev => {
         this.setState({
@@ -51,8 +55,7 @@ class CreateUserRightPanel extends Component {
     onUserIdEdit = () => this.setState({ editUserId: !this.state.editUserId });
 
     createUser = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+        const client = this.context;
         const { t } = this.props;
         if (!this.state.isEmail) {
             this.setState({
@@ -112,11 +115,14 @@ class CreateUserRightPanel extends Component {
                     ? this.state.userIdValue
                     : this.state.suggestedUserId;
                 const USER_REQUEST = await fetch(
-                    new URL("_matrix/client/r0/watcha_register", HOME_SERVER),
+                    new URL(
+                        "_matrix/client/r0/watcha_register",
+                        client.baseUrl
+                    ),
                     {
                         method: "POST",
                         headers: {
-                            Authorization: "Bearer " + ACCESS_TOKEN,
+                            Authorization: "Bearer " + client.getAccessToken(),
                             Accept: "application/json",
                             "Content-Type": "application/json",
                         },

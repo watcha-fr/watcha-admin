@@ -70,8 +70,7 @@ class UserRightPanel extends Component {
     onEmailEdit = () => this.setState({ editEmail: !this.state.editEmail });
 
     onEmailValidate = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+        const client = this.context;
         try {
             const userId = encodeURIComponent(
                 this.props.data["User name"]["data"]
@@ -79,12 +78,12 @@ class UserRightPanel extends Component {
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_update_email/${userId}`,
-                    HOME_SERVER
+                    client.baseUrl
                 ),
                 {
                     method: "PUT",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
@@ -138,8 +137,7 @@ class UserRightPanel extends Component {
     };
 
     getUsersAdvancedInfos = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+        const client = this.context;
         try {
             const userId = encodeURIComponent(
                 this.props.data["User name"]["data"]
@@ -147,12 +145,12 @@ class UserRightPanel extends Component {
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_user_ip/${userId}`,
-                    HOME_SERVER
+                    client.baseUrl
                 ),
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
@@ -180,8 +178,7 @@ class UserRightPanel extends Component {
     };
 
     _doResetPassword = async isActivating => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+        const client = this.context;
         const { t } = this.props;
         // activating is the same as resetting the password,
         // but with a different success message
@@ -204,12 +201,12 @@ class UserRightPanel extends Component {
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_reset_password/${userId}`,
-                    HOME_SERVER
+                    client.baseUrl
                 ),
                 {
                     method: "POST",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
@@ -339,8 +336,7 @@ class UserRightPanel extends Component {
     };
 
     upgradePartner = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+        const client = this.context;
         try {
             const userId = encodeURIComponent(
                 this.props.data["User name"]["data"]
@@ -348,12 +344,12 @@ class UserRightPanel extends Component {
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_update_partner_to_member/${userId}`,
-                    HOME_SERVER
+                    client.baseUrl
                 ),
                 {
                     method: "PUT",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },

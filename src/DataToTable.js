@@ -6,6 +6,8 @@ import CollapsableRightPanel from "./CollapsableRightPanel";
 import Datatorow from "./DataToRow";
 import TableToolBar from "./TableToolBar";
 
+import MatrixClientContext from "./MatrixClientContext";
+
 const TABLE_TYPE =
     // here we declare all the type of table we wish to display
     {
@@ -134,6 +136,8 @@ class DataToTable extends Component {
         };
     }
 
+    static contextType = MatrixClientContext;
+
     componentDidMount() {
         document.addEventListener("keydown", this.escFunction, false); //allow esc to close right panel
         this.setState({ header: this.getHeader(this.state.type) }); //initialize header
@@ -168,18 +172,17 @@ class DataToTable extends Component {
     };
 
     getData = async () => {
+        const client = this.context;
         let jsonData;
         const arrayData = [];
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
         const HEADERS = this.state.type["header"];
         try {
             const TABLE_REQUEST = await fetch(
-                new URL(this.state.type["apiAdress"], HOME_SERVER),
+                new URL(this.state.type["apiAdress"], client.baseUrl),
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                     },
                 }
             );
@@ -480,8 +483,6 @@ class DataToTable extends Component {
                     data={this.state.rightPanel["data"]}
                     onClose={this.onClose}
                     lang={this.props.lang}
-                    token={this.props.token}
-                    server={this.props.server}
                     isEmailAvailable={this.isEmailAvailable}
                     refresh={this.onRefresh}
                     onTabSelected={this.props.onTabSelected}

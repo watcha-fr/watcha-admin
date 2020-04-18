@@ -2,14 +2,17 @@ import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
 
 import CardStats from "./CardStats";
+import MatrixClientContext from "./MatrixClientContext";
 
 import logo from "./images/logo.svg";
 
 class StatsTab extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+    constructor() {
+        super();
+        this.state = { stats: null };
     }
+
+    static contextType = MatrixClientContext;
 
     componentDidMount() {
         this.getStats();
@@ -17,17 +20,19 @@ class StatsTab extends Component {
     }
 
     getServerState = async () => {
+        const client = this.context;
         let serverReport;
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
 
         try {
             const SERVER_REPORT_REQUET = await fetch(
-                new URL("_matrix/client/r0/watcha_server_state", HOME_SERVER),
+                new URL(
+                    "_matrix/client/r0/watcha_server_state",
+                    client.baseUrl
+                ),
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                     },
                 }
             );
@@ -40,17 +45,16 @@ class StatsTab extends Component {
     };
 
     getStats = async () => {
+        const client = this.context;
         let statsData;
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
 
         try {
             const STATS_REQUEST = await fetch(
-                new URL("_matrix/client/r0/watcha_admin_stats", HOME_SERVER),
+                new URL("_matrix/client/r0/watcha_admin_stats", client.baseUrl),
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                     },
                 }
             );

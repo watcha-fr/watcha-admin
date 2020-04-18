@@ -11,8 +11,8 @@ import MatrixClientContext from "./MatrixClientContext"
 import logo from "./images/logo.svg";
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             user: "",
             password: "",

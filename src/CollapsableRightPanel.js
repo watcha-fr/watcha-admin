@@ -18,8 +18,6 @@ class CollapsableRightPanel extends Component {
                     <UserRightPanel
                         data={this.props.data}
                         onClose={this.props.onClose}
-                        server={this.props.server}
-                        token={this.props.token}
                         lang={this.props.lang}
                         refresh={this.props.refresh}
                         onTabSelected={this.props.onTabSelected}
@@ -34,8 +32,6 @@ class CollapsableRightPanel extends Component {
                     <RoomRightPanel
                         data={this.props.data}
                         onClose={this.props.onClose}
-                        server={this.props.server}
-                        token={this.props.token}
                         refresh={this.props.refresh}
                         onTabSelected={this.props.onTabSelected}
                     />
@@ -47,8 +43,6 @@ class CollapsableRightPanel extends Component {
                     <CreateUserRightPanel
                         data={this.props.data}
                         onClose={this.props.onClose}
-                        server={this.props.server}
-                        token={this.props.token}
                         refresh={this.props.refresh}
                         refreshRightPanel={this.props.refreshRightPanel}
                         isEmailAvailable={this.props.isEmailAvailable}
@@ -62,8 +56,6 @@ class CollapsableRightPanel extends Component {
                     <UserRightPanel
                         data={this.props.data}
                         onClose={this.props.onClose}
-                        server={this.props.server}
-                        token={this.props.token}
                         refresh={this.props.refresh}
                         lang={this.props.lang}
                     />

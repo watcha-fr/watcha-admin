@@ -4,7 +4,7 @@ import sdk from "matrix-js-sdk";
 import AdminHome from "./AdminHome.js";
 import ErrorBoundary from "./ErrorBoundary.js";
 import Login from "./Login.js";
-import MatrixClientContext from "./MatrixClientContext"
+import MatrixClientContext from "./MatrixClientContext";
 
 import "./App.css";
 import "./User.css";
@@ -78,11 +78,7 @@ class App extends Component {
                 <ErrorBoundary>
                     <MatrixClientContext.Provider value={this.state.client}>
                         {this.state.clientPrepared ? (
-                            <AdminHome
-                                className="AdminHome"
-                                token={this.state.client.getAccessToken()}
-                                server={this.state.client.baseUrl}
-                            />
+                            <AdminHome className="AdminHome" />
                         ) : this.state.loginError ? (
                             <Login setupClient={this.setupClient} />
                         ) : null}
