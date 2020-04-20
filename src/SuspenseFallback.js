@@ -1,7 +1,3 @@
 import React from "react";
 
-function SuspenseFallback() {
-    return <div className="delayed">Loading...</div>;
-}
-
-export default SuspenseFallback;
+export default () => <div className="delayed">Loading...</div>;
