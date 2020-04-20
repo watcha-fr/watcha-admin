@@ -11,7 +11,8 @@
     "react-dom": "^16.13.1",
     "react-i18next": "^11.3.4",
     "react-scripts": "^3.4.1",
-    "react-table": "^7.0.4"
+    "react-table": "^7.0.4",
+    "restful-react": "^11.2.0"
   },
   "scripts": {
     "start": "PORT=1664 react-scripts start",
