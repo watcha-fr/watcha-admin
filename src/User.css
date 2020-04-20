@@ -1,9 +1,19 @@
+.delayed {
+    animation: 0s linear 0.5s forwards makeVisible;
+    visibility: hidden;
+}
+
+@keyframes makeVisible {
+    to {
+        visibility: visible;
+    }
+}
+
 .fullCentered {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 .loginForm {
