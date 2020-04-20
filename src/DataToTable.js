@@ -66,7 +66,10 @@ const TABLE_TYPE =
                         type: "boolean",
                     },
 
-                    Partner: { name: "is_partner", type: "boolean" },
+                    Partner: {
+                        name: "is_partner",
+                        type: "boolean",
+                    },
 
                     type: "merge",
                     Default: "Member",
@@ -175,10 +178,10 @@ class DataToTable extends Component {
         const client = this.context;
         let jsonData;
         const arrayData = [];
-        const HEADERS = this.state.type["header"];
+        const HEADERS = this.state.type.header;
         try {
             const TABLE_REQUEST = await fetch(
-                new URL(this.state.type["apiAdress"], client.baseUrl),
+                new URL(this.state.type.apiAdress, client.baseUrl),
                 {
                     method: "GET",
                     headers: {
@@ -198,11 +201,11 @@ class DataToTable extends Component {
                 for (const ColumnHeader in HEADERS) {
                     // for each header we declare in the tabletype
                     if ({}.hasOwnProperty.call(HEADERS, ColumnHeader)) {
-                        if (HEADERS[ColumnHeader]["type"] === "list") {
+                        if (HEADERS[ColumnHeader].type === "list") {
                             // in case we want one cell to handle multiple values useful for JOIN_TABLES
                             dataObject[ColumnHeader] = [];
                         }
-                        if (HEADERS[ColumnHeader]["type"] === "merge") {
+                        if (HEADERS[ColumnHeader].type === "merge") {
                             //in case we want one header for multiple boolean tabl columns
                             dataObject[ColumnHeader] = {
                                 data: this.mergeRow(
@@ -221,22 +224,20 @@ class DataToTable extends Component {
                             if (
                                 {}.hasOwnProperty.call(jsonData[row], property)
                             ) {
-                                if (
-                                    property === HEADERS[ColumnHeader]["name"]
-                                ) {
+                                if (property === HEADERS[ColumnHeader].name) {
                                     // we check if the field name match the name excepted by the header
                                     dataObject[ColumnHeader] = {
                                         simplifiedData: this.convertRawData(
                                             jsonData[row][property],
-                                            HEADERS[ColumnHeader]["type"],
-                                            HEADERS[ColumnHeader]["simplify"]
+                                            HEADERS[ColumnHeader].type,
+                                            HEADERS[ColumnHeader].simplify
                                         ),
                                         data: this.convertRawData(
                                             jsonData[row][property],
-                                            HEADERS[ColumnHeader]["type"],
+                                            HEADERS[ColumnHeader].type,
                                             false
                                         ),
-                                        type: HEADERS[ColumnHeader]["type"],
+                                        type: HEADERS[ColumnHeader].type,
                                     }; //we convert the data from the sql table to more revelant type for javascript
                                 }
                             }
@@ -258,8 +259,8 @@ class DataToTable extends Component {
     getHeader = type => {
         const header = [];
         const { t } = this.props;
-        for (const elem in type["header"]) {
-            if ({}.hasOwnProperty.call(type["header"], elem)) {
+        for (const elem in type.header) {
+            if ({}.hasOwnProperty.call(type.header, elem)) {
                 header.push(<th key={elem}> {t(elem)} </th>);
             }
         }
@@ -331,27 +332,27 @@ class DataToTable extends Component {
         for (const row in filteredData) {
             if ({}.hasOwnProperty.call(filteredData, row)) {
                 let hideRow = false;
-                if (this.state.filter["hideOneToOne"]) {
-                    if (filteredData[row]["Type"]["data"] === "One to one") {
+                if (this.state.filter.hideOneToOne) {
+                    if (filteredData[row].Type.data === "One to one") {
                         // no need to localize
                         hideRow = true;
                     }
                 }
-                if (this.state.filter["hideInactive"]) {
-                    if (!filteredData[row]["Active"]["data"]) {
+                if (this.state.filter.hideInactive) {
+                    if (!filteredData[row].Active.data) {
                         hideRow = true;
                     }
                 }
-                if (this.state.filter["hideMembers"]) {
+                if (this.state.filter.hideMembers) {
                     if (
-                        filteredData[row]["Status"]["data"] === "Member" ||
-                        filteredData[row]["Status"]["data"] === "Admin"
+                        filteredData[row].Status.data === "Member" ||
+                        filteredData[row].Status.data === "Admin"
                     ) {
                         hideRow = true;
                     }
                 }
-                if (this.state.filter["hidePartners"]) {
-                    if (filteredData[row]["Status"]["data"] === "Partner") {
+                if (this.state.filter.hidePartners) {
+                    if (filteredData[row].Status.data === "Partner") {
                         hideRow = true;
                     }
                 }
@@ -363,13 +364,13 @@ class DataToTable extends Component {
         for (const row in filteredData) {
             if ({}.hasOwnProperty.call(filteredData, row)) {
                 let dismissrow;
-                if (this.state.filter["textFilter"]) {
+                if (this.state.filter.textFilter) {
                     dismissrow = true;
                     for (const property in filteredData[row]) {
                         if (
                             {}.hasOwnProperty.call(filteredData[row], property)
                         ) {
-                            const data = filteredData[row][property]["data"];
+                            const data = filteredData[row][property].data;
                             if (filteredData[row][property] && data) {
                                 if (
                                     data
@@ -398,9 +399,8 @@ class DataToTable extends Component {
     findDataByPrimaryKey = value => {
         for (const data in this.state.arrayOfdata) {
             if (
-                this.state.arrayOfdata[data][this.state.type["primaryKey"]][
-                    "data"
-                ] === value
+                this.state.arrayOfdata[data][this.state.type.primaryKey]
+                    .data === value
             ) {
                 this.onUserSelected(this.state.arrayOfdata[data]);
             }
@@ -425,7 +425,7 @@ class DataToTable extends Component {
     isEmailAvailable = mail => {
         let emailAvailable = true;
         for (const user in this.state.arrayOfdata) {
-            if (this.state.arrayOfdata[user]["Email"]["data"] === mail) {
+            if (this.state.arrayOfdata[user].Email.data === mail) {
                 emailAvailable = false;
             }
         }
@@ -433,9 +433,9 @@ class DataToTable extends Component {
     };
 
     mergeRow = (columns, data) => {
-        let value = columns["Default"];
+        let value = columns.Default;
         for (const columnToMerge in columns) {
-            if (data[columns[columnToMerge]["name"]] === 1) {
+            if (data[columns[columnToMerge].name] === 1) {
                 value = columnToMerge;
             }
         }
@@ -467,7 +467,7 @@ class DataToTable extends Component {
                             data={this.state.arrayOfdata[row]}
                             onUserSelected={this.onUserSelected}
                             selected={this.state.selected}
-                            primaryKey={this.state.type["primaryKey"]}
+                            primaryKey={this.state.type.primaryKey}
                             key={row}
                         />
                     );
@@ -479,8 +479,8 @@ class DataToTable extends Component {
         if (this.state.rightPanel) {
             panel = (
                 <CollapsableRightPanel
-                    panelType={this.state.rightPanel["type"]}
-                    data={this.state.rightPanel["data"]}
+                    panelType={this.state.rightPanel.type}
+                    data={this.state.rightPanel.data}
                     onClose={this.onClose}
                     lang={this.props.lang}
                     isEmailAvailable={this.isEmailAvailable}
