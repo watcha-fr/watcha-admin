@@ -9,7 +9,6 @@ import MatrixClientContext from "./MatrixClientContext";
 import SuspenseFallback from "./SuspenseFallback.js";
 
 import "./App.css";
-import "./User.css";
 
 class App extends Component {
     constructor(props) {
