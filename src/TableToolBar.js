@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import RefreshButton from "./Buttons/RefreshButton";
+import { withTranslation } from "react-i18next";
+
 import CreateUserButton from "./Buttons/CreateUserButton";
-import { withNamespaces } from "react-i18next";
+import RefreshButton from "./Buttons/RefreshButton";
+
 class TableToolBar extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
+
     createUser = () => {
         const PANEL = { type: "createUser" };
         this.props.setRightPanel(PANEL);
@@ -68,7 +71,7 @@ class TableToolBar extends Component {
                         <label>{t("One-to-one conversations")}</label>
                         <input
                             type="checkbox"
-                            name={t("hideOneToOne")}
+                            name={"hideOneToOne"}
                             checked={this.props.hideOneToOne}
                             onChange={this.props.handleFilter}
                         />
@@ -77,7 +80,7 @@ class TableToolBar extends Component {
                         <label>{t("Inactive")}</label>
                         <input
                             type="checkbox"
-                            name={t("hideInactive")}
+                            name={"hideInactive"}
                             checked={this.props.hideInactive}
                             onChange={this.props.handleFilter}
                         />
@@ -97,4 +100,4 @@ class TableToolBar extends Component {
     }
 }
 
-export default withNamespaces("common")(TableToolBar);
+export default withTranslation()(TableToolBar);

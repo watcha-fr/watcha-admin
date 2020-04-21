@@ -1,27 +1,22 @@
 import React, { Component } from "react";
-import { Tab, Tabs } from "react-bootstrap";
+import { withTranslation } from "react-i18next";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+
 import DataToTable from "./DataToTable";
+// import Monitoring from './Monitoring';
 import StatsTab from "./StatsTab";
-import { withNamespaces } from "react-i18next";
-//import Monitoring from './Monitoring';
 
 class AdminHome extends Component {
-    constructor(props) {
-        super(props);
-
+    constructor() {
+        super();
         this.state = {
             refresh: true,
             key: 1,
         };
     }
 
-    componentDidMount = () => {};
-
-    onClose = () => {
-        this.setState({
-            rightPanel: false,
-        });
-    };
+    onClose = () => this.setState({ rightPanel: false });
 
     onTabSelected = (tabKey, data) => {
         this.setState({
@@ -30,21 +25,13 @@ class AdminHome extends Component {
         });
     };
 
-    handleSelect = key => {
-        this.setState({ key });
-    };
+    handleSelect = key => this.setState({ key });
 
     render() {
         const KEY = this.state.key ? this.state.key : 1;
         const SELECTED = this.state.data ? this.state.data : false;
         const { t } = this.props;
-        const STATSTAB = (
-            <StatsTab
-                token={this.props.token}
-                server={this.props.server}
-                onTabSelected={this.onTabSelected}
-            />
-        );
+        const STATSTAB = <StatsTab onTabSelected={this.onTabSelected} />;
 
         return (
             <div className="AdminHomeContainer">
@@ -57,45 +44,28 @@ class AdminHome extends Component {
                     <Tab eventKey={1} title={t("Overview")}>
                         {STATSTAB}
                     </Tab>
-
                     <Tab eventKey={2} title={t("Users")}>
                         <DataToTable
                             tableName="user"
-                            token={this.props.token}
-                            server={this.props.server}
                             setRightPanel={this.setRightPanel}
                             onClose={this.onClose}
                             value={SELECTED}
-                            lang={t("lang")}
                             onTabSelected={this.onTabSelected}
                         />
                     </Tab>
-
                     <Tab eventKey={3} title={t("Rooms")}>
                         <DataToTable
                             tableName="room"
-                            token={this.props.token}
-                            server={this.props.server}
                             setRightPanel={this.setRightPanel}
                             onClose={this.onClose}
                             stats={this.state.statsData}
                             value={SELECTED}
-                            lang={t("lang")}
                             onTabSelected={this.onTabSelected}
                         />
                     </Tab>
                     {/* not functional yet
-                    <Tab
-                        eventKey={4}
-                        title={t("Monitoring")}
-                        token={this.props.token}
-                        server={this.props.server}
-                    >
-                        <Monitoring
-                            token={this.props.token}
-                            server={this.props.server}
-                            onTabSelected={this.onTabSelected}
-                        />
+                    <Tab eventKey={4} title={t("Monitoring")}>
+                        <Monitoring onTabSelected={this.onTabSelected} />
                     </Tab> */}
                 </Tabs>
             </div>
@@ -103,4 +73,4 @@ class AdminHome extends Component {
     }
 }
 
-export default withNamespaces("common")(AdminHome);
+export default withTranslation()(AdminHome);

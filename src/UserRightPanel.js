@@ -1,26 +1,28 @@
 import React, { Component } from "react";
-import {
-    Accordion,
-    Collapse,
-    Card,
-    Button,
-    Table,
-    Alert,
-} from "react-bootstrap";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
+import Accordion from "react-bootstrap/Accordion";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Collapse from "react-bootstrap/Collapse";
+import Table from "react-bootstrap/Table";
+
+import MatrixClientContext from "./MatrixClientContext";
 
 class UserRightPanel extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             open: true,
             editEmail: false,
             isEmail: false,
             emailValue: " ",
             busy: false,
+            infoMessage: false,
         };
     }
+
+    static contextType = MatrixClientContext;
 
     componentDidMount() {
         if (this.props.data["Email"]["data"]) {
@@ -34,9 +36,9 @@ class UserRightPanel extends Component {
     componentDidUpdate(prevProps) {
         if (this.props.data !== prevProps.data) {
             if (this.props.data["Email"]["data"]) {
-                this.setState({ emailValue: this.props.data["Email"]["data"] });
-                this.setState({ editEmail: false });
                 this.setState({
+                    emailValue: this.props.data["Email"]["data"],
+                    editEmail: false,
                     infoMessage: false,
                 });
             } else {
@@ -46,40 +48,42 @@ class UserRightPanel extends Component {
         }
     }
 
-    onCancelEdit = () => {
-        this.setState({ emailValue: this.props.data["Email"]["data"] });
-        this.setState({ editEmail: false });
-    };
-
-    onClose = () => {
-        this.props.onClose();
-    };
+    onCancelEdit = () =>
+        this.setState({
+            emailValue: this.props.data["Email"]["data"],
+            editEmail: false,
+        });
 
     onEmailChange = ev => {
-        this.setState({ emailValue: ev.target.value });
-        this.setState({ isEmail: false });
+        this.setState({
+            emailValue: ev.target.value,
+            isEmail: false,
+        });
         if (this.isEmail(ev.target.value)) {
-            this.setState({ isEmail: true });
-            this.setState({ new_email: ev.target.value });
+            this.setState({
+                isEmail: true,
+                new_email: ev.target.value,
+            });
         }
     };
 
-    onEmailEdit = () => {
-        this.setState({ editEmail: !this.state.editEmail });
-    };
+    onEmailEdit = () => this.setState({ editEmail: !this.state.editEmail });
 
     onEmailValidate = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+        const client = this.context;
         try {
+            const userId = encodeURIComponent(
+                this.props.data["User name"]["data"]
+            );
             const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/watcha_update_email/" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
+                new URL(
+                    `_matrix/client/r0/watcha_update_email/${userId}`,
+                    client.baseUrl
+                ),
                 {
                     method: "PUT",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
@@ -99,9 +103,7 @@ class UserRightPanel extends Component {
                     },
                 });
                 this.displayInfoMessage();
-                this.setState({
-                    editEmail: false,
-                });
+                this.setState({ editEmail: false });
             } else {
                 this.setState({
                     message: {
@@ -135,17 +137,20 @@ class UserRightPanel extends Component {
     };
 
     getUsersAdvancedInfos = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+        const client = this.context;
         try {
+            const userId = encodeURIComponent(
+                this.props.data["User name"]["data"]
+            );
             const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/watcha_user_ip/" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
+                new URL(
+                    `_matrix/client/r0/watcha_user_ip/${userId}`,
+                    client.baseUrl
+                ),
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
@@ -171,9 +176,9 @@ class UserRightPanel extends Component {
             return;
         }
     };
+
     _doResetPassword = async isActivating => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+        const client = this.context;
         const { t } = this.props;
         // activating is the same as resetting the password,
         // but with a different success message
@@ -190,14 +195,18 @@ class UserRightPanel extends Component {
               this.simplifiedUserId(this.props.data["User name"]["data"]) +
               t(" with a new password");
         try {
+            const userId = encodeURIComponent(
+                this.props.data["User name"]["data"]
+            );
             const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/watcha_reset_password" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
+                new URL(
+                    `_matrix/client/r0/watcha_reset_password/${userId}`,
+                    client.baseUrl
+                ),
                 {
                     method: "POST",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
@@ -232,75 +241,50 @@ class UserRightPanel extends Component {
         }
     };
 
-    activateAccount = () => {
-        this._doResetPassword(true);
-    };
+    activateAccount = () => this._doResetPassword(true);
 
-    addZero = number => {
-        if (number < 10) {
-            number = "0" + number;
-        }
-        return number;
-    };
+    addZero = number => (number < 10 ? "0" + number : number);
 
-    deactivateAccount = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+    deactivateSynapseUser = () => {
         const { t } = this.props;
-        try {
-            const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/admin/deactivate/" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
+        const client = this.context;
+        const userId = this.props.data["User name"]["data"];
+        client
+            .deactivateSynapseUser(userId)
+            .then(response =>
+                this.setState(
+                    {
+                        message: {
+                            type: "success",
+                            title: t("Account deactivated"),
+                            body:
+                                this.simplifiedUserId(
+                                    this.props.data["User name"]["data"]
+                                ) + t(" account has been deactivated"),
+                        },
                     },
-                }
-            );
-            const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
-            if (SERVER_REQUEST.ok) {
-                this.setState({
-                    message: {
-                        type: "success",
-                        title: t("Account deactivated"),
-                        body:
-                            this.simplifiedUserId(
-                                this.props.data["User name"]["data"]
-                            ) + t(" account has been deactivated"),
+                    this.displayInfoMessage()
+                )
+            )
+            .catch(error => {
+                console.error("Failed to deactivate user");
+                console.error(error);
+                this.setState(
+                    {
+                        message: {
+                            type: "danger",
+                            title: t("Deactivation failed"),
+                            body: error.message,
+                        },
                     },
-                });
-                this.displayInfoMessage();
-            } else {
-                this.setState({
-                    message: {
-                        type: "danger",
-                        title: t("Deactivation failed"),
-                        body: RESPONSE["error"],
-                    },
-                });
-                this.displayInfoMessage();
-            }
-        } catch (e) {
-            console.log("error: " + e);
-            return;
-        }
+                    this.displayInfoMessage()
+                );
+            });
     };
 
-    dismissInfoMessage = () => {
-        this.setState({
-            infoMessage: false,
-        });
-    };
+    dismissInfoMessage = () => this.setState({ infoMessage: false });
 
-    displayInfoMessage = () => {
-        this.setState({
-            infoMessage: true,
-        });
-    };
+    displayInfoMessage = () => this.setState({ infoMessage: true });
 
     identifyUserAgent = (userAgent, elements) => {
         const REGEXPS = {
@@ -337,17 +321,12 @@ class UserRightPanel extends Component {
                 }
             }
         }
-
         return null;
     };
 
-    isEmail = query => {
-        return query.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-    };
+    isEmail = query => /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i.test(query);
 
-    resetPassword = async () => {
-        this._doResetPassword(false);
-    };
+    resetPassword = async () => this._doResetPassword(false);
 
     simplifiedUserId = fulluserId => {
         let simplifiedUserId = fulluserId.replace("@", "");
@@ -357,17 +336,20 @@ class UserRightPanel extends Component {
     };
 
     upgradePartner = async () => {
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
+        const client = this.context;
         try {
+            const userId = encodeURIComponent(
+                this.props.data["User name"]["data"]
+            );
             const SERVER_REQUEST = await fetch(
-                HOME_SERVER +
-                    "_matrix/client/r0/watcha_update_partner_to_member/" +
-                    encodeURIComponent(this.props.data["User name"]["data"]),
+                new URL(
+                    `_matrix/client/r0/watcha_update_partner_to_member/${userId}`,
+                    client.baseUrl
+                ),
                 {
                     method: "PUT",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
@@ -452,7 +434,7 @@ class UserRightPanel extends Component {
                     className="ActivationButton"
                     key="deactivateAccount"
                     variant="danger"
-                    onClick={this.deactivateAccount}
+                    onClick={this.deactivateSynapseUser}
                 >
                     {t("Deactivate Account")}
                 </Button>
@@ -528,8 +510,9 @@ class UserRightPanel extends Component {
         if (this.state.infoMessage) {
             bottomWell = (
                 <Alert
-                    onDismiss={this.dismissInfoMessage}
                     variant={this.state.message.type}
+                    onClose={this.onInfoMessageValidate}
+                    dismissible
                 >
                     <h4>{this.state.message.title}</h4>
                     <p>{this.state.message.body}</p>
@@ -583,7 +566,7 @@ class UserRightPanel extends Component {
                                     )}
                                 <i
                                     className="fas fa-times dismissRight"
-                                    onClick={this.onClose}
+                                    onClick={this.props.onClose}
                                 ></i>
                             </Card.Header>
 
@@ -679,4 +662,4 @@ class UserRightPanel extends Component {
     }
 }
 
-export default withNamespaces("common")(UserRightPanel);
+export default withTranslation()(UserRightPanel);

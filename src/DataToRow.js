@@ -1,23 +1,12 @@
 import React, { Component } from "react";
-import "./User.css";
+
 import BooleanRow from "./BooleanRow";
-import { withNamespaces } from "react-i18next";
 
 class DataToRow extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
-
-    onSelect = () => {
-        this.props.onUserSelected(this.props.data);
-        this.setState({ update: !this.state.update });
-    };
+    onClick = () => this.props.onUserSelected(this.props.data);
 
     dataToRow = () => {
         const DATA = this.props.data;
-        const { t } = this.props;
         const row = [];
         const PK = this.props.primaryKey;
         const DATES = ["date", "shortDate"];
@@ -51,7 +40,7 @@ class DataToRow extends Component {
                 } else {
                     row.push(
                         <td className={ROW_CLASS_NAME} key={property}>
-                            {t(this.props.data[property]["simplifiedData"])}
+                            {this.props.data[property]["simplifiedData"]}
                         </td>
                     );
                 }
@@ -61,9 +50,8 @@ class DataToRow extends Component {
     };
 
     render() {
-        let row = [];
-        row = this.dataToRow();
-        return <tr onClick={this.onSelect}>{row}</tr>;
+        return <tr onClick={this.onClick}>{this.dataToRow()}</tr>;
     }
 }
-export default withNamespaces("common")(DataToRow);
+
+export default DataToRow;

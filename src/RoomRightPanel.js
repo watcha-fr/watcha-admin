@@ -1,20 +1,18 @@
 import React, { Component } from "react";
-import {
-    Accordion,
-    Collapse,
-    Card,
-    Button,
-    Table,
-    ListGroupItem,
-    ListGroup,
-} from "react-bootstrap";
-import { withNamespaces } from "react-i18next";
+import { withTranslation } from "react-i18next";
+import Accordion from "react-bootstrap/Accordion";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Collapse from "react-bootstrap/Collapse";
+import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+import Table from "react-bootstrap/Table";
+
 import UserInRoom from "./UserInRoom";
 
 class RoomRightPanel extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             open: true,
             editEmail: false,
@@ -23,13 +21,7 @@ class RoomRightPanel extends Component {
         };
     }
 
-    onClose = () => {
-        this.props.onClose();
-    };
-
-    onUserClicked = userName => {
-        this.props.onTabSelected(2, userName);
-    };
+    onUserClicked = userName => this.props.onTabSelected(2, userName);
 
     simplifiedUserId = fulluserId => {
         let simplifiedUserId = fulluserId.replace("@", "");
@@ -65,6 +57,7 @@ class RoomRightPanel extends Component {
                 );
             }
         }
+
         return (
             <div>
                 <Collapse in={OPEN} dimension="width" timeout={0}>
@@ -78,7 +71,7 @@ class RoomRightPanel extends Component {
                                     ]}
                                 <i
                                     className="fas fa-times dismissRight"
-                                    onClick={this.onClose}
+                                    onClick={this.props.onClose}
                                 ></i>
                             </Card.Header>
 
@@ -165,4 +158,4 @@ class RoomRightPanel extends Component {
     }
 }
 
-export default withNamespaces("common")(RoomRightPanel);
+export default withTranslation()(RoomRightPanel);

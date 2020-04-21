@@ -1,31 +1,23 @@
 import React, { Component } from "react";
+
+import CreateUserRightPanel from "./CreateUserRightPanel";
 import RoomRightPanel from "./RoomRightPanel";
 import UserRightPanel from "./UserRightPanel";
-import CreateUserRightPanel from "./CreateUserRightPanel";
 
-export default class CollapsableRightPanel extends Component {
+class CollapsableRightPanel extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            open: true,
-        };
+        this.state = { open: true };
     }
 
-    onClose = () => {
-        this.props.onClose();
-    };
-
-    getPanel = () => {
+    getPanel() {
         let panel;
         switch (this.props.panelType) {
             case "user":
                 panel = (
                     <UserRightPanel
                         data={this.props.data}
-                        onClose={this.onClose}
-                        server={this.props.server}
-                        token={this.props.token}
+                        onClose={this.props.onClose}
                         lang={this.props.lang}
                         refresh={this.props.refresh}
                         onTabSelected={this.props.onTabSelected}
@@ -39,9 +31,7 @@ export default class CollapsableRightPanel extends Component {
                 panel = (
                     <RoomRightPanel
                         data={this.props.data}
-                        onClose={this.onClose}
-                        server={this.props.server}
-                        token={this.props.token}
+                        onClose={this.props.onClose}
                         refresh={this.props.refresh}
                         onTabSelected={this.props.onTabSelected}
                     />
@@ -52,10 +42,9 @@ export default class CollapsableRightPanel extends Component {
                 panel = (
                     <CreateUserRightPanel
                         data={this.props.data}
-                        onClose={this.onClose}
-                        server={this.props.server}
-                        token={this.props.token}
+                        onClose={this.props.onClose}
                         refresh={this.props.refresh}
+                        refreshRightPanel={this.props.refreshRightPanel}
                         isEmailAvailable={this.props.isEmailAvailable}
                         onTabSelected={this.props.onTabSelected}
                     />
@@ -66,19 +55,18 @@ export default class CollapsableRightPanel extends Component {
                 panel = (
                     <UserRightPanel
                         data={this.props.data}
-                        onClose={this.onClose}
-                        server={this.props.server}
-                        token={this.props.token}
+                        onClose={this.props.onClose}
                         refresh={this.props.refresh}
                         lang={this.props.lang}
                     />
                 );
         }
         return panel;
-    };
-    render() {
-        const PANEL = this.getPanel();
+    }
 
-        return <div> {PANEL} </div>;
+    render() {
+        return <div>{this.getPanel()}</div>;
     }
 }
+
+export default CollapsableRightPanel;

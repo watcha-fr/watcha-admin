@@ -1,69 +1,69 @@
 import React, { Component } from "react";
-import CardStats from "./CardStats";
-import { withNamespaces } from "react-i18next";
-import logo from "./images/logo.svg";
-class StatsTab extends Component {
-    constructor(props) {
-        super(props);
+import { withTranslation } from "react-i18next";
 
-        this.state = {};
+import CardStats from "./CardStats";
+import MatrixClientContext from "./MatrixClientContext";
+
+import logo from "./images/logo.svg";
+
+class StatsTab extends Component {
+    constructor() {
+        super();
+        this.state = { stats: null };
     }
 
-    componentDidMount = () => {
+    static contextType = MatrixClientContext;
+
+    componentDidMount() {
         this.getStats();
         this.getServerState();
-    };
+    }
 
     getServerState = async () => {
+        const client = this.context;
         let serverReport;
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
 
         try {
             const SERVER_REPORT_REQUET = await fetch(
-                HOME_SERVER + "_matrix/client/r0/watcha_server_state",
+                new URL(
+                    "_matrix/client/r0/watcha_server_state",
+                    client.baseUrl
+                ),
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                     },
                 }
             );
-
             serverReport = JSON.parse(await SERVER_REPORT_REQUET.text());
         } catch (e) {
             console.log("error: " + e);
             return;
         }
-        this.setState({
-            serverReport,
-        });
+        this.setState({ serverReport });
     };
 
     getStats = async () => {
+        const client = this.context;
         let statsData;
-        const HOME_SERVER = this.props.server;
-        const ACCESS_TOKEN = this.props.token;
 
         try {
             const STATS_REQUEST = await fetch(
-                HOME_SERVER + "_matrix/client/r0/watcha_admin_stats",
+                new URL("_matrix/client/r0/watcha_admin_stats", client.baseUrl),
                 {
                     method: "GET",
                     headers: {
-                        Authorization: "Bearer " + ACCESS_TOKEN,
+                        Authorization: "Bearer " + client.getAccessToken(),
                     },
                 }
             );
-
             statsData = JSON.parse(await STATS_REQUEST.text());
         } catch (e) {
             console.log("error: " + e);
             return;
         }
-        this.setState({
-            stats: statsData,
-        });
+        this.setState({ stats: statsData });
     };
 
     render() {
@@ -119,6 +119,7 @@ class StatsTab extends Component {
                 </div>
             );
         }
+
         return (
             <div>
                 <div className="statsPanelsContainer">
@@ -138,4 +139,5 @@ class StatsTab extends Component {
         );
     }
 }
-export default withNamespaces("common")(StatsTab);
+
+export default withTranslation()(StatsTab);

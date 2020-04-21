@@ -1,190 +1,93 @@
-import React, { Component } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
-import { withNamespaces } from "react-i18next";
+import React, { Component, Suspense } from "react";
+import sdk from "matrix-js-sdk";
 
 import AdminHome from "./AdminHome.js";
+import ErrorBoundary from "./ErrorBoundary.js";
+import Login from "./Login.js";
+import MatrixClientContext from "./MatrixClientContext";
+import SuspenseFallback from "./SuspenseFallback.js";
 
 import "./App.css";
-import logo from "./images/logo.svg";
+import "./User.css";
 
 class App extends Component {
-    constructor(props, context) {
-        super(props, context);
-
+    constructor(props) {
+        super(props);
         this.state = {
-            userName: "",
-            password: "",
-            accessToken: null,
-            homeserver: "",
+            client: null,
+            loginError: false,
+            clientPrepared: false,
         };
     }
 
-    componentDidMount = () => {
-        let accessToken = null;
-        const search = window.location.search;
-        if (search.includes("=")) {
-            // Retrieving the token passed from Riot
-            // see riot-web.git/src/components/structures/WatchaAdmin.js
-            const key = search.split("=")[1];
-            const value = localStorage.getItem("watcha-" + key);
-            if (value !== null) {
-                localStorage.removeItem("watcha-" + key);
+    async componentDidMount() {
+        const baseUrl =
+            localStorage.getItem("mx_hs_url") ||
+            (await this.getBaseUrlFromConfig());
 
-                const { i18n } = this.props;
-                i18n.changeLanguage(value.split("|")[0]);
-                accessToken = value.split("|")[1];
-            } else {
-                // if the token was incorrect, or was already retrieved,
-                // then redirect to Riot for security
-                window.location =
-                    window.location.protocol + "//" + window.location.host;
-                return;
-            }
+        const client = sdk.createClient({ baseUrl });
+        this.setState({ client });
+
+        const accessToken = localStorage.getItem("mx_access_token");
+        if (accessToken) {
+            await client
+                .loginWithToken(accessToken)
+                .then(() => this.setupClient(client))
+                .catch(error => {
+                    this.setState({ loginError: true });
+                    console.error(error.message);
+                });
+        } else {
+            this.setState({ loginError: true });
         }
+    }
 
-        fetch("/config.json")
+    async getBaseUrlFromConfig() {
+        return await fetch("/config.json")
             .then(response => response.json())
-            .then(data =>
-                this.setState({
-                    homeserver:
-                        data["default_server_config"]["m.homeserver"][
-                            "base_url"
-                        ] + "/",
-                    accessToken,
-                })
+            .then(
+                data =>
+                    data["default_server_config"]["m.homeserver"]["base_url"]
             )
             .catch(error => {
-                // should only happen in dev - without token
+                // should only occur if the browser cache was cleared or
+                // in development environment when the chat and the
+                // administration interface do not have the same domain
                 const defaultHomeServer =
                     process.env.REACT_APP_CORE || "http://localhost:8008";
-                console.log("Defaulting homeserver to " + defaultHomeServer);
-                this.setState({
-                    homeserver: defaultHomeServer + "/",
-                    accessToken,
-                });
+                console.log(`Set ${defaultHomeServer} as default home server`);
+                return defaultHomeServer;
             });
-    };
+    }
 
-    onConnection = async event => {
-        event.preventDefault();
-        const self = this;
-
-        try {
-            const path = this.state.homeserver + "_matrix/client/r0/login";
-
-            const loginRequest = await fetch(path, {
-                method: "POST",
-                body: JSON.stringify({
-                    initial_device_display_name: "Web setup account",
-                    user: self.state.userName,
-                    password: self.state.password,
-                    type: "m.login.password",
-                }),
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-            });
-            const loginData = JSON.parse(await loginRequest.text());
-            if (loginData["access_token"]) {
-                self.setState({ accessToken: loginData["access_token"] });
-                return this.state.accessToken;
-            } else {
-                // TODO: to test
-                console.log("error: no access token");
+    setupClient = async client => {
+        await client.startClient({ initialSyncLimit: 10 });
+        client.on("sync", (state, prevState, response) => {
+            if (state === "SYNCING" && prevState === "SYNCING") {
                 return;
             }
-        } catch (e) {
-            // TODO: is this useful ??
-            console.log("error: " + e);
-
-            return;
-        }
+            console.info("MatrixClient sync state => %s", state);
+            if (state === "PREPARED") {
+                this.setState({ clientPrepared: true });
+            }
+        });
     };
-
-    onLanguageChange = evt => {
-        const { i18n } = this.props;
-        console.log(evt.target.value);
-        i18n.changeLanguage(evt.target.value);
-    };
-
-    onChange = event =>
-        this.setState({ [event.target.name]: event.target.value });
 
     render() {
-        if (this.state.accessToken) {
-            return (
-                <AdminHome
-                    token={this.state.accessToken}
-                    server={this.state.homeserver}
-                    className="AdminHome"
-                    onLanguageChange={this.onLanguageChange}
-                ></AdminHome>
-            );
-        }
         return (
-            <div className="loginForm container mx-auto">
-                <Form.Control
-                    className="my-4"
-                    as="select"
-                    custom
-                    onClick={this.onLanguageChange}
-                >
-                    <option value="fr">Français</option>
-                    <option value="en">English</option>
-                </Form.Control>
-                <img
-                    alt="logo"
-                    className="logo mx-auto mb-4"
-                    src={logo}
-                />
-                <div className="text-center mb-4">
-                    {this.props.t("Administration interface")}
-                </div>
-                <Form onSubmit={this.onConnection}>
-                    <Form.Group>
-                        <InputGroup className="flex-nowrap">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    <i className="fas fa-user fa-fw"></i>
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Form.Control
-                                autoComplete="username"
-                                name="userName"
-                                onChange={this.onChange}
-                                placeholder={this.props.t("Name")}
-                                required
-                                type="text"
-                                value={this.state.userName}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    <Form.Group>
-                        <InputGroup className="flex-nowrap">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    <i className="fas fa-key fa-fw"></i>
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Form.Control
-                                autoComplete="current-password"
-                                name="password"
-                                onChange={this.onChange}
-                                placeholder="Password"
-                                required
-                                type="password"
-                                value={this.state.password}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    <Button variant="outline-primary btn-block" type="submit">
-                        {this.props.t("Sign in")}
-                    </Button>
-                </Form>
-            </div>
+            <Suspense fallback={<SuspenseFallback />}>
+                <ErrorBoundary>
+                    <MatrixClientContext.Provider value={this.state.client}>
+                        {this.state.clientPrepared ? (
+                            <AdminHome className="AdminHome" />
+                        ) : this.state.loginError ? (
+                            <Login setupClient={this.setupClient} />
+                        ) : null}
+                    </MatrixClientContext.Provider>
+                </ErrorBoundary>
+            </Suspense>
         );
     }
 }
 
-export default withNamespaces("common")(App);
+export default App;
