@@ -1,4 +1,5 @@
 import React, { Component, Suspense } from "react";
+import { RestfulProvider } from "restful-react";
 import sdk from "matrix-js-sdk";
 
 import AdminHome from "./AdminHome.js";
@@ -79,7 +80,16 @@ class App extends Component {
                 <ErrorBoundary>
                     <MatrixClientContext.Provider value={this.state.client}>
                         {this.state.clientPrepared ? (
-                            <AdminHome className="AdminHome" />
+                            <RestfulProvider
+                                base={`${this.state.client.baseUrl}/_matrix/client/r0/`}
+                                requestOptions={{
+                                    headers: {
+                                        Authorization: `Bearer ${this.state.client.getAccessToken()}`,
+                                    },
+                                }}
+                            >
+                                <AdminHome className="AdminHome" />
+                            </RestfulProvider>
                         ) : this.state.loginError ? (
                             <Login setupClient={this.setupClient} />
                         ) : null}
