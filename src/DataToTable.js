@@ -149,9 +149,9 @@ class DataToTable extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        if (this.props.value !== prevProps.value) {
-            if (this.props.value) {
-                this.findDataByPrimaryKey(this.props.value);
+        if (this.props.userId !== prevProps.userId) {
+            if (this.props.userId) {
+                this.findDataByPrimaryKey(this.props.userId);
             }
         }
         if (this.props.lang !== prevProps.lang) {
@@ -396,11 +396,11 @@ class DataToTable extends Component {
         return filteredData;
     };
 
-    findDataByPrimaryKey = value => {
+    findDataByPrimaryKey = userId => {
         for (const data in this.state.arrayOfdata) {
             if (
                 this.state.arrayOfdata[data][this.state.type.primaryKey]
-                    .data === value
+                    .data === userId
             ) {
                 this.onUserSelected(this.state.arrayOfdata[data]);
             }
@@ -485,7 +485,7 @@ class DataToTable extends Component {
                     lang={this.props.lang}
                     isEmailAvailable={this.isEmailAvailable}
                     refresh={this.onRefresh}
-                    onTabSelected={this.props.onTabSelected}
+                    changeTab={this.props.changeTab}
                     refreshRightPanel={this.refreshRightPanel}
                 />
             );

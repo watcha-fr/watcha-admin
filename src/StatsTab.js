@@ -5,7 +5,7 @@ import { withTranslation } from "react-i18next";
 import CardStats from "./CardStats";
 import DelayedSpinner from "./DelayedSpinner";
 
-export default withTranslation()(({ onTabSelected, t }) => {
+export default withTranslation()(({ changeTab, t }) => {
     const { data, loading, error } = useGet({ path: "watcha_admin_stats" });
 
     if (error) {
@@ -24,7 +24,7 @@ export default withTranslation()(({ onTabSelected, t }) => {
                         { label: t("Admin"), data: data.admins },
                     ]}
                     title={t("Users")}
-                    {...{ onTabSelected }}
+                    {...{ changeTab }}
                 />
                 <CardStats
                     lines={[
@@ -44,7 +44,7 @@ export default withTranslation()(({ onTabSelected, t }) => {
                         },
                     ]}
                     title={t("Rooms")}
-                    {...{ onTabSelected }}
+                    {...{ changeTab }}
                 />
             </div>
         </div>

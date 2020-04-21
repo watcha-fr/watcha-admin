@@ -8,38 +8,37 @@ import DataToTable from "./DataToTable";
 import StatsTab from "./StatsTab";
 
 export default withTranslation()(({ t }) => {
-    const [key, setKey] = useState(1);
+    const [key, setKey] = useState("dashboard");
     const [userId, setUserId] = useState(null);
 
     const onSelect = key => setKey(key);
 
-    const onTabSelected = (key, userId) => {
+    const changeTab = (key, userId) => {
         setKey(key);
         userId && setUserId(userId);
     };
 
     return (
         <Tabs id="tabs" activeKey={key} {...{ onSelect }}>
-            <Tab eventKey={1} title={t("Overview")}>
+            <Tab eventKey="dashboard" title={t("Overview")}>
                 <StatsTab
-                    {...{ onTabSelected }}
+                    {...{ changeTab }}
                 />
             </Tab>
-            <Tab eventKey={2} title={t("Users")}>
+            <Tab eventKey="users" title={t("Users")}>
                 <DataToTable
                     tableName="user"
-                    value={userId}
-                    {...{ onTabSelected }}
+                    {...{ changeTab, userId }}
                 />
             </Tab>
-            <Tab eventKey={3} title={t("Rooms")}>
+            <Tab eventKey="rooms" title={t("Rooms")}>
                 <DataToTable
                     tableName="room"
-                    {...{ onTabSelected }}
+                    {...{ changeTab }}
                 />
             </Tab>
             {/* not functional yet
-            <Tab eventKey={4} title={t("Monitoring")}>
+            <Tab eventKey="monitoring" title={t("Monitoring")}>
                 <Monitoring />
             </Tab> */}
         </Tabs>

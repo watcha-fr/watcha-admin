@@ -21,7 +21,7 @@ class RoomRightPanel extends Component {
         };
     }
 
-    onUserClicked = userName => this.props.onTabSelected(2, userName);
+    onUserClicked = userId => this.props.changeTab("users", userId);
 
     simplifiedUserId = fulluserId => {
         let simplifiedUserId = fulluserId.replace("@", "");
