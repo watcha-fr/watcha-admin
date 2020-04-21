@@ -64,7 +64,7 @@ class Login extends Component {
         const button =
             this.state.submitCount === 0 ? (
                 <Button variant="outline-primary" type="submit" block>
-                    {t("Sign in")}
+                    {t("login.button")}
                 </Button>
             ) : (
                 <Button
@@ -74,7 +74,7 @@ class Login extends Component {
                     disabled
                 >
                     <span className="loadingLoginText">
-                        {t("Loading") + "..."}
+                        {t("login.loading")}
                     </span>
                     <Spinner
                         as="span"
@@ -103,7 +103,7 @@ class Login extends Component {
                 </Form.Control>
                 <img alt="logo" className="logo mx-auto mb-4" src={logo} />
                 <div className="text-center mb-4">
-                    {t("Administration interface")}
+                    {t("login.title")}
                 </div>
                 <Form onSubmit={this.onSubmit}>
                     <Form.Group>
@@ -117,7 +117,7 @@ class Login extends Component {
                                 autoComplete="username"
                                 name="user"
                                 onChange={this.onChange}
-                                placeholder={t("Name")}
+                                placeholder={t("login.username")}
                                 required
                                 type="text"
                                 value={this.state.userName}
@@ -135,7 +135,7 @@ class Login extends Component {
                                 autoComplete="current-password"
                                 name="password"
                                 onChange={this.onChange}
-                                placeholder={t("Password")}
+                                placeholder={t("login.password")}
                                 required
                                 type="password"
                                 value={this.state.password}

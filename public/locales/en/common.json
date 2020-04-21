@@ -1,5 +1,4 @@
 {
-    "Sign in": "Sign in",
     "Member": "Internal user",
     "Members": "Internal users",
     "Status": "Role",
@@ -10,6 +9,13 @@
     "language": {
         "en": "English",
         "fr": "Français"
+    },
+    "login": {
+        "title": "Administration interface",
+        "username": "Email address",
+        "password": "Password",
+        "button": "Sign in",
+        "loading": "Loading..."
     },
     "errorBoundary": {
         "title": "Something went wrong!",
