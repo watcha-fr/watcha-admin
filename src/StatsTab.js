@@ -1,9 +1,9 @@
 import React from "react";
 import { useGet } from "restful-react";
 import { withTranslation } from "react-i18next";
-import Spinner from "react-bootstrap/Spinner";
 
 import CardStats from "./CardStats";
+import DelayedSpinner from "./DelayedSpinner";
 
 export default withTranslation()(({ onTabSelected, t }) => {
     const { data, loading, error } = useGet({ path: "watcha_admin_stats" });
@@ -13,14 +13,7 @@ export default withTranslation()(({ onTabSelected, t }) => {
     }
 
     return loading ? (
-        <div className="fullCentered delayed">
-            <Spinner
-                animation="border"
-                variant="primary"
-                role="status"
-                aria-hidden="true"
-            />
-        </div>
+        <DelayedSpinner />
     ) : (
         <div>
             <div className="statsPanelsContainer">

@@ -2,11 +2,11 @@ import React, { Suspense, useEffect, useState } from "react";
 import { RestfulProvider } from "restful-react";
 import sdk from "matrix-js-sdk";
 
-import AdminHome from "./AdminHome.js";
-import ErrorBoundary from "./ErrorBoundary.js";
-import Login from "./Login.js";
+import AdminHome from "./AdminHome";
+import DelayedSpinner from "./DelayedSpinner";
+import ErrorBoundary from "./ErrorBoundary";
+import Login from "./Login";
 import MatrixClientContext from "./MatrixClientContext";
-import SuspenseFallback from "./SuspenseFallback.js";
 
 import "./App.css";
 
@@ -76,7 +76,7 @@ export default () => {
     });
 
     return (
-        <Suspense fallback={<SuspenseFallback />}>
+        <Suspense fallback={<DelayedSpinner />}>
             <ErrorBoundary>
                 <MatrixClientContext.Provider value={client}>
                     {clientPrepared ? (
@@ -85,7 +85,9 @@ export default () => {
                         </RestfulProvider>
                     ) : missingAccessToken ? (
                         <Login {...{ setupClient }} />
-                    ) : null}
+                    ) : (
+                        <DelayedSpinner />
+                    )}
                 </MatrixClientContext.Provider>
             </ErrorBoundary>
         </Suspense>
