@@ -23,7 +23,7 @@ export default withTranslation()(({ changeTab, t }) => {
                         { label: t("Partners"), data: data.users.partners },
                         { label: t("Admin"), data: data.admins },
                     ]}
-                    title={t("Users")}
+                    title={t("usersTab.title")}
                     {...{ changeTab }}
                 />
                 <CardStats
@@ -43,7 +43,7 @@ export default withTranslation()(({ changeTab, t }) => {
                                 data.rooms.big_rooms_count_active,
                         },
                     ]}
-                    title={t("Rooms")}
+                    title={t("roomsTab.title")}
                     {...{ changeTab }}
                 />
             </div>

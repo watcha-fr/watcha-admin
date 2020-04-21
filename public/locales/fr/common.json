@@ -12,13 +12,10 @@
     "One to one": "Conversation à deux",
     "Inactive Rooms": "Salons inactifs ",
     "Inactive": "Inactifs",
-    "Rooms": "Salons",
     "Room": "Salon ",
     "Loading": "Chargement",
-    "Users": "Utilisateurs",
     "Status": "Rôle",
     "User": "Utilisateur ",
-    "Overview": "Etat du serveur",
     "Statistics for Watcha server": "Statistiques",
     "Hide internal users": "Masquer les utilisateurs internes",
     "Hide one-to-one conversations": "Masquer les conversations à deux",
@@ -80,5 +77,17 @@
     "errorBoundary": {
         "title": "Quelque chose s’est mal passé !",
         "body": "<0>Si le disfonctionnement venait à se reproduire, veuillez nous contacter à <0>{{email}}</0>.</0><1>Vous allez être redirigé vers <0>{{redirectUrl}}</0> dans quelques secondes...</1>"
+    },
+    "dashboardTab": {
+        "title": "Tableau de bord"
+    },
+    "usersTab": {
+        "title": "Utilisateurs"
+    },
+    "roomsTab": {
+        "title": "Salons"
+    },
+    "monitoringTab": {
+        "title": "Monitorage"
     }
 }
