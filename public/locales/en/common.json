@@ -1,0 +1,18 @@
+{
+    "Sign in": "Sign in",
+    "Member": "Internal user",
+    "Members": "Internal users",
+    "Status": "Role",
+    "Date of creation": "Created on",
+    "Last seen": "Last active on",
+    "One to one": "One-to-one",
+
+    "language": {
+        "en": "English",
+        "fr": "Français"
+    },
+    "errorBoundary": {
+        "title": "Something went wrong!",
+        "body": "<0>Should the failure happen again, please contact us at <0>{{email}}</0>.</0><1>You'll be redirected to <0>{{redirectUrl}}</0> in a few seconds...</1>"
+    }
+}

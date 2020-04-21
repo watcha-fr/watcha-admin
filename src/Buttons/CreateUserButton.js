@@ -1,19 +1,9 @@
-import React, { Component } from "react";
-import { Button } from "react-bootstrap";
-import { withNamespaces } from "react-i18next";
-class CreateUserButton extends Component {
-    constructor(props) {
-        super(props);
+import React from "react";
+import { withTranslation } from "react-i18next";
+import Button from "react-bootstrap/Button";
 
-        this.state = {};
-    }
-
-    render() {
-        return (
-            <Button onClick={this.props.onClick} variant={this.props.variant}>
-                {this.props.t("Create user")}
-            </Button>
-        );
-    }
+function CreateUserButton({ variant, onClick, t }) {
+    return <Button {...{ variant, onClick }}>{t("Create user")}</Button>;
 }
-export default withNamespaces("common")(CreateUserButton);
+
+export default withTranslation()(CreateUserButton);

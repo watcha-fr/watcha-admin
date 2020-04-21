@@ -1,26 +1,12 @@
-import React, { Component } from "react";
-import { Button } from "react-bootstrap";
+import React from "react";
+import Button from "react-bootstrap/Button";
 
-export default class RefreshButton extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
-
-    onClick = () => {
-        this.props.onClick();
-    };
-
-    render() {
-        return (
-            <Button
-                onClick={this.onClick}
-                variant={this.props.variant}
-                className="refreshButton"
-            >
-                <i className="fas fa-sync-alt"></i>
-            </Button>
-        );
-    }
+function RefreshButton({ variant, onClick }) {
+    return (
+        <Button className="refreshButton" {...{ variant, onClick }}>
+            <i className="fas fa-sync-alt"></i>
+        </Button>
+    );
 }
+
+export default RefreshButton;
