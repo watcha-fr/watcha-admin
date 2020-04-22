@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Spinner from "react-bootstrap/Spinner";
@@ -14,9 +15,9 @@ class Login extends Component {
     constructor() {
         super();
         this.state = {
-            user: "",
+            username: "",
             password: "",
-            submitCount: 0,
+            pendingLogin: false,
         };
     }
 
@@ -29,12 +30,12 @@ class Login extends Component {
     login() {
         const client = this.context;
         const { setupClient } = this.props;
-        const { user, password } = this.state;
+        const { username, password } = this.state;
         client
-            .loginWithPassword(user, password)
+            .loginWithPassword(username, password)
             .then(() => setupClient(client))
             .catch(error => {
-                this.setState({ submitCount: 0 });
+                this.setState({ pendingLogin: false });
                 alert(error.message);
             });
     }
@@ -47,47 +48,38 @@ class Login extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-        this.setState(
-            state => ({
-                submitCount: state.submitCount + 1,
-            }),
-            () => {
-                if (this.state.submitCount === 1) {
-                    this.login();
-                }
-            }
-        );
+        this.setState(({ pendingLogin }) => {
+            pendingLogin || this.login();
+            return { pendingLogin: true };
+        });
     };
 
     render() {
         const { t, i18n } = this.props;
-        const button =
-            this.state.submitCount === 0 ? (
-                <Button variant="outline-primary" type="submit" block>
-                    {t("login.button")}
-                </Button>
-            ) : (
-                <Button
-                    className="loadingLoginButton"
-                    variant="outline-primary"
-                    block
-                    disabled
-                >
-                    <span className="loadingLoginText">
-                        {t("login.loading")}
-                    </span>
-                    <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />
-                </Button>
-            );
+        const button = this.state.pendingLogin ? (
+            <Button
+                className="loadingLoginButton"
+                variant="outline-primary"
+                block
+                disabled
+            >
+                <span className="loadingLoginText">{t("login.loading")}</span>
+                <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                />
+            </Button>
+        ) : (
+            <Button variant="outline-primary" type="submit" block>
+                {t("login.button")}
+            </Button>
+        );
 
         return (
-            <div className="loginForm container mx-auto">
+            <Container className="loginForm container">
                 <Form.Control
                     className="my-4"
                     as="select"
@@ -102,9 +94,7 @@ class Login extends Component {
                     ))}
                 </Form.Control>
                 <img alt="logo" className="logo mx-auto mb-4" src={logo} />
-                <div className="text-center mb-4">
-                    {t("login.title")}
-                </div>
+                <div className="text-center mb-4">{t("login.title")}</div>
                 <Form onSubmit={this.onSubmit}>
                     <Form.Group>
                         <InputGroup className="flex-nowrap">
@@ -115,12 +105,12 @@ class Login extends Component {
                             </InputGroup.Prepend>
                             <Form.Control
                                 autoComplete="username"
-                                name="user"
+                                name="username"
                                 onChange={this.onChange}
                                 placeholder={t("login.username")}
                                 required
                                 type="text"
-                                value={this.state.userName}
+                                value={this.state.username}
                             />
                         </InputGroup>
                     </Form.Group>
@@ -144,7 +134,7 @@ class Login extends Component {
                     </Form.Group>
                     {button}
                 </Form>
-            </div>
+            </Container>
         );
     }
 }
