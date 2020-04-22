@@ -5,7 +5,7 @@ import Tabs from "react-bootstrap/Tabs";
 
 import DataToTable from "./DataToTable";
 // import Monitoring from './Monitoring';
-import StatsTab from "./StatsTab";
+import DashboardTab from "./DashboardTab";
 
 export default withTranslation()(({ t }) => {
     const [key, setKey] = useState("dashboard");
@@ -21,7 +21,7 @@ export default withTranslation()(({ t }) => {
     return (
         <Tabs id="tabs" activeKey={key} {...{ onSelect }}>
             <Tab eventKey="dashboard" title={t("dashboardTab.title")}>
-                <StatsTab {...{ changeTab }} />
+                <DashboardTab {...{ changeTab }} />
             </Tab>
             <Tab eventKey="users" title={t("usersTab.title")}>
                 <DataToTable tableName="user" {...{ changeTab, userId }} />
