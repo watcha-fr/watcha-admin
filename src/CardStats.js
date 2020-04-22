@@ -4,10 +4,8 @@ import Card from "react-bootstrap/Card";
 
 import AdminCardStats from "./AdminCardStats";
 
-export default withTranslation()(({ title, changeTab, lines, t }) => {
-    const onCardClicked = () => {
-        changeTab(title === t("Users") ? "users" : "rooms");
-    };
+export default withTranslation()(({ title, changeTab, tab, lines, t }) => {
+    const onCardClicked = () => changeTab(tab);
 
     const onUserClicked = userId => changeTab("users", userId);
 

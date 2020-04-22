@@ -24,6 +24,7 @@ export default withTranslation()(({ changeTab, t }) => {
                         { label: t("Admin"), data: data.admins },
                     ]}
                     title={t("usersTab.title")}
+                    tab="users"
                     {...{ changeTab }}
                 />
                 <CardStats
@@ -44,6 +45,7 @@ export default withTranslation()(({ changeTab, t }) => {
                         },
                     ]}
                     title={t("roomsTab.title")}
+                    tab="rooms"
                     {...{ changeTab }}
                 />
             </div>
