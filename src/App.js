@@ -6,7 +6,7 @@ import AdminHome from "./AdminHome";
 import DelayedSpinner from "./DelayedSpinner";
 import ErrorBoundary from "./ErrorBoundary";
 import Login from "./Login";
-import { MatrixClientContext } from "./MatrixClientContext";
+import { MatrixClientContext } from "./contexts";
 
 import "./App.css";
 

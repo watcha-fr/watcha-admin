@@ -7,7 +7,7 @@ import Card from "react-bootstrap/Card";
 import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 
-import { MatrixClientContext } from "./MatrixClientContext";
+import { MatrixClientContext } from "./contexts";
 
 class UserRightPanel extends Component {
     constructor(props) {

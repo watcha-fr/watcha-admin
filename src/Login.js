@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Spinner from "react-bootstrap/Spinner";
 
-import { useMatrixClientContext } from "./MatrixClientContext";
+import { useMatrixClientContext } from "./contexts";
 
 import logo from "./images/logo.svg";
 
