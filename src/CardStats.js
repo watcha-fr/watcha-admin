@@ -2,9 +2,12 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
+import { useChangeTabContext } from "./contexts";
 import AdminCardStats from "./AdminCardStats";
 
-export default withTranslation()(({ title, changeTab, tab, lines, t }) => {
+export default withTranslation()(({ title, tab, lines, t }) => {
+    const changeTab = useChangeTabContext()
+
     const onCardClicked = () => changeTab(tab);
 
     const onUserClicked = userId => changeTab("users", userId);

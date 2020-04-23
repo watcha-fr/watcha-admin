@@ -8,6 +8,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Table from "react-bootstrap/Table";
 
+import { ChangeTabContext } from "./contexts";
 import UserInRoom from "./UserInRoom";
 
 class RoomRightPanel extends Component {
@@ -21,7 +22,12 @@ class RoomRightPanel extends Component {
         };
     }
 
-    onUserClicked = userId => this.props.changeTab("users", userId);
+    static contextType = ChangeTabContext;
+
+    onUserClicked = userId => {
+        const changeTab = this.context;
+        changeTab("users", userId);
+    };
 
     simplifiedUserId = fulluserId => {
         let simplifiedUserId = fulluserId.replace("@", "");

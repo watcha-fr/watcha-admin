@@ -485,7 +485,6 @@ class DataToTable extends Component {
                     lang={this.props.lang}
                     isEmailAvailable={this.isEmailAvailable}
                     refresh={this.onRefresh}
-                    changeTab={this.props.changeTab}
                     refreshRightPanel={this.refreshRightPanel}
                 />
             );

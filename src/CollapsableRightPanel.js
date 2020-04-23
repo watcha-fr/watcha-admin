@@ -20,7 +20,6 @@ class CollapsableRightPanel extends Component {
                         onClose={this.props.onClose}
                         lang={this.props.lang}
                         refresh={this.props.refresh}
-                        changeTab={this.props.changeTab}
                         refreshRightPanel={this.props.refreshRightPanel}
                         update={this.props.update}
                     />
@@ -33,7 +32,6 @@ class CollapsableRightPanel extends Component {
                         data={this.props.data}
                         onClose={this.props.onClose}
                         refresh={this.props.refresh}
-                        changeTab={this.props.changeTab}
                     />
                 );
                 break;
@@ -46,7 +44,6 @@ class CollapsableRightPanel extends Component {
                         refresh={this.props.refresh}
                         refreshRightPanel={this.props.refreshRightPanel}
                         isEmailAvailable={this.props.isEmailAvailable}
-                        changeTab={this.props.changeTab}
                     />
                 );
                 break;
