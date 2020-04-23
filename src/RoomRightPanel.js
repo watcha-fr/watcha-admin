@@ -118,17 +118,18 @@ class RoomRightPanel extends Component {
                                                 </tr>
                                             </tbody>
                                         </Table>
-                                        <Accordion>
-                                            <Card id="collapsible-panel-users">
-                                                <Card.Header>
-                                                    {this.props.data["Users"][
-                                                        "simplifiedData"
-                                                    ].length +
-                                                        " " +
-                                                        t("Users in this room")}
-                                                    {this.props.data["Users"][
-                                                        "simplifiedData"
-                                                    ].length > 0 && (
+                                        {this.props.data.Users.simplifiedData
+                                            .length > 0 && (
+                                            <Accordion>
+                                                <Card id="collapsible-panel-users">
+                                                    <Card.Header>
+                                                        {this.props.data.Users
+                                                            .simplifiedData
+                                                            .length +
+                                                            " " +
+                                                            t(
+                                                                "Users in this room"
+                                                            )}
                                                         <Accordion.Toggle
                                                             as={Button}
                                                             variant="link"
@@ -136,17 +137,17 @@ class RoomRightPanel extends Component {
                                                         >
                                                             {t("Show users")}
                                                         </Accordion.Toggle>
-                                                    )}
-                                                </Card.Header>
-                                                <Accordion.Collapse eventKey="0">
-                                                    <Card.Body>
-                                                        <ListGroup>
-                                                            {users}
-                                                        </ListGroup>
-                                                    </Card.Body>
-                                                </Accordion.Collapse>
-                                            </Card>
-                                        </Accordion>
+                                                    </Card.Header>
+                                                    <Accordion.Collapse eventKey="0">
+                                                        <Card.Body>
+                                                            <ListGroup>
+                                                                {users}
+                                                            </ListGroup>
+                                                        </Card.Body>
+                                                    </Accordion.Collapse>
+                                                </Card>
+                                            </Accordion>
+                                        )}
                                     </Card>
                                 </Card.Body>
                             </div>
