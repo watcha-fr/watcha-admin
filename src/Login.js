@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Spinner from "react-bootstrap/Spinner";
 
-import MatrixClientContext from "./MatrixClientContext";
+import { useMatrixClientContext } from "./MatrixClientContext";
 
 import logo from "./images/logo.svg";
 
@@ -16,7 +16,7 @@ const Login = ({ setupClient, t, i18n }) => {
     const [password, setPassword] = useState("aze");
     const [pendingLogin, setPendingLogin] = useState(false);
 
-    const client = useContext(MatrixClientContext);
+    const client = useMatrixClientContext();
 
     const onLanguageChange = event => i18n.changeLanguage(event.target.value);
 

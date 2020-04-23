@@ -6,7 +6,7 @@ import CollapsableRightPanel from "./CollapsableRightPanel";
 import Datatorow from "./DataToRow";
 import TableToolBar from "./TableToolBar";
 
-import MatrixClientContext from "./MatrixClientContext";
+import { MatrixClientContext } from "./MatrixClientContext";
 
 const TABLE_TYPE =
     // here we declare all the type of table we wish to display

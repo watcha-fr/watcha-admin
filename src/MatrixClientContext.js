@@ -1,3 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
-export default React.createContext();
+const MatrixClientContext = React.createContext();
+export const useMatrixClientContext = () => useContext(MatrixClientContext);

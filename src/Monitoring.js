@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 
-import MatrixClientContext from "./MatrixClientContext";
+import { MatrixClientContext } from "./MatrixClientContext";
 
 class Monitoring extends Component {
     constructor() {
