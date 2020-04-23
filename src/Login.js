@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { withTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
@@ -11,132 +11,120 @@ import MatrixClientContext from "./MatrixClientContext";
 
 import logo from "./images/logo.svg";
 
-class Login extends Component {
-    constructor() {
-        super();
-        this.state = {
-            username: "",
-            password: "",
-            pendingLogin: false,
-        };
-    }
+const Login = ({ setupClient, t, i18n }) => {
+    const [username, setUsername] = useState("cc");
+    const [password, setPassword] = useState("aze");
+    const [pendingLogin, setPendingLogin] = useState(false);
 
-    static propTypes = {
-        setupClient: PropTypes.func.isRequired,
+    const client = useContext(MatrixClientContext);
+
+    const onLanguageChange = event => i18n.changeLanguage(event.target.value);
+
+    const onUsernameChange = event => setUsername(event.target.value);
+
+    const onPasswordChange = event => setPassword(event.target.value);
+
+    const onSubmit = event => {
+        event.preventDefault();
+        setPendingLogin(prevPendingLogin => {
+            prevPendingLogin || login();
+            return true;
+        });
     };
 
-    static contextType = MatrixClientContext;
-
-    login() {
-        const client = this.context;
-        const { setupClient } = this.props;
-        const { username, password } = this.state;
+    const login = () =>
         client
             .loginWithPassword(username, password)
             .then(() => setupClient(client))
             .catch(error => {
-                this.setState({ pendingLogin: false });
+                setPendingLogin(false);
                 alert(error.message);
             });
-    }
 
-    onChange = event =>
-        this.setState({ [event.target.name]: event.target.value });
+    const button = pendingLogin ? (
+        <Button
+            className="loadingLoginButton"
+            variant="outline-primary"
+            block
+            disabled
+        >
+            <span className="loadingLoginText">{t("login.loading")}</span>
+            <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+            />
+        </Button>
+    ) : (
+        <Button variant="outline-primary" type="submit" block>
+            {t("login.button")}
+        </Button>
+    );
 
-    onLanguageChange = event =>
-        this.props.i18n.changeLanguage(event.target.value);
-
-    onSubmit = event => {
-        event.preventDefault();
-        this.setState(({ pendingLogin }) => {
-            pendingLogin || this.login();
-            return { pendingLogin: true };
-        });
-    };
-
-    render() {
-        const { t, i18n } = this.props;
-        const button = this.state.pendingLogin ? (
-            <Button
-                className="loadingLoginButton"
-                variant="outline-primary"
-                block
-                disabled
+    return (
+        <Container className="loginForm">
+            <Form.Control
+                className="my-4"
+                as="select"
+                custom
+                value={i18n.language}
+                onChange={onLanguageChange}
             >
-                <span className="loadingLoginText">{t("login.loading")}</span>
-                <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                />
-            </Button>
-        ) : (
-            <Button variant="outline-primary" type="submit" block>
-                {t("login.button")}
-            </Button>
-        );
+                {["en", "fr"].map(lng => (
+                    <option key={lng} value={lng}>
+                        {t(`language.${lng}`)}
+                    </option>
+                ))}
+            </Form.Control>
+            <img alt="logo" className="logo mx-auto mb-4" src={logo} />
+            <div className="text-center mb-4">{t("login.title")}</div>
+            <Form {...{ onSubmit }}>
+                <Form.Group>
+                    <InputGroup className="flex-nowrap">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text>
+                                <i className="fas fa-user fa-fw"></i>
+                            </InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control
+                            autoComplete="username"
+                            name="username"
+                            onChange={onUsernameChange}
+                            placeholder={t("login.username")}
+                            required
+                            type="text"
+                            value={username}
+                        />
+                    </InputGroup>
+                </Form.Group>
+                <Form.Group>
+                    <InputGroup className="flex-nowrap">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text>
+                                <i className="fas fa-key fa-fw"></i>
+                            </InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Control
+                            autoComplete="current-password"
+                            name="password"
+                            onChange={onPasswordChange}
+                            placeholder={t("login.password")}
+                            required
+                            type="password"
+                            value={password}
+                        />
+                    </InputGroup>
+                </Form.Group>
+                {button}
+            </Form>
+        </Container>
+    );
+};
 
-        return (
-            <Container className="loginForm container">
-                <Form.Control
-                    className="my-4"
-                    as="select"
-                    custom
-                    value={i18n.language}
-                    onChange={this.onLanguageChange}
-                >
-                    {["en", "fr"].map(lng => (
-                        <option key={lng} value={lng}>
-                            {t(`language.${lng}`)}
-                        </option>
-                    ))}
-                </Form.Control>
-                <img alt="logo" className="logo mx-auto mb-4" src={logo} />
-                <div className="text-center mb-4">{t("login.title")}</div>
-                <Form onSubmit={this.onSubmit}>
-                    <Form.Group>
-                        <InputGroup className="flex-nowrap">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    <i className="fas fa-user fa-fw"></i>
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Form.Control
-                                autoComplete="username"
-                                name="username"
-                                onChange={this.onChange}
-                                placeholder={t("login.username")}
-                                required
-                                type="text"
-                                value={this.state.username}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    <Form.Group>
-                        <InputGroup className="flex-nowrap">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    <i className="fas fa-key fa-fw"></i>
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <Form.Control
-                                autoComplete="current-password"
-                                name="password"
-                                onChange={this.onChange}
-                                placeholder={t("login.password")}
-                                required
-                                type="password"
-                                value={this.state.password}
-                            />
-                        </InputGroup>
-                    </Form.Group>
-                    {button}
-                </Form>
-            </Container>
-        );
-    }
-}
+Login.propTypes = {
+    setupClient: PropTypes.func.isRequired,
+};
 
 export default withTranslation()(Login);
