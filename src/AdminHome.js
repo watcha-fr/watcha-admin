@@ -4,9 +4,10 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
 import { ChangeTabContext } from "./contexts";
-import DataToTable from "./DataToTable";
-// import Monitoring from './Monitoring';
 import DashboardTab from "./DashboardTab";
+// import MonitoringTab from './MonitoringTab';
+import RoomsTab from "./RoomsTab";
+import UsersTab from "./UsersTab";
 
 export default withTranslation()(({ t }) => {
     const [key, setKey] = useState("dashboard");
@@ -26,14 +27,14 @@ export default withTranslation()(({ t }) => {
                     <DashboardTab />
                 </Tab>
                 <Tab eventKey="users" title={t("usersTab.title")}>
-                    <DataToTable tableName="user" {...{ userId }} />
+                    <UsersTab {...{ userId }} />
                 </Tab>
                 <Tab eventKey="rooms" title={t("roomsTab.title")}>
-                    <DataToTable tableName="room" />
+                    <RoomsTab />
                 </Tab>
                 {/* not functional yet
                 <Tab eventKey="monitoring" title={t("monitoringTab.title")}>
-                    <Monitoring />
+                    <MonitoringTab />
                 </Tab> */}
             </Tabs>
         </ChangeTabContext.Provider>
