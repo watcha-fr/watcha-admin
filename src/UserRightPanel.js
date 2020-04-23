@@ -263,7 +263,7 @@ class UserRightPanel extends Component {
                                 ) + t(" account has been deactivated"),
                         },
                     },
-                    this.displayInfoMessage()
+                    this.displayInfoMessage
                 )
             )
             .catch(error => {
@@ -277,7 +277,7 @@ class UserRightPanel extends Component {
                             body: error.message,
                         },
                     },
-                    this.displayInfoMessage()
+                    this.displayInfoMessage
                 );
             });
     };
