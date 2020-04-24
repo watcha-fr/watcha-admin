@@ -8,7 +8,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Table from "react-bootstrap/Table";
 
-import { ChangeTabContext } from "./contexts";
+import { DispatchContext } from "./contexts";
 import UserInRoom from "./UserInRoom";
 
 class RoomRightPanel extends Component {
@@ -22,11 +22,11 @@ class RoomRightPanel extends Component {
         };
     }
 
-    static contextType = ChangeTabContext;
+    static contextType = DispatchContext;
 
     onUserClicked = userId => {
-        const changeTab = this.context;
-        changeTab("users", userId);
+        const dispatch = this.context;
+        dispatch({ tab: "users", userId });
     };
 
     simplifiedUserId = fulluserId => {

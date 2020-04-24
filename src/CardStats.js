@@ -2,15 +2,15 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
-import { useChangeTabContext } from "./contexts";
+import { useDispatchContext } from "./contexts";
 import AdminCardStats from "./AdminCardStats";
 
 export default withTranslation()(({ title, tab, lines, t }) => {
-    const changeTab = useChangeTabContext()
+    const dispatch = useDispatchContext();
 
-    const onCardClicked = () => changeTab(tab);
+    const onCardClicked = () => dispatch({ tab });
 
-    const onUserClicked = userId => changeTab("users", userId);
+    const onUserClicked = userId => dispatch({ tab: "users", userId });
 
     const getPanelContent = lines => {
         const panelContent = [];
