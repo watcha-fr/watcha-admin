@@ -43,6 +43,61 @@
     flex-grow: 1;
 }
 
+.searchBox {
+    max-width: 20em;
+}
+
+.searchBox .emptyFilter {
+    border-right: 0;
+}
+
+.searchBox .clearButton {
+    border-left: 0;
+    background-color: transparent;
+    font-size: small;
+    cursor: pointer;
+}
+
+th:hover {
+    background-color: darkturquoise;
+}
+
+.tableHeader {
+    display: flex;
+    align-items: center;
+}
+
+.chevron {
+    mask: url("./images/arrow-down-angle.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 1em;
+    background-color: black;
+    transition: transform 0.2s ease-in;
+}
+
+.chevronUp {
+    transform: rotateZ(-180deg);
+}
+
+.chevronHidden {
+    visibility: hidden;
+}
+
+.selectedRow {
+    background-color: darkgrey !important;
+}
+
+.active {
+    color: green;
+}
+
+.inactive {
+    color: red;
+}
+
 .rowSelected {
     background: #00e5e5;
     color: white !important;

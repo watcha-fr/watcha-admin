@@ -3,17 +3,12 @@
     "Member": "Utilisateur interne",
     "Internal users": "Utilisateurs internes",
     "Partners": "Partenaires ",
-    "Partner": "Partenaire ",
     "Administrators": "Administrateurs ",
-    "Admin": "Administrateur ",
     "Active rooms": "Salons actifs ",
     "One-to-one conversations": "Conversations à deux ",
     "One to one": "Conversation à deux",
     "Inactive Rooms": "Salons inactifs ",
-    "Inactive": "Inactifs",
     "Room": "Salon ",
-    "Status": "Rôle",
-    "User": "Utilisateur ",
     "Statistics for Watcha server": "Statistiques",
     "Hide internal users": "Masquer les utilisateurs internes",
     "Hide one-to-one conversations": "Masquer les conversations à deux",
@@ -21,12 +16,10 @@
     "Hide inactive": "Masquer les salons inactifs",
     "Search": "Rechercher",
     "Create user": "Nouvel utilisateur",
-    "User Id": "Nom d'utilisateur",
     "Last Name": "Nom",
     "First Name": "Prénom",
     "This email address seems to be invalid. Please enter a valid email address.": "Cette adresse email semble invalide. Veuillez entrer une adresse email valide",
     "Invalid Email": "Adresse email invalide",
-    "Email": "Email ",
     "Invalid Last Name": "Nom invalide",
     "First Name must contain at least two characters ": "Le Prénom doit contenir au moins deux caractères",
     "Last Name must contain at least two characters ": "Le Nom doit contenir au moins deux caractères",
@@ -44,7 +37,6 @@
     "Show connection history": "voir l'historique de connexion",
     "Device": "Appareil",
     "Devices": "Appareils",
-    "Last seen": "Dernière activité le",
     "Connected": "Connecté",
     "Creation": "Création ",
     "Account deactivated": "Compte désactivé",
@@ -58,7 +50,6 @@
     "The account ": "Le compte ",
     " has been reactivated, and an email has been sent to the user with a new password": " a été réactivé, et un nouveau mot de passe a été envoyé à l'utilisateur",
     "Password reset failed": "L'opération a échoué",
-    "Active": "Actif",
     "Creator": "Créateur",
     "Show users": "Afficher les utilisateurs",
     "Users in this room": "Utilisateurs dans ce salon",
@@ -84,7 +75,26 @@
         "title": "Tableau de bord"
     },
     "usersTab": {
-        "title": "Utilisateurs"
+        "title": "Utilisateurs",
+        "searchBox": {
+            "filter": "Filtrer",
+            "clear": "Effacer",
+            "placeholder": "Filtrer les utilisateurs"
+        },
+        "displayName": "Nom d'affichage",
+        "emailAddress": "Adresse électronique",
+        "lastSeen": "Dernière activité le",
+        "role": {
+            "title": "Rôle",
+            "administrator": "Administrateur",
+            "collaborator": "Collaborateur",
+            "partners": "Partenaire"
+        },
+        "accountStatus": {
+            "title": "Statut du compte",
+            "1": "activé",
+            "0": "désactivé"
+        }
     },
     "roomsTab": {
         "title": "Salons"

@@ -73,6 +73,10 @@ export default () => {
                 Authorization: `Bearer ${client.getAccessToken()}`,
             },
         },
+        onError: (error, retry, repsonse) => {
+            setTimeout(() => retry(), 5000);
+            repsonse && console.log(repsonse);
+        },
     });
 
     return (

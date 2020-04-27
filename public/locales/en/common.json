@@ -1,11 +1,4 @@
 {
-    "Member": "Internal user",
-    "Members": "Internal users",
-    "Status": "Role",
-    "Date of creation": "Created on",
-    "Last seen": "Last active on",
-    "One to one": "One-to-one",
-
     "language": {
         "en": "English",
         "fr": "Français"
@@ -25,7 +18,26 @@
         "title": "Dashboard"
     },
     "usersTab": {
-        "title": "Users"
+        "title": "Users",
+        "searchBox": {
+            "filter": "Filter",
+            "clear": "Clear",
+            "placeholder": "Filter users"
+        },
+        "displayName": "Display name",
+        "emailAddress": "Email address",
+        "lastSeen": "Last activity on",
+        "role": {
+            "title": "Role",
+            "administrator": "Administrator",
+            "collaborator": "Collaborator",
+            "partners": "Partners"
+        },
+        "accountStatus": {
+            "title": "Account status",
+            "1": "enabled",
+            "0": "disabled"
+        }
     },
     "roomsTab": {
         "title": "Rooms"

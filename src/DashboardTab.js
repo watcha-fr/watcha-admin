@@ -12,7 +12,7 @@ export default withTranslation()(({ t }) => {
         console.error(error);
     }
 
-    return loading ? (
+    return loading || !data ? (
         <DelayedSpinner />
     ) : (
         <div>
