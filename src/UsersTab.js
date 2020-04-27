@@ -1,15 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useGet } from "restful-react";
 import { withTranslation } from "react-i18next";
 
-import Button from "./NewUserButton"
+import Button from "./NewUserButton";
 import Date from "./Date";
 import DelayedSpinner from "./DelayedSpinner";
 import TableTab, { compareLowerCase } from "./TableTab";
 
+import CreateUserRightPanel from "./CreateUserRightPanel";
+
 export default withTranslation()(({ t }) => {
     const [userList, setUserList] = useState(null);
     const [intervalId, setIntervalId] = useState(null);
+    const [rightPanel, setRightPanel] = useState();
 
     const { data, refetch } = useGet({
         path: "watcha_user_list",
@@ -73,8 +76,29 @@ export default withTranslation()(({ t }) => {
         []
     );
 
+    const onClick = useCallback(
+        () => setRightPanel("CreateUserRightPanel"),
+        []
+    );
+
+    const button = useMemo(() => <Button {...{ onClick }} />, [onClick]);
+
+    const isEmailAvailable = useCallback(
+        () => value => userList.some(user => user.emailAddress === value),
+        [userList]
+    );
+
+    const onClose = useCallback(() => setRightPanel(), []);
+
+    const panel = rightPanel === "CreateUserRightPanel" && (
+        <CreateUserRightPanel {...{ isEmailAvailable, onClose }} />
+    );
+
     return userList ? (
-        <TableTab data={userList} {...{ columns, initialState, Button }} />
+        <TableTab
+            data={userList}
+            {...{ columns, initialState, button, panel }}
+        />
     ) : (
         <DelayedSpinner />
     );

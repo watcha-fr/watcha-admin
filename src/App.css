@@ -80,9 +80,15 @@
     background-color: white;
 }
 
+.tableTabBody {
+    display: flex;
+    min-height: 1%;
+}
+
 .tableContainer {
     display: flex;
     overflow: auto;
+    width: 100%;
 }
 
 th {
@@ -154,7 +160,7 @@ th:hover {
 }
 
 .rightPanel {
-    height: 90vh;
+    height: 100%;
     width: 30vw;
 }
 
