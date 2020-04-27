@@ -35,7 +35,7 @@ export default ({ data, columns, initialState }) => {
                 <SearchBox {...{ tableInstance }} />
                 {/* <Bouton /> */}
             </div>
-            <div>
+            <div className="tableContainer px-3">
                 <Table {...{ tableInstance }} />
                 {/* <RightPanel /> */}
             </div>

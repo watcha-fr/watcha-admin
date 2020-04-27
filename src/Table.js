@@ -37,7 +37,7 @@ export default ({ tableInstance }) => {
     };
 
     return (
-        <Table className="mx-3" hover size="sm" {...getTableProps()}>
+        <Table hover size="sm" {...getTableProps()}>
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>

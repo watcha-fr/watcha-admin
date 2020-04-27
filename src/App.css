@@ -29,9 +29,37 @@
     max-height: 30vh;
 }
 
-.tab-content,
-.tab-pane {
-    height: 100%;
+.tab-content {
+    display: flex;
+    min-height: 1%;
+}
+
+.tab-pane.active {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tableContainer {
+    display: flex;
+    overflow: auto;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    border: 0 !important;
+    background-color: white;
+    background-clip: padding-box;
+}
+
+th:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid black;
 }
 
 .loadingLoginButton {
@@ -196,11 +224,6 @@ th:hover {
 
 .table-responsive {
     max-height: 92vh;
-}
-
-.tableContainer {
-    display: flex;
-    margin-left: 20px;
 }
 
 .table-responsive {
