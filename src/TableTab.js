@@ -10,7 +10,7 @@ import matchSorter from "match-sorter";
 import SearchBox from "./SearchBox";
 import Table from "./Table";
 
-export default ({ data, columns, initialState }) => {
+export default ({ data, columns, initialState, Button }) => {
     const globalFilter = useMemo(() => fuzzyTextFilterFn, []);
 
     const tableInstance = useTable(
@@ -31,9 +31,9 @@ export default ({ data, columns, initialState }) => {
 
     return (
         <>
-            <div className="p-3">
+            <div className="d-flex justify-content-between p-3">
                 <SearchBox {...{ tableInstance }} />
-                {/* <Bouton /> */}
+                <Button />
             </div>
             <div className="tableContainer px-3">
                 <Table {...{ tableInstance }} />

@@ -40,28 +40,6 @@
     width: 100%;
 }
 
-.tableContainer {
-    display: flex;
-    overflow: auto;
-}
-
-th {
-    position: sticky;
-    top: 0;
-    border: 0 !important;
-    background-color: white;
-    background-clip: padding-box;
-}
-
-th:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    border-bottom: 1px solid black;
-}
-
 .loadingLoginButton {
     display: flex;
     align-items: center;
@@ -84,6 +62,44 @@ th:after {
     background-color: transparent;
     font-size: small;
     cursor: pointer;
+}
+
+.newUserButton {
+    display: flex;
+    align-items: center;
+}
+
+.newUserButton::before {
+    content: "";
+    mask: url("./images/new-user.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    width: 1.5em;
+    height: 1.2em;
+    margin-right: 0.5em;
+    background-color: white;
+}
+
+.tableContainer {
+    display: flex;
+    overflow: auto;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    border: 0 !important;
+    background-color: white;
+    background-clip: padding-box;
+}
+
+th:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid black;
 }
 
 th:hover {

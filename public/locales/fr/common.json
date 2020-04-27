@@ -15,7 +15,6 @@
     "Hide partners": "Masquer les utilisateurs externes",
     "Hide inactive": "Masquer les salons inactifs",
     "Search": "Rechercher",
-    "Create user": "Nouvel utilisateur",
     "Last Name": "Nom",
     "First Name": "Prénom",
     "This email address seems to be invalid. Please enter a valid email address.": "Cette adresse email semble invalide. Veuillez entrer une adresse email valide",
@@ -81,6 +80,7 @@
             "clear": "Effacer",
             "placeholder": "Filtrer les utilisateurs"
         },
+        "button": "Nouvel utilisateur",
         "displayName": "Nom d'affichage",
         "emailAddress": "Adresse électronique",
         "lastSeen": "Dernière activité le",

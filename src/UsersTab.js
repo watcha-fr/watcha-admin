@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useGet } from "restful-react";
 import { withTranslation } from "react-i18next";
 
+import Button from "./NewUserButton"
 import Date from "./Date";
 import DelayedSpinner from "./DelayedSpinner";
 import TableTab, { compareLowerCase } from "./TableTab";
@@ -73,7 +74,7 @@ export default withTranslation()(({ t }) => {
     );
 
     return userList ? (
-        <TableTab data={userList} {...{ columns, initialState }} />
+        <TableTab data={userList} {...{ columns, initialState, Button }} />
     ) : (
         <DelayedSpinner />
     );

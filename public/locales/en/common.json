@@ -24,6 +24,7 @@
             "clear": "Clear",
             "placeholder": "Filter users"
         },
+        "button": "New user",
         "displayName": "Display name",
         "emailAddress": "Email address",
         "lastSeen": "Last activity on",
