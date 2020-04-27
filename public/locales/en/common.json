@@ -25,17 +25,19 @@
             "placeholder": "Filter users"
         },
         "button": "New user",
-        "displayName": "Display name",
-        "emailAddress": "Email address",
-        "lastSeen": "Last activity on",
-        "role": {
-            "title": "Role",
+        "headers": {
+            "displayName": "Display name",
+            "emailAddress": "Email address",
+            "lastSeen": "Last activity on",
+            "role": "Role",
+            "accountStatus": "Account status"
+        },
+        "roles": {
             "administrator": "Administrator",
             "collaborator": "Collaborator",
             "partners": "Partners"
         },
-        "accountStatus": {
-            "title": "Account status",
+        "isActive": {
             "1": "enabled",
             "0": "disabled"
         }

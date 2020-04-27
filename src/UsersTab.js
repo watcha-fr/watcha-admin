@@ -33,34 +33,34 @@ export default withTranslation()(({ t }) => {
     const columns = useMemo(
         () => [
             {
-                Header: t("usersTab.displayName"),
+                Header: t("usersTab.headers.displayName"),
                 accessor: "displayName",
                 sortType: compareLowerCase,
             },
             {
-                Header: t("usersTab.emailAddress"),
+                Header: t("usersTab.headers.emailAddress"),
                 accessor: "emailAddress",
                 sortType: compareLowerCase,
             },
             {
-                Header: t("usersTab.lastSeen"),
+                Header: t("usersTab.headers.lastSeen"),
                 accessor: "lastSeen",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => value && <Date timestamp={value} />,
             },
             {
-                Header: t("usersTab.role.title"),
+                Header: t("usersTab.headers.role"),
                 accessor: "role",
                 disableGlobalFilter: true,
-                Cell: ({ value }) => t(`usersTab.role.${value}`),
+                Cell: ({ value }) => t(`usersTab.roles.${value}`),
             },
             {
-                Header: t("usersTab.accountStatus.title"),
+                Header: t("usersTab.headers.accountStatus"),
                 accessor: "accountStatus",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => (
                     <span className={value === 1 ? "active" : "inactive"}>
-                        {t(`usersTab.accountStatus.${value}`)}
+                        {t(`usersTab.isActive.${value}`)}
                     </span>
                 ),
             },

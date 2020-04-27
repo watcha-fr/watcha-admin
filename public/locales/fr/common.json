@@ -81,17 +81,19 @@
             "placeholder": "Filtrer les utilisateurs"
         },
         "button": "Nouvel utilisateur",
-        "displayName": "Nom d'affichage",
-        "emailAddress": "Adresse électronique",
-        "lastSeen": "Dernière activité le",
-        "role": {
-            "title": "Rôle",
+        "headers": {
+            "displayName": "Nom d'affichage",
+            "emailAddress": "Adresse électronique",
+            "lastSeen": "Dernière activité le",
+            "role": "Rôle",
+            "accountStatus": "Statut du compte"
+        },
+        "roles": {
             "administrator": "Administrateur",
             "collaborator": "Collaborateur",
             "partners": "Partenaire"
         },
-        "accountStatus": {
-            "title": "Statut du compte",
+        "isActive": {
             "1": "activé",
             "0": "désactivé"
         }
