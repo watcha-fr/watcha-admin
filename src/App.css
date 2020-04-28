@@ -92,6 +92,10 @@
     width: 100%;
 }
 
+.table {
+    outline: none;
+}
+
 th {
     position: sticky;
     top: 0;
