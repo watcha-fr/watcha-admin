@@ -140,11 +140,11 @@ th:hover {
     background-color: darkgrey !important;
 }
 
-.active {
+td .active {
     color: green;
 }
 
-.inactive {
+td .inactive {
     color: red;
 }
 
