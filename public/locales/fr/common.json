@@ -91,7 +91,7 @@
         "roles": {
             "administrator": "Administrateur",
             "collaborator": "Collaborateur",
-            "partners": "Partenaire"
+            "partner": "Partenaire"
         },
         "isActive": {
             "1": "activé",

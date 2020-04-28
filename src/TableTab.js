@@ -10,7 +10,7 @@ import matchSorter from "match-sorter";
 import SearchBox from "./SearchBox";
 import Table from "./Table";
 
-export default ({ data, columns, initialState, button, panel }) => {
+export default ({ data, columns, initialState, button, rightPanel, editUser }) => {
     const globalFilter = useMemo(() => fuzzyTextFilterFn, []);
 
     const tableInstance = useTable(
@@ -37,9 +37,9 @@ export default ({ data, columns, initialState, button, panel }) => {
             </div>
             <div className="tableTabBody">
                 <div className="tableContainer px-3">
-                    <Table {...{ tableInstance }} />
+                    <Table {...{ tableInstance, editUser }} />
                 </div>
-                {panel}
+                {rightPanel}
             </div>
         </>
     );

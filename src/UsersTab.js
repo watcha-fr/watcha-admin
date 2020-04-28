@@ -7,31 +7,23 @@ import Date from "./Date";
 import DelayedSpinner from "./DelayedSpinner";
 import TableTab, { compareLowerCase } from "./TableTab";
 
+import { useDispatchContext, useUserIdContext } from "./contexts";
 import CreateUserRightPanel from "./CreateUserRightPanel";
+import UserRightPanel from "./UserRightPanel";
 
 export default withTranslation()(({ t }) => {
+    const userId = useUserIdContext();
+    const dispatch = useDispatchContext();
+
     const [userList, setUserList] = useState(null);
     const [intervalId, setIntervalId] = useState(null);
-    const [rightPanel, setRightPanel] = useState();
+    const [rightPanel, setRightPanel] = useState(null);
 
     const { data, refetch } = useGet({
         path: "watcha_user_list",
         lazy: true,
         resolve,
     });
-
-    useEffect(() => {
-        refetch();
-    }, []);
-
-    useEffect(() => {
-        setUserList(data);
-        const _intervalId = setInterval(() => refetch(), 10000);
-        setIntervalId(prevIntervalId => {
-            prevIntervalId && clearInterval(prevIntervalId);
-            return _intervalId;
-        });
-    }, [data]);
 
     const columns = useMemo(
         () => [
@@ -76,13 +68,6 @@ export default withTranslation()(({ t }) => {
         []
     );
 
-    const onClick = useCallback(
-        () => setRightPanel("CreateUserRightPanel"),
-        []
-    );
-
-    const button = useMemo(() => <Button {...{ onClick }} />, [onClick]);
-
     const isEmailAvailable = useCallback(
         () => value => userList.some(user => user.emailAddress === value),
         [userList]
@@ -90,14 +75,51 @@ export default withTranslation()(({ t }) => {
 
     const onClose = useCallback(() => setRightPanel(), []);
 
-    const panel = rightPanel === "CreateUserRightPanel" && (
-        <CreateUserRightPanel {...{ isEmailAvailable, onClose }} />
+    const onClick = useCallback(
+        () =>
+            setRightPanel(
+                <CreateUserRightPanel {...{ isEmailAvailable, onClose }} />
+            ),
+        [isEmailAvailable, onClose]
     );
+
+    const button = useMemo(() => <Button {...{ onClick }} />, [onClick]);
+
+    const editUser = useCallback(
+        user =>
+            setRightPanel(user && <UserRightPanel {...{ user, onClose }} />),
+        [onClose]
+    );
+
+    useEffect(() => {
+        refetch();
+    }, []);
+
+    useEffect(() => {
+        setUserList(data);
+        const _intervalId = setInterval(() => refetch(), 10000);
+        setIntervalId(prevIntervalId => {
+            prevIntervalId && clearInterval(prevIntervalId);
+            return _intervalId;
+        });
+    }, [data]);
+
+    useEffect(() => {
+        if (userList && userId) {
+            for (const user of userList) {
+                if (user.userId === userId) {
+                    setRightPanel(<UserRightPanel {...{ user, onClose }} />);
+                    dispatch({ userId: null });
+                    return;
+                }
+            }
+        }
+    }, [userList, userId, dispatch, onClose]);
 
     return userList ? (
         <TableTab
             data={userList}
-            {...{ columns, initialState, button, panel }}
+            {...{ columns, initialState, button, rightPanel, editUser }}
         />
     ) : (
         <DelayedSpinner />
@@ -106,6 +128,7 @@ export default withTranslation()(({ t }) => {
 
 const resolve = data =>
     data.map(item => ({
+        userId: item.name,
         displayName: item.displayname || "",
         emailAddress: item.email || "",
         lastSeen: item.last_seen || null,
@@ -113,7 +136,7 @@ const resolve = data =>
             item.admin === 1
                 ? "administrator"
                 : item.is_partner === 1
-                ? "partners"
+                ? "partner"
                 : "collaborator",
         accountStatus: item.is_active,
     }));

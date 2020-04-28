@@ -35,7 +35,7 @@
         "roles": {
             "administrator": "Administrator",
             "collaborator": "Collaborator",
-            "partners": "Partners"
+            "partner": "Partner"
         },
         "isActive": {
             "1": "enabled",

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames";
 import Table from "react-bootstrap/Table";
 
-export default ({ tableInstance }) => {
+export default ({ tableInstance, editUser }) => {
     const {
         getTableProps,
         getTableBodyProps,
@@ -10,6 +10,13 @@ export default ({ tableInstance }) => {
         rows,
         prepareRow,
     } = tableInstance;
+
+    useEffect(() => {
+        const row = tableInstance.selectedFlatRows[0];
+        if (row) {
+            editUser(row.original);
+        }
+    }, [tableInstance.selectedFlatRows, editUser]);
 
     const getHeaderProps = column =>
         column.getHeaderProps(
@@ -33,11 +40,16 @@ export default ({ tableInstance }) => {
         tableInstance.toggleAllRowsSelected(false);
         if (isNotSelected) {
             row.toggleRowSelected(true);
+            editUser(row.original);
+        } else {
+            editUser();
         }
     };
 
+    const onBlur = () => tableInstance.toggleAllRowsSelected(false);
+
     return (
-        <Table hover size="sm" {...getTableProps()}>
+        <Table hover size="sm" {...getTableProps({ onBlur, tabIndex: "0" })}>
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>

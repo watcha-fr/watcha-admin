@@ -4,7 +4,6 @@ import Accordion from "react-bootstrap/Accordion";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Collapse from "react-bootstrap/Collapse";
 import Table from "react-bootstrap/Table";
 
 import { MatrixClientContext } from "./contexts";
@@ -13,7 +12,6 @@ class UserRightPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: true,
             editEmail: false,
             isEmail: false,
             emailValue: " ",
@@ -25,8 +23,8 @@ class UserRightPanel extends Component {
     static contextType = MatrixClientContext;
 
     componentDidMount() {
-        if (this.props.data["Email"]["data"]) {
-            this.setState({ emailValue: this.props.data["Email"]["data"] });
+        if (this.props.user.emailAddress) {
+            this.setState({ emailValue: this.props.user.emailAddress });
         } else {
             this.setState({ emailValue: " " });
         }
@@ -34,10 +32,10 @@ class UserRightPanel extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.data !== prevProps.data) {
-            if (this.props.data["Email"]["data"]) {
+        if (this.props.user !== prevProps.user) {
+            if (this.props.user.emailAddress) {
                 this.setState({
-                    emailValue: this.props.data["Email"]["data"],
+                    emailValue: this.props.user.emailAddress,
                     editEmail: false,
                     infoMessage: false,
                 });
@@ -50,7 +48,7 @@ class UserRightPanel extends Component {
 
     onCancelEdit = () =>
         this.setState({
-            emailValue: this.props.data["Email"]["data"],
+            emailValue: this.props.user.emailAddress,
             editEmail: false,
         });
 
@@ -72,9 +70,7 @@ class UserRightPanel extends Component {
     onEmailValidate = async () => {
         const client = this.context;
         try {
-            const userId = encodeURIComponent(
-                this.props.data["User name"]["data"]
-            );
+            const userId = encodeURIComponent(this.props.user.userId);
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_update_email/${userId}`,
@@ -97,9 +93,8 @@ class UserRightPanel extends Component {
                         type: "success",
                         title: "Email updated",
                         body:
-                            this.simplifiedUserId(
-                                this.props.data["User name"]["data"]
-                            ) + " email has been updated",
+                            this.simplifiedUserId(this.props.user.userId) +
+                            " email has been updated",
                     },
                 });
                 this.displayInfoMessage();
@@ -120,15 +115,12 @@ class UserRightPanel extends Component {
         }
     };
 
-    onInfoMessageValidate = () => {
-        this.props.refreshRightPanel(this.props.data["User name"]["data"]);
-        this.dismissInfoMessage();
-    };
+    onInfoMessageValidate = () => this.dismissInfoMessage();
 
     getDate = date => {
         const OPTIONS = { year: "numeric", month: "long", day: "numeric" };
         const FORMATED_DATE =
-            date.toLocaleDateString(this.props.lang, OPTIONS) +
+            date.toLocaleDateString(this.props.i18n.language, OPTIONS) +
             " " +
             this.addZero(date.getHours()) +
             ":" +
@@ -139,9 +131,7 @@ class UserRightPanel extends Component {
     getUsersAdvancedInfos = async () => {
         const client = this.context;
         try {
-            const userId = encodeURIComponent(
-                this.props.data["User name"]["data"]
-            );
+            const userId = encodeURIComponent(this.props.user.userId);
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_user_ip/${userId}`,
@@ -187,17 +177,15 @@ class UserRightPanel extends Component {
             : t("Password reset");
         const messageBody = isActivating
             ? t("The account ") +
-              this.simplifiedUserId(this.props.data["User name"]["data"]) +
+              this.simplifiedUserId(this.props.user.userId) +
               t(
                   " has been reactivated, and an email has been sent to the user with a new password"
               )
             : t("an email has been send to ") +
-              this.simplifiedUserId(this.props.data["User name"]["data"]) +
+              this.simplifiedUserId(this.props.user.userId) +
               t(" with a new password");
         try {
-            const userId = encodeURIComponent(
-                this.props.data["User name"]["data"]
-            );
+            const userId = encodeURIComponent(this.props.user.userId);
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_reset_password/${userId}`,
@@ -211,7 +199,7 @@ class UserRightPanel extends Component {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        user: this.props.data["User name"]["data"],
+                        user: this.props.user.userId,
                     }),
                 }
             );
@@ -248,7 +236,7 @@ class UserRightPanel extends Component {
     deactivateSynapseUser = () => {
         const { t } = this.props;
         const client = this.context;
-        const userId = this.props.data["User name"]["data"];
+        const userId = this.props.user.userId;
         client
             .deactivateSynapseUser(userId)
             .then(response =>
@@ -258,9 +246,8 @@ class UserRightPanel extends Component {
                             type: "success",
                             title: t("Account deactivated"),
                             body:
-                                this.simplifiedUserId(
-                                    this.props.data["User name"]["data"]
-                                ) + t(" account has been deactivated"),
+                                this.simplifiedUserId(this.props.user.userId) +
+                                t(" account has been deactivated"),
                         },
                     },
                     this.displayInfoMessage
@@ -338,9 +325,7 @@ class UserRightPanel extends Component {
     upgradePartner = async () => {
         const client = this.context;
         try {
-            const userId = encodeURIComponent(
-                this.props.data["User name"]["data"]
-            );
+            const userId = encodeURIComponent(this.props.user.userId);
             const SERVER_REQUEST = await fetch(
                 new URL(
                     `_matrix/client/r0/watcha_update_partner_to_member/${userId}`,
@@ -362,9 +347,8 @@ class UserRightPanel extends Component {
                         type: "success",
                         title: "Role updated",
                         body:
-                            this.simplifiedUserId(
-                                this.props.data["User name"]["data"]
-                            ) + " account has been upgraded to internal user",
+                            this.simplifiedUserId(this.props.user.userId) +
+                            " account has been upgraded to internal user",
                     },
                 });
                 this.displayInfoMessage();
@@ -385,13 +369,12 @@ class UserRightPanel extends Component {
     };
 
     render() {
-        const ISPARTNER = this.props.data["Status"]["data"] === "Partner";
+        const ISPARTNER = this.props.user.role === "partner";
         const { t } = this.props;
-        const OPEN = this.props.data ? true : false;
-        const ISDEACTIVATE = !this.props.data["Active"]["data"];
+        const ISDEACTIVATE = this.props.user.accountStatus === 0;
         let editEmail;
         const bottomButtons = [];
-        let title = t("User");
+        let title = t(`usersTab.roles.${this.props.user.role}`);
 
         if (ISDEACTIVATE) {
             bottomButtons.push(
@@ -406,7 +389,6 @@ class UserRightPanel extends Component {
             );
         } else {
             if (ISPARTNER) {
-                title = t("Partner");
                 bottomButtons.push(
                     <Button
                         className="ActivationButton"
@@ -440,10 +422,7 @@ class UserRightPanel extends Component {
                 </Button>
             );
         }
-        let emailPlaceholder = "";
-        if (this.props.data["email"]) {
-            emailPlaceholder = this.props.data["email"]["data"];
-        }
+        let emailPlaceholder = this.props.user.emailAddress;
 
         editEmail = (
             <td>
@@ -554,109 +533,85 @@ class UserRightPanel extends Component {
         }
 
         return (
-            <div>
-                <Collapse in={OPEN} dimension="width" timeout={0}>
-                    <div>
-                        <Card className="rightPanel">
-                            <Card.Header className="header-with-button">
-                                {title +
-                                    " : " +
-                                    this.simplifiedUserId(
-                                        this.props.data["User name"]["data"]
-                                    )}
-                                <i
-                                    className="fas fa-times dismissRight"
-                                    onClick={this.props.onClose}
-                                ></i>
-                            </Card.Header>
+            <div className="mx-3">
+                <Card className="rightPanel">
+                    <Card.Header className="header-with-button">
+                        {title +
+                            " : " +
+                            this.simplifiedUserId(this.props.user.userId)}
+                        <i
+                            className="fas fa-times dismissRight"
+                            onClick={this.props.onClose}
+                        ></i>
+                    </Card.Header>
 
-                            <div className="pannelContainer">
-                                <Card.Body>
-                                    <Card body bg="light">
-                                        <Table>
-                                            <tbody>
-                                                <tr>
-                                                    <td className="labelText">
-                                                        {t("Creation")}:
-                                                    </td>
-                                                    <td className="infoText">
-                                                        {
-                                                            this.props.data[
-                                                                "Date of creation"
-                                                            ]["data"]
-                                                        }
-                                                    </td>
-                                                </tr>
-                                                {/* we don't display device yet but may be useful for e2e
-                                                <tr>
-                                                    <td className='labelText'>Devices:</td>
-                                                    <td className='infoText'>{ this.props.data.device }</td>
-                                                </tr> */}
-                                                <tr>
-                                                    <td className="labelText">
-                                                        {t("Email")}:
-                                                    </td>
-                                                    {editEmail}
-                                                </tr>
-                                            </tbody>
-                                        </Table>
-                                        <Accordion>
-                                            <Card id="collapsible-panel-users">
-                                                <Card.Header>
-                                                    <Accordion.Toggle
-                                                        as={Button}
-                                                        variant="link"
-                                                        eventKey="0"
+                    <div className="pannelContainer">
+                        <Card.Body>
+                            <Card body bg="light">
+                                <Table>
+                                    <tbody>
+                                        <tr>
+                                            <td className="labelText">
+                                                {t("Creation")}:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="labelText">
+                                                {t("Email")}:
+                                            </td>
+                                            {editEmail}
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                                <Accordion>
+                                    <Card id="collapsible-panel-users">
+                                        <Card.Header>
+                                            <Accordion.Toggle
+                                                as={Button}
+                                                variant="link"
+                                                eventKey="0"
+                                            >
+                                                {t("Show connection history")}
+                                            </Accordion.Toggle>
+                                        </Card.Header>
+                                        <Accordion.Collapse eventKey="0">
+                                            <Card.Body>
+                                                <div className="TableAdvanced">
+                                                    <Table
+                                                        striped
+                                                        bordered
+                                                        size="sm"
+                                                        hover
                                                     >
-                                                        {t(
-                                                            "Show connection history"
-                                                        )}
-                                                    </Accordion.Toggle>
-                                                </Card.Header>
-                                                <Accordion.Collapse eventKey="0">
-                                                    <Card.Body>
-                                                        <div className="TableAdvanced">
-                                                            <Table
-                                                                striped
-                                                                bordered
-                                                                size="sm"
-                                                                hover
-                                                            >
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>
-                                                                            {t(
-                                                                                "Connected"
-                                                                            )}
-                                                                        </th>
-                                                                        <th>
-                                                                            {t(
-                                                                                "Device"
-                                                                            )}
-                                                                        </th>
-                                                                        <th>
-                                                                            Ip
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody className="AdvancedUserBody">
-                                                                    {
-                                                                        advancedUserInfos
-                                                                    }
-                                                                </tbody>
-                                                            </Table>
-                                                        </div>
-                                                    </Card.Body>
-                                                </Accordion.Collapse>
-                                            </Card>
-                                        </Accordion>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    {t(
+                                                                        "Connected"
+                                                                    )}
+                                                                </th>
+                                                                <th>
+                                                                    {t(
+                                                                        "Device"
+                                                                    )}
+                                                                </th>
+                                                                <th>Ip</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody className="AdvancedUserBody">
+                                                            {advancedUserInfos}
+                                                        </tbody>
+                                                    </Table>
+                                                </div>
+                                            </Card.Body>
+                                        </Accordion.Collapse>
                                     </Card>
-                                </Card.Body>
-                                {bottomWell}
-                            </div>
-                        </Card>
+                                </Accordion>
+                            </Card>
+                        </Card.Body>
+                        {bottomWell}
                     </div>
-                </Collapse>
+                </Card>
             </div>
         );
     }
