@@ -4,10 +4,8 @@
     "Internal users": "Utilisateurs internes",
     "Partners": "Partenaires ",
     "Administrators": "Administrateurs ",
-    "Active rooms": "Salons actifs ",
     "One-to-one conversations": "Conversations à deux ",
     "One to one": "Conversation à deux",
-    "Inactive Rooms": "Salons inactifs ",
     "Room": "Salon ",
     "Statistics for Watcha server": "Statistiques",
     "Hide internal users": "Masquer les utilisateurs internes",
@@ -103,5 +101,9 @@
     },
     "monitoringTab": {
         "title": "Monitorage"
-    }
+    },
+
+    "Number of rooms": "Nombre de salons",
+    "Number of personnals conversations": "Nombre de conversations privées",
+    "Of which active": "Dont actif"
 }
