@@ -29,19 +29,22 @@ export default withTranslation()(({ t }) => {
                 <CardStats
                     lines={[
                         {
-                            label: t("Active rooms"),
-                            data: data.rooms.big_rooms_count_active,
+                            label: t("Number of rooms"),
+                            data: data.rooms.non_direct_rooms_count,
                         },
                         {
-                            label: t("One-to-one conversations"),
-                            data: data.rooms.big_rooms_count,
+                            label: t("Of which active"),
+                            data: data.rooms.non_direct_active_rooms_count,
                         },
                         {
-                            label: t("Inactive Rooms"),
-                            data:
-                                data.rooms.one_one_rooms_count -
-                                data.rooms.big_rooms_count_active,
+                            label: t("Number of personnals conversations"),
+                            data: data.rooms.direct_rooms_count,
                         },
+                        {
+                            label: t("Of which active"),
+                            data: data.rooms.direct_active_rooms_count,
+                        },
+
                     ]}
                     title={t("roomsTab.title")}
                     tab="rooms"
