@@ -19,7 +19,6 @@ export default withTranslation()(({ title, tab, lines, t }) => {
             if (lines[LINE].label === t("Admin")) {
               const admins = [];
               const profileInfosOfAdmins = lines[LINE].data;
-              console.log(profileInfosOfAdmins);
               for (const index in profileInfosOfAdmins) {
                 const profileInfo = profileInfosOfAdmins[index];
                 admins.push(
