@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useGet } from "restful-react";
 import { useTranslation } from "react-i18next";
 
-import Button from "./NewUserButton";
+import Button from "./NewItemButton";
 import Date from "./Date";
 import DelayedSpinner from "./DelayedSpinner";
 import TableTab, { compareLowerCase } from "./TableTab";
