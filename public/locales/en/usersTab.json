@@ -1,0 +1,25 @@
+{
+    "title": "Users",
+    "searchBox": {
+        "filter": "Filter",
+        "clear": "Clear",
+        "placeholder": "Filter users"
+    },
+    "button": "New user",
+    "headers": {
+        "displayName": "Display name",
+        "emailAddress": "Email address",
+        "lastSeen": "Last activity on",
+        "role": "Role",
+        "accountStatus": "Account status"
+    },
+    "roles": {
+        "administrator": "Administrator",
+        "collaborator": "Collaborator",
+        "partner": "Partner"
+    },
+    "isActive": {
+        "1": "enabled",
+        "0": "disabled"
+    }
+}

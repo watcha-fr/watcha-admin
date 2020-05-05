@@ -374,7 +374,7 @@ class UserRightPanel extends Component {
         const ISDEACTIVATE = this.props.user.accountStatus === 0;
         let editEmail;
         const bottomButtons = [];
-        let title = t(`usersTab.roles.${this.props.user.role}`);
+        let title = t(`usersTab:roles.${this.props.user.role}`);
 
         if (ISDEACTIVATE) {
             bottomButtons.push(

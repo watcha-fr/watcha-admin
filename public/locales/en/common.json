@@ -13,39 +13,5 @@
     "errorBoundary": {
         "title": "Something went wrong!",
         "body": "<0>Should the failure happen again, please contact us at <0>{{email}}</0>.</0><1>You'll be redirected to <0>{{redirectUrl}}</0> in a few seconds...</1>"
-    },
-    "dashboardTab": {
-        "title": "Dashboard"
-    },
-    "usersTab": {
-        "title": "Users",
-        "searchBox": {
-            "filter": "Filter",
-            "clear": "Clear",
-            "placeholder": "Filter users"
-        },
-        "button": "New user",
-        "headers": {
-            "displayName": "Display name",
-            "emailAddress": "Email address",
-            "lastSeen": "Last activity on",
-            "role": "Role",
-            "accountStatus": "Account status"
-        },
-        "roles": {
-            "administrator": "Administrator",
-            "collaborator": "Collaborator",
-            "partner": "Partner"
-        },
-        "isActive": {
-            "1": "enabled",
-            "0": "disabled"
-        }
-    },
-    "roomsTab": {
-        "title": "Rooms"
-    },
-    "monitoringTab": {
-        "title": "Monitoring"
     }
 }

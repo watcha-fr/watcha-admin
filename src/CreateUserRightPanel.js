@@ -262,7 +262,7 @@ class CreateUserRightPanel extends Component {
                     onClick={this.createUser}
                     disabled={this.state.busy}
                 >
-                    {t("usersTab.button")}
+                    {t("usersTab:button")}
                 </Button>
             </div>
         );
@@ -272,7 +272,7 @@ class CreateUserRightPanel extends Component {
                 <div>
                     <Card className="rightPanel">
                         <Card.Header className="header-with-button">
-                            {t("usersTab.button")}
+                            {t("usersTab:button")}
                             <i
                                 className="fas fa-times dismissRight"
                                 onClick={this.props.onClose}

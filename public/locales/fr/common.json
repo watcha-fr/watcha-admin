@@ -69,39 +69,5 @@
         "password": "Mot de passe",
         "button": "Connexion",
         "loading": "Chargement..."
-    },
-    "dashboardTab": {
-        "title": "Tableau de bord"
-    },
-    "usersTab": {
-        "title": "Utilisateurs",
-        "searchBox": {
-            "filter": "Filtrer",
-            "clear": "Effacer",
-            "placeholder": "Filtrer les utilisateurs"
-        },
-        "button": "Nouvel utilisateur",
-        "headers": {
-            "displayName": "Nom d'affichage",
-            "emailAddress": "Adresse électronique",
-            "lastSeen": "Dernière activité le",
-            "role": "Rôle",
-            "accountStatus": "Statut du compte"
-        },
-        "roles": {
-            "administrator": "Administrateur",
-            "collaborator": "Collaborateur",
-            "partner": "Partenaire"
-        },
-        "isActive": {
-            "1": "activé",
-            "0": "désactivé"
-        }
-    },
-    "roomsTab": {
-        "title": "Salons"
-    },
-    "monitoringTab": {
-        "title": "Monitorage"
     }
 }

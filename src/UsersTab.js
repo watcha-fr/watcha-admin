@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useGet } from "restful-react";
-import { withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import Button from "./NewUserButton";
 import Date from "./Date";
@@ -11,7 +11,11 @@ import { useDispatchContext, useUserIdContext } from "./contexts";
 import CreateUserRightPanel from "./CreateUserRightPanel";
 import UserRightPanel from "./UserRightPanel";
 
-export default withTranslation()(({ t }) => {
+const ns = "usersTab"
+
+export default () => {
+    const { t } = useTranslation(ns);
+
     const userId = useUserIdContext();
     const dispatch = useDispatchContext();
 
@@ -28,34 +32,34 @@ export default withTranslation()(({ t }) => {
     const columns = useMemo(
         () => [
             {
-                Header: t("usersTab.headers.displayName"),
+                Header: t("headers.displayName"),
                 accessor: "displayName",
                 sortType: compareLowerCase,
             },
             {
-                Header: t("usersTab.headers.emailAddress"),
+                Header: t("headers.emailAddress"),
                 accessor: "emailAddress",
                 sortType: compareLowerCase,
             },
             {
-                Header: t("usersTab.headers.lastSeen"),
+                Header: t("headers.lastSeen"),
                 accessor: "lastSeen",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => value && <Date timestamp={value} />,
             },
             {
-                Header: t("usersTab.headers.role"),
+                Header: t("headers.role"),
                 accessor: "role",
                 disableGlobalFilter: true,
-                Cell: ({ value }) => t(`usersTab.roles.${value}`),
+                Cell: ({ value }) => t(`roles.${value}`),
             },
             {
-                Header: t("usersTab.headers.accountStatus"),
+                Header: t("headers.accountStatus"),
                 accessor: "accountStatus",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => (
                     <span className={value === 1 ? "active" : "inactive"}>
-                        {t(`usersTab.isActive.${value}`)}
+                        {t(`isActive.${value}`)}
                     </span>
                 ),
             },
@@ -83,7 +87,7 @@ export default withTranslation()(({ t }) => {
         [isEmailAvailable, onClose]
     );
 
-    const button = useMemo(() => <Button {...{ onClick }} />, [onClick]);
+    const button = useMemo(() => <Button {...{ ns, onClick }} />, [onClick]);
 
     const editUser = useCallback(
         user =>
@@ -119,12 +123,12 @@ export default withTranslation()(({ t }) => {
     return userList ? (
         <TableTab
             data={userList}
-            {...{ columns, initialState, button, rightPanel, editUser }}
+            {...{ ns, columns, initialState, button, rightPanel, editUser }}
         />
     ) : (
         <DelayedSpinner />
     );
-});
+};
 
 const resolve = data =>
     data.map(item => ({
