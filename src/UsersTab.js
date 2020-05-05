@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import { useGet } from "restful-react";
 import { useTranslation } from "react-i18next";
 
@@ -10,8 +16,9 @@ import TableTab, { compareLowerCase } from "./TableTab";
 import { useDispatchContext, useUserIdContext } from "./contexts";
 import CreateUserRightPanel from "./CreateUserRightPanel";
 import UserRightPanel from "./UserRightPanel";
+import NewItemModal from "./NewItemModal";
 
-const ns = "usersTab"
+const ns = "usersTab";
 
 export default () => {
     const { t } = useTranslation(ns);
@@ -22,6 +29,7 @@ export default () => {
     const [userList, setUserList] = useState(null);
     const [intervalId, setIntervalId] = useState(null);
     const [rightPanel, setRightPanel] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
 
     const { data, refetch } = useGet({
         path: "watcha_user_list",
@@ -77,17 +85,33 @@ export default () => {
         [userList]
     );
 
-    const onClose = useCallback(() => setRightPanel(), []);
-
-    const onClick = useCallback(
-        () =>
-            setRightPanel(
-                <CreateUserRightPanel {...{ isEmailAvailable, onClose }} />
-            ),
-        [isEmailAvailable, onClose]
+    const button = useMemo(
+        () => <Button onClick={() => setModalShow(true)} {...{ ns }} />,
+        []
     );
 
-    const button = useMemo(() => <Button {...{ ns, onClick }} />, [onClick]);
+    const onHide = useCallback(() => setModalShow(false), []);
+
+    const createUserRightPanelRef = useRef();
+
+    const newItemModal = useMemo(
+        () => (
+            <NewItemModal
+                show={modalShow}
+                title={t("usersTab:button")}
+                onSave={() => createUserRightPanelRef.current.createUser()}
+                {...{ onHide }}
+            >
+                <CreateUserRightPanel
+                    ref={createUserRightPanelRef}
+                    {...{ isEmailAvailable }}
+                />
+            </NewItemModal>
+        ),
+        [modalShow, onHide, isEmailAvailable, t]
+    );
+
+    const onClose = useCallback(() => setRightPanel(), []);
 
     const editUser = useCallback(
         user =>
@@ -123,7 +147,15 @@ export default () => {
     return userList ? (
         <TableTab
             data={userList}
-            {...{ ns, columns, initialState, button, rightPanel, editUser }}
+            {...{
+                ns,
+                columns,
+                initialState,
+                button,
+                rightPanel,
+                editUser,
+                newItemModal,
+            }}
         />
     ) : (
         <DelayedSpinner />

@@ -10,7 +10,16 @@ import matchSorter from "match-sorter";
 import SearchBox from "./SearchBox";
 import Table from "./Table";
 
-export default ({ ns, data, columns, initialState, button, rightPanel, editUser }) => {
+export default ({
+    ns,
+    data,
+    columns,
+    initialState,
+    button,
+    rightPanel,
+    editUser,
+    newItemModal
+}) => {
     const globalFilter = useMemo(() => fuzzyTextFilterFn, []);
 
     const tableInstance = useTable(
@@ -41,6 +50,7 @@ export default ({ ns, data, columns, initialState, button, rightPanel, editUser 
                 </div>
                 {rightPanel}
             </div>
+            {newItemModal}
         </>
     );
 };

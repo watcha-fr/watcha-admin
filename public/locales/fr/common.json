@@ -69,5 +69,7 @@
         "password": "Mot de passe",
         "button": "Connexion",
         "loading": "Chargement..."
-    }
+    },
+    "save": "Enregistrer",
+    "cancel": "Annuler"
 }
