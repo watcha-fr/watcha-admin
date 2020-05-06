@@ -8,6 +8,7 @@
     "button": "Nouvel utilisateur",
     "fullName": "Nom complet",
     "emailAddress": "Adresse électronique",
+    "synapseAdminCheckbox": "Attribuer le rôle d'administrateur à cet utilisateur",
     "requiered": {
         "fullName": "Le nom complet est requis",
         "emailAddress": "L'adresse électronique est requise"

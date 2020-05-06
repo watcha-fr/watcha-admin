@@ -99,7 +99,7 @@ export default () => {
     const newItemModal = useMemo(() => {
         const onSubmit = data => {
             post({
-                admin: false,
+                admin: data.isSynapseAdministrator ? "admin" : false,
                 email: data.emailAddress,
                 full_name: data.fullName,
                 user: data.emailAddress.replace("@", "/"),
@@ -123,7 +123,9 @@ export default () => {
                 onSave={() => submitFormRef.current()}
                 {...{ feedback, loading, onHide }}
             >
-                <NewUserForm {...{ userList, onSubmit, bindSubmitForm, feedback }} />
+                <NewUserForm
+                    {...{ userList, onSubmit, bindSubmitForm, feedback }}
+                />
             </NewItemModal>
         );
     }, [modalShow, feedback, loading, userList, post, cancel, t]);

@@ -8,6 +8,7 @@
     "button": "New user",
     "fullName": "Full name",
     "emailAddress": "Email address",
+    "synapseAdminCheckbox": "Assign the administrator role to this user",
     "requiered": {
         "fullName": "$t(fullName) is requiered",
         "emailAddress": "$t(emailAddress) is requiered"

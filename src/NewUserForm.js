@@ -34,6 +34,7 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
                             !value ||
                             !userList.some(user => user.emailAddress === value)
                     ),
+                isSynapseAdministrator: yup.bool(),
             }),
         [userList, t]
     );
@@ -115,6 +116,16 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
+
+                        <Form.Check
+                            custom
+                            id="isSynapseAdministrator"
+                            name="isSynapseAdministrator"
+                            label={t("synapseAdminCheckbox")}
+                            value={values.isSynapseAdministrator}
+                            onChange={handleChange}
+                            disabled={feedback}
+                        />
 
                         <Button
                             type="submit"
