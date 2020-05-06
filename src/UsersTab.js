@@ -112,7 +112,6 @@ export default () => {
                 );
         };
         const onHide = () => {
-            cancel();
             setModalShow(false);
             setFeedback(null);
         };
