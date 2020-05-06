@@ -91,22 +91,36 @@ export default () => {
         submitFormRef.current = submitForm;
     };
 
-    const { mutate: post, cancel, loading } = useMutate({
+    const { mutate: post, loading } = useMutate({
         verb: "POST",
         path: "watcha_register",
     });
 
     const newItemModal = useMemo(() => {
         const onSubmit = data => {
+            const userId = data.emailAddress.replace("@", "/");
             post({
                 admin: data.isSynapseAdministrator ? "admin" : false,
                 email: data.emailAddress,
                 full_name: data.fullName,
-                user: data.emailAddress.replace("@", "/"),
+                user: userId,
             })
-                .then(response =>
-                    setFeedback({ variant: "success", message: t("success") })
-                )
+                .then(response => {
+                    setUserList([
+                        ...userList,
+                        {
+                            userId,
+                            displayName: data.fullName,
+                            emailAddress: data.emailAddress,
+                            lastSeen: null,
+                            role: data.isSynapseAdministrator
+                                ? "administrator"
+                                : "collaborator",
+                            accountStatus: 1,
+                        },
+                    ]);
+                    setFeedback({ variant: "success", message: t("success") });
+                })
                 .catch(error =>
                     setFeedback({ variant: "danger", message: t("danger") })
                 );
@@ -127,7 +141,7 @@ export default () => {
                 />
             </NewItemModal>
         );
-    }, [modalShow, feedback, loading, userList, post, cancel, t]);
+    }, [modalShow, feedback, loading, userList, post, t]);
 
     const onClose = useCallback(() => setRightPanel(), []);
 
