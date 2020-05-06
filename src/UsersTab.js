@@ -5,7 +5,7 @@ import React, {
     useRef,
     useState,
 } from "react";
-import { useGet } from "restful-react";
+import { useGet, useMutate } from "restful-react";
 import { useTranslation } from "react-i18next";
 
 import Button from "./NewItemButton";
@@ -30,6 +30,7 @@ export default () => {
     const [intervalId, setIntervalId] = useState(null);
     const [rightPanel, setRightPanel] = useState(null);
     const [modalShow, setModalShow] = useState(false);
+    const [feedback, setFeedback] = useState(null);
 
     const { data, refetch } = useGet({
         path: "watcha_user_list",
@@ -90,22 +91,42 @@ export default () => {
         submitFormRef.current = submitForm;
     };
 
-    const newItemModal = useMemo(
-        () => (
+    const { mutate: post, cancel, loading } = useMutate({
+        verb: "POST",
+        path: "watcha_register",
+    });
+
+    const newItemModal = useMemo(() => {
+        const onSubmit = data => {
+            post({
+                admin: false,
+                email: data.emailAddress,
+                full_name: data.fullName,
+                user: data.emailAddress.replace("@", "/"),
+            })
+                .then(response =>
+                    setFeedback({ variant: "success", message: t("success") })
+                )
+                .catch(error =>
+                    setFeedback({ variant: "danger", message: t("danger") })
+                );
+        };
+        const onHide = () => {
+            cancel();
+            setModalShow(false);
+            setFeedback(null);
+        };
+        return (
             <NewItemModal
                 show={modalShow}
                 title={t("usersTab:button")}
-                onHide={() => setModalShow(false)}
                 onSave={() => submitFormRef.current()}
+                {...{ feedback, loading, onHide }}
             >
-                <NewUserForm
-                    onSubmit={e => console.log("@@@ onSubmit", e)}
-                    {...{ userList, bindSubmitForm }}
-                />
+                <NewUserForm {...{ userList, onSubmit, bindSubmitForm, feedback }} />
             </NewItemModal>
-        ),
-        [modalShow, userList, t]
-    );
+        );
+    }, [modalShow, feedback, loading, userList, post, cancel, t]);
 
     const onClose = useCallback(() => setRightPanel(), []);
 

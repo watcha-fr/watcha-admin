@@ -48,7 +48,7 @@ const Login = ({ setupClient, t, i18n }) => {
             block
             disabled
         >
-            <span className="loadingLoginText">{t("login.loading")}</span>
+            <span className="flex-grow-1">{t("login.loading")}</span>
             <Spinner
                 as="span"
                 animation="border"

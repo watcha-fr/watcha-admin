@@ -18,6 +18,8 @@
         "emailAddress": "une adresse électronique valide"
     },
     "unavailableEmailAddress": "Cette adresse électronique est déjà liée à un autre compte",
+    "success": "Un nouvel utilisateur a été créé",
+    "danger": "La création de l'utilisateur a échoué",
     "headers": {
         "displayName": "Nom d'affichage",
         "emailAddress": "Adresse électronique",

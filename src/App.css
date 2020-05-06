@@ -46,10 +46,6 @@
     align-items: center;
 }
 
-.loadingLoginText {
-    flex-grow: 1;
-}
-
 .searchBox {
     max-width: 20em;
 }

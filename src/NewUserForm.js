@@ -8,7 +8,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 const namePattern = "[a-z\u00C0-\u017F]{2,}";
 
-export default ({ userList, onSubmit, bindSubmitForm }) => {
+export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
     const { t } = useTranslation("usersTab");
 
     const schema = useMemo(
@@ -78,6 +78,7 @@ export default ({ userList, onSubmit, bindSubmitForm }) => {
                                     isInvalid={
                                         touched.fullName && !!errors.fullName
                                     }
+                                    readOnly={feedback}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.fullName}
@@ -107,6 +108,7 @@ export default ({ userList, onSubmit, bindSubmitForm }) => {
                                         touched.emailAddress &&
                                         !!errors.emailAddress
                                     }
+                                    readOnly={feedback}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.emailAddress}
