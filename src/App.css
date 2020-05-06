@@ -81,6 +81,11 @@
     background-color: white;
 }
 
+.rightRoundedInput {
+    border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
+}
+
 .tableTabBody {
     display: flex;
     min-height: 1%;

@@ -1,16 +1,12 @@
 import React from "react";
-import { withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-export default withTranslation()(
-    ({ show, onHide, onSave, title, children, t }) => (
-        <Modal
-            size="lg"
-            aria-labelledby="newItemModal"
-            centered
-            {...{ show, onHide }}
-        >
+export default ({ show, title, onHide, onSave, children }) => {
+    const { t } = useTranslation();
+    return (
+        <Modal aria-labelledby="newItemModal" centered {...{ show, onHide }}>
             <Modal.Header closeButton>
                 <Modal.Title id="newItemModal">{title}</Modal.Title>
             </Modal.Header>
@@ -24,5 +20,5 @@ export default withTranslation()(
                 </Button>
             </Modal.Footer>
         </Modal>
-    )
-);
+    );
+};

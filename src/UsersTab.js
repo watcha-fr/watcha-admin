@@ -14,9 +14,9 @@ import DelayedSpinner from "./DelayedSpinner";
 import TableTab, { compareLowerCase } from "./TableTab";
 
 import { useDispatchContext, useUserIdContext } from "./contexts";
-import CreateUserRightPanel from "./CreateUserRightPanel";
-import UserRightPanel from "./UserRightPanel";
 import NewItemModal from "./NewItemModal";
+import NewUserForm from "./NewUserForm";
+import UserRightPanel from "./UserRightPanel";
 
 const ns = "usersTab";
 
@@ -80,35 +80,31 @@ export default () => {
         []
     );
 
-    const isEmailAvailable = useCallback(
-        () => value => userList.some(user => user.emailAddress === value),
-        [userList]
-    );
-
     const button = useMemo(
         () => <Button onClick={() => setModalShow(true)} {...{ ns }} />,
         []
     );
 
-    const onHide = useCallback(() => setModalShow(false), []);
-
-    const createUserRightPanelRef = useRef();
+    const submitFormRef = useRef();
+    const bindSubmitForm = submitForm => {
+        submitFormRef.current = submitForm;
+    };
 
     const newItemModal = useMemo(
         () => (
             <NewItemModal
                 show={modalShow}
                 title={t("usersTab:button")}
-                onSave={() => createUserRightPanelRef.current.createUser()}
-                {...{ onHide }}
+                onHide={() => setModalShow(false)}
+                onSave={() => submitFormRef.current()}
             >
-                <CreateUserRightPanel
-                    ref={createUserRightPanelRef}
-                    {...{ isEmailAvailable }}
+                <NewUserForm
+                    onSubmit={e => console.log("@@@ onSubmit", e)}
+                    {...{ userList, bindSubmitForm }}
                 />
             </NewItemModal>
         ),
-        [modalShow, onHide, isEmailAvailable, t]
+        [modalShow, userList, t]
     );
 
     const onClose = useCallback(() => setRightPanel(), []);
