@@ -102,7 +102,7 @@ export default () => {
                 .normalize("NFKD")
                 .replace(/[\u0300-\u036F]/g, "")
                 .toLowerCase()
-                .replace(/[^a-z0-9=_-./]/g, "");
+                .replace(/[^\W=\-./]/g, "");
             post({
                 admin: data.isSynapseAdministrator ? "admin" : false,
                 email: data.emailAddress,
