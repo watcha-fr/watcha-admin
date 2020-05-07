@@ -8,14 +8,13 @@ import React, {
 import { useGet, useMutate } from "restful-react";
 import { useTranslation } from "react-i18next";
 
+import { useDispatchContext, useUserIdContext } from "./contexts";
 import Button from "./NewItemButton";
 import Date from "./Date";
 import DelayedSpinner from "./DelayedSpinner";
-import TableTab, { compareLowerCase } from "./TableTab";
-
-import { useDispatchContext, useUserIdContext } from "./contexts";
 import NewItemModal from "./NewItemModal";
 import NewUserForm from "./NewUserForm";
+import TableTab, { compareLowerCase } from "./TableTab";
 import UserRightPanel from "./UserRightPanel";
 
 const ns = "usersTab";
@@ -98,7 +97,10 @@ export default () => {
 
     const newItemModal = useMemo(() => {
         const onSubmit = data => {
-            const userId = data.emailAddress.replace("@", "/");
+            const userId = data.emailAddress
+                .replace("@", "/")
+                .normalize("NFKD")
+                .replace(/[\u0300-\u036F]/g, "");
             post({
                 admin: data.isSynapseAdministrator ? "admin" : false,
                 email: data.emailAddress,
