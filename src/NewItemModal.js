@@ -33,6 +33,7 @@ export default ({
                 <Button variant="primary" disabled>
                     <span className="flex-grow-1">{t("save")}</span>
                     <Spinner
+                        className="ml-2"
                         as="span"
                         animation="border"
                         size="sm"
