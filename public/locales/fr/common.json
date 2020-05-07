@@ -56,6 +56,9 @@
     "Room Id": "Identifiant du salon",
     "Password reset": "Mot de passe réinitialisé",
     "Activate account": "Activer le compte",
+    "Number of rooms": "Nombre de salons",
+    "Number of personnals conversations": "Nombre de conversations privées",
+    "Of which active": "Dont actif",
 
     "errorBoundary": {
         "title": "Quelque chose s’est mal passé !",
@@ -101,9 +104,5 @@
     },
     "monitoringTab": {
         "title": "Monitorage"
-    },
-
-    "Number of rooms": "Nombre de salons",
-    "Number of personnals conversations": "Nombre de conversations privées",
-    "Of which active": "Dont actif"
+    }
 }
