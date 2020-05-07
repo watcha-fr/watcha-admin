@@ -13,53 +13,53 @@ export default withTranslation()(({ title, tab, lines, t }) => {
     const onUserClicked = userId => dispatch({ tab: "users", userId });
 
     const getPanelContent = lines => {
-      const panelContent = [];
-      for (const LINE in lines) {
-        if ({}.hasOwnProperty.call(lines, LINE)) {
-          if (lines[LINE].label === t("Admin")) {
-            const admins = [];
-            const profileInfosOfAdmins = lines[LINE].data;
-            console.log(profileInfosOfAdmins);
-            for (const index in profileInfosOfAdmins) {
-              const profileInfo = profileInfosOfAdmins[index];
-              admins.push(
-                <div key={profileInfo["user_id"]}>
-                  <AdminCardStats
-                    displayName={setAdminName(
-                      profileInfo["displayname"],
-                      profileInfo["user_id"]
-                    )}
-                    email={profileInfo["email"]}
-                    onUserClicked={onUserClicked}
-                    adminUserId={profileInfo["user_id"]}
-                  />
-                </div>
-              );
+        const panelContent = [];
+        for (const LINE in lines) {
+            if ({}.hasOwnProperty.call(lines, LINE)) {
+                if (lines[LINE].label === t("Admin")) {
+                    const admins = [];
+                    const profileInfosOfAdmins = lines[LINE].data;
+                    console.log(profileInfosOfAdmins);
+                    for (const index in profileInfosOfAdmins) {
+                        const profileInfo = profileInfosOfAdmins[index];
+                        admins.push(
+                            <div key={profileInfo["user_id"]}>
+                                <AdminCardStats
+                                    displayName={setAdminName(
+                                        profileInfo["displayname"],
+                                        profileInfo["user_id"]
+                                    )}
+                                    email={profileInfo["email"]}
+                                    onUserClicked={onUserClicked}
+                                    adminUserId={profileInfo["user_id"]}
+                                />
+                            </div>
+                        );
+                    }
+                    panelContent.push(
+                        <div key={lines[LINE].label}>
+                            {" "}
+                            {t("Administrators")}: {admins}{" "}
+                        </div>
+                    );
+                } else {
+                    panelContent.push(
+                        <div key={lines[LINE].label}>
+                            {lines[LINE].label + ": " + lines[LINE].data}
+                        </div>
+                    );
+                }
             }
-            panelContent.push(
-              <div key={lines[LINE].label}>
-                {" "}
-                {t("Administrators")}: {admins}{" "}
-              </div>
-            );
-          } else {
-            panelContent.push(
-              <div key={lines[LINE].label}>
-                {lines[LINE].label + ": " + lines[LINE].data}
-              </div>
-            );
-          }
         }
-      }
-      return panelContent;
+        return panelContent;
     };
 
     const setAdminName = (displayName, userId) => {
-      if (displayName) {
-        return displayName;
-      } else {
-        return userId.replace("@", "").split(":")[0];
-      }
+        if (displayName) {
+            return displayName;
+        } else {
+            return userId.replace("@", "").split(":")[0];
+        }
     };
 
     const PANEL_CONTENT = getPanelContent(lines);
