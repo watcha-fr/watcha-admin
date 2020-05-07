@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 
-export default ({ variant, message, onHide }) => {
+export default ({ variant, message, onClick }) => {
     const { t } = useTranslation();
     return (
         <Alert className="flex-fill" variant={variant}>
@@ -11,9 +11,7 @@ export default ({ variant, message, onHide }) => {
             <p>{message}</p>
             <hr />
             <div className="d-flex justify-content-end">
-                <Button variant={variant} onClick={onHide}>
-                    {t("close")}
-                </Button>
+                <Button {...{ variant, onClick }}>{t("ok")}</Button>
             </div>
         </Alert>
     );

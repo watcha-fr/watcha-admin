@@ -6,16 +6,23 @@ import Spinner from "react-bootstrap/Spinner";
 
 import Alert from "./Alert";
 
-export default props => {
+export default ({
+    feedback,
+    onClick,
+    loading,
+    show,
+    title,
+    onHide,
+    onSave,
+    children,
+}) => {
     const { t } = useTranslation();
-
-    const { feedback, loading, show, title, onHide, onSave, children } = props;
 
     const footer = feedback ? (
         <Alert
             variant={feedback.variant}
             message={feedback.message}
-            {...{ onHide }}
+            {...{ onClick }}
         />
     ) : (
         <>

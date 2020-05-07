@@ -134,6 +134,7 @@ export default () => {
                 show={modalShow}
                 title={t("usersTab:button")}
                 onSave={() => submitFormRef.current()}
+                onClick={() => setFeedback(null)}
                 {...{ feedback, loading, onHide }}
             >
                 <NewUserForm
@@ -141,7 +142,7 @@ export default () => {
                 />
             </NewItemModal>
         );
-    }, [modalShow, feedback, loading, userList, post, t]);
+    }, [modalShow, feedback, setFeedback, loading, userList, post, t]);
 
     const onClose = useCallback(() => setRightPanel(), []);
 
