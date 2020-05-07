@@ -100,7 +100,8 @@ export default () => {
             const userId = data.emailAddress
                 .replace("@", "/")
                 .normalize("NFKD")
-                .replace(/[\u0300-\u036F]/g, "");
+                .replace(/[\u0300-\u036F]/g, "")
+                .toLowerCase();
             post({
                 admin: data.isSynapseAdministrator ? "admin" : false,
                 email: data.emailAddress,
