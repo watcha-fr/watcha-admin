@@ -12,8 +12,8 @@ import { useMatrixClientContext } from "./contexts";
 import logo from "./images/logo.svg";
 
 const Login = ({ setupClient, t, i18n }) => {
-    const [username, setUsername] = useState("cc");
-    const [password, setPassword] = useState("aze");
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
     const [pendingLogin, setPendingLogin] = useState(false);
 
     const client = useMatrixClientContext();
