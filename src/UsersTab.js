@@ -101,7 +101,8 @@ export default () => {
                 .replace("@", "/")
                 .normalize("NFKD")
                 .replace(/[\u0300-\u036F]/g, "")
-                .toLowerCase();
+                .toLowerCase()
+                .replace(/[^a-z0-9=_-./]/g, "");
             post({
                 admin: data.isSynapseAdministrator ? "admin" : false,
                 email: data.emailAddress,
