@@ -19,9 +19,7 @@ export default withTranslation()(({ title, tab, lines, t }) => {
                 if (lines[LINE].label === t("Admin")) {
                     const admins = [];
                     const profileInfosOfAdmins = lines[LINE].data;
-                    console.log(profileInfosOfAdmins);
-                    for (const index in profileInfosOfAdmins) {
-                        const profileInfo = profileInfosOfAdmins[index];
+                    for (const profileInfo of profileInfosOfAdmins) {
                         admins.push(
                             <div key={profileInfo["user_id"]}>
                                 <AdminCardStats
@@ -30,7 +28,7 @@ export default withTranslation()(({ title, tab, lines, t }) => {
                                         profileInfo["user_id"]
                                     )}
                                     email={profileInfo["email"]}
-                                    onUserClicked={onUserClicked}
+                                    {...{ onUserClicked}}
                                     adminUserId={profileInfo["user_id"]}
                                 />
                             </div>
@@ -55,11 +53,7 @@ export default withTranslation()(({ title, tab, lines, t }) => {
     };
 
     const setAdminName = (displayName, userId) => {
-        if (displayName) {
-            return displayName;
-        } else {
-            return userId.replace("@", "").split(":")[0];
-        }
+        return displayName || userId.replace("@", "").split(":")[0]
     };
 
     const PANEL_CONTENT = getPanelContent(lines);
