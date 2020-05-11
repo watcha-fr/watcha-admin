@@ -33,7 +33,7 @@ export default withTranslation()(({ t }) => {
                             data: data.rooms.non_direct_rooms_count,
                         },
                         {
-                            label: t("Of which active"),
+                            label: t("Of which active rooms"),
                             data: data.rooms.non_direct_active_rooms_count,
                         },
                         {
@@ -41,7 +41,7 @@ export default withTranslation()(({ t }) => {
                             data: data.rooms.direct_rooms_count,
                         },
                         {
-                            label: t("Of which active"),
+                            label: t("Of which active personnals conversations"),
                             data: data.rooms.direct_active_rooms_count,
                         },
 
