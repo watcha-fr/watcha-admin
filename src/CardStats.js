@@ -28,8 +28,8 @@ export default withTranslation()(({ title, tab, lines, t }) => {
                             <div key={profileInfo["user_id"]}>
                                 <AdminCardStats
                                     email={profileInfo["email"]}
-                                    {...{ onUserClicked, displayName }}
                                     adminUserId={profileInfo["user_id"]}
+                                    {...{ onUserClicked, displayName }}
                                 />
                             </div>
                         );
