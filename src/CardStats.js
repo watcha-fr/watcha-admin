@@ -20,15 +20,15 @@ export default withTranslation()(({ title, tab, lines, t }) => {
                     const admins = [];
                     const profileInfosOfAdmins = lines[LINE].data;
                     for (const profileInfo of profileInfosOfAdmins) {
+                        const displayName = setAdminName(
+                            profileInfo["displayname"],
+                            profileInfo["user_id"]
+                        );
                         admins.push(
                             <div key={profileInfo["user_id"]}>
                                 <AdminCardStats
-                                    displayName={setAdminName(
-                                        profileInfo["displayname"],
-                                        profileInfo["user_id"]
-                                    )}
                                     email={profileInfo["email"]}
-                                    {...{ onUserClicked}}
+                                    {...{ onUserClicked, displayName }}
                                     adminUserId={profileInfo["user_id"]}
                                 />
                             </div>
@@ -53,7 +53,7 @@ export default withTranslation()(({ title, tab, lines, t }) => {
     };
 
     const setAdminName = (displayName, userId) => {
-        return displayName || userId.replace("@", "").split(":")[0]
+        return displayName || userId.replace("@", "").split(":")[0];
     };
 
     const PANEL_CONTENT = getPanelContent(lines);
