@@ -73,7 +73,10 @@
         "loading": "Chargement..."
     },
     "dashboardTab": {
-        "title": "Tableau de bord"
+        "title": "Tableau de bord",
+        "loggedUsers": "Utilisateurs connectés au moins une fois",
+        "monthlyUsers": "Utilisateurs connectés sur le dernier mois",
+        "weeklyUsers": "Utilisateurs connectés sur la dernière semaine"
     },
     "usersTab": {
         "title": "Utilisateurs",

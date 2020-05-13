@@ -15,7 +15,10 @@
         "body": "<0>Should the failure happen again, please contact us at <0>{{email}}</0>.</0><1>You'll be redirected to <0>{{redirectUrl}}</0> in a few seconds...</1>"
     },
     "dashboardTab": {
-        "title": "Dashboard"
+        "title": "Dashboard",
+        "loggedUsers": "Users logged at least once",
+        "monthlyUsers": "Users logged last month",
+        "weeklyUsers": "Users logged last week"
     },
     "usersTab": {
         "title": "Users",

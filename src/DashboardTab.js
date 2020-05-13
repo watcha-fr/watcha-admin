@@ -19,8 +19,11 @@ export default withTranslation()(({ t }) => {
             <div className="statsPanelsContainer">
                 <CardStats
                     lines={[
-                        { label: t("Members"), data: data.users.local },
+                        { label: t("Members"), data: data.users.member },
                         { label: t("Partners"), data: data.users.partners },
+                        { label: t("dashboardTab.weeklyUsers"), data: data.users.number_of_last_week_logged_users },
+                        { label: t("dashboardTab.monthlyUsers"), data: data.users.number_of_last_month_logged_users },
+                        { label: t("dashboardTab.loggedUsers"), data: data.users.number_of_users_logged_at_least_once },
                         { label: t("Admin"), data: data.admins },
                     ]}
                     title={t("usersTab.title")}
