@@ -18,7 +18,8 @@
         "title": "Dashboard",
         "loggedUsers": "Users logged at least once",
         "monthlyUsers": "Users logged last month",
-        "weeklyUsers": "Users logged last week"
+        "weeklyUsers": "Users logged last week",
+        "pendingInvitationUsers": "Users with pending invitation"
     },
     "usersTab": {
         "title": "Users",
