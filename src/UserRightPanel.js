@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
+import moment from "moment";
 import Accordion from "react-bootstrap/Accordion";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -553,6 +554,11 @@ class UserRightPanel extends Component {
                                         <tr>
                                             <td className="labelText">
                                                 {t("Creation")}:
+                                            </td>
+                                            <td className="infoText">
+                                                {moment(
+                                                    this.props.user.creationTs
+                                                ).format("LLLL")}
                                             </td>
                                         </tr>
                                         <tr>

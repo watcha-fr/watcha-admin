@@ -149,4 +149,5 @@ const resolve = data =>
                 ? "partner"
                 : "collaborator",
         status: item.is_active === 1 ? "active" : "inactive",
+        creationTs: item.creation_ts * 1000,
     }));
