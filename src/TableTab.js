@@ -11,14 +11,14 @@ import SearchBox from "./SearchBox";
 import Table from "./Table";
 
 export default ({
-    ns,
     data,
     columns,
     initialState,
     button,
-    rightPanel,
+    newItemModal,
     editUser,
-    newItemModal
+    rightPanel,
+    ns,
 }) => {
     const globalFilter = useMemo(() => fuzzyTextFilterFn, []);
 

@@ -5,15 +5,14 @@ import React, {
     useRef,
     useState,
 } from "react";
-import { useGet, useMutate } from "restful-react";
+import { useGet } from "restful-react";
 import { useTranslation } from "react-i18next";
 
 import { useDispatchContext, useUserIdContext } from "./contexts";
 import Button from "./NewItemButton";
 import Date from "./Date";
 import DelayedSpinner from "./DelayedSpinner";
-import NewItemModal from "./NewItemModal";
-import NewUserForm from "./NewUserForm";
+import NewUserModal from "./NewUserModal";
 import TableTab, { compareLowerCase } from "./TableTab";
 import UserRightPanel from "./UserRightPanel";
 
@@ -26,16 +25,57 @@ export default () => {
     const dispatch = useDispatchContext();
 
     const [userList, setUserList] = useState(null);
-    const [intervalId, setIntervalId] = useState(null);
-    const [rightPanel, setRightPanel] = useState(null);
     const [modalShow, setModalShow] = useState(false);
-    const [feedback, setFeedback] = useState(null);
+    const [rightPanel, setRightPanel] = useState(null);
 
     const { data, refetch } = useGet({
         path: "watcha_user_list",
         lazy: true,
         resolve,
     });
+
+    const refetchRef = useRef();
+    refetchRef.current = refetch;
+
+    const intervalIdRef = useRef();
+
+    useEffect(() => {
+        refetchRef.current();
+    }, []);
+
+    useEffect(() => {
+        setUserList(data);
+        if (intervalIdRef.current) {
+            clearInterval(intervalIdRef.current);
+        }
+        intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
+    }, [data]);
+
+    const onClose = () => setRightPanel();
+
+    useEffect(() => {
+        if (userList && userId) {
+            for (const user of userList) {
+                if (user.userId === userId) {
+                    setRightPanel(<UserRightPanel {...{ user, onClose }} />);
+                    dispatch({ userId: null });
+                    return;
+                }
+            }
+        }
+    }, [userList, userId, dispatch]);
+
+    const button = <Button onClick={() => setModalShow(true)} {...{ ns }} />;
+
+    const newItemModal = (
+        <NewUserModal {...{ modalShow, setModalShow, userList, setUserList }} />
+    );
+
+    const editUser = useCallback(
+        user =>
+            setRightPanel(user && <UserRightPanel {...{ user, onClose }} />),
+        []
+    );
 
     const columns = useMemo(
         () => [
@@ -62,13 +102,11 @@ export default () => {
                 Cell: ({ value }) => t(`roles.${value}`),
             },
             {
-                Header: t("headers.accountStatus"),
-                accessor: "accountStatus",
+                Header: t("headers.status"),
+                accessor: "status",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => (
-                    <span className={value === 1 ? "active" : "inactive"}>
-                        {t(`isActive.${value}`)}
-                    </span>
+                    <span className={value}>{t(`status.${value}`)}</span>
                 ),
             },
         ],
@@ -80,118 +118,17 @@ export default () => {
         []
     );
 
-    const button = useMemo(
-        () => <Button onClick={() => setModalShow(true)} {...{ ns }} />,
-        []
-    );
-
-    const submitFormRef = useRef();
-    const bindSubmitForm = submitForm => {
-        submitFormRef.current = submitForm;
-    };
-
-    const { mutate: post, loading } = useMutate({
-        verb: "POST",
-        path: "watcha_register",
-    });
-
-    const newItemModal = useMemo(() => {
-        const onSubmit = data => {
-            const userId = data.emailAddress
-                .replace("@", "/")
-                .normalize("NFKD")
-                .replace(/[\u0300-\u036F]/g, "")
-                .toLowerCase()
-                .replace(/[^\W=\-./]/g, "");
-            post({
-                admin: data.isSynapseAdministrator ? "admin" : false,
-                email: data.emailAddress,
-                full_name: data.fullName,
-                user: userId,
-            })
-                .then(response => {
-                    setUserList([
-                        ...userList,
-                        {
-                            userId,
-                            displayName: data.fullName,
-                            emailAddress: data.emailAddress,
-                            lastSeen: null,
-                            role: data.isSynapseAdministrator
-                                ? "administrator"
-                                : "collaborator",
-                            accountStatus: 1,
-                        },
-                    ]);
-                    setFeedback({ variant: "success", message: t("success") });
-                })
-                .catch(error =>
-                    setFeedback({ variant: "danger", message: t("danger") })
-                );
-        };
-        const onHide = () => {
-            setModalShow(false);
-            setFeedback(null);
-        };
-        return (
-            <NewItemModal
-                show={modalShow}
-                title={t("usersTab:button")}
-                onSave={() => submitFormRef.current()}
-                onClick={() => setFeedback(null)}
-                {...{ feedback, loading, onHide }}
-            >
-                <NewUserForm
-                    {...{ userList, onSubmit, bindSubmitForm, feedback }}
-                />
-            </NewItemModal>
-        );
-    }, [modalShow, feedback, setFeedback, loading, userList, post, t]);
-
-    const onClose = useCallback(() => setRightPanel(), []);
-
-    const editUser = useCallback(
-        user =>
-            setRightPanel(user && <UserRightPanel {...{ user, onClose }} />),
-        [onClose]
-    );
-
-    useEffect(() => {
-        refetch();
-    }, []);
-
-    useEffect(() => {
-        setUserList(data);
-        const _intervalId = setInterval(() => refetch(), 10000);
-        setIntervalId(prevIntervalId => {
-            prevIntervalId && clearInterval(prevIntervalId);
-            return _intervalId;
-        });
-    }, [data]);
-
-    useEffect(() => {
-        if (userList && userId) {
-            for (const user of userList) {
-                if (user.userId === userId) {
-                    setRightPanel(<UserRightPanel {...{ user, onClose }} />);
-                    dispatch({ userId: null });
-                    return;
-                }
-            }
-        }
-    }, [userList, userId, dispatch, onClose]);
-
     return userList ? (
         <TableTab
             data={userList}
             {...{
-                ns,
                 columns,
                 initialState,
                 button,
-                rightPanel,
-                editUser,
                 newItemModal,
+                editUser,
+                rightPanel,
+                ns,
             }}
         />
     ) : (
@@ -211,5 +148,5 @@ const resolve = data =>
                 : item.is_partner === 1
                 ? "partner"
                 : "collaborator",
-        accountStatus: item.is_active,
+        status: item.is_active === 1 ? "active" : "inactive",
     }));

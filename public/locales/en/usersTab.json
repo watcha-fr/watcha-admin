@@ -26,15 +26,16 @@
         "emailAddress": "Email address",
         "lastSeen": "Last activity on",
         "role": "Role",
-        "accountStatus": "Account status"
+        "status": "Account status"
     },
     "roles": {
         "administrator": "Administrator",
         "collaborator": "Collaborator",
         "partner": "Partner"
     },
-    "isActive": {
-        "1": "enabled",
-        "0": "disabled"
+    "status": {
+        "active": "enabled",
+        "inactive": "disabled",
+        "invited": "invitation sent"
     }
 }

@@ -371,7 +371,7 @@ class UserRightPanel extends Component {
     render() {
         const ISPARTNER = this.props.user.role === "partner";
         const { t } = this.props;
-        const ISDEACTIVATE = this.props.user.accountStatus === 0;
+        const ISDEACTIVATE = this.props.user.status === "inactive";
         let editEmail;
         const bottomButtons = [];
         let title = t(`usersTab:roles.${this.props.user.role}`);

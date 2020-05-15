@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useRef } from "react";
 import { Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
@@ -6,44 +6,50 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-const namePattern = "[a-z\u00C0-\u017F]{2,}";
+const NAME_PATTERN = "[a-z\u00C0-\u017F]{2,}";
 
 export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
     const { t } = useTranslation("usersTab");
 
-    const schema = useMemo(
-        () =>
-            yup.object({
-                fullName: yup
-                    .string()
-                    .required(t("requiered.fullName"))
-                    .matches(
-                        new RegExp(`^${namePattern} ${namePattern}$`, "i"),
-                        t("invalid", { field: "$t(invalidField.fullName)" })
-                    ),
-                emailAddress: yup
-                    .string()
-                    .required(t("requiered.emailAddress"))
-                    .email(
-                        t("invalid", { field: "$t(invalidField.emailAddress)" })
-                    )
-                    .test(
-                        "is-available",
-                        t("unavailableEmailAddress"),
-                        value =>
-                            !value ||
-                            !userList.some(user => user.emailAddress === value)
-                    ),
-                isSynapseAdministrator: yup.bool(),
-            }),
-        [userList, t]
-    );
+    const resetFormRef = useRef();
+    const bindResetForm = resetForm => {
+        resetFormRef.current = resetForm;
+    };
+
+    useEffect(() => {
+        if (!feedback) {
+            resetFormRef.current();
+        }
+    }, [feedback]);
+
+    const schema = yup.object({
+        fullName: yup
+            .string()
+            .required(t("requiered.fullName"))
+            .matches(
+                new RegExp(`^${NAME_PATTERN} ${NAME_PATTERN}$`, "i"),
+                t("invalid", { field: "$t(invalidField.fullName)" })
+            ),
+        emailAddress: yup
+            .string()
+            .required(t("requiered.emailAddress"))
+            .email(t("invalid", { field: "$t(invalidField.emailAddress)" }))
+            .test(
+                "is-available",
+                t("unavailableEmailAddress"),
+                value =>
+                    !value ||
+                    !userList.some(user => user.emailAddress === value)
+            ),
+        isSynapseAdministrator: yup.bool(),
+    });
 
     return (
         <Formik
             initialValues={{
                 fullName: "",
                 emailAddress: "",
+                isSynapseAdministrator: false,
             }}
             validationSchema={schema}
             {...{ onSubmit }}
@@ -52,11 +58,13 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
                 handleChange,
                 handleSubmit,
                 submitForm,
+                resetForm,
                 values,
                 touched,
                 errors,
             }) => {
                 bindSubmitForm(submitForm);
+                bindResetForm(resetForm);
                 return (
                     <Form noValidate onSubmit={handleSubmit}>
                         <Form.Group>
@@ -122,13 +130,16 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
                             id="isSynapseAdministrator"
                             name="isSynapseAdministrator"
                             label={t("synapseAdminCheckbox")}
-                            value={values.isSynapseAdministrator}
+                            checked={values.isSynapseAdministrator}
                             onChange={handleChange}
                             disabled={feedback}
                         />
 
+                        {/* This button is only required to submit the form from a field by pressing the enter key.
+                        It is therefore hidden. The button actually used is rendered in the parent component. */}
                         <Button
                             type="submit"
+                            disabled={feedback}
                             style={{ display: "none" }}
                         ></Button>
                     </Form>
