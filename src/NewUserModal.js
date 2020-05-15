@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import NewItemModal from "./NewItemModal";
 import NewUserForm from "./NewUserForm";
 
-export default ({ modalShow, setModalShow, userList, setUserList }) => {
+export default ({ modalShow, setModalShow, userList, newUserLocalEcho }) => {
     const { t } = useTranslation("usersTab");
 
     const [feedback, setFeedback] = useState(null);
@@ -20,7 +20,7 @@ export default ({ modalShow, setModalShow, userList, setUserList }) => {
         post(payload)
             .then(response => {
                 const user = makeUser(data);
-                setUserList([...userList, user]);
+                newUserLocalEcho(user);
                 setFeedback({ variant: "success", message: t("success") });
             })
             .catch(error =>

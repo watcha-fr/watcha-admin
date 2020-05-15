@@ -51,7 +51,7 @@ export default () => {
         intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
     }, [data]);
 
-    const onClose = () => setRightPanel();
+    const onClose = event => setRightPanel();
 
     useEffect(() => {
         if (userList && userId) {
@@ -68,7 +68,10 @@ export default () => {
     const button = <Button onClick={() => setModalShow(true)} {...{ ns }} />;
 
     const newItemModal = (
-        <NewUserModal {...{ modalShow, setModalShow, userList, setUserList }} />
+        <NewUserModal
+            newUserLocalEcho={user => setUserList([...userList, user])}
+            {...{ modalShow, setModalShow, userList }}
+        />
     );
 
     const editUser = useCallback(
