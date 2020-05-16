@@ -21,7 +21,7 @@ class DataToRow extends Component {
                         <td className={ROW_CLASS_NAME} key={property}>
                             <BooleanRow
                                 value={this.props.data[property]["data"]}
-                                selected={ROW_CLASS_NAME}
+                                rowSelected={ROW_CLASS_NAME === "rowSelected"}
                             />
                         </td>
                     );

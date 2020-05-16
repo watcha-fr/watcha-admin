@@ -1,67 +1,323 @@
-/* Extra small devices (phones, 600px and down) */
-.SubmitButton {
-    background: rgb(65, 65, 65);
-    border-radius: 36px;
+.delayed {
+    animation: 0s linear 0.5s forwards makeVisible;
+    visibility: hidden;
 }
 
-@media only screen and (max-width: 600px) {
-    .container {
-        height: 100vh;
-        width: 100vw;
-        text-align: center;
-    }
-
-    .SubmitButton {
-        position: absolute;
-        width: 100vw;
-        bottom: 0;
-        left: 0;
-        height: 6vh;
-        border-radius: 0px;
+@keyframes makeVisible {
+    to {
+        visibility: visible;
     }
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    .container {
-        text-align: center;
-        height: 100vh;
-        width: 100vw;
-    }
-
-    .SubmitButton {
-        height: 5vh;
-        width: 15vh;
-    }
+.fullCentered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-    .container {
-        height: 100vh;
-        width: 100vw;
-    }
+.loginForm {
+    max-width: 25em;
+    text-align: center;
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    .container {
-        height: 100vh;
-        width: 100vw;
-    }
-
-    .SubmitButton {
-        height: 4vh;
-        width: 19vh;
-        font-size: 1.6vh;
-    }
+.logo {
+    width: 10em;
+    height: auto;
+    max-width: 75vw;
+    max-height: 30vh;
 }
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-    .container {
-        height: 100vh;
-        width: 100vw;
-        text-align: center;
-    }
+.tab-content {
+    display: flex;
+    height: 100%;
+    min-height: 1%;
+}
+
+.tab-pane.active {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.loadingLoginButton {
+    display: flex;
+    align-items: center;
+}
+
+.loadingLoginText {
+    flex-grow: 1;
+}
+
+.searchBox {
+    max-width: 20em;
+}
+
+.searchBox .emptyFilter {
+    border-right: 0;
+}
+
+.searchBox .clearButton {
+    border-left: 0;
+    background-color: transparent;
+    font-size: small;
+    cursor: pointer;
+}
+
+.newUserButton {
+    display: flex;
+    align-items: center;
+}
+
+.newUserButton::before {
+    content: "";
+    mask: url("./images/new-user.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    width: 1.5em;
+    height: 1.2em;
+    margin-right: 0.5em;
+    background-color: white;
+}
+
+.tableTabBody {
+    display: flex;
+    min-height: 1%;
+}
+
+.tableContainer {
+    display: flex;
+    overflow: auto;
+    width: 100%;
+}
+
+.table {
+    outline: none;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    border: 0 !important;
+    background-color: white;
+    background-clip: padding-box;
+}
+
+th:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+th:hover {
+    background-color: darkturquoise;
+}
+
+.tableHeader {
+    display: flex;
+    align-items: center;
+}
+
+.chevron {
+    mask: url("./images/arrow-down-angle.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 1em;
+    background-color: black;
+    transition: transform 0.2s ease-in;
+}
+
+.chevronUp {
+    transform: rotateZ(-180deg);
+}
+
+.chevronHidden {
+    visibility: hidden;
+}
+
+.selectedRow {
+    background-color: darkgrey !important;
+}
+
+td .active {
+    color: green;
+}
+
+td .inactive {
+    color: red;
+}
+
+.rowSelected {
+    background: #00e5e5;
+    color: white !important;
+}
+
+.bottomButtons {
+    margin: auto;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.rightPanel {
+    height: 100%;
+    width: 30vw;
+}
+
+.trueBoolean {
+    color: green;
+}
+
+.page-header {
+    margin: 40px 49px 20px;
+}
+
+.falseBoolean {
+    color: red;
+}
+
+.filtersOption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.refreshButton {
+    margin-right: 20px;
+}
+
+.card-header.header-with-button {
+    display: flex;
+    justify-content: space-between;
+}
+
+.fas {
+    line-height: inherit;
+}
+
+.statsPanelContent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.statsPanelsContainer {
+    display: flex;
+    font-size: 18px;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+
+.statsPanel {
+    flex-grow: 1;
+    margin: 2vw;
+    background-color: #337ab7;
+    color: white;
+}
+
+.dismissRight {
+    cursor: pointer;
+}
+
+.email.form-group {
+    display: flex;
+    align-items: baseline;
+}
+
+.labelText {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.bottomButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ActivationButton {
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.TableToolBar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.table-responsive {
+    max-height: 92vh;
+}
+
+.table-responsive {
+    flex-grow: 1;
+}
+
+.checkboxfilter {
+    display: flex;
+    margin-top: 2vh;
+}
+
+.checkboxfilter label {
+    margin-left: 4px;
+}
+
+.checkboxfilter input {
+    margin-left: 2px;
+}
+
+.usersPanel {
+    height: none;
+    width: none;
+}
+
+.inputValue {
+    margin-right: 12px;
+    font-size: 14px;
+}
+
+.inputValue.disabled {
+    margin-right: 12px;
+    font-size: 14px;
+    background: #e3e3e3;
+}
+
+.textFilter {
+    margin-top: 1vh;
+    margin-right: 8px;
+}
+
+.AdminName {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ServerStatePanelBody {
+    background: grey;
+}
+
+.StatsTitle {
+    cursor: pointer;
+}
+
+.TableAdvanced {
+    display: block;
+    overflow-y: auto;
+    max-height: 30vh;
+}
+
+.Error {
+    color: red;
+}
+
+.Warning {
+    color: rgb(245, 153, 16);
+}
+
+.Log {
+    color: blue;
 }

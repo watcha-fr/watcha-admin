@@ -1,49 +1,43 @@
-import React, { Component, Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import { RestfulProvider } from "restful-react";
 import sdk from "matrix-js-sdk";
 
-import AdminHome from "./AdminHome.js";
-import ErrorBoundary from "./ErrorBoundary.js";
-import Login from "./Login.js";
-import MatrixClientContext from "./MatrixClientContext";
-import SuspenseFallback from "./SuspenseFallback.js";
+import AdminHome from "./AdminHome";
+import DelayedSpinner from "./DelayedSpinner";
+import ErrorBoundary from "./ErrorBoundary";
+import Login from "./Login";
+import { MatrixClientContext } from "./contexts";
 
 import "./App.css";
-import "./User.css";
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            client: null,
-            loginError: false,
-            clientPrepared: false,
-        };
-    }
+export default () => {
+    const [client, setClient] = useState(null);
+    const [clientPrepared, setClientPrepared] = useState(false);
+    const [missingAccessToken, setMissingAccessToken] = useState(false);
 
-    async componentDidMount() {
-        const baseUrl =
-            localStorage.getItem("mx_hs_url") ||
-            (await this.getBaseUrlFromConfig());
+    useEffect(() => {
+        Promise.resolve(getBaseUrl()).then(baseUrl => {
+            const client = sdk.createClient({ baseUrl });
+            setClient(client);
 
-        const client = sdk.createClient({ baseUrl });
-        this.setState({ client });
+            const accessToken = localStorage.getItem("mx_access_token");
+            if (accessToken) {
+                client
+                    .loginWithToken(accessToken)
+                    .then(() => setupClient(client))
+                    .catch(error => {
+                        setMissingAccessToken(true);
+                        console.error(error.message);
+                    });
+            } else {
+                setMissingAccessToken(true);
+            }
+        });
+    }, []);
 
-        const accessToken = localStorage.getItem("mx_access_token");
-        if (accessToken) {
-            await client
-                .loginWithToken(accessToken)
-                .then(() => this.setupClient(client))
-                .catch(error => {
-                    this.setState({ loginError: true });
-                    console.error(error.message);
-                });
-        } else {
-            this.setState({ loginError: true });
-        }
-    }
-
-    async getBaseUrlFromConfig() {
-        return await fetch("/config.json")
+    const getBaseUrl = () =>
+        localStorage.getItem("mx_hs_url") ||
+        fetch("/config.json")
             .then(response => response.json())
             .then(
                 data =>
@@ -58,9 +52,8 @@ class App extends Component {
                 console.log(`Set ${defaultHomeServer} as default home server`);
                 return defaultHomeServer;
             });
-    }
 
-    setupClient = async client => {
+    const setupClient = async client => {
         await client.startClient({ initialSyncLimit: 10 });
         client.on("sync", (state, prevState, response) => {
             if (state === "SYNCING" && prevState === "SYNCING") {
@@ -68,26 +61,39 @@ class App extends Component {
             }
             console.info("MatrixClient sync state => %s", state);
             if (state === "PREPARED") {
-                this.setState({ clientPrepared: true });
+                setClientPrepared(true);
             }
         });
     };
 
-    render() {
-        return (
-            <Suspense fallback={<SuspenseFallback />}>
-                <ErrorBoundary>
-                    <MatrixClientContext.Provider value={this.state.client}>
-                        {this.state.clientPrepared ? (
-                            <AdminHome className="AdminHome" />
-                        ) : this.state.loginError ? (
-                            <Login setupClient={this.setupClient} />
-                        ) : null}
-                    </MatrixClientContext.Provider>
-                </ErrorBoundary>
-            </Suspense>
-        );
-    }
-}
+    const getRestfulConfig = () => ({
+        base: new URL("_matrix/client/r0", client.baseUrl).href,
+        requestOptions: {
+            headers: {
+                Authorization: `Bearer ${client.getAccessToken()}`,
+            },
+        },
+        onError: (error, retry, repsonse) => {
+            setTimeout(() => retry(), 5000);
+            repsonse && console.log(repsonse);
+        },
+    });
 
-export default App;
+    return (
+        <Suspense fallback={<DelayedSpinner />}>
+            <ErrorBoundary>
+                <MatrixClientContext.Provider value={client}>
+                    {clientPrepared ? (
+                        <RestfulProvider {...getRestfulConfig()}>
+                            <AdminHome />
+                        </RestfulProvider>
+                    ) : missingAccessToken ? (
+                        <Login {...{ setupClient }} />
+                    ) : (
+                        <DelayedSpinner />
+                    )}
+                </MatrixClientContext.Provider>
+            </ErrorBoundary>
+        </Suspense>
+    );
+};

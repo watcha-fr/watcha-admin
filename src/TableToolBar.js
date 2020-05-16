@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
 
-import CreateUserButton from "./Buttons/CreateUserButton";
+import CreateUserButton from "./NewUserButton";
 import RefreshButton from "./Buttons/RefreshButton";
 
 class TableToolBar extends Component {
