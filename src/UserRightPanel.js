@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
+import moment from "moment";
 import Accordion from "react-bootstrap/Accordion";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -371,10 +372,10 @@ class UserRightPanel extends Component {
     render() {
         const ISPARTNER = this.props.user.role === "partner";
         const { t } = this.props;
-        const ISDEACTIVATE = this.props.user.accountStatus === 0;
+        const ISDEACTIVATE = this.props.user.status === "inactive";
         let editEmail;
         const bottomButtons = [];
-        let title = t(`usersTab.roles.${this.props.user.role}`);
+        let title = t(`usersTab:roles.${this.props.user.role}`);
 
         if (ISDEACTIVATE) {
             bottomButtons.push(
@@ -553,6 +554,11 @@ class UserRightPanel extends Component {
                                         <tr>
                                             <td className="labelText">
                                                 {t("Creation")}:
+                                            </td>
+                                            <td className="infoText">
+                                                {moment(
+                                                    this.props.user.creationTs
+                                                ).format("LLLL")}
                                             </td>
                                         </tr>
                                         <tr>

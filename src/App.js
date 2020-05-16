@@ -74,8 +74,7 @@ export default () => {
             },
         },
         onError: (error, retry, repsonse) => {
-            setTimeout(() => retry(), 5000);
-            repsonse && console.log(repsonse);
+            repsonse && console.error(repsonse);
         },
     });
 

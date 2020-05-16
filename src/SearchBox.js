@@ -1,10 +1,12 @@
 import React from "react";
-import { withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-export default withTranslation()(({ tableInstance, t }) => {
+export default ({ ns, tableInstance }) => {
+    const { t } = useTranslation(ns);
+
     const { state, setGlobalFilter } = tableInstance;
 
     const onChange = event => setGlobalFilter(event.target.value || undefined);
@@ -17,7 +19,7 @@ export default withTranslation()(({ tableInstance, t }) => {
                 <InputGroup.Text>
                     <span
                         role="img"
-                        aria-label={t("usersTab.searchBox.filter")}
+                        aria-label={t("searchBox.filter")}
                     >
                         🔍
                     </span>
@@ -26,7 +28,7 @@ export default withTranslation()(({ tableInstance, t }) => {
             <Form.Control
                 className={state.globalFilter && "emptyFilter"}
                 type="text"
-                placeholder={t("usersTab.searchBox.placeholder")}
+                placeholder={t("searchBox.placeholder")}
                 value={state.globalFilter || ""}
                 {...{ onChange }}
             />
@@ -35,7 +37,7 @@ export default withTranslation()(({ tableInstance, t }) => {
                     <InputGroup.Text className="clearButton">
                         <span
                             role="img"
-                            aria-label={t("usersTab.searchBox.reset")}
+                            aria-label={t("searchBox.clear")}
                             {...{ onClick }}
                         >
                             ❌
@@ -45,4 +47,4 @@ export default withTranslation()(({ tableInstance, t }) => {
             )}
         </InputGroup>
     );
-});
+};

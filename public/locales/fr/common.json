@@ -8,26 +8,8 @@
     "One to one": "Conversation à deux",
     "Room": "Salon ",
     "Statistics for Watcha server": "Statistiques",
-    "Hide internal users": "Masquer les utilisateurs internes",
     "Hide one-to-one conversations": "Masquer les conversations à deux",
-    "Hide partners": "Masquer les utilisateurs externes",
-    "Hide inactive": "Masquer les salons inactifs",
     "Search": "Rechercher",
-    "Last Name": "Nom",
-    "First Name": "Prénom",
-    "This email address seems to be invalid. Please enter a valid email address.": "Cette adresse email semble invalide. Veuillez entrer une adresse email valide",
-    "Invalid Email": "Adresse email invalide",
-    "Invalid Last Name": "Nom invalide",
-    "First Name must contain at least two characters ": "Le Prénom doit contenir au moins deux caractères",
-    "Last Name must contain at least two characters ": "Le Nom doit contenir au moins deux caractères",
-    "Email already in use": "Email utilisé",
-    "Invalid First Name": "Prénom invalide",
-    " is already in use for a different account.": " est déjà associé à un compte.",
-    "User id required": "Nom d'utilisateur requis",
-    "Enter a valid user id": " Entrez un nom d'utilisateur valide ",
-    "User Creation Failed": " Échec lors de la création de l'utilisateur ",
-    "User Created": "Utilisateur créé",
-    " has been added to watcha": " a été ajouté à Watcha",
     "Upgrade to internal user": "Promouvoir en utilisateur interne",
     "Reset Password": " Réinitialiser le mot de passe",
     "Deactivate Account": "Désactiver le compte",
@@ -72,38 +54,9 @@
         "button": "Connexion",
         "loading": "Chargement..."
     },
-    "dashboardTab": {
-        "title": "Tableau de bord"
-    },
-    "usersTab": {
-        "title": "Utilisateurs",
-        "searchBox": {
-            "filter": "Filtrer",
-            "clear": "Effacer",
-            "placeholder": "Filtrer les utilisateurs"
-        },
-        "button": "Nouvel utilisateur",
-        "headers": {
-            "displayName": "Nom d'affichage",
-            "emailAddress": "Adresse électronique",
-            "lastSeen": "Dernière activité le",
-            "role": "Rôle",
-            "accountStatus": "Statut du compte"
-        },
-        "roles": {
-            "administrator": "Administrateur",
-            "collaborator": "Collaborateur",
-            "partner": "Partenaire"
-        },
-        "isActive": {
-            "1": "activé",
-            "0": "désactivé"
-        }
-    },
-    "roomsTab": {
-        "title": "Salons"
-    },
-    "monitoringTab": {
-        "title": "Monitorage"
-    }
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "success": "Opération terminée avec succès",
+    "danger": "Une erreur s'est produite"
 }
