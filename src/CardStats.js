@@ -18,23 +18,21 @@ export default withTranslation()(({ title, tab, lines, t }) => {
             if ({}.hasOwnProperty.call(lines, LINE)) {
                 if (lines[LINE].label === t("Admin")) {
                     const admins = [];
-                    for (const data in lines[LINE].data) {
-                        if (lines[LINE].data.hasOwnProperty(data)) {
-                            admins.push(
-                                <div
-                                    key={lines[LINE].data[data]}
-                                    adminname={lines[LINE].data[data]}
-                                >
-                                    <AdminCardStats
-                                        simplifiedname={simplifiedUserId(
-                                            lines[LINE].data[data]
-                                        )}
-                                        onUserClicked={onUserClicked}
-                                        adminName={lines[LINE].data[data]}
-                                    />
-                                </div>
-                            );
-                        }
+                    const profileInfosOfAdmins = lines[LINE].data;
+                    for (const profileInfo of profileInfosOfAdmins) {
+                        const displayName = setAdminName(
+                            profileInfo["displayname"],
+                            profileInfo["user_id"]
+                        );
+                        admins.push(
+                            <div key={profileInfo["user_id"]}>
+                                <AdminCardStats
+                                    email={profileInfo["email"]}
+                                    adminUserId={profileInfo["user_id"]}
+                                    {...{ onUserClicked, displayName }}
+                                />
+                            </div>
+                        );
                     }
                     panelContent.push(
                         <div key={lines[LINE].label}>
@@ -54,11 +52,8 @@ export default withTranslation()(({ title, tab, lines, t }) => {
         return panelContent;
     };
 
-    const simplifiedUserId = fulluserId => {
-        let simplifiedUserId = fulluserId[0].replace("@", "");
-        simplifiedUserId = simplifiedUserId.split(":");
-        simplifiedUserId = simplifiedUserId[0];
-        return simplifiedUserId;
+    const setAdminName = (displayName, userId) => {
+        return displayName || userId.replace("@", "").split(":")[0];
     };
 
     const PANEL_CONTENT = getPanelContent(lines);
