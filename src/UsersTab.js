@@ -1,22 +1,31 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import { useGet } from "restful-react";
-import { withTranslation } from "react-i18next";
-
-import Button from "./NewUserButton";
-import Date from "./Date";
-import DelayedSpinner from "./DelayedSpinner";
-import TableTab, { compareLowerCase } from "./TableTab";
+import { useTranslation } from "react-i18next";
 
 import { useDispatchContext, useUserIdContext } from "./contexts";
-import CreateUserRightPanel from "./CreateUserRightPanel";
+import Button from "./NewItemButton";
+import Date from "./Date";
+import DelayedSpinner from "./DelayedSpinner";
+import NewUserModal from "./NewUserModal";
+import TableTab, { compareLowerCase } from "./TableTab";
 import UserRightPanel from "./UserRightPanel";
 
-export default withTranslation()(({ t }) => {
+const ns = "usersTab";
+
+export default () => {
+    const { t } = useTranslation(ns);
+
     const userId = useUserIdContext();
     const dispatch = useDispatchContext();
 
     const [userList, setUserList] = useState(null);
-    const [intervalId, setIntervalId] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
     const [rightPanel, setRightPanel] = useState(null);
 
     const { data, refetch } = useGet({
@@ -25,84 +34,24 @@ export default withTranslation()(({ t }) => {
         resolve,
     });
 
-    const columns = useMemo(
-        () => [
-            {
-                Header: t("usersTab.headers.displayName"),
-                accessor: "displayName",
-                sortType: compareLowerCase,
-            },
-            {
-                Header: t("usersTab.headers.emailAddress"),
-                accessor: "emailAddress",
-                sortType: compareLowerCase,
-            },
-            {
-                Header: t("usersTab.headers.lastSeen"),
-                accessor: "lastSeen",
-                disableGlobalFilter: true,
-                Cell: ({ value }) => value && <Date timestamp={value} />,
-            },
-            {
-                Header: t("usersTab.headers.role"),
-                accessor: "role",
-                disableGlobalFilter: true,
-                Cell: ({ value }) => t(`usersTab.roles.${value}`),
-            },
-            {
-                Header: t("usersTab.headers.accountStatus"),
-                accessor: "accountStatus",
-                disableGlobalFilter: true,
-                Cell: ({ value }) => (
-                    <span className={value === 1 ? "active" : "inactive"}>
-                        {t(`usersTab.isActive.${value}`)}
-                    </span>
-                ),
-            },
-        ],
-        [t]
-    );
+    const refetchRef = useRef();
+    refetchRef.current = refetch;
 
-    const initialState = useMemo(
-        () => ({ sortBy: [{ id: "displayName", desc: false }] }),
-        []
-    );
-
-    const isEmailAvailable = useCallback(
-        () => value => userList.some(user => user.emailAddress === value),
-        [userList]
-    );
-
-    const onClose = useCallback(() => setRightPanel(), []);
-
-    const onClick = useCallback(
-        () =>
-            setRightPanel(
-                <CreateUserRightPanel {...{ isEmailAvailable, onClose }} />
-            ),
-        [isEmailAvailable, onClose]
-    );
-
-    const button = useMemo(() => <Button {...{ onClick }} />, [onClick]);
-
-    const editUser = useCallback(
-        user =>
-            setRightPanel(user && <UserRightPanel {...{ user, onClose }} />),
-        [onClose]
-    );
+    const intervalIdRef = useRef();
 
     useEffect(() => {
-        refetch();
+        refetchRef.current();
     }, []);
 
     useEffect(() => {
         setUserList(data);
-        const _intervalId = setInterval(() => refetch(), 10000);
-        setIntervalId(prevIntervalId => {
-            prevIntervalId && clearInterval(prevIntervalId);
-            return _intervalId;
-        });
+        if (intervalIdRef.current) {
+            clearInterval(intervalIdRef.current);
+        }
+        intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
     }, [data]);
+
+    const onClose = event => setRightPanel();
 
     useEffect(() => {
         if (userList && userId) {
@@ -114,17 +63,81 @@ export default withTranslation()(({ t }) => {
                 }
             }
         }
-    }, [userList, userId, dispatch, onClose]);
+    }, [userList, userId, dispatch]);
+
+    const button = <Button onClick={() => setModalShow(true)} {...{ ns }} />;
+
+    const newItemModal = (
+        <NewUserModal
+            newUserLocalEcho={user => setUserList([...userList, user])}
+            {...{ modalShow, setModalShow, userList }}
+        />
+    );
+
+    const editUser = useCallback(
+        user =>
+            setRightPanel(user && <UserRightPanel {...{ user, onClose }} />),
+        []
+    );
+
+    const columns = useMemo(
+        () => [
+            {
+                Header: t("headers.displayName"),
+                accessor: "displayName",
+                sortType: compareLowerCase,
+            },
+            {
+                Header: t("headers.emailAddress"),
+                accessor: "emailAddress",
+                sortType: compareLowerCase,
+            },
+            {
+                Header: t("headers.lastSeen"),
+                accessor: "lastSeen",
+                disableGlobalFilter: true,
+                Cell: ({ value }) => value && <Date timestamp={value} />,
+            },
+            {
+                Header: t("headers.role"),
+                accessor: "role",
+                disableGlobalFilter: true,
+                Cell: ({ value }) => t(`roles.${value}`),
+            },
+            {
+                Header: t("headers.status"),
+                accessor: "status",
+                disableGlobalFilter: true,
+                Cell: ({ value }) => (
+                    <span className={value}>{t(`status.${value}`)}</span>
+                ),
+            },
+        ],
+        [t]
+    );
+
+    const initialState = useMemo(
+        () => ({ sortBy: [{ id: "displayName", desc: false }] }),
+        []
+    );
 
     return userList ? (
         <TableTab
             data={userList}
-            {...{ columns, initialState, button, rightPanel, editUser }}
+            {...{
+                columns,
+                initialState,
+                button,
+                newItemModal,
+                editUser,
+                rightPanel,
+                ns,
+            }}
         />
     ) : (
         <DelayedSpinner />
     );
-});
+};
 
 const resolve = data =>
     data.map(item => ({
@@ -138,5 +151,6 @@ const resolve = data =>
                 : item.is_partner === 1
                 ? "partner"
                 : "collaborator",
-        accountStatus: item.is_active,
+        status: item.is_active === 1 ? "active" : "inactive",
+        creationTs: item.creation_ts * 1000,
     }));
