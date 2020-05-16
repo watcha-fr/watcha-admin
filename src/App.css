@@ -46,10 +46,6 @@
     align-items: center;
 }
 
-.loadingLoginText {
-    flex-grow: 1;
-}
-
 .searchBox {
     max-width: 20em;
 }
@@ -79,6 +75,11 @@
     height: 1.2em;
     margin-right: 0.5em;
     background-color: white;
+}
+
+.rightRoundedInput {
+    border-top-right-radius: 0.25rem !important;
+    border-bottom-right-radius: 0.25rem !important;
 }
 
 .tableTabBody {

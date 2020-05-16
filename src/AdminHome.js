@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
@@ -11,7 +11,9 @@ import UsersTab from "./UsersTab";
 
 const reducer = (state, payload) => ({ ...state, ...payload });
 
-export default withTranslation()(({ t }) => {
+export default () => {
+    const { t } = useTranslation();
+
     const [{ tab, userId, roomId }, dispatch] = useReducer(reducer, {
         tab: "dashboard",
         userId: null,
@@ -27,20 +29,20 @@ export default withTranslation()(({ t }) => {
                     <Tabs id="tabs" activeKey={tab} {...{ onSelect }}>
                         <Tab
                             eventKey="dashboard"
-                            title={t("dashboardTab.title")}
+                            title={t("dashboardTab:title")}
                         >
                             <DashboardTab />
                         </Tab>
-                        <Tab eventKey="users" title={t("usersTab.title")}>
+                        <Tab eventKey="users" title={t("usersTab:title")}>
                             <UsersTab />
                         </Tab>
-                        <Tab eventKey="rooms" title={t("roomsTab.title")}>
+                        <Tab eventKey="rooms" title={t("roomsTab:title")}>
                             <RoomsTab />
                         </Tab>
                         {/* not functional yet
                         <Tab
                             eventKey="monitoring"
-                            title={t("monitoringTab.title")}
+                            title={t("monitoringTab:title")}
                         >
                             <MonitoringTab />
                         </Tab> */}
@@ -49,4 +51,4 @@ export default withTranslation()(({ t }) => {
             </UserIdContext.Provider>
         </DispatchContext.Provider>
     );
-});
+};

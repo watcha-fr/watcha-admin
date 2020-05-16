@@ -1,11 +1,13 @@
 import React from "react";
 import { useGet } from "restful-react";
-import { withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import CardStats from "./CardStats";
 import DelayedSpinner from "./DelayedSpinner";
 
-export default withTranslation()(({ t }) => {
+export default () => {
+    const { t } = useTranslation();
+
     const { data, loading, error } = useGet({ path: "watcha_admin_stats" });
 
     if (error) {
@@ -19,14 +21,14 @@ export default withTranslation()(({ t }) => {
             <div className="statsPanelsContainer">
                 <CardStats
                     lines={[
-                        { label: t("dashboardTab.collaborators"), data: data.users.collaborators },
-                        { label: t("dashboardTab.partners"), data: data.users.partners },
-                        { label: t("dashboardTab.weeklyUsers"), data: data.users.number_of_last_week_logged_users },
-                        { label: t("dashboardTab.monthlyUsers"), data: data.users.number_of_last_month_logged_users },
-                        { label: t("dashboardTab.loggedUsers"), data: data.users.number_of_users_logged_at_least_once },
+                        { label: t("dashboardTab:collaborators"), data: data.users.collaborators },
+                        { label: t("dashboardTab:partners"), data: data.users.partners },
+                        { label: t("dashboardTab:weeklyUsers"), data: data.users.number_of_last_week_logged_users },
+                        { label: t("dashboardTab:monthlyUsers"), data: data.users.number_of_last_month_logged_users },
+                        { label: t("dashboardTab:loggedUsers"), data: data.users.number_of_users_logged_at_least_once },
                         { label: t("Admin"), data: data.admins },
                     ]}
-                    title={t("usersTab.title")}
+                    title={t("usersTab:title")}
                     tab="users"
                 />
                 <CardStats
@@ -49,10 +51,10 @@ export default withTranslation()(({ t }) => {
                         },
 
                     ]}
-                    title={t("roomsTab.title")}
+                    title={t("roomsTab:title")}
                     tab="rooms"
                 />
             </div>
         </div>
     );
-});
+};
