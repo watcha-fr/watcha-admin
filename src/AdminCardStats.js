@@ -1,15 +1,10 @@
 import React from "react";
 
-function AdminCardStats({ onUserClicked, adminName, simplifiedname }) {
-    function onClick() {
-        onUserClicked(adminName[[0]]);
-    }
-
+export default ({ onUserClicked, adminUserId, displayName, email }) => {
+    const onClick = () => onUserClicked(adminUserId);
     return (
         <div className="AdminName" {...{ onClick }}>
-            {simplifiedname}
+            {`${displayName} (${email})`}
         </div>
     );
-}
-
-export default AdminCardStats;
+};

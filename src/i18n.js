@@ -1,7 +1,9 @@
+import { initReactI18next } from "react-i18next";
 import i18n from "i18next";
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
-import { initReactI18next } from "react-i18next";
+import moment from "moment";
+import "moment/locale/fr";
 
 const mxLanguageDetector = {
     name: "mxLocalSettings",
@@ -42,7 +44,7 @@ i18n
     .init({
         debug: false,
         fallbackLng: "en",
-        ns: ["common"],
+        ns: ["common", "dashboardTab", "usersTab", "roomsTab", "monitoringTab"],
         defaultNS: "common",
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
@@ -53,5 +55,7 @@ i18n
             caches: ["mxLocalSettings"],
         },
     });
+
+i18n.on("languageChanged", lng => moment.locale(lng));
 
 export default i18n;

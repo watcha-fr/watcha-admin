@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import CreateUserRightPanel from "./CreateUserRightPanel";
 import RoomRightPanel from "./RoomRightPanel";
 import UserRightPanel from "./UserRightPanel";
 
@@ -20,7 +19,6 @@ class CollapsableRightPanel extends Component {
                         onClose={this.props.onClose}
                         lang={this.props.lang}
                         refresh={this.props.refresh}
-                        onTabSelected={this.props.onTabSelected}
                         refreshRightPanel={this.props.refreshRightPanel}
                         update={this.props.update}
                     />
@@ -33,20 +31,6 @@ class CollapsableRightPanel extends Component {
                         data={this.props.data}
                         onClose={this.props.onClose}
                         refresh={this.props.refresh}
-                        onTabSelected={this.props.onTabSelected}
-                    />
-                );
-                break;
-
-            case "createUser":
-                panel = (
-                    <CreateUserRightPanel
-                        data={this.props.data}
-                        onClose={this.props.onClose}
-                        refresh={this.props.refresh}
-                        refreshRightPanel={this.props.refreshRightPanel}
-                        isEmailAvailable={this.props.isEmailAvailable}
-                        onTabSelected={this.props.onTabSelected}
                     />
                 );
                 break;

@@ -1,62 +1,49 @@
-import React, { Component } from "react";
+import React from "react";
 import { withTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
+import { useDispatchContext } from "./contexts";
 import AdminCardStats from "./AdminCardStats";
 
-class CardStats extends Component {
-    onCardClicked = () => {
-        const { t } = this.props;
-        if (this.props.title === t("Users")) {
-            this.props.onTabSelected(2, false);
-        } else if (this.props.title === t("Rooms")) {
-            this.props.onTabSelected(3, false);
-        }
-    };
+export default withTranslation()(({ title, tab, lines, t }) => {
+    const dispatch = useDispatchContext();
 
-    onUserClicked = username => this.props.onTabSelected(2, username);
+    const onCardClicked = () => dispatch({ tab });
 
-    getPanelContent = () => {
-        const { t } = this.props;
+    const onUserClicked = userId => dispatch({ tab: "users", userId });
+
+    const getPanelContent = lines => {
         const panelContent = [];
-        for (const LINE in this.props.lines) {
-            if ({}.hasOwnProperty.call(this.props.lines, LINE)) {
-                if (this.props.lines[LINE].label === t("Admin")) {
+        for (const LINE in lines) {
+            if ({}.hasOwnProperty.call(lines, LINE)) {
+                if (lines[LINE].label === t("Admin")) {
                     const admins = [];
-                    for (const data in this.props.lines[LINE].data) {
-                        if (this.props.lines[LINE].data.hasOwnProperty(data)) {
-                            admins.push(
-                                <div
-                                    key={this.props.lines[LINE].data[data]}
-                                    adminname={
-                                        this.props.lines[LINE].data[data]
-                                    }
-                                >
-                                    <AdminCardStats
-                                        simplifiedname={this.simplifiedUserId(
-                                            this.props.lines[LINE].data[data]
-                                        )}
-                                        onUserClicked={this.onUserClicked}
-                                        adminName={
-                                            this.props.lines[LINE].data[data]
-                                        }
-                                    />
-                                </div>
-                            );
-                        }
+                    const profileInfosOfAdmins = lines[LINE].data;
+                    for (const profileInfo of profileInfosOfAdmins) {
+                        const displayName = setAdminName(
+                            profileInfo["displayname"],
+                            profileInfo["user_id"]
+                        );
+                        admins.push(
+                            <div key={profileInfo["user_id"]}>
+                                <AdminCardStats
+                                    email={profileInfo["email"]}
+                                    adminUserId={profileInfo["user_id"]}
+                                    {...{ onUserClicked, displayName }}
+                                />
+                            </div>
+                        );
                     }
                     panelContent.push(
-                        <div key={this.props.lines[LINE].label}>
+                        <div key={lines[LINE].label}>
                             {" "}
                             {t("Administrators")}: {admins}{" "}
                         </div>
                     );
                 } else {
                     panelContent.push(
-                        <div key={this.props.lines[LINE].label}>
-                            {this.props.lines[LINE].label +
-                                ": " +
-                                this.props.lines[LINE].data}
+                        <div key={lines[LINE].label}>
+                            {lines[LINE].label + ": " + lines[LINE].data}
                         </div>
                     );
                 }
@@ -65,30 +52,24 @@ class CardStats extends Component {
         return panelContent;
     };
 
-    simplifiedUserId = fulluserId => {
-        let simplifiedUserId = fulluserId[0].replace("@", "");
-        simplifiedUserId = simplifiedUserId.split(":");
-        simplifiedUserId = simplifiedUserId[0];
-        return simplifiedUserId;
+    const setAdminName = (displayName, userId) => {
+        return displayName || userId.replace("@", "").split(":")[0];
     };
 
-    render() {
-        const PANEL_CONTENT = this.getPanelContent();
-        return (
-            <Card className="statsPanel">
-                <Card.Header>
-                    <span className="StatsTitle" onClick={this.onCardClicked}>
-                        {this.props.title}
-                    </span>
-                </Card.Header>
-                <Card.Body>
-                    <div className="statsPanelContent">
-                        <div>{PANEL_CONTENT}</div>
-                    </div>
-                </Card.Body>
-            </Card>
-        );
-    }
-}
+    const PANEL_CONTENT = getPanelContent(lines);
 
-export default withTranslation()(CardStats);
+    return (
+        <Card className="statsPanel">
+            <Card.Header>
+                <span className="StatsTitle" onClick={onCardClicked}>
+                    {title}
+                </span>
+            </Card.Header>
+            <Card.Body>
+                <div className="statsPanelContent">
+                    <div>{PANEL_CONTENT}</div>
+                </div>
+            </Card.Body>
+        </Card>
+    );
+});
