@@ -1,10 +1,10 @@
 import React from "react";
 
-export default ({ onUserClicked, adminName, simplifiedname }) => {
-    const onClick = () => onUserClicked(adminName[0]);
+export default ({ onUserClicked, adminUserId, displayName, email }) => {
+    const onClick = () => onUserClicked(adminUserId);
     return (
         <div className="AdminName" {...{ onClick }}>
-            {simplifiedname}
+            {`${displayName} (${email})`}
         </div>
     );
 };
