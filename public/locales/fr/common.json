@@ -1,37 +1,24 @@
 {
-    "Sign in": "Connexion",
     "Members": "Utilisateurs internes ",
     "Member": "Utilisateur interne",
     "Internal users": "Utilisateurs internes",
     "Partners": "Partenaires ",
-    "Partner": "Partenaire ",
     "Administrators": "Administrateurs ",
-    "Admin": "Administrateur ",
     "Active rooms": "Salons actifs ",
     "One-to-one conversations": "Conversations à deux ",
     "One to one": "Conversation à deux",
     "Inactive Rooms": "Salons inactifs ",
-    "Inactive": "Inactifs",
-    "Rooms": "Salons",
     "Room": "Salon ",
-    "Loading": "Chargement",
-    "Users": "Utilisateurs",
-    "Status": "Rôle",
-    "User": "Utilisateur ",
-    "Overview": "Etat du serveur",
     "Statistics for Watcha server": "Statistiques",
     "Hide internal users": "Masquer les utilisateurs internes",
     "Hide one-to-one conversations": "Masquer les conversations à deux",
     "Hide partners": "Masquer les utilisateurs externes",
     "Hide inactive": "Masquer les salons inactifs",
     "Search": "Rechercher",
-    "Create user": "Nouvel utilisateur",
-    "User Id": "Nom d'utilisateur",
     "Last Name": "Nom",
     "First Name": "Prénom",
     "This email address seems to be invalid. Please enter a valid email address.": "Cette adresse email semble invalide. Veuillez entrer une adresse email valide",
     "Invalid Email": "Adresse email invalide",
-    "Email": "Email ",
     "Invalid Last Name": "Nom invalide",
     "First Name must contain at least two characters ": "Le Prénom doit contenir au moins deux caractères",
     "Last Name must contain at least two characters ": "Le Nom doit contenir au moins deux caractères",
@@ -49,7 +36,6 @@
     "Show connection history": "voir l'historique de connexion",
     "Device": "Appareil",
     "Devices": "Appareils",
-    "Last seen": "Dernière activité le",
     "Connected": "Connecté",
     "Creation": "Création ",
     "Account deactivated": "Compte désactivé",
@@ -63,8 +49,6 @@
     "The account ": "Le compte ",
     " has been reactivated, and an email has been sent to the user with a new password": " a été réactivé, et un nouveau mot de passe a été envoyé à l'utilisateur",
     "Password reset failed": "L'opération a échoué",
-    "Name": "Nom",
-    "Active": "Actif",
     "Creator": "Créateur",
     "Show users": "Afficher les utilisateurs",
     "Users in this room": "Utilisateurs dans ce salon",
@@ -74,11 +58,50 @@
     "Room Id": "Identifiant du salon",
     "Password reset": "Mot de passe réinitialisé",
     "Activate account": "Activer le compte",
-    "Administration interface": "Interface d'administration",
-    "Password": "Mot de passe",
 
     "errorBoundary": {
         "title": "Quelque chose s’est mal passé !",
         "body": "<0>Si le disfonctionnement venait à se reproduire, veuillez nous contacter à <0>{{email}}</0>.</0><1>Vous allez être redirigé vers <0>{{redirectUrl}}</0> dans quelques secondes...</1>"
+    },
+    "login": {
+        "title": "Interface d'administration",
+        "username": "Adresse électronique",
+        "password": "Mot de passe",
+        "button": "Connexion",
+        "loading": "Chargement..."
+    },
+    "dashboardTab": {
+        "title": "Tableau de bord"
+    },
+    "usersTab": {
+        "title": "Utilisateurs",
+        "searchBox": {
+            "filter": "Filtrer",
+            "clear": "Effacer",
+            "placeholder": "Filtrer les utilisateurs"
+        },
+        "button": "Nouvel utilisateur",
+        "headers": {
+            "displayName": "Nom d'affichage",
+            "emailAddress": "Adresse électronique",
+            "lastSeen": "Dernière activité le",
+            "role": "Rôle",
+            "accountStatus": "Statut du compte"
+        },
+        "roles": {
+            "administrator": "Administrateur",
+            "collaborator": "Collaborateur",
+            "partner": "Partenaire"
+        },
+        "isActive": {
+            "1": "activé",
+            "0": "désactivé"
+        }
+    },
+    "roomsTab": {
+        "title": "Salons"
+    },
+    "monitoringTab": {
+        "title": "Monitorage"
     }
 }
