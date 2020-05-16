@@ -2,17 +2,30 @@
 
 ## Building in debug
 
-`npm start`
+```
+cd ..
+git git@github.com:watcha-fr/matrix-js-sdk.git
+git clone
+cd ../watcha-admin
+yarn install
+cd node_modules
+ln -s ../../matrix-js-sdk
+cd ..
+# will try to start against a local Synapse -- see below to run against a different one
+yarn start
+```
 
 ## Doing a release
 
-Running the script https://github.com/watcha-fr/devops/blob/dev/prod/watchaadmin-release.sh should do the job, including tagging and upload to release repository.
+Running https://github.com/watcha-fr/devops/blob/dev/build/watchaadmin.sh should do the job, including tagging and upload to release repository.
+
+See also https://github.com/watcha-fr/devops/blob/dev/prod/watchaadmin-install.sh on how it is installed in production
 
 ## Using in dev
 
-To connect to a specific Home core server, define `REACT_APP_CORE` environement variable, e.g. run:
+To connect to a specific Synapse home server, define the `REACT_APP_CORE` environment variable, e.g. run:
 
-`REACT_APP_CORE=http://mycore.watcha.fr npm start`
+`REACT_APP_CORE=https://dev-core.watcha.fr yarn start`
 
 ## Using with Riot
 
@@ -29,11 +42,11 @@ server {
     }
 }
 ```
-* build riot using `npm run build` in the riot folrder
-* build this project using `npm run build` here
+* build riot using `yarn build` in the riot folrder
+* build this project using `yarn build` here
 * everything works :)
 
-Alternatively, it should be able to run with 'npm start' for both riot (i.e. make it run on port 7001) and watcha-admin make it run on port 1664),and a config like:
+Alternatively, it should be able to run with 'yarn start' for both riot (i.e. make it run on port 7001) and watcha-admin make it run on port 1664),and a config like:
 
 ```
 server {
