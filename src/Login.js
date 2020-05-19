@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { withTranslation } from "react-i18next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -11,7 +13,9 @@ import { useMatrixClientContext } from "./contexts";
 
 import logo from "./images/logo.svg";
 
-const Login = ({ setupClient, t, i18n }) => {
+const Login = ({ setupClient }) => {
+    const { t, i18n } = useTranslation();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [pendingLogin, setPendingLogin] = useState(false);
@@ -85,7 +89,7 @@ const Login = ({ setupClient, t, i18n }) => {
                     <InputGroup className="flex-nowrap">
                         <InputGroup.Prepend>
                             <InputGroup.Text>
-                                <i className="fas fa-user fa-fw"></i>
+                                <FontAwesomeIcon icon={faUser} fixedWidth />
                             </InputGroup.Text>
                         </InputGroup.Prepend>
                         <Form.Control
@@ -103,7 +107,7 @@ const Login = ({ setupClient, t, i18n }) => {
                     <InputGroup className="flex-nowrap">
                         <InputGroup.Prepend>
                             <InputGroup.Text>
-                                <i className="fas fa-key fa-fw"></i>
+                                <FontAwesomeIcon icon={faKey} fixedWidth />
                             </InputGroup.Text>
                         </InputGroup.Prepend>
                         <Form.Control
@@ -127,4 +131,4 @@ Login.propTypes = {
     setupClient: PropTypes.func.isRequired,
 };
 
-export default withTranslation()(Login);
+export default Login;

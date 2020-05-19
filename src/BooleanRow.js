@@ -1,15 +1,18 @@
 import React from "react";
-import classNames from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default ({ rowSelected, value }) => (
     <span>
-        <i
-            className={classNames("fas", {
-                "fa-check": value,
-                "fa-times": !value,
-                trueBoolean: !rowSelected && value,
-                falseBoolean: !rowSelected && !value,
-            })}
-        ></i>
+        <FontAwesomeIcon
+            className={
+                !rowSelected && value
+                    ? "trueBoolean"
+                    : !rowSelected && !value
+                    ? "falseBoolean"
+                    : undefined
+            }
+            icon={value ? faCheck : faTimes}
+        />
     </span>
 );
