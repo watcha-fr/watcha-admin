@@ -2,6 +2,7 @@
     "title": "Tableau de bord",
     "collaborators": "Collaborateurs",
     "partners": "Partenaires",
+    "admin": "Administrateurs",
     "loggedUsers": "Utilisateurs connectés au moins une fois",
     "monthlyUsers": "Utilisateurs connectés sur le dernier mois",
     "weeklyUsers": "Utilisateurs connectés sur la dernière semaine",

@@ -26,8 +26,8 @@ export default () => {
                         { label: t("dashboardTab:weeklyUsers"), data: data.users.number_of_last_week_logged_users },
                         { label: t("dashboardTab:monthlyUsers"), data: data.users.number_of_last_month_logged_users },
                         { label: t("dashboardTab:loggedUsers"), data: data.users.number_of_users_logged_at_least_once },
-                        { label: t("dashboardTab.pendingInvitationUsers"), data: data.users.number_of_users_with_pending_invitation },
-                        { label: t("Admin"), data: data.admins },
+                        { label: t("dashboardTab:pendingInvitationUsers"), data: data.users.number_of_users_with_pending_invitation },
+                        { label: t("dashboardTab:admin"), data: data.admins },
                     ]}
                     title={t("usersTab:title")}
                     tab="users"
