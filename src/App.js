@@ -17,21 +17,22 @@ export default () => {
 
     useEffect(() => {
         Promise.resolve(getBaseUrl()).then(baseUrl => {
-            const client = sdk.createClient({ baseUrl });
-            setClient(client);
-
+            let client;
             const accessToken = localStorage.getItem("mx_access_token");
-            if (accessToken) {
-                client
-                    .loginWithToken(accessToken)
-                    .then(() => setupClient(client))
-                    .catch(error => {
-                        setMissingAccessToken(true);
-                        console.error(error.message);
-                    });
+            const userId = localStorage.getItem("mx_user_id");
+
+            if (accessToken && userId) {
+                client = sdk.createClient({
+                    baseUrl,
+                    accessToken,
+                    userId,
+                });
+                setupClient(client);
             } else {
+                client = sdk.createClient({ baseUrl });
                 setMissingAccessToken(true);
             }
+            setClient(client);
         });
     }, []);
 
@@ -63,6 +64,14 @@ export default () => {
             if (state === "PREPARED") {
                 setClientPrepared(true);
             }
+        });
+        client.on("Session.logged_out", error => {
+            console.error(error.message);
+            Promise.resolve(getBaseUrl()).then(baseUrl => {
+                client = sdk.createClient({ baseUrl });
+                setClient(client);
+                setMissingAccessToken(true);
+            });
         });
     };
 
