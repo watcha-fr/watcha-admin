@@ -84,7 +84,7 @@ const TABLE_TYPE =
 
         room: {
             primaryKey: "Room Id",
-            apiAdress: "_matrix/client/r0/watcha_extend_room_list",
+            apiAdress: "_matrix/client/r0/watcha_room_list",
             header: {
                 "Room Id": {
                     name: "room_id",
