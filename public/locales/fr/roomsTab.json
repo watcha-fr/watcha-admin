@@ -1,3 +1,4 @@
 {
-    "title": "Salons"
+    "title": "Salons",
+    "noRoomsMessage": "Cette installation de Watcha n'a encore aucun salon. Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")"
 }
