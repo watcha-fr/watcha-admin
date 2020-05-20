@@ -29,7 +29,7 @@ export default () => {
                     tab="users"
                 />
                 <CardStats
-                    lines={[
+                    lines={data.rooms.non_direct_rooms_count === 0 && data.rooms.direct_rooms_count ===0 ? [] : [
                         {
                             label: t("Number of rooms"),
                             data: data.rooms.non_direct_rooms_count,
