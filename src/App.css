@@ -300,8 +300,10 @@ td .inactive {
     background: grey;
 }
 
-.StatsTitle {
+.statsPanelFooter:hover{
     cursor: pointer;
+    background-color: darkturquoise;
+    text-decoration: underline;
 }
 
 .TableAdvanced {
