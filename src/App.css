@@ -219,6 +219,12 @@ td .inactive {
     color: white;
 }
 
+.statsPanelFooter:hover{
+    cursor: pointer;
+    background-color: darkturquoise;
+    text-decoration: underline;
+}
+
 .dismissRight {
     cursor: pointer;
 }
@@ -298,12 +304,6 @@ td .inactive {
 
 .ServerStatePanelBody {
     background: grey;
-}
-
-.statsPanelFooter:hover{
-    cursor: pointer;
-    background-color: darkturquoise;
-    text-decoration: underline;
 }
 
 .TableAdvanced {
