@@ -52,7 +52,7 @@ export default withTranslation()(({ title, tab, lines, t }) => {
             }
         }else{
             panelContent.push(
-                <div class="noRoomsMessage">{t("roomsTab:noRoomsMessage")}</div>
+                <div>{t("roomsTab:noRoomsMessage")}</div>
             );
         }
 
