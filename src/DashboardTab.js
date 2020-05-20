@@ -26,6 +26,7 @@ export default () => {
                         { label: t("Admin"), data: data.admins },
                     ]}
                     title={t("usersTab:title")}
+                    footer={t("usersTab:footer")}
                     tab="users"
                 />
                 <CardStats
@@ -49,6 +50,7 @@ export default () => {
 
                     ]}
                     title={t("roomsTab:title")}
+                    footer={t("roomsTab:footer")}
                     tab="rooms"
                 />
             </div>
