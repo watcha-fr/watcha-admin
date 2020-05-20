@@ -61,7 +61,7 @@ export default withTranslation()(({ title, tab, lines, t, footer }) => {
     return (
         <Card className="statsPanel">
             <Card.Header>
-                <span className="StatsTitle">
+                <span>
                     {title}
                 </span>
             </Card.Header>
