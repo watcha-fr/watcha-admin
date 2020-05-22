@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import { useDispatchContext } from "./contexts";
 import AdminCardStats from "./AdminCardStats";
 
-export default withTranslation()(({ title, tab, lines, t }) => {
+export default withTranslation()(({ title, tab, lines, t, footer }) => {
     const dispatch = useDispatchContext();
 
     const onCardClicked = () => dispatch({ tab });
@@ -68,7 +68,7 @@ export default withTranslation()(({ title, tab, lines, t }) => {
     return (
         <Card className="statsPanel">
             <Card.Header>
-                <span className="StatsTitle" onClick={onCardClicked}>
+                <span>
                     {title}
                 </span>
             </Card.Header>
@@ -77,6 +77,11 @@ export default withTranslation()(({ title, tab, lines, t }) => {
                     <div>{PANEL_CONTENT}</div>
                 </div>
             </Card.Body>
+            <Card.Footer>
+                <span className="statsPanelFooter" onClick={onCardClicked}>
+                    {footer}
+                </span>
+            </Card.Footer>
         </Card>
     );
 });
