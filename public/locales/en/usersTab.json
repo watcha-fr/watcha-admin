@@ -1,6 +1,5 @@
 {
     "title": "Users",
-    "footer": "Administrate users",
     "searchBox": {
         "filter": "Filter",
         "clear": "Clear",

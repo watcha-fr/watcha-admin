@@ -1,3 +1,9 @@
 {
-    "title": "Tableau de bord"
+    "title": "Tableau de bord",
+    "usersPannel": {
+        "footerLink": "Administrer les utilisateurs"
+    },
+    "roomsPannel": {
+        "footerLink": "Administrer les salons"
+    }
 }
