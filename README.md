@@ -4,8 +4,9 @@
 
 ```
 cd ..
-git git@github.com:watcha-fr/matrix-js-sdk.git
-git clone
+git clone git@github.com:watcha-fr/matrix-js-sdk.git
+cd matrix-js-sdk
+yarn install
 cd ../watcha-admin
 yarn install
 cd node_modules

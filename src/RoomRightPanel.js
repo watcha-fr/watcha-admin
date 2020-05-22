@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { withTranslation } from "react-i18next";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
@@ -75,10 +77,11 @@ class RoomRightPanel extends Component {
                                     this.props.data["Room Id"][
                                         "simplifiedData"
                                     ]}
-                                <i
-                                    className="fas fa-times dismissRight"
+                                <FontAwesomeIcon
+                                    className="dismissRight"
+                                    icon={faTimes}
                                     onClick={this.props.onClose}
-                                ></i>
+                                />
                             </Card.Header>
 
                             <div className="pannelContainer">

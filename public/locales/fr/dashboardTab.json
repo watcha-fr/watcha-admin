@@ -7,12 +7,15 @@
         "loggedUsers": "Utilisateurs connectés au moins une fois",
         "monthlyUsers": "Utilisateurs connectés sur le dernier mois",
         "weeklyUsers": "Utilisateurs connectés sur la dernière semaine",
-        "pendingInvitationUsers": "Utilisateurs ayant une invitation en attente"
+        "pendingInvitationUsers": "Utilisateurs ayant une invitation en attente",
+        "footerLink": "Administrer les utilisateurs"
     },
     "roomsPannel": {
         "nonDirectRoomsCount": "Nombre de salons",
         "nonDirectActiveRoomsCount": "Dont salons actifs",
         "directRoomsCount": "Nombre de conversations privées",
-        "directActiveRoomsCount": "Dont conversations privées actives"
+        "directActiveRoomsCount": "Dont conversations privées actives",
+        "footerLink": "Administrer les salons",
+        "noRoomsMessage": "Cette installation de Watcha n'a encore aucun salon. Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")"
     }
 }
