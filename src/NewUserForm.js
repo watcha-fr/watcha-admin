@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Formik } from "formik";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faAt } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 import Button from "react-bootstrap/Button";
@@ -71,7 +73,10 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
                             <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>
-                                        <i className="fas fa-user fa-fw"></i>
+                                        <FontAwesomeIcon
+                                            icon={faUser}
+                                            fixedWidth
+                                        />
                                     </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <Form.Control
@@ -99,7 +104,10 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
                             <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>
-                                        <i className="fas fa-at fa-fw"></i>
+                                        <FontAwesomeIcon
+                                            icon={faAt}
+                                            fixedWidth
+                                        />
                                     </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <Form.Control

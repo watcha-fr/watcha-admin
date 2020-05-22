@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faPencilAlt,
+    faCheck,
+    faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import { withTranslation } from "react-i18next";
 import moment from "moment";
 import Accordion from "react-bootstrap/Accordion";
@@ -439,7 +445,7 @@ class UserRightPanel extends Component {
                     variant="primary"
                     className="editButton"
                 >
-                    <i className="fas fa-pencil-alt"></i>
+                    <FontAwesomeIcon icon={faPencilAlt} />
                 </Button> */}
             </td>
         );
@@ -460,7 +466,7 @@ class UserRightPanel extends Component {
                             variant="success"
                             className="validateButton"
                         >
-                            <i className="fas fa-check"></i>
+                            <FontAwesomeIcon icon={faCheck} />
                         </Button>
                     </td>
                 );
@@ -479,7 +485,7 @@ class UserRightPanel extends Component {
                             variant="danger"
                             className="cancelButton"
                         >
-                            <i className="fas fa-times"></i>
+                            <FontAwesomeIcon icon={faTimes} />
                         </Button>
                     </td>
                 );
@@ -540,10 +546,11 @@ class UserRightPanel extends Component {
                         {title +
                             " : " +
                             this.simplifiedUserId(this.props.user.userId)}
-                        <i
-                            className="fas fa-times dismissRight"
+                        <FontAwesomeIcon
+                            className="dismissRight"
+                            icon={faTimes}
                             onClick={this.props.onClose}
-                        ></i>
+                        />
                     </Card.Header>
 
                     <div className="pannelContainer">
