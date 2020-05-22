@@ -8,5 +8,11 @@
         "monthlyUsers": "Utilisateurs connectés sur le dernier mois",
         "weeklyUsers": "Utilisateurs connectés sur la dernière semaine",
         "pendingInvitationUsers": "Utilisateurs ayant une invitation en attente"
+    },
+    "roomsPannel": {
+        "nonDirectRoomsCount": "Nombre de salons",
+        "nonDirectActiveRoomsCount": "Dont salons actifs",
+        "directRoomsCount": "Nombre de conversations privées",
+        "directActiveRoomsCount": "Dont conversations privées actives"
     }
 }

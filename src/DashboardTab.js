@@ -35,19 +35,19 @@ export default () => {
                 <CardStats
                     lines={[
                         {
-                            label: t("Number of rooms"),
+                            label: t("dashboardTab:roomsPannel.nonDirectRoomsCount"),
                             data: data.rooms.non_direct_rooms_count,
                         },
                         {
-                            label: t("Of which active rooms"),
+                            label: t("dashboardTab:roomsPannel.nonDirectActiveRoomsCount"),
                             data: data.rooms.non_direct_active_rooms_count,
                         },
                         {
-                            label: t("Number of personnals conversations"),
+                            label: t("dashboardTab:roomsPannel.directRoomsCount"),
                             data: data.rooms.direct_rooms_count,
                         },
                         {
-                            label: t("Of which active personnals conversations"),
+                            label: t("dashboardTab:roomsPannel.directActiveRoomsCount"),
                             data: data.rooms.direct_active_rooms_count,
                         },
 

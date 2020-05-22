@@ -8,5 +8,11 @@
         "monthlyUsers": "Users logged last month",
         "weeklyUsers": "Users logged last week",
         "pendingInvitationUsers": "Users with pending invitation"
+    },
+    "roomsPannel": {
+        "nonDirectRoomsCount": "Number of rooms",
+        "nonDirectActiveRoomsCount": "Of which active rooms",
+        "directRoomsCount": "Number of personnals conversations",
+        "directActiveRoomsCount": "Of which active personnals conversations"
     }
 }
