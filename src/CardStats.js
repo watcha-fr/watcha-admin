@@ -14,41 +14,48 @@ export default withTranslation()(({ title, tab, lines, t }) => {
 
     const getPanelContent = lines => {
         const panelContent = [];
-        for (const LINE in lines) {
-            if ({}.hasOwnProperty.call(lines, LINE)) {
-                if (lines[LINE].label === t("Admin")) {
-                    const admins = [];
-                    const profileInfosOfAdmins = lines[LINE].data;
-                    for (const profileInfo of profileInfosOfAdmins) {
-                        const displayName = setAdminName(
-                            profileInfo["displayname"],
-                            profileInfo["user_id"]
+        if(lines.length !== 0){
+            for (const LINE in lines) {
+                if ({}.hasOwnProperty.call(lines, LINE)) {
+                    if (lines[LINE].label === t("Admin")) {
+                        const admins = [];
+                        const profileInfosOfAdmins = lines[LINE].data;
+                        for (const profileInfo of profileInfosOfAdmins) {
+                            const displayName = setAdminName(
+                                profileInfo["displayname"],
+                                profileInfo["user_id"]
+                            );
+                            admins.push(
+                                <div key={profileInfo["user_id"]}>
+                                    <AdminCardStats
+                                        email={profileInfo["email"]}
+                                        adminUserId={profileInfo["user_id"]}
+                                        {...{ onUserClicked, displayName }}
+                                    />
+                                </div>
+                            );
+                        }
+                        panelContent.push(
+                            <div key={lines[LINE].label}>
+                                {" "}
+                                {t("Administrators")}: {admins}{" "}
+                            </div>
                         );
-                        admins.push(
-                            <div key={profileInfo["user_id"]}>
-                                <AdminCardStats
-                                    email={profileInfo["email"]}
-                                    adminUserId={profileInfo["user_id"]}
-                                    {...{ onUserClicked, displayName }}
-                                />
+                    } else {
+                        panelContent.push(
+                            <div key={lines[LINE].label}>
+                                {lines[LINE].label + ": " + lines[LINE].data}
                             </div>
                         );
                     }
-                    panelContent.push(
-                        <div key={lines[LINE].label}>
-                            {" "}
-                            {t("Administrators")}: {admins}{" "}
-                        </div>
-                    );
-                } else {
-                    panelContent.push(
-                        <div key={lines[LINE].label}>
-                            {lines[LINE].label + ": " + lines[LINE].data}
-                        </div>
-                    );
                 }
             }
+        }else{
+            panelContent.push(
+                <div>{t("dashboardTab:roomsPannel.noRoomsMessage")}</div>
+            );
         }
+
         return panelContent;
     };
 
