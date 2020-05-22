@@ -1,10 +1,12 @@
 {
     "title": "Dashboard",
-    "collaborators": "Collaborators",
-    "partners": "Partners",
-    "admin": "Administrators",
-    "loggedUsers": "Users logged at least once",
-    "monthlyUsers": "Users logged last month",
-    "weeklyUsers": "Users logged last week",
-    "pendingInvitationUsers": "Users with pending invitation"
+    "usersPannel": {
+        "collaborators": "Collaborators",
+        "partners": "Partners",
+        "admin": "Administrators",
+        "loggedUsers": "Users logged at least once",
+        "monthlyUsers": "Users logged last month",
+        "weeklyUsers": "Users logged last week",
+        "pendingInvitationUsers": "Users with pending invitation"
+    }
 }

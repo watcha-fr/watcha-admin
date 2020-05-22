@@ -16,7 +16,7 @@ export default withTranslation()(({ title, tab, lines, t }) => {
         const panelContent = [];
         for (const LINE in lines) {
             if ({}.hasOwnProperty.call(lines, LINE)) {
-                if (lines[LINE].label === t("dashboardTab:admin")) {
+                if (lines[LINE].label === t("dashboardTab:usersPannel.admin")) {
                     const admins = [];
                     const profileInfosOfAdmins = lines[LINE].data;
                     for (const profileInfo of profileInfosOfAdmins) {
