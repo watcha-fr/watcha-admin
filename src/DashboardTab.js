@@ -26,29 +26,42 @@ export default () => {
                         { label: t("Admin"), data: data.admins },
                     ]}
                     title={t("usersTab:title")}
+                    footer={t("dashboardTab:usersPannel.footerLink")}
                     tab="users"
                 />
                 <CardStats
-                    lines={[
-                        {
-                            label: t("Number of rooms"),
-                            data: data.rooms.non_direct_rooms_count,
-                        },
-                        {
-                            label: t("Of which active rooms"),
-                            data: data.rooms.non_direct_active_rooms_count,
-                        },
-                        {
-                            label: t("Number of personnals conversations"),
-                            data: data.rooms.direct_rooms_count,
-                        },
-                        {
-                            label: t("Of which active personnals conversations"),
-                            data: data.rooms.direct_active_rooms_count,
-                        },
-
-                    ]}
+                    lines={
+                        data.rooms.non_direct_rooms_count === 0 &&
+                        data.rooms.direct_rooms_count === 0
+                            ? []
+                            : [
+                                  {
+                                      label: t("Number of rooms"),
+                                      data: data.rooms.non_direct_rooms_count,
+                                  },
+                                  {
+                                      label: t("Of which active rooms"),
+                                      data:
+                                          data.rooms
+                                              .non_direct_active_rooms_count,
+                                  },
+                                  {
+                                      label: t(
+                                          "Number of personnals conversations"
+                                      ),
+                                      data: data.rooms.direct_rooms_count,
+                                  },
+                                  {
+                                      label: t(
+                                          "Of which active personnals conversations"
+                                      ),
+                                      data:
+                                          data.rooms.direct_active_rooms_count,
+                                  },
+                              ]
+                    }
                     title={t("roomsTab:title")}
+                    footer={t("dashboardTab:roomsPannel.footerLink")}
                     tab="rooms"
                 />
             </div>

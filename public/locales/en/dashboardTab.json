@@ -1,3 +1,10 @@
 {
-    "title": "Dashboard"
+    "title": "Dashboard",
+    "usersPannel": {
+        "footerLink": "Administrate users"
+    },
+    "roomsPannel": {
+        "footerLink": "Administrate rooms",
+        "noRoomsMessage": "This Watcha instance does not yet have some rooms. Return to Watcha to create a first room (button \"+\")."
+    }
 }
