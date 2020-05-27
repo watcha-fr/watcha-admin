@@ -7,9 +7,9 @@
         "loggedUsers": "Utilisateurs connectés au moins une fois",
         "monthlyUsers": "Utilisateurs connectés sur le dernier mois",
         "weeklyUsers": "Utilisateurs connectés sur la dernière semaine",
-        "pendingInvitationUsers": "Utilisateurs ayant une invitation en attente",
+        "pendingInvitationUsers": "Invitations en cours",
         "administrateButton": "Administrer les utilisateurs",
-        "usersPerRole": "Répartition des utilisateurs",
+        "usersPerRole": "Rôles des utilisateurs",
         "connectedUsers": "Utilisateurs connectés",
         "otherStatistics": "Autres statistiques",
         "administratorsList": "Liste des administrateurs"
@@ -18,7 +18,8 @@
         "nonDirectRoomsCount": "Conversations a plusieurs / dont actives",
         "directRoomsCount": "Covnersations privées / dont actives",
         "administrateButton": "Administrer les salons",
-        "noRoomsMessage": "Cette installation de Watcha n'a encore aucun salon. Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")",
+        "noRoomsMessageOne": "Cette installation de Watcha n'a encore aucun salon.",
+        "noRoomsMessageTwo": "Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")",
         "roomsPerType": "Salons par type"
     }
 }

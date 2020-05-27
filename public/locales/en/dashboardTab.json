@@ -7,9 +7,9 @@
         "loggedUsers": "Users logged at least once",
         "monthlyUsers": "Users logged last month",
         "weeklyUsers": "Users logged last week",
-        "pendingInvitationUsers": "Users with pending invitation",
+        "pendingInvitationUsers": "Pending invitations",
         "administrateButton": "Administrate users",
-        "usersPerRole": "Distribution of users",
+        "usersPerRole": "Roles of users",
         "connectedUsers": "Connected users",
         "otherStatistics": "Other statistics",
         "administratorsList": "List of administrators"
@@ -18,7 +18,8 @@
         "nonDirectRoomsCount": "Multiple conversations / of which active",
         "directRoomsCount": "Personnals conversations  / of which active",
         "administrateButton": "Administrate rooms",
-        "noRoomsMessage": "This Watcha instance does not yet have some rooms. Return to Watcha to create a first room (button \"+\").",
+        "noRoomsMessageOne": "This Watcha instance does not yet have some rooms.",
+        "noRoomsMessageTwo": "Return to Watcha to create a first room (button \"+\").",
         "roomsPerType": "Rooms per type"
     }
 }
