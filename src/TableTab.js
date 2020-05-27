@@ -66,5 +66,7 @@ const fuzzyTextFilterFn = (rows, ids, filterValue) =>
 export function compareLowerCase(rowA, rowB, columnId) {
     const a = rowA.values[columnId].toLowerCase();
     const b = rowB.values[columnId].toLowerCase();
+    if (a === "") return 1;
+    if (b === "") return -1;
     return a === b ? 0 : a > b ? 1 : -1;
 }
