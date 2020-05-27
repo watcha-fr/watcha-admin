@@ -1,21 +1,26 @@
 {
     "title": "Dashboard",
-    "usersPannel": {
+    "usersPanel": {
         "collaborators": "Collaborators",
         "partners": "Partners",
-        "admin": "Administrators",
+        "administrators": "Administrators",
         "loggedUsers": "Users logged at least once",
         "monthlyUsers": "Users logged last month",
         "weeklyUsers": "Users logged last week",
         "pendingInvitationUsers": "Users with pending invitation",
-        "footerLink": "Administrate users"
+        "administrateButton": "Administrate users",
+        "usersPerRole": "Distribution of users",
+        "connectedUsers": "Connected users",
+        "otherStatistics": "Other statistics",
+        "administratorsList": "List of administrators"
     },
-    "roomsPannel": {
-        "nonDirectRoomsCount": "Number of rooms",
+    "roomsPanel": {
+        "nonDirectRoomsCount": "Multiple conversations",
         "nonDirectActiveRoomsCount": "Of which active rooms",
-        "directRoomsCount": "Number of personnals conversations",
+        "directRoomsCount": "Personnals conversations",
         "directActiveRoomsCount": "Of which active personnals conversations",
         "footerLink": "Administrate rooms",
-        "noRoomsMessage": "This Watcha instance does not yet have some rooms. Return to Watcha to create a first room (button \"+\")."
+        "noRoomsMessage": "This Watcha instance does not yet have some rooms. Return to Watcha to create a first room (button \"+\").",
+        "roomsPerType": "Rooms per type"
     }
 }

@@ -1,21 +1,26 @@
 {
     "title": "Tableau de bord",
-    "usersPannel": {
+    "usersPanel": {
         "collaborators": "Collaborateurs",
         "partners": "Partenaires",
-        "admin": "Administrateurs",
+        "administrators": "Administrateurs",
         "loggedUsers": "Utilisateurs connectés au moins une fois",
         "monthlyUsers": "Utilisateurs connectés sur le dernier mois",
         "weeklyUsers": "Utilisateurs connectés sur la dernière semaine",
         "pendingInvitationUsers": "Utilisateurs ayant une invitation en attente",
-        "footerLink": "Administrer les utilisateurs"
+        "administrateButton": "Administrer les utilisateurs",
+        "usersPerRole": "Répartition des utilisateurs",
+        "connectedUsers": "Utilisateurs connectés",
+        "otherStatistics": "Autres statistiques",
+        "administratorsList": "Liste des administrateurs"
     },
-    "roomsPannel": {
-        "nonDirectRoomsCount": "Nombre de salons",
+    "roomsPanel": {
+        "nonDirectRoomsCount": "Conversations a plusieurs",
         "nonDirectActiveRoomsCount": "Dont salons actifs",
-        "directRoomsCount": "Nombre de conversations privées",
+        "directRoomsCount": "Covnersations privées",
         "directActiveRoomsCount": "Dont conversations privées actives",
         "footerLink": "Administrer les salons",
-        "noRoomsMessage": "Cette installation de Watcha n'a encore aucun salon. Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")"
+        "noRoomsMessage": "Cette installation de Watcha n'a encore aucun salon. Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")",
+        "roomsPerType": "Salons par type"
     }
 }
