@@ -201,28 +201,62 @@ td .inactive {
     line-height: inherit;
 }
 
-.statsPanelContent {
+/* DashboardTab : */
+
+.dashboardPanelsContainer {
+    display: flex;
+    font-size: 18px;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    padding: 1.25rem;
+}
+
+.dashboardPanel {
+    display: flex;
+    width: 32%;
+    flex: 1;
+    margin: 5;
+    background-color: white;
+}
+
+.dashboardPanel .card-header {
     display: flex;
     justify-content: space-between;
 }
 
-.statsPanelsContainer {
-    display: flex;
-    font-size: 18px;
-    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+.dashboardPanelSection{
+    padding: 1rem;
+    font-size: 1rem;
 }
 
-.statsPanel {
-    flex-grow: 1;
-    margin: 2vw;
-    background-color: #337ab7;
+.dashboardPanelSection .h5{
+    font-size: 1rem;
+}
+
+.sectionPanelData{
+    text-align: right;
+    font-weight: bold;
+}
+
+#adminListSection .accordion{
+    width: 100%;
+}
+
+#adminListSection .card-header:hover{
+    background-color: darkturquoise;
+    cursor: pointer;
     color: white;
 }
 
-.statsPanelFooter:hover{
+#adminListSection .adminUserRow:hover{
+    background-color: darkturquoise;
+    cursor: pointer;
+    color: white;
+}
+
+.dashboardAdministrateButton:hover{
     cursor: pointer;
     background-color: darkturquoise;
-    text-decoration: underline;
+    border-color: darkturquoise;
 }
 
 .dismissRight {
@@ -323,3 +357,4 @@ td .inactive {
 .Log {
     color: blue;
 }
+
