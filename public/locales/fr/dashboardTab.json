@@ -15,11 +15,9 @@
         "administratorsList": "Liste des administrateurs"
     },
     "roomsPanel": {
-        "nonDirectRoomsCount": "Conversations a plusieurs",
-        "nonDirectActiveRoomsCount": "Dont salons actifs",
-        "directRoomsCount": "Covnersations privées",
-        "directActiveRoomsCount": "Dont conversations privées actives",
-        "footerLink": "Administrer les salons",
+        "nonDirectRoomsCount": "Conversations a plusieurs / dont actives",
+        "directRoomsCount": "Covnersations privées / dont actives",
+        "administrateButton": "Administrer les salons",
         "noRoomsMessage": "Cette installation de Watcha n'a encore aucun salon. Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")",
         "roomsPerType": "Salons par type"
     }

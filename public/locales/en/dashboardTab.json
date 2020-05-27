@@ -15,11 +15,9 @@
         "administratorsList": "List of administrators"
     },
     "roomsPanel": {
-        "nonDirectRoomsCount": "Multiple conversations",
-        "nonDirectActiveRoomsCount": "Of which active rooms",
-        "directRoomsCount": "Personnals conversations",
-        "directActiveRoomsCount": "Of which active personnals conversations",
-        "footerLink": "Administrate rooms",
+        "nonDirectRoomsCount": "Multiple conversations / of which active",
+        "directRoomsCount": "Personnals conversations  / of which active",
+        "administrateButton": "Administrate rooms",
         "noRoomsMessage": "This Watcha instance does not yet have some rooms. Return to Watcha to create a first room (button \"+\").",
         "roomsPerType": "Rooms per type"
     }
