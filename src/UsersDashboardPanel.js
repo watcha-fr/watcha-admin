@@ -38,7 +38,7 @@ export default withTranslation()(({ t, datas, tab }) => {
         },
         {
             title: t("dashboardTab:usersPanel.otherStatistics"),
-            labels: [t("dashboardTab:usersPanel.loggedUsers")],
+            labels: [t("dashboardTab:usersPanel.pendingInvitationUsers")],
             datas: [
                 datas.other_statistics.number_of_users_with_pending_invitation,
             ],
