@@ -12,7 +12,7 @@ const ns = "roomsTab";
 export default () => {
     const { t } = useTranslation(ns);
 
-    const [userList, setUserList] = useState(null);
+    const [roomList, setRoomList] = useState(null);
 
     const client = useMatrixClientContext();
 
@@ -46,7 +46,7 @@ export default () => {
     }, []);
 
     useEffect(() => {
-        setUserList(data);
+        setRoomList(data);
         if (intervalIdRef.current) {
             clearInterval(intervalIdRef.current);
         }
@@ -91,9 +91,9 @@ export default () => {
         []
     );
 
-    return userList ? (
+    return roomList ? (
         <TableTab
-            data={userList}
+            data={roomList}
             {...{ columns, initialState, newItemButton, ns }}
         />
     ) : (
