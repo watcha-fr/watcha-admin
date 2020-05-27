@@ -1,8 +1,8 @@
 import React from "react";
 import { useGet } from "restful-react";
 import { useTranslation } from "react-i18next";
-import UsersDashboardPannel from "./UsersDashboardPannel"
-import CardStats from "./CardStats";
+import UsersDashboardPanel from "./UsersDashboardPanel";
+import CardDeck from "react-bootstrap/CardDeck";
 import DelayedSpinner from "./DelayedSpinner";
 
 export default () => {
@@ -17,9 +17,8 @@ export default () => {
     return loading || !data ? (
         <DelayedSpinner />
     ) : (
-        <div>
-            <div className="statsPanelsContainer">
-            </div>
-        </div>
+        <CardDeck className="dashboardPanelsContainer">
+            <UsersDashboardPanel datas={data.users} tab="users" />
+        </CardDeck>
     );
 };
