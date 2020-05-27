@@ -259,6 +259,12 @@ td .inactive {
     border-color: darkturquoise;
 }
 
+.noRoomsMessage {
+    font-weight: bold;
+}
+
+/* end of DashboardTab : */
+
 .dismissRight {
     cursor: pointer;
 }
