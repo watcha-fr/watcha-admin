@@ -49,7 +49,7 @@ i18n
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
         },
-        backend: { loadPath: "/admin/locales/{{lng}}/{{ns}}.json" },
+        backend: { loadPath: "/admin-v2/locales/{{lng}}/{{ns}}.json" },
         detection: {
             order: ["mxLocalSettings", "navigator", "subdomain"],
             caches: ["mxLocalSettings"],
