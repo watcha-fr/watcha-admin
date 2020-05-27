@@ -1,0 +1,171 @@
+
+
+User Admin:
+
+  Only users that are server admins can use these APIs. A user can be marked as a server admin by updating the database directly, e.g.:
+
+  UPDATE users SET admin = 1 WHERE name = '@foo:bar.com'
+
+Create user:
+
+Remove/deactivate user:
+
+should we be able to hard remove (GDPR)
+users:
+devices
+last connection
+pusher
+displayname
+invitedby
+
+Deactivate Account:
+
+  This API deactivates an account. It removes active access tokens, resets the password, and deletes third-party IDs (to prevent the user requesting a password reset).
+    The api is:
+      POST /_matrix/client/r0/admin/deactivate/<user_id>
+
+        including an access_token of a server admin, and an empty request body.
+
+Destroy room:
+remove all users and block access or remove all trace of room in db?
+
+Deactivate room:
+can it be reactivated?
+
+
+
+Reset password:
+
+  Changes the password of another user.
+
+  The api is:
+
+    POST /_matrix/client/r0/admin/reset_password/<user_id>
+
+    with a body of:
+
+      {
+        "new_password": "<secret>"
+      }
+
+      including an access_token of a server admin.
+
+
+Display rooms list:
+
+Show users list:
+
+statistics: facturation, number of messages, check by users access to active session, device, location
+
+
+Hello,
+pour l'interface de paramétrage / suivi pour nos intégrateurs, j'ai identifié les phases de vie / actions / infos. Pourriez-vous svp me dire si c'est complet ? dès que nous sommes alignés je fais une proposition d'IHM si ça vous va:
+1/ Installation :
+Nom de l’entreprise
+Noms prénoms mails des participants
+
+2/ Maintien :
+Etat du serveur ok / ok
+Nombre de rooms
+Mémoire utilisée
+Listes des users et invités
+Accès aux logs ? lesquels ?
+
+Ajouter des participants
+Nom prénom mail
+Supprimer des participants
+Pick from list
+
+Next step : archivage des rooms
+
+1/ Installation :
+Nom de l’entreprise
+Noms prénoms mails des participants
+
+2/ Maintien :
+Etat du serveur ok / ok
+Nombre de rooms
+Mémoire utilisée
+Listes des users et invités
+Accès aux logs ? lesquels ?
+
+Ajouter des participants
+Nom prénom mail
+Supprimer des participants
+Pick from list
+
+Next step : archivage des rooms
+
+1/ Installation :
+Nom de l’entreprise
+Noms prénoms mails des participants
+
+2/ Maintien :
+Etat du serveur ok / ok
+Nombre de rooms
+Mémoire utilisée
+Listes des users et invités
+Accès aux logs ? lesquels ?
+
+Ajouter des participants
+Nom prénom mail
+Supprimer des participants
+Pick from list
+
+Next step : archivage des rooms
+Alexandre Storelli
+Je verrais aussi nom du sous-domaine voulu
+Du genre Bernard et Dugenou Avocats pourraient vouloir avoir bdavocats.watcha.fr
+Autre item pour installation: serveur mail interne ou sendinblue
+Maintien: changer l'admin
+Distinction entre supprimer participant (bloquer son compte) et supprimer participant (supprimer compte  et messages)
+Xavier
+thx Alex, je pensais que l'on figeait automatiquement le nom de domaine en faisant nomentreprise.domaineintégrateur.xx (ce peut être le nom de domaine de l'intégrateur)
+merci pour les autres remarques
+Alexandre Storelli
+un nom d'entreprise n'est pas unique, il y a un risque de collisions. Par exemple watcha https://www.societe.com/cgi-bin/search?champs=watcha
+sinon OK bien sûr pour le sous-domaine chez l'intégrateur
+Xavier
+Tu as raison!
+
+pour nos intégrateurs: quel sera selon vous le serveur mail? ils utilisent le notre? on leur en déploie un?
+dez je crois qu'on en avait déjà parlé
+Alexandre Storelli
+Et t'as des noms d'entreprises très longs, du genre https://www.societe.com/societe/picardie-maritime-habitat-fondation-paul-duclercq-005720610.html du coup il faut pouvoir choisir la façon de l'abréger
+Pour les serveurs mail, on peut proposer le nôtre par défaut, et donner une option à l'intégrateur pour mettre celui qu'il souhaite (champs SMTP, port, login, mdp, protocole...)
+Ce n'est pas à nous d'en déployer un à mon sens, mais c'est un truc qu'ils maîtrisent bien
+Xavier
+c'est pas des emmerdes en plus pour nous? (certificats, etc...) pas plus simple d'imposer le notre?
+Alexandre Storelli
+Ça ne me semble pas poser de souci particulier. Au contraire, vu que c'est délicat d'envoyer un mail qui n'arrive pas dans les spams depuis un canon à mail, les serveurs déjà existants des boîtes clientes feront un meilleur travail
+De plus, c'est un gros argument de confidentialité pour les clients
+Car on ne peut pas être sûr qu'il n'y a pas de petits malins chez SendInBlue qui lisent nos emails
+Alors que sur le serveur mail de Résophone, il y a des types de résophone qui veillent au grain et ça devient leur problème, plus le nôtre
+François G
++1
+Xavier
+c'est beau cet alignement des astres ;-)
+merci à vous
+Alexandre Storelli
+J'ajouterais aussi un état des lieux sur la facturation, en lien avec une liste donnée de salons (si ça a lieu d'être)
+Xavier
+oui tu as raison: je mentionne Nombre de rooms et Mémoire utilisée mais il faut aussi le forfait en cours
+Alexandre Storelli
+Ah oui pardon je n'avais pas lu assez attentivement
+Xavier
+non non c'est très bien ça me fait penser à ajouter le forfait en cours
+Alexandre Storelli
+ok :)
+Pour les logs, c'est dur à dire. Fournir l'intégralité des logs de nos différentes briques est un peu violent. Mais donner cet accès peut aussi être un gage de transparence et leur sous-entendre que c'est aussi à eux de les serveiller.
+*surveiller
+Sylvain
+Cool le fix de setup account alex ca marche nickel
+Alexandre Storelli
+Super!
+J'ai pas mal avancé sur la page du site pour les apps mobiles
+Sylvain
+good
+Alexandre Storelli
+Pour les logs, après réflexion, je suis favorable à donner l'intégralité des accès à l'intégrateur. Présenté sous forme d'onglets selon chaque thématique (serveur, conf, système...). Ça facilitera la communication entre l'intégrateur et nous s'il faut faire du debug ou analyser des attaques. François G & Sylvain quelle est votre position sur la question?
+
+Review francois
