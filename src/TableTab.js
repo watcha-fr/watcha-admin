@@ -5,6 +5,7 @@ import {
     useSortBy,
     useTable,
 } from "react-table";
+import { withTranslation } from "react-i18next";
 import matchSorter from "match-sorter";
 
 import SearchBox from "./SearchBox";
@@ -14,7 +15,7 @@ export default ({
     data,
     columns,
     initialState,
-    button,
+    newItemButton,
     newItemModal,
     editUser,
     rightPanel,
@@ -38,11 +39,13 @@ export default ({
         useRowSelect
     );
 
+    const TransSearchBox = useMemo(() => withTranslation(ns)(SearchBox), [ns]);
+
     return (
         <>
             <div className="d-flex justify-content-between p-3">
-                <SearchBox {...{ ns, tableInstance }} />
-                {button}
+                <TransSearchBox {...{ tableInstance }} />
+                {newItemButton}
             </div>
             <div className="tableTabBody">
                 <div className="tableContainer px-3">

@@ -6,7 +6,7 @@ import React, {
     useState,
 } from "react";
 import { useGet } from "restful-react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, withTranslation } from "react-i18next";
 
 import { useDispatchContext, useUserIdContext } from "./contexts";
 import Button from "./NewItemButton";
@@ -65,7 +65,8 @@ export default () => {
         }
     }, [userList, userId, dispatch]);
 
-    const button = <Button onClick={() => setModalShow(true)} {...{ ns }} />;
+    const NewUserButton = withTranslation(ns)(Button);
+    const newItemButton = <NewUserButton onClick={() => setModalShow(true)} />;
 
     const newItemModal = (
         <NewUserModal
@@ -127,7 +128,7 @@ export default () => {
             {...{
                 columns,
                 initialState,
-                button,
+                newItemButton,
                 newItemModal,
                 editUser,
                 rightPanel,
