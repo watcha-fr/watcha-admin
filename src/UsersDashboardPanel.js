@@ -49,8 +49,7 @@ export default withTranslation()(({ t, datas, tab }) => {
 
     const onAdministrateLinkClick = () => dispatch({ tab });
 
-    const onAdminUserClick = userId =>
-        dispatch({ tab: "users", userId });
+    const onAdminUserClick = userId => dispatch({ tab: "users", userId });
 
     const getStandardPanelContent = sections => {
         const panelContent = [];
@@ -105,9 +104,9 @@ export default withTranslation()(({ t, datas, tab }) => {
                         className="adminUserRow"
                         onClick={() => onAdminUserClick(admin.user_id)}
                     >
-                        {`${setAdminName(admin.displayname, admin.user_id)} (${
-                            admin.email
-                        })`}
+                        {`${setAdminName(admin.displayname, admin.user_id)} ${
+                            admin.email ? `(${admin.email})` : ""
+                        }`}
                     </td>
                 </tr>
             );
