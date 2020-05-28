@@ -6,7 +6,10 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { useDispatchContext } from "./contexts";
+import infoCircle from "./images/info-circle.svg";
 
 export default withTranslation()(({ t, datas, tab }) => {
     const standardSections = [
@@ -45,6 +48,44 @@ export default withTranslation()(({ t, datas, tab }) => {
         },
     ];
 
+    const getInfoCircleTag = label => {
+        let tooltipMessage = "";
+        switch (label) {
+            case t("dashboardTab:usersPanel.administrators"):
+                tooltipMessage = t(
+                    "dashboardTab:usersPanel.administratorTooltip"
+                );
+                break;
+            case t("dashboardTab:usersPanel.collaborators"):
+                tooltipMessage = t(
+                    "dashboardTab:usersPanel.collaboratorTooltip"
+                );
+                break;
+            case t("dashboardTab:usersPanel.partners"):
+                tooltipMessage = t("dashboardTab:usersPanel.partnerTooltip");
+                break;
+            case t("dashboardTab:usersPanel.pendingInvitationUsers"):
+                tooltipMessage = t(
+                    "dashboardTab:usersPanel.pendingInvitationTooltip"
+                );
+                break;
+            default:
+                return;
+        }
+
+        const infoCircleTag = (
+            <OverlayTrigger
+                overlay={
+                    <Tooltip className="tooltipMessage">{tooltipMessage}</Tooltip>
+                }
+                placement="right"
+            >
+                <img src={infoCircle}></img>
+            </OverlayTrigger>
+        );
+        return infoCircleTag;
+    };
+
     const dispatch = useDispatchContext();
 
     const onAdministrateLinkClick = () => dispatch({ tab });
@@ -61,7 +102,8 @@ export default withTranslation()(({ t, datas, tab }) => {
                     sectionContent.push(
                         <tr key={section.labels[index]}>
                             <td className="sectionPanelLabel">
-                                {section.labels[index]}
+                                {section.labels[index]}{" "}
+                                {getInfoCircleTag(section.labels[index])}
                             </td>
                             <td className="sectionPanelData">
                                 {section.datas[index]}

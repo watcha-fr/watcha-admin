@@ -208,19 +208,21 @@ td .inactive {
     font-size: 18px;
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
     padding: 1.25rem;
+    align-items: space-between;
 }
 
 .dashboardPanel {
     display: flex;
-    width: 32%;
+    width: 100%;
     flex: 1;
-    margin: 5;
+    margin: 1.25rem;
     background-color: white;
 }
 
 .dashboardPanel .card-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .dashboardPanelSection{
@@ -228,8 +230,9 @@ td .inactive {
     font-size: 1rem;
 }
 
-.dashboardPanelSection .h5{
+.dashboardPanelSection .card-title{
     font-size: 1rem;
+    margin: unset;
 }
 
 .sectionPanelData{
@@ -261,6 +264,10 @@ td .inactive {
 
 .noRoomsMessage {
     font-weight: bold;
+}
+
+.tooltipMessage {
+    font-style: italic;
 }
 
 /* end of DashboardTab : */
