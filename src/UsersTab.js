@@ -1,14 +1,7 @@
-import React, {
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
-} from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useGet } from "restful-react";
 import { useTranslation, withTranslation } from "react-i18next";
 
-import { useDispatchContext, useUserIdContext } from "./contexts";
 import Button from "./NewItemButton";
 import Date from "./Date";
 import DelayedSpinner from "./DelayedSpinner";
@@ -18,11 +11,8 @@ import UserRightPanel from "./UserRightPanel";
 
 const ns = "usersTab";
 
-export default () => {
+export default ({ userId }) => {
     const { t } = useTranslation(ns);
-
-    const userId = useUserIdContext();
-    const dispatch = useDispatchContext();
 
     const [userList, setUserList] = useState(null);
     const [modalShow, setModalShow] = useState(false);
@@ -58,12 +48,13 @@ export default () => {
             for (const user of userList) {
                 if (user.userId === userId) {
                     setRightPanel(<UserRightPanel {...{ user, onClose }} />);
-                    dispatch({ userId: null });
                     return;
                 }
             }
+        } else if (!userId) {
+            setRightPanel();
         }
-    }, [userList, userId, dispatch]);
+    }, [userList, userId]);
 
     const NewUserButton = withTranslation(ns)(Button);
     const newItemButton = <NewUserButton onClick={() => setModalShow(true)} />;
@@ -73,12 +64,6 @@ export default () => {
             newUserLocalEcho={user => setUserList([...userList, user])}
             {...{ modalShow, setModalShow, userList }}
         />
-    );
-
-    const editUser = useCallback(
-        user =>
-            setRightPanel(user && <UserRightPanel {...{ user, onClose }} />),
-        []
     );
 
     const columns = useMemo(
@@ -130,7 +115,6 @@ export default () => {
                 initialState,
                 newItemButton,
                 newItemModal,
-                editUser,
                 rightPanel,
                 ns,
             }}

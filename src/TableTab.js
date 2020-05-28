@@ -17,7 +17,6 @@ export default ({
     initialState,
     newItemButton,
     newItemModal,
-    editUser,
     rightPanel,
     ns,
 }) => {
@@ -49,7 +48,7 @@ export default ({
             </div>
             <div className="tableTabBody">
                 <div className="tableContainer px-3">
-                    <Table {...{ tableInstance, editUser }} />
+                    <Table {...{ tableInstance }} />
                 </div>
                 {rightPanel}
             </div>

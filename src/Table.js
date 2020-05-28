@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import classNames from "classnames";
 import Table from "react-bootstrap/Table";
 
-export default ({ tableInstance, editUser }) => {
+import { useDispatchContext } from "./contexts";
+
+export default ({ tableInstance }) => {
+    const dispatch = useDispatchContext();
+
     const {
         getTableProps,
         getTableBodyProps,
@@ -10,13 +14,6 @@ export default ({ tableInstance, editUser }) => {
         rows,
         prepareRow,
     } = tableInstance;
-
-    useEffect(() => {
-        const row = tableInstance.selectedFlatRows[0];
-        if (row) {
-            editUser(row.original);
-        }
-    }, [tableInstance.selectedFlatRows, editUser]);
 
     const getHeaderProps = column =>
         column.getHeaderProps(
@@ -40,13 +37,16 @@ export default ({ tableInstance, editUser }) => {
         tableInstance.toggleAllRowsSelected(false);
         if (isNotSelected) {
             row.toggleRowSelected(true);
-            editUser(row.original);
+            dispatch({ item: row.original });
         } else {
-            editUser();
+            dispatch({ item: null });
         }
     };
 
-    const onBlur = () => tableInstance.toggleAllRowsSelected(false);
+    const onBlur = () => {
+        tableInstance.toggleAllRowsSelected(false);
+        dispatch({ item: null });
+    };
 
     return (
         <Table hover size="sm" {...getTableProps({ onBlur, tabIndex: "0" })}>
