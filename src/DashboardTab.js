@@ -9,8 +9,6 @@ import CardDeck from "react-bootstrap/CardDeck";
 import DelayedSpinner from "./DelayedSpinner";
 
 export default () => {
-    const { t } = useTranslation();
-
     const { data, loading, error } = useGet({ path: "watcha_admin_stats" });
 
     if (error) {
