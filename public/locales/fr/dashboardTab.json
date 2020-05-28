@@ -12,7 +12,11 @@
         "usersPerRole": "Rôles des utilisateurs",
         "connectedUsers": "Utilisateurs connectés",
         "otherStatistics": "Autres statistiques",
-        "administratorsList": "Liste des administrateurs"
+        "administratorsList": "Liste des administrateurs",
+        "administratorTooltip": "Utilisateurs ayant accès à la console d'administration de l'instance.",
+        "collaboratorTooltip": "Utilisateurs internes ayant le droit de créer des salons et d'inviter des utilisateurs dans ces derniers.",
+        "partnerTooltip": "Utilisateurs externes ayant été invités dans un ou plusieurs salons, par un utilisateur interne et ayant des droits limités.",
+        "pendingInvitationTooltip": "Utilisateurs ayant été invités, mais n'ayant pas encore défini leur mot de passe, ni s'étant encore connecté."
     },
     "roomsPanel": {
         "nonDirectRoomsCount": "Conversations a plusieurs / dont actives",
