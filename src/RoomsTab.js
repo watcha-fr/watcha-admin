@@ -20,7 +20,7 @@ export default () => {
         data.map(item => ({
             roomId: item.room_id,
             name: item.name || "",
-            creator: getDisplayName(item.creator),
+            creator: getDisplayName(item.creator) || "",
             n: item.members.length,
             status: item.active === 1 ? "active" : "inactive",
         }));
