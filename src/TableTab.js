@@ -1,13 +1,9 @@
-import React, { useMemo } from "react";
-import {
-    useGlobalFilter,
-    useRowSelect,
-    useSortBy,
-    useTable,
-} from "react-table";
+import React, { useEffect, useMemo } from "react";
+import { useGlobalFilter, useSortBy, useTable } from "react-table";
 import { withTranslation } from "react-i18next";
 import matchSorter from "match-sorter";
 
+import { useDispatchContext } from "./contexts";
 import SearchBox from "./SearchBox";
 import Table from "./Table";
 
@@ -18,6 +14,7 @@ export default ({
     newItemButton,
     newItemModal,
     rightPanel,
+    itemId,
     ns,
 }) => {
     const globalFilter = useMemo(() => fuzzyTextFilterFn, []);
@@ -30,13 +27,14 @@ export default ({
             globalFilter,
             autoResetGlobalFilter: false,
             autoResetSortBy: false,
-            autoResetSelectedRows: false,
             disableSortRemove: true,
         },
         useGlobalFilter,
-        useSortBy,
-        useRowSelect
+        useSortBy
     );
+
+    const dispatch = useDispatchContext();
+    useEffect(() => dispatch({ tableInstance }), [tableInstance]);
 
     const TransSearchBox = useMemo(() => withTranslation(ns)(SearchBox), [ns]);
 
@@ -48,7 +46,7 @@ export default ({
             </div>
             <div className="tableTabBody">
                 <div className="tableContainer px-3">
-                    <Table {...{ tableInstance }} />
+                    <Table {...{ tableInstance, itemId }} />
                 </div>
                 {rightPanel}
             </div>

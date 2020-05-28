@@ -4,31 +4,18 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
 import { DispatchContext } from "./contexts";
+import reducer from "./reducer";
 import DashboardTab from "./DashboardTab";
 // import MonitoringTab from './MonitoringTab';
 import RoomsTab from "./RoomsTab";
 import UsersTab from "./UsersTab";
 
-const reducer = (state, payload) => {
-    const { item, ...rest } = payload;
-    if (item === null) {
-        rest.userId = null;
-        rest.roomId = null;
-    } else if (item && item.userId) {
-        rest.userId = item.userId;
-    } else if (item && item.roomId) {
-        rest.roomId = item.roomId;
-    }
-    return { ...state, ...rest };
-};
-
 export default () => {
     const { t } = useTranslation();
 
-    const [{ tab, userId, roomId }, dispatch] = useReducer(reducer, {
+    const [{ tab, userId }, dispatch] = useReducer(reducer, {
         tab: "dashboard",
         userId: null,
-        roomId: null,
     });
 
     const onSelect = tab => dispatch({ tab });
@@ -43,7 +30,7 @@ export default () => {
                     <UsersTab {...{ userId }} />
                 </Tab>
                 <Tab eventKey="rooms" title={t("roomsTab:title")}>
-                    <RoomsTab {...{ roomId }} />
+                    <RoomsTab />
                 </Tab>
                 {/* not functional yet
                 <Tab eventKey="monitoring" title={t("monitoringTab:title")}>

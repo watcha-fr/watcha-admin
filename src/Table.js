@@ -4,16 +4,8 @@ import Table from "react-bootstrap/Table";
 
 import { useDispatchContext } from "./contexts";
 
-export default ({ tableInstance }) => {
+export default ({ tableInstance, itemId }) => {
     const dispatch = useDispatchContext();
-
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = tableInstance;
 
     const getHeaderProps = column =>
         column.getHeaderProps(
@@ -29,27 +21,24 @@ export default ({ tableInstance }) => {
         />
     );
 
-    const getRowProps = row =>
-        row.getRowProps({ className: row.isSelected && "selectedRow" });
-
-    const selectRow = row => {
-        const isNotSelected = !row.isSelected;
-        tableInstance.toggleAllRowsSelected(false);
-        if (isNotSelected) {
-            row.toggleRowSelected(true);
-            dispatch({ item: row.original });
-        } else {
-            dispatch({ item: null });
-        }
+    const getRowProps = row => {
+        const className =
+            itemId && row.original.itemId === itemId
+                ? "selectedRow"
+                : undefined;
+        return row.getRowProps({ className });
     };
 
-    const onBlur = () => {
-        tableInstance.toggleAllRowsSelected(false);
-        dispatch({ item: null });
-    };
+    const {
+        getTableProps,
+        headerGroups,
+        getTableBodyProps,
+        rows,
+        prepareRow,
+    } = tableInstance;
 
     return (
-        <Table hover size="sm" {...getTableProps({ onBlur, tabIndex: "0" })}>
+        <Table hover size="sm" {...getTableProps()}>
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -67,7 +56,7 @@ export default ({ tableInstance }) => {
             <tbody {...getTableBodyProps()}>
                 {rows.map(row => {
                     prepareRow(row);
-                    const onClick = () => selectRow(row);
+                    const onClick = () => dispatch({ item: row.original });
                     return (
                         <tr {...getRowProps(row)}>
                             {row.cells.map(cell => (

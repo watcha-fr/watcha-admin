@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useGet } from "restful-react";
 import { useTranslation, withTranslation } from "react-i18next";
 
+import { useDispatchContext } from "./contexts";
 import Button from "./NewItemButton";
 import Date from "./Date";
 import DelayedSpinner from "./DelayedSpinner";
@@ -41,7 +42,8 @@ export default ({ userId }) => {
         intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
     }, [data]);
 
-    const onClose = event => setRightPanel();
+    const dispatch = useDispatchContext();
+    const onClose = event => dispatch({ userId: null });
 
     useEffect(() => {
         if (userList && userId) {
@@ -110,6 +112,7 @@ export default ({ userId }) => {
     return userList ? (
         <TableTab
             data={userList}
+            itemId={userId}
             {...{
                 columns,
                 initialState,
@@ -127,6 +130,7 @@ export default ({ userId }) => {
 const resolve = data =>
     data.map(item => ({
         userId: item.name,
+        itemId: item.name,
         displayName: item.displayname || "",
         emailAddress: item.email || "",
         lastSeen: item.last_seen || null,
