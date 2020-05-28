@@ -21,5 +21,13 @@
         "noRoomsMessageOne": "Cette installation de Watcha n'a encore aucun salon.",
         "noRoomsMessageTwo": "Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")",
         "roomsPerType": "Salons par type"
+    },
+    "serverStatePannel": {
+        "title": "Etat du serveur",
+        "generaleInformation": "Informations générales",
+        "version": "Version",
+        "installDate": "Installé le",
+        "upgradeDate": "Mis à jour le",
+        "diskUsage": "Espace disque utilisé"
     }
 }

@@ -21,5 +21,13 @@
         "noRoomsMessageOne": "This Watcha instance does not yet have some rooms.",
         "noRoomsMessageTwo": "Return to Watcha to create a first room (button \"+\").",
         "roomsPerType": "Rooms per type"
+    },
+    "serverStatePannel": {
+        "title": "Server state",
+        "generaleInformation": "General information",
+        "version": "Version",
+        "installDate": "Installed on",
+        "upgradeDate": "Upgrade on",
+        "diskUsage": "Disk space used"
     }
 }
