@@ -39,8 +39,8 @@ export default withTranslation()(({ t, datas, tab }) => {
                                     )}
                                 </td>
                                 <td className="sectionPanelData">
-                                    {datas.non_direct_rooms_count} /{" "}
-                                    {datas.non_direct_active_rooms_count}
+                                    {`${datas.non_direct_rooms_count} / 
+                                    ${datas.non_direct_active_rooms_count}`}
                                 </td>
                             </tr>
                             <tr
@@ -54,8 +54,8 @@ export default withTranslation()(({ t, datas, tab }) => {
                                     )}
                                 </td>
                                 <td className="sectionPanelData">
-                                    {datas.direct_rooms_count} /{" "}
-                                    {datas.direct_active_rooms_count}
+                                    {`${datas.direct_rooms_count} /
+                                    ${datas.direct_active_rooms_count}`}
                                 </td>
                             </tr>
                         </tbody>
