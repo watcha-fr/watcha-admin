@@ -1,6 +1,5 @@
 import React from "react";
 import { useGet } from "restful-react";
-import { useTranslation } from "react-i18next";
 import Col from "react-bootstrap/Col";
 import UsersDashboardPanel from "./UsersDashboardPanel";
 import RoomsDashboardPanel from "./RoomsDashboardPanel";
