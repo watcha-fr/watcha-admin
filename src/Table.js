@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import classNames from "classnames";
 import Table from "react-bootstrap/Table";
 
@@ -29,11 +29,27 @@ export default ({ tableInstance, itemId }) => {
         return row.getRowProps({ className });
     };
 
+    const { rows } = tableInstance;
+    const refs = useRef(
+        rows.reduce((accumulator, row) => {
+            accumulator[row.original.itemId] = React.createRef();
+            return accumulator;
+        }, {})
+    );
+
+    useEffect(() => {
+        if (itemId) {
+            refs.current[itemId].current.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+    }, [itemId]);
+
     const {
         getTableProps,
         headerGroups,
         getTableBodyProps,
-        rows,
         prepareRow,
     } = tableInstance;
 
@@ -58,7 +74,10 @@ export default ({ tableInstance, itemId }) => {
                     prepareRow(row);
                     const onClick = () => dispatch({ item: row.original });
                     return (
-                        <tr {...getRowProps(row)}>
+                        <tr
+                            ref={refs.current[row.original.itemId]}
+                            {...getRowProps(row)}
+                        >
                             {row.cells.map(cell => (
                                 <td {...cell.getCellProps({ onClick })}>
                                     {cell.render("Cell")}
