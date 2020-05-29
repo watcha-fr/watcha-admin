@@ -29,13 +29,15 @@ export default ({ tableInstance, itemId }) => {
         return row.getRowProps({ className });
     };
 
+    const refs = useRef({});
     const { rows } = tableInstance;
-    const refs = useRef(
-        rows.reduce((accumulator, row) => {
+
+    useEffect(() => {
+        refs.current = rows.reduce((accumulator, row) => {
             accumulator[row.original.itemId] = React.createRef();
             return accumulator;
-        }, {})
-    );
+        }, {});
+    }, [rows]);
 
     useEffect(() => {
         if (itemId) {
