@@ -167,7 +167,7 @@ export default withTranslation()(({ t, datas, tab }) => {
         }
         if (sectionContent) {
             adminPanelContent.push(
-                <Accordion defaultActiveKey="0">
+                <Accordion key={t("dashboardTab:usersPanel.administrators")} defaultActiveKey="0">
                     <Card>
                         <Accordion.Toggle as={Card.Header} eventKey="1">
                             {t("dashboardTab:usersPanel.administrators")}{" "}
