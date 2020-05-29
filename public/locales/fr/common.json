@@ -29,7 +29,7 @@
 
     "errorBoundary": {
         "title": "Quelque chose s’est mal passé !",
-        "body": "<0>Si le disfonctionnement venait à se reproduire, veuillez nous contacter à <0>{{email}}</0>.</0><1>Vous allez être redirigé vers <0>{{redirectUrl}}</0> dans quelques secondes...</1>"
+        "body": "<0>Vous pouvez tenter d'actualiser la page, ou suivre sur ce lien <0>{{redirectUrl}}</0> pour retourner sur Watcha.</0><1>Si le disfonctionnement venait à se reproduire, veuillez nous contacter à <0>{{email}}</0>.</1>"
     },
     "login": {
         "title": "Interface d'administration",

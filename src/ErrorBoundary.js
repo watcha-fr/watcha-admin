@@ -21,10 +21,10 @@ class ErrorBoundary extends Component {
                 <h1 className="mb-5">{t("errorBoundary.title")}</h1>
                 <Trans i18nKey="errorBoundary.body" t={t}>
                     <p>
-                        <a href={"mailto:" + email}>{{ email }}</a>
+                        <a href={"/"}>{{ redirectUrl }}</a>
                     </p>
                     <p>
-                        <code>{{ redirectUrl }}</code>
+                        <a href={"mailto:" + email}>{{ email }}</a>
                     </p>
                 </Trans>
             </Container>
