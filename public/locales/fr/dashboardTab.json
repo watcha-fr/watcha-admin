@@ -20,7 +20,7 @@
     "roomsPanel": {
         "title": "Salons par type",
         "nonDirectRoomsCount": "Conversations a plusieurs actives",
-        "directRoomsCount": "Covnersations privées actives",
+        "directRoomsCount": "Conversations privées actives",
         "administrateButton": "Administrer les salons",
         "noRoomsMessageOne": "Cette installation de Watcha n'a encore aucun salon.",
         "noRoomsMessageTwo": "Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")"
