@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
+import Popover from "react-bootstrap/Popover";
 import { useDispatchContext } from "./contexts";
 import infoCircle from "./images/info-circle.svg";
 
@@ -76,7 +76,9 @@ export default withTranslation()(({ t, datas, tab }) => {
         const infoCircleTag = (
             <OverlayTrigger
                 overlay={
-                    <Tooltip className="tooltipMessage">{tooltipMessage}</Tooltip>
+                    <Popover className="tooltipMessage">
+                        <Popover.Content>{tooltipMessage}</Popover.Content>
+                    </Popover>
                 }
                 placement="right"
             >
@@ -99,12 +101,24 @@ export default withTranslation()(({ t, datas, tab }) => {
             if (section.datas) {
                 const sectionContent = [];
                 for (const index in section.labels) {
-                    sectionContent.push(
-                        <tr key={section.labels[index]}>
-                            <td className="sectionPanelLabel">
-                                {section.labels[index]}{" "}
-                                {getInfoCircleTag(section.labels[index])}
+                    const label = section.labels[index];
+                    const labelCell =
+                        label ===
+                        t("dashboardTab:usersPanel.administrators") ? (
+                            <td className="sectionPanelAdminListLabel">
+                                {getAdminPanelContent(
+                                    datas.administrators_users
+                                )}
                             </td>
+                        ) : (
+                            <td className="sectionPanelLabel">
+                                {label} {getInfoCircleTag(label)}
+                            </td>
+                        );
+
+                    sectionContent.push(
+                        <tr key={label}>
+                            {labelCell}
                             <td className="sectionPanelData">
                                 {section.datas[index]}
                             </td>
@@ -117,16 +131,14 @@ export default withTranslation()(({ t, datas, tab }) => {
                             className="dashboardPanelSection"
                             key={section.title}
                         >
-                            <Card>
-                                <Card.Header>
-                                    <Card.Title>{section.title}</Card.Title>
-                                </Card.Header>
-                                <Card.Body>
-                                    <Table>
-                                        <tbody>{sectionContent}</tbody>
-                                    </Table>
-                                </Card.Body>
-                            </Card>
+                            <fieldset className="watcha-fieldset">
+                                <legend className="watcha-legend">
+                                    {section.title}
+                                </legend>
+                                <Table>
+                                    <tbody>{sectionContent}</tbody>
+                                </Table>
+                            </fieldset>
                         </Row>
                     );
                 }
@@ -155,29 +167,24 @@ export default withTranslation()(({ t, datas, tab }) => {
         }
         if (sectionContent) {
             adminPanelContent.push(
-                <Row
-                    className="dashboardPanelSection"
-                    id="adminListSection"
-                    key={t("dashboardTab:usersPanel.administratorsList")}
-                >
-                    <Accordion defaultActiveKey="0">
-                        <Card>
-                            <Accordion.Toggle as={Card.Header} eventKey="1">
-                                {t(
-                                    "dashboardTab:usersPanel.administratorsList"
-                                )}
-                            </Accordion.Toggle>
-                            <Accordion.Collapse eventKey="1">
-                                <Card.Body>
-                                    {" "}
-                                    <Table>
-                                        <tbody>{sectionContent}</tbody>
-                                    </Table>
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                    </Accordion>
-                </Row>
+                <Accordion defaultActiveKey="0">
+                    <Card>
+                        <Accordion.Toggle as={Card.Header} eventKey="1">
+                            {t("dashboardTab:usersPanel.administrators")}{" "}
+                            {getInfoCircleTag(
+                                t("dashboardTab:usersPanel.administrators")
+                            )}
+                        </Accordion.Toggle>
+                        <Accordion.Collapse eventKey="1">
+                            <Card.Body>
+                                {" "}
+                                <Table>
+                                    <tbody>{sectionContent}</tbody>
+                                </Table>
+                            </Card.Body>
+                        </Accordion.Collapse>
+                    </Card>
+                </Accordion>
             );
         }
 
@@ -189,10 +196,6 @@ export default withTranslation()(({ t, datas, tab }) => {
     };
 
     const standardPanelContent = getStandardPanelContent(standardSections);
-
-    const adminListPanelContent = getAdminPanelContent(
-        datas.administrators_users
-    );
 
     return (
         <Card className="dashboardPanel">
@@ -206,10 +209,7 @@ export default withTranslation()(({ t, datas, tab }) => {
                 </Button>
             </Card.Header>
             <Card.Body>
-                <Container fluid>
-                    {adminListPanelContent}
-                    {standardPanelContent}
-                </Container>
+                <Container fluid>{standardPanelContent}</Container>
             </Card.Body>
         </Card>
     );
