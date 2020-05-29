@@ -219,6 +219,10 @@ td .inactive {
     background-color: white;
 }
 
+#tabs-tabpane-dashboard .dashboardPanel{
+    margin-left: unset;
+}
+
 .dashboardPanel .card-header {
     display: flex;
     justify-content: space-between;
@@ -295,6 +299,12 @@ td .inactive {
 
 .tooltipMessage {
     font-style: italic;
+}
+
+#tabs-tabpane-dashboard .refreshButton {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
 }
 
 /* end of DashboardTab : */
