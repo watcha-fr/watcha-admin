@@ -9,10 +9,6 @@ class ErrorBoundary extends Component {
     }
 
     static getDerivedStateFromError(error) {
-        setTimeout(
-            () => window.location.replace(window.location.origin),
-            15000
-        );
         return { hasError: true };
     }
 
