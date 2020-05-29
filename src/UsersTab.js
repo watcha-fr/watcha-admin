@@ -1,11 +1,9 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useGet } from "restful-react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation, withTranslation } from "react-i18next";
 
 import { useDispatchContext } from "./contexts";
 import Button from "./NewItemButton";
 import Date from "./Date";
-import DelayedSpinner from "./DelayedSpinner";
 import NewUserModal from "./NewUserModal";
 import TableTab, { compareLowerCase } from "./TableTab";
 import UserRightPanel from "./UserRightPanel";
@@ -19,44 +17,27 @@ export default ({ userId }) => {
     const [modalShow, setModalShow] = useState(false);
     const [rightPanel, setRightPanel] = useState(null);
 
-    const { data, refetch } = useGet({
+    const requestParams = {
         path: "watcha_user_list",
         lazy: true,
         resolve,
-    });
-
-    const refetchRef = useRef();
-    refetchRef.current = refetch;
-
-    const intervalIdRef = useRef();
-
-    useEffect(() => {
-        refetchRef.current();
-    }, []);
-
-    useEffect(() => {
-        setUserList(data);
-        if (intervalIdRef.current) {
-            clearInterval(intervalIdRef.current);
-        }
-        intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
-    }, [data]);
+    };
 
     const dispatch = useDispatchContext();
-    const onClose = event => dispatch({ userId: null });
 
     useEffect(() => {
+        const onClose = () => dispatch({ userId: null });
         if (userList && userId) {
             for (const user of userList) {
                 if (user.userId === userId) {
                     setRightPanel(<UserRightPanel {...{ user, onClose }} />);
-                    return;
+                    break;
                 }
             }
         } else if (!userId) {
             setRightPanel();
         }
-    }, [userList, userId]);
+    }, [userId, dispatch]);
 
     const NewUserButton = withTranslation(ns)(Button);
     const newItemButton = <NewUserButton onClick={() => setModalShow(true)} />;
@@ -109,11 +90,13 @@ export default ({ userId }) => {
         []
     );
 
-    return userList ? (
+    return (
         <TableTab
-            data={userList}
+            itemList={userList}
+            setItemList={setUserList}
             itemId={userId}
             {...{
+                requestParams,
                 columns,
                 initialState,
                 newItemButton,
@@ -122,8 +105,6 @@ export default ({ userId }) => {
                 ns,
             }}
         />
-    ) : (
-        <DelayedSpinner />
     );
 };
 

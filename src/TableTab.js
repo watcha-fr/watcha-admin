@@ -1,14 +1,18 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
+import { useGet } from "restful-react";
 import { useGlobalFilter, useSortBy, useTable } from "react-table";
 import { withTranslation } from "react-i18next";
 import matchSorter from "match-sorter";
 
 import { useDispatchContext } from "./contexts";
+import DelayedSpinner from "./DelayedSpinner";
 import SearchBox from "./SearchBox";
 import Table from "./Table";
 
 export default ({
-    data,
+    itemList,
+    setItemList,
+    requestParams,
     columns,
     initialState,
     newItemButton,
@@ -17,11 +21,27 @@ export default ({
     itemId,
     ns,
 }) => {
+    const intervalIdRef = useRef();
+
+    const { data, refetch } = useGet(requestParams);
+
+    useEffect(() => {
+        refetch();
+    }, []);
+
+    useEffect(() => {
+        setItemList(data);
+        if (intervalIdRef.current) {
+            clearInterval(intervalIdRef.current);
+        }
+        intervalIdRef.current = setInterval(() => refetch(), 10000);
+    }, [data, setItemList]);
+
     const globalFilter = useMemo(() => fuzzyTextFilterFn, []);
 
     const tableInstance = useTable(
         {
-            data,
+            data: itemList || [],
             columns,
             initialState,
             globalFilter,
@@ -34,11 +54,11 @@ export default ({
     );
 
     const dispatch = useDispatchContext();
-    useEffect(() => dispatch({ tableInstance }), [tableInstance]);
+    useEffect(() => dispatch({ tableInstance }), [tableInstance, dispatch]);
 
     const TransSearchBox = useMemo(() => withTranslation(ns)(SearchBox), [ns]);
 
-    return (
+    return itemList ? (
         <>
             <div className="d-flex justify-content-between p-3">
                 <TransSearchBox {...{ tableInstance }} />
@@ -52,6 +72,8 @@ export default ({
             </div>
             {newItemModal}
         </>
+    ) : (
+        <DelayedSpinner />
     );
 };
 

@@ -1,10 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useGet } from "restful-react";
+import React, { useMemo, useState } from "react";
 import { useTranslation, withTranslation } from "react-i18next";
 
 import { useMatrixClientContext } from "./contexts";
 import Button from "./NewItemButton";
-import DelayedSpinner from "./DelayedSpinner";
 import TableTab, { compareLowerCase } from "./TableTab";
 
 const ns = "roomsTab";
@@ -30,28 +28,11 @@ export default () => {
         return user && user.displayName;
     };
 
-    const { data, refetch } = useGet({
+    const requestParams = {
         path: "watcha_extend_room_list",
         lazy: true,
         resolve,
-    });
-
-    const refetchRef = useRef();
-    refetchRef.current = refetch;
-
-    const intervalIdRef = useRef();
-
-    useEffect(() => {
-        refetchRef.current();
-    }, []);
-
-    useEffect(() => {
-        setRoomList(data);
-        if (intervalIdRef.current) {
-            clearInterval(intervalIdRef.current);
-        }
-        intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
-    }, [data]);
+    };
 
     const NewRoomButton = withTranslation(ns)(Button);
     const newItemButton = <NewRoomButton onClick={() => {}} />;
@@ -91,12 +72,11 @@ export default () => {
         []
     );
 
-    return roomList ? (
+    return (
         <TableTab
-            data={roomList}
-            {...{ columns, initialState, newItemButton, ns }}
+            itemList={roomList}
+            setItemList={setRoomList}
+            {...{ requestParams, columns, initialState, newItemButton, ns }}
         />
-    ) : (
-        <DelayedSpinner />
     );
 };
