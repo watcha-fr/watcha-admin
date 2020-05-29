@@ -225,38 +225,65 @@ td .inactive {
     align-items: center;
 }
 
-.dashboardPanelSection{
+.dashboardPanelSection {
     padding: 1rem;
     font-size: 1rem;
 }
 
-.dashboardPanelSection .card-title{
+.watcha-legend {
+    margin: 0.5rem;
+    padding: 1rem;
     font-size: 1rem;
-    margin: unset;
+    font-weight: bold;
+    width: auto;
 }
 
-.sectionPanelData{
+.watcha-fieldset {
+    border: 2px solid;
+    border-width: 80%;
+    width: 100%;
+}
+
+.dashboardPanelSection tr:first-child td {
+    border: none;
+    margin-left: 1rem;
+}
+
+.watcha-fieldset tr:first-child td {
+    border: none;
+    margin-left: 1rem;
+}
+
+.sectionPanelData {
     text-align: right;
     font-weight: bold;
 }
 
-#adminListSection .accordion{
-    width: 100%;
+.sectionPanelAdminListLabel .card-header {
+    padding: unset;
+    background-color: unset;
+    border: unset;
+    display: inline-block;
 }
 
-#adminListSection .card-header:hover{
+.sectionPanelAdminListLabel .card-header:hover {
     background-color: darkturquoise;
     cursor: pointer;
     color: white;
 }
 
-#adminListSection .adminUserRow:hover{
+.sectionPanelAdminListLabel .card {
+    margin: unset;
+    border: unset;
+}
+
+.sectionPanelAdminListLabel .adminUserRow:hover {
     background-color: darkturquoise;
     cursor: pointer;
     color: white;
 }
 
-.dashboardAdministrateButton:hover{
+.dashboardAdministrateButton:hover {
     cursor: pointer;
     background-color: darkturquoise;
     border-color: darkturquoise;
@@ -370,4 +397,3 @@ td .inactive {
 .Log {
     color: blue;
 }
-
