@@ -1,3 +1,16 @@
 {
-    "title": "Rooms"
+    "title": "Rooms",
+    "searchBoxPlaceholder": "Filter rooms",
+    "button": "New room",
+    "headers": {
+        "name": "Name",
+        "creator": "Creator",
+        "n": "Member count",
+        "type": "Type",
+        "status": "Status"
+    },
+    "status": {
+        "active": "enabled",
+        "inactive": "disabled"
+    }
 }

@@ -154,11 +154,6 @@ td .inactive {
     color: red;
 }
 
-.rowSelected {
-    background: #00e5e5;
-    color: white !important;
-}
-
 .bottomButtons {
     margin: auto;
     width: 200px;
@@ -170,35 +165,10 @@ td .inactive {
     width: 30vw;
 }
 
-.trueBoolean {
-    color: green;
-}
 
-.page-header {
-    margin: 40px 49px 20px;
-}
-
-.falseBoolean {
-    color: red;
-}
-
-.filtersOption {
+.header-with-button {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-}
-
-.refreshButton {
-    margin-right: 20px;
-}
-
-.card-header.header-with-button {
-    display: flex;
-    justify-content: space-between;
-}
-
-.fas {
-    line-height: inherit;
 }
 
 .statsPanelContent {
@@ -229,11 +199,6 @@ td .inactive {
     cursor: pointer;
 }
 
-.email.form-group {
-    display: flex;
-    align-items: baseline;
-}
-
 .labelText {
     font-size: 14px;
     font-weight: 700;
@@ -250,38 +215,6 @@ td .inactive {
     margin-bottom: 10px;
 }
 
-.TableToolBar {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-}
-
-.table-responsive {
-    max-height: 92vh;
-}
-
-.table-responsive {
-    flex-grow: 1;
-}
-
-.checkboxfilter {
-    display: flex;
-    margin-top: 2vh;
-}
-
-.checkboxfilter label {
-    margin-left: 4px;
-}
-
-.checkboxfilter input {
-    margin-left: 2px;
-}
-
-.usersPanel {
-    height: none;
-    width: none;
-}
-
 .inputValue {
     margin-right: 12px;
     font-size: 14px;
@@ -293,17 +226,8 @@ td .inactive {
     background: #e3e3e3;
 }
 
-.textFilter {
-    margin-top: 1vh;
-    margin-right: 8px;
-}
-
 .AdminName {
     cursor: pointer;
-}
-
-.ServerStatePanelBody {
-    background: grey;
 }
 
 .TableAdvanced {
