@@ -27,10 +27,6 @@
     "Of which active personnals conversations": "Dont conversations privées actives",
     "Administrators": "Administrateurs ",
 
-    "errorBoundary": {
-        "title": "Quelque chose s’est mal passé !",
-        "body": "<0>Si le disfonctionnement venait à se reproduire, veuillez nous contacter à <0>{{email}}</0>.</0><1>Vous allez être redirigé vers <0>{{redirectUrl}}</0> dans quelques secondes...</1>"
-    },
     "login": {
         "title": "Interface d'administration",
         "username": "Adresse électronique",
