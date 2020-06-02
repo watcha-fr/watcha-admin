@@ -125,6 +125,10 @@ th:hover {
     white-space: nowrap;
 }
 
+.tableHeader img {
+    margin-left: 0.5em;
+}
+
 tr,
 td {
     height: 100%;

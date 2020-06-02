@@ -9,6 +9,8 @@ import NewUserModal from "./NewUserModal";
 import TableTab, { compareLowerCase } from "./TableTab";
 import UserRightPanel from "./UserRightPanel";
 
+import UserAccountStatusHeader from "./UserAccountStatusHeader";
+
 const ns = "usersTab";
 
 export default ({ userId }) => {
@@ -75,7 +77,7 @@ export default ({ userId }) => {
                 Cell: ({ value }) => t(`roles.${value}`),
             },
             {
-                Header: t("headers.status"),
+                Header: <UserAccountStatusHeader />,
                 accessor: "status",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => (

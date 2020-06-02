@@ -24,6 +24,14 @@
         "role": "Rôle",
         "status": "Statut"
     },
+    "statusHelp": {
+        "title": "Statut du compte",
+        "content": {
+            "active": "<strong>Activé</strong> : l'utilisateur peut utiliser Watcha.",
+            "inactive": "<strong>Désactivé</strong> : l'utilisateur ne peut plus utiliser Watcha.",
+            "invited": "<strong>Invitation envoyée</strong> : l'utilisateur n'a pas finalisé la procédure d'inscrition envoyée par email, il n'a donc pas accès à Watcha."
+        }
+    },
     "roles": {
         "administrator": "Administrateur",
         "collaborator": "Collaborateur",
