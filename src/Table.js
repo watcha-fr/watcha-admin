@@ -1,22 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import classNames from "classnames";
 import Table from "react-bootstrap/Table";
 
-export default ({ tableInstance, editUser }) => {
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = tableInstance;
+import { useDispatchContext } from "./contexts";
 
-    useEffect(() => {
-        const row = tableInstance.selectedFlatRows[0];
-        if (row) {
-            editUser(row.original);
-        }
-    }, [tableInstance.selectedFlatRows, editUser]);
+export default ({ tableInstance, itemId }) => {
+    const dispatch = useDispatchContext();
 
     const getHeaderProps = column =>
         column.getHeaderProps(
@@ -32,24 +21,42 @@ export default ({ tableInstance, editUser }) => {
         />
     );
 
-    const getRowProps = row =>
-        row.getRowProps({ className: row.isSelected && "selectedRow" });
-
-    const selectRow = row => {
-        const isNotSelected = !row.isSelected;
-        tableInstance.toggleAllRowsSelected(false);
-        if (isNotSelected) {
-            row.toggleRowSelected(true);
-            editUser(row.original);
-        } else {
-            editUser();
-        }
+    const getRowProps = row => {
+        const className =
+            itemId && row.original.itemId === itemId
+                ? "selectedRow"
+                : undefined;
+        return row.getRowProps({ className });
     };
 
-    const onBlur = () => tableInstance.toggleAllRowsSelected(false);
+    const refs = useRef({});
+    const { rows } = tableInstance;
+
+    useEffect(() => {
+        refs.current = rows.reduce((accumulator, row) => {
+            accumulator[row.original.itemId] = React.createRef();
+            return accumulator;
+        }, {});
+    }, [rows]);
+
+    useEffect(() => {
+        if (itemId) {
+            refs.current[itemId].current.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+    }, [itemId]);
+
+    const {
+        getTableProps,
+        headerGroups,
+        getTableBodyProps,
+        prepareRow,
+    } = tableInstance;
 
     return (
-        <Table hover size="sm" {...getTableProps({ onBlur, tabIndex: "0" })}>
+        <Table hover size="sm" {...getTableProps()}>
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -67,9 +74,12 @@ export default ({ tableInstance, editUser }) => {
             <tbody {...getTableBodyProps()}>
                 {rows.map(row => {
                     prepareRow(row);
-                    const onClick = () => selectRow(row);
+                    const onClick = () => dispatch({ item: row.original });
                     return (
-                        <tr {...getRowProps(row)}>
+                        <tr
+                            ref={refs.current[row.original.itemId]}
+                            {...getRowProps(row)}
+                        >
                             {row.cells.map(cell => (
                                 <td {...cell.getCellProps({ onClick })}>
                                     {cell.render("Cell")}

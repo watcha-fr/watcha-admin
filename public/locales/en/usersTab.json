@@ -1,10 +1,6 @@
 {
     "title": "Users",
-    "searchBox": {
-        "filter": "Filter",
-        "clear": "Clear",
-        "placeholder": "Filter users"
-    },
+    "searchBoxPlaceholder": "Filter users",
     "button": "New user",
     "fullName": "Full name",
     "emailAddress": "Email address",
