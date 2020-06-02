@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { useTranslation, withTranslation } from "react-i18next";
 
 import { useMatrixClientContext } from "./contexts";
-import Button from "./NewItemButton";
+import NewRoomButton from "./NewRoomButton";
 import TableTab, { compareLowerCase } from "./TableTab";
 
 const ns = "roomsTab";
@@ -33,9 +33,6 @@ export default () => {
         lazy: true,
         resolve,
     };
-
-    const NewRoomButton = withTranslation(ns)(Button);
-    const newItemButton = <NewRoomButton onClick={() => {}} />;
 
     const columns = useMemo(
         () => [
@@ -76,7 +73,8 @@ export default () => {
         <TableTab
             itemList={roomList}
             setItemList={setRoomList}
-            {...{ requestParams, columns, initialState, newItemButton, ns }}
+            newItemButton={<NewRoomButton />}
+            {...{ requestParams, columns, initialState, ns }}
         />
     );
 };

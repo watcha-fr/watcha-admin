@@ -2,6 +2,7 @@
     "title": "Rooms",
     "searchBoxPlaceholder": "Filter rooms",
     "button": "New room",
+    "buttonHelp": "Open Watcha in a new tab to create a new room",
     "headers": {
         "name": "Name",
         "creator": "Creator",
