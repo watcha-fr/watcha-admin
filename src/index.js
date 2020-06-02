@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import registerServiceWorker from "./registerServiceWorker";
 
 import ErrorBoundary from "./ErrorBoundary";
 import App from "./App";
