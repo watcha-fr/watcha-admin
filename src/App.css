@@ -98,6 +98,7 @@
 }
 
 th {
+    z-index: 1;
     position: sticky;
     top: 0;
     border: 0 !important;
@@ -121,6 +122,16 @@ th:hover {
 .tableHeader {
     display: flex;
     align-items: center;
+    white-space: nowrap;
+}
+
+tr,
+td {
+    height: 100%;
+}
+
+col.status {
+    width: 0.0001%;
 }
 
 .chevron {
@@ -146,12 +157,31 @@ th:hover {
     background-color: darkgrey !important;
 }
 
-td .active {
-    color: green;
+.selectedRow .status {
+    background-color: white !important;
 }
 
-td .inactive {
-    color: red;
+td .status {
+    display: block;
+    height: 80%;
+    margin-left: 1em;
+    mask-size: contain !important;
+    mask-repeat: no-repeat !important;
+}
+
+td .status.active {
+    mask: url("./images/status.svg");
+    background-color: limegreen;
+}
+
+td .status.inactive {
+    mask: url("./images/status.svg");
+    background-color: red;
+}
+
+td .status.invited {
+    mask: url("./images/pending-invitation.svg");
+    background-color: black;
 }
 
 .bottomButtons {
@@ -164,7 +194,6 @@ td .inactive {
     height: 100%;
     width: 30vw;
 }
-
 
 .header-with-button {
     display: flex;
@@ -189,7 +218,7 @@ td .inactive {
     color: white;
 }
 
-.statsPanelFooter:hover{
+.statsPanelFooter:hover {
     cursor: pointer;
     background-color: darkturquoise;
     text-decoration: underline;

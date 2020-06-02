@@ -3,6 +3,7 @@ import { useTranslation, withTranslation } from "react-i18next";
 
 import { useDispatchContext } from "./contexts";
 import Button from "./NewItemButton";
+import classnames from "classnames";
 import Date from "./Date";
 import NewUserModal from "./NewUserModal";
 import TableTab, { compareLowerCase } from "./TableTab";
@@ -78,7 +79,10 @@ export default ({ userId }) => {
                 accessor: "status",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => (
-                    <span className={value}>{t(`status.${value}`)}</span>
+                    <span
+                        className={classnames("status", value)}
+                        title={t(`status.${value}`)}
+                    />
                 ),
             },
         ],

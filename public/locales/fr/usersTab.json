@@ -22,7 +22,7 @@
         "emailAddress": "Adresse électronique",
         "lastSeen": "Dernière activité le",
         "role": "Rôle",
-        "status": "Statut du compte"
+        "status": "Statut"
     },
     "roles": {
         "administrator": "Administrateur",
@@ -30,8 +30,8 @@
         "partner": "Partenaire"
     },
     "status": {
-        "active": "activé",
-        "inactive": "désactivé",
-        "invited": "invitation envoyée"
+        "active": "Compte activé",
+        "inactive": "Compte désactivé",
+        "invited": "Invitation envoyée"
     }
 }
