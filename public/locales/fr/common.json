@@ -27,10 +27,6 @@
     "Of which active personnals conversations": "Dont conversations privées actives",
     "Administrators": "Administrateurs ",
 
-    "errorBoundary": {
-        "title": "Quelque chose s’est mal passé !",
-        "body": "<0>Vous pouvez tenter d'actualiser la page, ou suivre sur ce lien <0>{{redirectUrl}}</0> pour retourner sur Watcha.</0><1>Si le disfonctionnement venait à se reproduire, veuillez nous contacter à <0>{{email}}</0>.</1>"
-    },
     "login": {
         "title": "Interface d'administration",
         "username": "Adresse électronique",

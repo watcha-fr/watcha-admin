@@ -2,11 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
 
+import ErrorBoundary from "./ErrorBoundary";
 import App from "./App";
 
 import "./i18n";
 import "./index.css";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+    <ErrorBoundary>
+        <App />
+    </ErrorBoundary>,
+    document.getElementById("root")
+);
 
 registerServiceWorker();

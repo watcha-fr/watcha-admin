@@ -10,10 +10,6 @@
         "button": "Sign in",
         "loading": "Loading..."
     },
-    "errorBoundary": {
-        "title": "Something went wrong!",
-        "body": "<0>You can try to refresh the page, or follow this link <0>{{redirectUrl}}</0> to return to Watcha.</0><1>Should the failure happen again, please contact us at <0>{{email}}</0>.</1>"
-    },
     "ok": "OK",
     "save": "Save",
     "cancel": "Cancel",
