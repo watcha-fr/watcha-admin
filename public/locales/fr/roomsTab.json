@@ -2,7 +2,6 @@
     "title": "Salons",
     "searchBoxPlaceholder": "Filtrer les salons",
     "button": "Nouveau salon",
-    "buttonHelp": "Ouvrir Watcha dans un nouvel onglet pour créer un nouveau salon",
     "headers": {
         "name": "Nom",
         "creator": "Créateur",
