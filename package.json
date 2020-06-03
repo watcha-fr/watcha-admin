@@ -16,9 +16,11 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.3.4",
+    "react-is": "^16.13.1",
     "react-scripts": "^3.4.1",
     "react-table": "^7.0.4",
     "restful-react": "^11.2.0",
+    "styled-components": "^5.1.1",
     "yup": "^0.28.5"
   },
   "scripts": {

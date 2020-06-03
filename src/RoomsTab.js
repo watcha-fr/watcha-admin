@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from "react";
-import { useTranslation, withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import { useMatrixClientContext } from "./contexts";
-import NewRoomButton from "./NewRoomButton";
+import NewItemButton from "./NewItemButton";
+import NewRoomModal from "./NewRoomModal";
 import TableTab, { compareLowerCase } from "./TableTab";
 
 const ns = "roomsTab";
@@ -11,6 +12,7 @@ export default () => {
     const { t } = useTranslation(ns);
 
     const [roomList, setRoomList] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
 
     const client = useMatrixClientContext();
 
@@ -19,7 +21,7 @@ export default () => {
             roomId: item.room_id,
             name: item.name || "",
             creator: getDisplayName(item.creator) || "",
-            n: item.members.length,
+            memberCount: item.members.length,
             status: item.active === 1 ? "active" : "inactive",
         }));
 
@@ -33,6 +35,41 @@ export default () => {
         lazy: true,
         resolve,
     };
+
+    const newItemButton = (
+        <NewItemButton onClick={() => setModalShow(true)} {...{ t }} />
+    );
+
+    function getRoomCreatorDisplayName(mxRoom) {
+        const currentState = mxRoom.currentState;
+        const createEvent = currentState.getStateEvents("m.room.create", "");
+        if (createEvent) {
+            const userId = createEvent.getSender();
+            return getDisplayName(userId);
+        }
+    }
+
+    const newRoomLocalEcho = ({ roomId, name }) => {
+        if (!roomList.some(room => room.roomId === roomId)) {
+            const mxRoom = client.getRoom(roomId);
+            const room = {
+                roomId,
+                name,
+                creator: getRoomCreatorDisplayName(mxRoom) || "",
+                memberCount: mxRoom.getInvitedAndJoinedMemberCount(),
+                status: null,
+            };
+            setRoomList([...roomList, room]);
+        }
+    };
+
+    const newItemModal = (
+        <NewRoomModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            {...{ newRoomLocalEcho }}
+        />
+    );
 
     const columns = useMemo(
         () => [
@@ -48,17 +85,18 @@ export default () => {
                 disableGlobalFilter: true,
             },
             {
-                Header: t("headers.n"),
-                accessor: "n",
+                Header: t("headers.memberCount"),
+                accessor: "memberCount",
                 disableGlobalFilter: true,
             },
             {
                 Header: t("headers.status"),
                 accessor: "status",
                 disableGlobalFilter: true,
-                Cell: ({ value }) => (
-                    <span className={value}>{t(`status.${value}`)}</span>
-                ),
+                Cell: ({ value }) =>
+                    value && (
+                        <span className={value}>{t(`status.${value}`)}</span>
+                    ),
             },
         ],
         [t]
@@ -73,8 +111,14 @@ export default () => {
         <TableTab
             itemList={roomList}
             setItemList={setRoomList}
-            newItemButton={<NewRoomButton />}
-            {...{ requestParams, columns, initialState, ns }}
+            {...{
+                requestParams,
+                columns,
+                initialState,
+                newItemButton,
+                newItemModal,
+                ns,
+            }}
         />
     );
 };

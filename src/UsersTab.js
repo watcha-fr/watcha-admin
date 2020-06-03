@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useTranslation, withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import { useDispatchContext } from "./contexts";
-import Button from "./NewItemButton";
+import NewItemButton from "./NewItemButton";
 import Date from "./Date";
 import NewUserModal from "./NewUserModal";
 import TableTab, { compareLowerCase } from "./TableTab";
@@ -39,8 +39,9 @@ export default ({ userId }) => {
         }
     }, [userId, dispatch]);
 
-    const NewUserButton = withTranslation(ns)(Button);
-    const newItemButton = <NewUserButton onClick={() => setModalShow(true)} />;
+    const newItemButton = (
+        <NewItemButton onClick={() => setModalShow(true)} {...{ t }} />
+    );
 
     const newItemModal = (
         <NewUserModal
