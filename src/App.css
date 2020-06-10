@@ -188,6 +188,10 @@ td .status.invited {
     background-color: black;
 }
 
+.userAccountStatusHeaderPopover {
+    max-width: 25em;
+}
+
 .bottomButtons {
     margin: auto;
     width: 200px;

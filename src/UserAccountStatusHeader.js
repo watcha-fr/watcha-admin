@@ -9,7 +9,7 @@ export default () => {
     const { t } = useTranslation("usersTab");
 
     const popover = (
-        <Popover>
+        <Popover className="userAccountStatusHeaderPopover">
             <Popover.Title as="h3">{t("statusHelp.title")}</Popover.Title>
             <Popover.Content>
                 <p>
