@@ -23,7 +23,7 @@ class NewRoomModal extends Component {
         const { show, onHide, t } = this.props;
         return (
             <Modal centered aria-label={t("button")} {...{ show, onHide }}>
-                {show && <NewRoomIframe src="/#/new" />}
+                {show && <NewRoomIframe src="/app/#/new" />}
             </Modal>
         );
     }
