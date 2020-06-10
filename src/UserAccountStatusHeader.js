@@ -12,17 +12,15 @@ export default () => {
         <Popover>
             <Popover.Title as="h3">{t("statusHelp.title")}</Popover.Title>
             <Popover.Content>
-                <ul>
-                    <li>
-                        <Trans t={t} i18nKey={"statusHelp.content.active"} />
-                    </li>
-                    <li>
-                        <Trans t={t} i18nKey={"statusHelp.content.inactive"} />
-                    </li>
-                    <li>
-                        <Trans t={t} i18nKey={"statusHelp.content.invited"} />
-                    </li>
-                </ul>
+                <p>
+                    <Trans t={t} i18nKey={"statusHelp.content.active"} />
+                </p>
+                <p>
+                    <Trans t={t} i18nKey={"statusHelp.content.inactive"} />
+                </p>
+                <p>
+                    <Trans t={t} i18nKey={"statusHelp.content.invited"} />
+                </p>
             </Popover.Content>
         </Popover>
     );
