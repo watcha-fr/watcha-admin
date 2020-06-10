@@ -27,9 +27,9 @@
     "statusHelp": {
         "title": "Account status",
         "content": {
-            "active": "<strong>Active</strong> : the user can use Watcha.",
-            "inactive": "<strong>Inactive</strong> : the user can no longer use Watcha.",
-            "invited": "<strong>Invitation sent</strong> : the user has not completed the registration procedure sent by email, and therefore does not have access to Watcha."
+            "active": "<strong>Active</strong>: the user can log in to Watcha.",
+            "inactive": "<strong>Inactive</strong>: the user cannot log in to Watcha. A deactivated user can be reactivated (an email will be sent asking them to set a new password).",
+            "invited": "<strong>Invitation sent</strong>: an invitation email has been sent to the user, but the user has not yet finalized the registration process, and has not yet logged in to Watcha."
         }
     },
     "roles": {
