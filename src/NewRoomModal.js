@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
 import Modal from "react-bootstrap/Modal";
-import styled from "styled-components";
 
 class NewRoomModal extends Component {
     componentDidUpdate(prevProps) {
@@ -23,16 +22,10 @@ class NewRoomModal extends Component {
         const { show, onHide, t } = this.props;
         return (
             <Modal centered aria-label={t("button")} {...{ show, onHide }}>
-                {show && <NewRoomIframe src="/app/#/new" />}
+                {show && <iframe className="newRoomIframe" src="/app/#/new" />}
             </Modal>
         );
     }
 }
-
-const NewRoomIframe = styled.iframe`
-    width: 510px;
-    height: 306px;
-    border: 0;
-`;
 
 export default withTranslation("roomsTab")(NewRoomModal);

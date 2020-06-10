@@ -154,6 +154,12 @@ td .inactive {
     color: red;
 }
 
+.newRoomIframe {
+    width: 510px;
+    height: 306px;
+    border: 0;
+}
+
 .bottomButtons {
     margin: auto;
     width: 200px;
