@@ -59,7 +59,7 @@ export default ({ tableInstance, itemId }) => {
         <Table hover size="sm" {...getTableProps()}>
             <colgroup>
                 {tableInstance.columns.map(column => (
-                    <col className={column.id} />
+                    <col key={column.id} className={column.id} />
                 ))}
             </colgroup>
 
