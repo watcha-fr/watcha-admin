@@ -3,12 +3,12 @@ import { useTranslation, withTranslation } from "react-i18next";
 
 import { useDispatchContext } from "./contexts";
 import Button from "./NewItemButton";
-import classnames from "classnames";
 import Date from "./Date";
 import NewUserModal from "./NewUserModal";
 import TableTab, { compareLowerCase } from "./TableTab";
 import UserRightPanel from "./UserRightPanel";
 
+import Status from "./Status";
 import UserAccountStatusHeader from "./UserAccountStatusHeader";
 
 const ns = "usersTab";
@@ -80,12 +80,7 @@ export default ({ userId }) => {
                 Header: <UserAccountStatusHeader />,
                 accessor: "status",
                 disableGlobalFilter: true,
-                Cell: ({ value }) => (
-                    <span
-                        className={classnames("status", value)}
-                        title={t(`status.${value}`)}
-                    />
-                ),
+                Cell: ({ value }) => <Status status={value} t={t} />,
             },
         ],
         [t]

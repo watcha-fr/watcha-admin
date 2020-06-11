@@ -161,33 +161,6 @@ col.status {
     background-color: darkgrey !important;
 }
 
-.selectedRow .status {
-    background-color: white !important;
-}
-
-td .status {
-    display: block;
-    height: 80%;
-    margin-left: 1em;
-    mask-size: contain !important;
-    mask-repeat: no-repeat !important;
-}
-
-td .status.active {
-    mask: url("./images/status.svg");
-    background-color: limegreen;
-}
-
-td .status.inactive {
-    mask: url("./images/status.svg");
-    background-color: red;
-}
-
-td .status.invited {
-    mask: url("./images/pending-invitation.svg");
-    background-color: black;
-}
-
 .bottomButtons {
     margin: auto;
     width: 200px;
