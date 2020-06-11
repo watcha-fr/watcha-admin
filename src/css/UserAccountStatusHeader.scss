@@ -1,0 +1,31 @@
+@import "util.scss";
+
+.UserAccountStatusHeader_Popover {
+    max-width: 25em;
+
+    .status {
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+        margin-right: 0.5em;
+        mask-size: contain !important;
+
+        &.active,
+        &.inactive {
+            mask: url("#{$img}/status.svg");
+        }
+
+        &.active {
+            background-color: limegreen;
+        }
+
+        &.inactive {
+            background-color: red;
+        }
+
+        &.invited {
+            mask: url("#{$img}/pending-invitation.svg");
+            background-color: black;
+        }
+    }
+}
