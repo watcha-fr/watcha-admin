@@ -33,7 +33,7 @@ export default () => {
         <>
             {t("headers.status")}
             <OverlayTrigger placement="left" overlay={popover}>
-                <img src={infoCircle} />
+                <img src={infoCircle} alt={t("help")} />
             </OverlayTrigger>
         </>
     );
