@@ -28,7 +28,7 @@
         "title": "Statut du compte",
         "content": {
             "active": "<strong>Activé</strong> : l'utilisateur peut se connecter à Watcha.",
-            "inactive": "<strong>Désactivé</strong> : l'utilisateur ne peut pas se connecter à Watcha. Un utilisateur désactivé peut être réactivé (un email lui demandant de définir un nouveau mot de passe lui sera envoyé).",
+            "inactive": "<strong>Désactivé</strong> : l'utilisateur ne peut pas se connecter à Watcha. Un utilisateur désactivé peut être réactivé ; un email lui demandant de définir un nouveau mot de passe lui sera envoyé le cas échéant.",
             "invited": "<strong>Invitation envoyée</strong> : un email d'invitation a été envoyé à l'utilisateur, mais ce dernier n'a pas encore finalisé la procédure d'inscription, et ne s'est pas encore connecté à Watcha."
         }
     },
