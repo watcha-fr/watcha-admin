@@ -1,9 +1,6 @@
 @import "util.scss";
 
-.Status {
-    display: block;
-    height: 80%;
-    margin-left: 1em;
+.Status_base {
     mask-size: contain !important;
     mask-repeat: no-repeat !important;
 
@@ -24,6 +21,13 @@
         mask: url("#{$img}/pending-invitation.svg");
         background-color: black;
     }
+}
+
+.Status {
+    @extend .Status_base;
+    display: block;
+    height: 80%;
+    margin-left: 1em;
 }
 
 .selectedRow .Status {
