@@ -44,7 +44,7 @@ export default withTranslation()(({ t, datas }) => {
                                         )}
                                     </td>
                                     <td className="sectionPanelData">
-                                        {datas.install_date.split("-").reverse().join("/")}
+                                        {datas.install_date}
                                     </td>
                                 </tr>
                                 <tr
@@ -58,7 +58,7 @@ export default withTranslation()(({ t, datas }) => {
                                         )}
                                     </td>
                                     <td className="sectionPanelData">
-                                        {datas.upgrade_date.split("-").reverse().join("/")}
+                                        {datas.upgrade_date}
                                     </td>
                                 </tr>
                                 <tr
