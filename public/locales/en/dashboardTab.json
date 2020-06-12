@@ -1,6 +1,7 @@
 {
     "title": "Dashboard",
     "usersPanel": {
+        "title": "Users",
         "collaborators": "Collaborators",
         "partners": "Partners",
         "administrators": "Administrators",
@@ -25,7 +26,7 @@
         "noRoomsMessageOne": "This Watcha instance does not yet have some rooms.",
         "noRoomsMessageTwo": "Return to Watcha to create a first room (button \"+\")."
     },
-    "serverStatePannel": {
+    "serverStatePanel": {
         "title": "Server state",
         "generaleInformation": "General information",
         "version": "Version",

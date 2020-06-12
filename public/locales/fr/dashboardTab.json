@@ -1,6 +1,7 @@
 {
     "title": "Tableau de bord",
     "usersPanel": {
+        "title": "Utilisateurs",
         "collaborators": "Collaborateurs",
         "partners": "Partenaires",
         "administrators": "Administrateurs",
@@ -25,7 +26,7 @@
         "noRoomsMessageOne": "Cette installation de Watcha n'a encore aucun salon.",
         "noRoomsMessageTwo": "Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")"
     },
-    "serverStatePannel": {
+    "serverStatePanel": {
         "title": "État du serveur",
         "generaleInformation": "Informations générales",
         "version": "Version",
