@@ -10,13 +10,11 @@
         "button": "Sign in",
         "loading": "Loading..."
     },
-    "errorBoundary": {
-        "title": "Something went wrong!",
-        "body": "<0>Should the failure happen again, please contact us at <0>{{email}}</0>.</0><1>You'll be redirected to <0>{{redirectUrl}}</0> in a few seconds...</1>"
-    },
     "ok": "OK",
     "save": "Save",
     "cancel": "Cancel",
     "success": "Successfull transaction",
-    "danger": "An error has occurred"
+    "danger": "An error has occurred",
+    "filter": "Filter",
+    "clear": "Clear"
 }

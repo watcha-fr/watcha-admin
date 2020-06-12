@@ -1,57 +1,79 @@
-import React, { useMemo } from "react";
-import {
-    useGlobalFilter,
-    useRowSelect,
-    useSortBy,
-    useTable,
-} from "react-table";
+import React, { useEffect, useMemo, useRef } from "react";
+import { useGet } from "restful-react";
+import { useGlobalFilter, useSortBy, useTable } from "react-table";
+import { withTranslation } from "react-i18next";
 import matchSorter from "match-sorter";
 
+import { useDispatchContext } from "./contexts";
+import DelayedSpinner from "./DelayedSpinner";
 import SearchBox from "./SearchBox";
 import Table from "./Table";
 
 export default ({
-    data,
+    itemList,
+    setItemList,
+    requestParams,
     columns,
     initialState,
-    button,
+    newItemButton,
     newItemModal,
-    editUser,
     rightPanel,
+    itemId,
     ns,
 }) => {
+    const intervalIdRef = useRef();
+
+    const { data, refetch } = useGet(requestParams);
+
+    useEffect(() => {
+        refetch();
+    }, []);
+
+    useEffect(() => {
+        setItemList(data);
+        if (intervalIdRef.current) {
+            clearInterval(intervalIdRef.current);
+        }
+        intervalIdRef.current = setInterval(() => refetch(), 10000);
+    }, [data, setItemList]);
+
     const globalFilter = useMemo(() => fuzzyTextFilterFn, []);
 
     const tableInstance = useTable(
         {
-            data,
+            data: itemList || [],
             columns,
             initialState,
             globalFilter,
             autoResetGlobalFilter: false,
             autoResetSortBy: false,
-            autoResetSelectedRows: false,
             disableSortRemove: true,
         },
         useGlobalFilter,
-        useSortBy,
-        useRowSelect
+        useSortBy
     );
 
-    return (
+    const dispatch = useDispatchContext();
+    useEffect(() => dispatch({ tableInstance }), [tableInstance, dispatch]);
+
+    const TransSearchBox = useMemo(() => withTranslation(ns)(SearchBox), [ns]);
+
+    return itemList ? (
         <>
             <div className="d-flex justify-content-between p-3">
-                <SearchBox {...{ ns, tableInstance }} />
-                {button}
+                <TransSearchBox {...{ tableInstance }} />
+                {newItemButton}
             </div>
             <div className="tableTabBody">
                 <div className="tableContainer px-3">
-                    <Table {...{ tableInstance, editUser }} />
+                    <Table {...{ tableInstance, itemId }} />
                 </div>
                 {rightPanel}
             </div>
             {newItemModal}
         </>
+    ) : (
+        <DelayedSpinner />
     );
 };
 
@@ -63,5 +85,7 @@ const fuzzyTextFilterFn = (rows, ids, filterValue) =>
 export function compareLowerCase(rowA, rowB, columnId) {
     const a = rowA.values[columnId].toLowerCase();
     const b = rowB.values[columnId].toLowerCase();
+    if (a === "") return 1;
+    if (b === "") return -1;
     return a === b ? 0 : a > b ? 1 : -1;
 }

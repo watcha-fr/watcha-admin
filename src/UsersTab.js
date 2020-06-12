@@ -1,83 +1,52 @@
-import React, {
-    useCallback,
-    useEffect,
-    useMemo,
-    useRef,
-    useState,
-} from "react";
-import { useGet } from "restful-react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useMemo, useState } from "react";
+import { useTranslation, withTranslation } from "react-i18next";
 
-import { useDispatchContext, useUserIdContext } from "./contexts";
+import { useDispatchContext } from "./contexts";
 import Button from "./NewItemButton";
 import Date from "./Date";
-import DelayedSpinner from "./DelayedSpinner";
 import NewUserModal from "./NewUserModal";
 import TableTab, { compareLowerCase } from "./TableTab";
 import UserRightPanel from "./UserRightPanel";
 
 const ns = "usersTab";
 
-export default () => {
+export default ({ userId }) => {
     const { t } = useTranslation(ns);
-
-    const userId = useUserIdContext();
-    const dispatch = useDispatchContext();
 
     const [userList, setUserList] = useState(null);
     const [modalShow, setModalShow] = useState(false);
     const [rightPanel, setRightPanel] = useState(null);
 
-    const { data, refetch } = useGet({
+    const requestParams = {
         path: "watcha_user_list",
         lazy: true,
         resolve,
-    });
+    };
 
-    const refetchRef = useRef();
-    refetchRef.current = refetch;
-
-    const intervalIdRef = useRef();
+    const dispatch = useDispatchContext();
 
     useEffect(() => {
-        refetchRef.current();
-    }, []);
-
-    useEffect(() => {
-        setUserList(data);
-        if (intervalIdRef.current) {
-            clearInterval(intervalIdRef.current);
-        }
-        intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
-    }, [data]);
-
-    const onClose = event => setRightPanel();
-
-    useEffect(() => {
+        const onClose = () => dispatch({ userId: null });
         if (userList && userId) {
             for (const user of userList) {
                 if (user.userId === userId) {
                     setRightPanel(<UserRightPanel {...{ user, onClose }} />);
-                    dispatch({ userId: null });
-                    return;
+                    break;
                 }
             }
+        } else if (!userId) {
+            setRightPanel();
         }
-    }, [userList, userId, dispatch]);
+    }, [userId, dispatch]);
 
-    const button = <Button onClick={() => setModalShow(true)} {...{ ns }} />;
+    const NewUserButton = withTranslation(ns)(Button);
+    const newItemButton = <NewUserButton onClick={() => setModalShow(true)} />;
 
     const newItemModal = (
         <NewUserModal
             newUserLocalEcho={user => setUserList([...userList, user])}
             {...{ modalShow, setModalShow, userList }}
         />
-    );
-
-    const editUser = useCallback(
-        user =>
-            setRightPanel(user && <UserRightPanel {...{ user, onClose }} />),
-        []
     );
 
     const columns = useMemo(
@@ -121,21 +90,21 @@ export default () => {
         []
     );
 
-    return userList ? (
+    return (
         <TableTab
-            data={userList}
+            itemList={userList}
+            setItemList={setUserList}
+            itemId={userId}
             {...{
+                requestParams,
                 columns,
                 initialState,
-                button,
+                newItemButton,
                 newItemModal,
-                editUser,
                 rightPanel,
                 ns,
             }}
         />
-    ) : (
-        <DelayedSpinner />
     );
 };
 

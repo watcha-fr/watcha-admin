@@ -1,10 +1,6 @@
 {
     "title": "Utilisateurs",
-    "searchBox": {
-        "filter": "Filtrer",
-        "clear": "Effacer",
-        "placeholder": "Filtrer les utilisateurs"
-    },
+    "searchBoxPlaceholder": "Filtrer les utilisateurs",
     "button": "Nouvel utilisateur",
     "fullName": "Nom complet",
     "emailAddress": "Adresse électronique",

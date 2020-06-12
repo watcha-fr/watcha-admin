@@ -1,21 +1,9 @@
 {
-    "Members": "Utilisateurs internes ",
-    "Member": "Utilisateur interne",
-    "Internal users": "Utilisateurs internes",
-    "Partners": "Partenaires ",
-    "Administrators": "Administrateurs ",
-    "One-to-one conversations": "Conversations à deux ",
-    "One to one": "Conversation à deux",
-    "Room": "Salon ",
-    "Statistics for Watcha server": "Statistiques",
-    "Hide one-to-one conversations": "Masquer les conversations à deux",
-    "Search": "Rechercher",
     "Upgrade to internal user": "Promouvoir en utilisateur interne",
     "Reset Password": " Réinitialiser le mot de passe",
     "Deactivate Account": "Désactiver le compte",
     "Show connection history": "voir l'historique de connexion",
     "Device": "Appareil",
-    "Devices": "Appareils",
     "Connected": "Connecté",
     "Creation": "Création ",
     "Account deactivated": "Compte désactivé",
@@ -29,20 +17,9 @@
     "The account ": "Le compte ",
     " has been reactivated, and an email has been sent to the user with a new password": " a été réactivé, et un nouveau mot de passe a été envoyé à l'utilisateur",
     "Password reset failed": "L'opération a échoué",
-    "Creator": "Créateur",
-    "Show users": "Afficher les utilisateurs",
-    "Users in this room": "Utilisateurs dans ce salon",
-    "User name": "Nom d'utilisateur",
-    "Display Name": "Nom d'affichage",
-    "Date of creation": "Créé le",
-    "Room Id": "Identifiant du salon",
     "Password reset": "Mot de passe réinitialisé",
     "Activate account": "Activer le compte",
 
-    "errorBoundary": {
-        "title": "Quelque chose s’est mal passé !",
-        "body": "<0>Si le disfonctionnement venait à se reproduire, veuillez nous contacter à <0>{{email}}</0>.</0><1>Vous allez être redirigé vers <0>{{redirectUrl}}</0> dans quelques secondes...</1>"
-    },
     "login": {
         "title": "Interface d'administration",
         "username": "Adresse électronique",
@@ -54,5 +31,7 @@
     "cancel": "Annuler",
     "close": "Fermer",
     "success": "Opération terminée avec succès",
-    "danger": "Une erreur s'est produite"
+    "danger": "Une erreur s'est produite",
+    "filter": "Filtrer",
+    "clear": "Effacer"
 }
