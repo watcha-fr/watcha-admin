@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Col";
-import UsersDashboardPanel from "./UsersDashboardPanel";
-import RoomsDashboardPanel from "./RoomsDashboardPanel";
-import ServerStateDashboardPanel from "./ServerStateDashboardPanel";
 import CardDeck from "react-bootstrap/CardDeck";
 import DelayedSpinner from "./DelayedSpinner";
 import RefreshButton from "./Buttons/RefreshButton";
+import DashboardPanel from "./DashboardPanel";
 import { MatrixClientContext } from "./contexts";
 
 class DashboardTab extends Component {
@@ -14,7 +11,7 @@ class DashboardTab extends Component {
         super(props);
         this.state = {
             apiAdress: "_matrix/client/r0/watcha_admin_stats",
-            datas: undefined,
+            data: undefined,
             loading: true,
         };
     }
@@ -23,7 +20,7 @@ class DashboardTab extends Component {
 
     getDatas = async () => {
         const client = this.context;
-        let datas;
+        let data;
         try {
             const adminStatsRequest = await fetch(
                 new URL(this.state.apiAdress, client.baseUrl),
@@ -34,13 +31,12 @@ class DashboardTab extends Component {
                     },
                 }
             );
-            datas = JSON.parse(await adminStatsRequest.text());
+            data = JSON.parse(await adminStatsRequest.text());
         } catch (e) {
             console.log("error: " + e);
             return;
         }
-
-        this.setState({ datas, loading: false });
+        this.setState({ data, loading: false });
     };
 
     componentDidMount() {
@@ -48,7 +44,7 @@ class DashboardTab extends Component {
     }
 
     render() {
-        return this.state.loading || !this.state.datas ? (
+        return this.state.loading || !this.state.data ? (
             <DelayedSpinner />
         ) : (
             <div>
@@ -56,18 +52,21 @@ class DashboardTab extends Component {
 
                 <CardDeck className="dashboardPanelsContainer">
                     <Col>
-                        <RoomsDashboardPanel
-                            datas={this.state.datas.rooms}
-                            tab="rooms"
+                        <DashboardPanel
+                            panelName="roomsPanel"
+                            panelInformations={this.state.data.rooms}
+                            administrateButtonTabDestination="rooms"
                         />
-                        <ServerStateDashboardPanel
-                            datas={this.state.datas.server}
+                        <DashboardPanel
+                            panelName="serverStatePanel"
+                            panelInformations={this.state.data.server}
                         />
                     </Col>
                     <Col>
-                        <UsersDashboardPanel
-                            datas={this.state.datas.users}
-                            tab="users"
+                        <DashboardPanel
+                            panelName="usersPanel"
+                            panelInformations={this.state.data.users}
+                            administrateButtonTabDestination="users"
                         />
                     </Col>
                 </CardDeck>
