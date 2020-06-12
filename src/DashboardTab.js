@@ -1,104 +1,79 @@
-import React from "react";
-import { useGet } from "restful-react";
-import { useTranslation } from "react-i18next";
-
-import CardStats from "./CardStats";
+import React, { Component } from "react";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Col";
+import UsersDashboardPanel from "./UsersDashboardPanel";
+import RoomsDashboardPanel from "./RoomsDashboardPanel";
+import ServerStateDashboardPanel from "./ServerStateDashboardPanel";
+import CardDeck from "react-bootstrap/CardDeck";
 import DelayedSpinner from "./DelayedSpinner";
+import RefreshButton from "./Buttons/RefreshButton";
+import { MatrixClientContext } from "./contexts";
 
-export default () => {
-    const { t } = useTranslation();
-
-    const { data, loading, error } = useGet({ path: "watcha_admin_stats" });
-
-    if (error) {
-        console.error(error);
+class DashboardTab extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            apiAdress: "_matrix/client/r0/watcha_admin_stats",
+            datas: undefined,
+            loading: true,
+        };
     }
 
-    return loading || !data ? (
-        <DelayedSpinner />
-    ) : (
-        <div>
-            <div className="statsPanelsContainer">
-                <CardStats
-                    lines={[
-                        {
-                            label: t("dashboardTab:usersPannel.collaborators"),
-                            data: data.users.collaborators,
-                        },
-                        {
-                            label: t("dashboardTab:usersPannel.partners"),
-                            data: data.users.partners,
-                        },
-                        {
-                            label: t("dashboardTab:usersPannel.weeklyUsers"),
-                            data: data.users.number_of_last_week_logged_users,
-                        },
-                        {
-                            label: t("dashboardTab:usersPannel.monthlyUsers"),
-                            data: data.users.number_of_last_month_logged_users,
-                        },
-                        {
-                            label: t("dashboardTab:usersPannel.loggedUsers"),
-                            data:
-                                data.users.number_of_users_logged_at_least_once,
-                        },
-                        {
-                            label: t(
-                                "dashboardTab:usersPannel.pendingInvitationUsers"
-                            ),
-                            data:
-                                data.users
-                                    .number_of_users_with_pending_invitation,
-                        },
-                        {
-                            label: t("dashboardTab:usersPannel.admin"),
-                            data: data.admins,
-                        },
-                    ]}
-                    title={t("usersTab:title")}
-                    footer={t("dashboardTab:usersPannel.footerLink")}
-                    tab="users"
-                />
-                <CardStats
-                    lines={
-                        data.rooms.non_direct_rooms_count === 0 &&
-                        data.rooms.direct_rooms_count === 0
-                            ? []
-                            : [
-                                  {
-                                      label: t(
-                                          "dashboardTab:roomsPannel.nonDirectRoomsCount"
-                                      ),
-                                      data: data.rooms.non_direct_rooms_count,
-                                  },
-                                  {
-                                      label: t(
-                                          "dashboardTab:roomsPannel.nonDirectActiveRoomsCount"
-                                      ),
-                                      data:
-                                          data.rooms
-                                              .non_direct_active_rooms_count,
-                                  },
-                                  {
-                                      label: t(
-                                          "dashboardTab:roomsPannel.directRoomsCount"
-                                      ),
-                                      data: data.rooms.direct_rooms_count,
-                                  },
-                                  {
-                                      label: t(
-                                          "dashboardTab:roomsPannel.directActiveRoomsCount"
-                                      ),
-                                      data:
-                                          data.rooms.direct_active_rooms_count,
-                                  },
-                              ]
-                    }
-                    title={t("roomsTab:title")}
-                    footer={t("dashboardTab:roomsPannel.footerLink")}
-                    tab="rooms"
-                />
+    static contextType = MatrixClientContext;
+
+    getDatas = async () => {
+        const client = this.context;
+        let datas;
+        try {
+            const adminStatsRequest = await fetch(
+                new URL(this.state.apiAdress, client.baseUrl),
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer " + client.getAccessToken(),
+                    },
+                }
+            );
+            datas = JSON.parse(await adminStatsRequest.text());
+        } catch (e) {
+            console.log("error: " + e);
+            return;
+        }
+
+        this.setState({ datas, loading: false });
+    };
+
+    componentDidMount() {
+        this.getDatas();
+    }
+
+    render() {
+        return this.state.loading || !this.state.datas ? (
+            <DelayedSpinner />
+        ) : (
+            <div>
+                <RefreshButton onClick={this.getDatas} variant="primary" />
+
+                <CardDeck className="dashboardPanelsContainer">
+                    <Col>
+                        <RoomsDashboardPanel
+                            datas={this.state.datas.rooms}
+                            tab="rooms"
+                        />
+                        <ServerStateDashboardPanel
+                            datas={this.state.datas.server}
+                        />
+                    </Col>
+                    <Col>
+                        <UsersDashboardPanel
+                            datas={this.state.datas.users}
+                            tab="users"
+                        />
+                    </Col>
+                </CardDeck>
             </div>
-        </div>
-    );
-};
+        );
+    }
+}
+
+export default DashboardTab;
