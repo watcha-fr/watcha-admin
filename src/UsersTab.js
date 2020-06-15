@@ -112,6 +112,7 @@ export default ({ userId }) => {
 const resolve = data =>
     data.map(item => ({
         userId: item.user_id,
+        itemId: item.user_id,
         displayName: item.display_name || "",
         emailAddress: item.email_address || "",
         lastSeen: item.last_seen || null,
