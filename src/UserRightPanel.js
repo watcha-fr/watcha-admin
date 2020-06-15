@@ -346,7 +346,7 @@ class UserRightPanel extends Component {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        role: "member",
+                        role: "collaborator",
                     }),
                 }
             );
