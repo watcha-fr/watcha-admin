@@ -165,6 +165,20 @@ col.status {
     background-color: darkgrey !important;
 }
 
+td .active {
+    color: green;
+}
+
+td .inactive {
+    color: red;
+}
+
+.newRoomIframe {
+    width: 510px;
+    height: 278px;
+    border: 0;
+}
+
 .bottomButtons {
     margin: auto;
     width: 200px;
