@@ -6,7 +6,7 @@ import RoomsDashboardPanel from "./RoomsDashboardPanel";
 import ServerStateDashboardPanel from "./ServerStateDashboardPanel";
 import CardDeck from "react-bootstrap/CardDeck";
 import DelayedSpinner from "./DelayedSpinner";
-import RefreshButton from "./Buttons/RefreshButton";
+import RefreshButton from "./RefreshButton";
 import { MatrixClientContext } from "./contexts";
 
 class DashboardTab extends Component {
