@@ -111,11 +111,17 @@ export default ({ userId }) => {
 
 const resolve = data =>
     data.map(item => ({
-        userId: item.user_id,
-        displayName: item.display_name || "",
-        emailAddress: item.email_address || "",
+        userId: item.name,
+        itemId: item.name,
+        displayName: item.displayname || "",
+        emailAddress: item.email || "",
         lastSeen: item.last_seen || null,
-        role: item.role,
-        status: item.status,
+        role:
+            item.admin === 1
+                ? "administrator"
+                : item.is_partner === 1
+                ? "partner"
+                : "collaborator",
+        status: item.is_active === 1 ? "active" : "inactive",
         creationTs: item.creation_ts * 1000,
     }));
