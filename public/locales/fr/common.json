@@ -40,5 +40,6 @@
     "success": "Opération terminée avec succès",
     "danger": "Une erreur s'est produite",
     "filter": "Filtrer",
-    "clear": "Effacer"
+    "clear": "Effacer",
+    "help": "Aide"
 }
