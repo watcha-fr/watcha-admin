@@ -57,6 +57,12 @@ export default ({ tableInstance, itemId }) => {
 
     return (
         <Table hover size="sm" {...getTableProps()}>
+            <colgroup>
+                {tableInstance.columns.map(column => (
+                    <col key={column.id} className={column.id} />
+                ))}
+            </colgroup>
+
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -71,6 +77,7 @@ export default ({ tableInstance, itemId }) => {
                     </tr>
                 ))}
             </thead>
+
             <tbody {...getTableBodyProps()}>
                 {rows.map(row => {
                     prepareRow(row);

@@ -98,6 +98,7 @@
 }
 
 th {
+    z-index: 1;
     position: sticky;
     top: 0;
     border: 0 !important;
@@ -121,6 +122,24 @@ th:hover {
 .tableHeader {
     display: flex;
     align-items: center;
+    white-space: nowrap;
+}
+
+.tableHeader img {
+    margin-left: 0.5em;
+}
+
+tr,
+td {
+    height: 100%;
+}
+
+col {
+    width: 1%;
+}
+
+col.status {
+    width: 0.0001%;
 }
 
 .chevron {
@@ -146,14 +165,6 @@ th:hover {
     background-color: darkgrey !important;
 }
 
-td .active {
-    color: green;
-}
-
-td .inactive {
-    color: red;
-}
-
 .bottomButtons {
     margin: auto;
     width: 200px;
@@ -164,7 +175,6 @@ td .inactive {
     height: 100%;
     width: 30vw;
 }
-
 
 .header-with-button {
     display: flex;
