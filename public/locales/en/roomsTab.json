@@ -5,7 +5,7 @@
     "headers": {
         "name": "Name",
         "creator": "Creator",
-        "memberCount": "Member count",
+        "n": "Member count",
         "type": "Type",
         "status": "Status"
     },

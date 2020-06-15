@@ -18,7 +18,7 @@
     "success": "Un nouvel utilisateur a été créé",
     "danger": "La création de l'utilisateur a échoué",
     "headers": {
-        "displayName": "Nom affiché",
+        "displayName": "Nom d'affichage",
         "emailAddress": "Adresse électronique",
         "lastSeen": "Dernière activité le",
         "role": "Rôle",
