@@ -16,5 +16,6 @@
     "success": "Successfull transaction",
     "danger": "An error has occurred",
     "filter": "Filter",
-    "clear": "Clear"
+    "clear": "Clear",
+    "help": "Help"
 }
