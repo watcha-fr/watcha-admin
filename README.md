@@ -28,7 +28,9 @@ To connect to a specific Synapse home server, define the `REACT_APP_CORE` enviro
 
 `REACT_APP_CORE=https://dev-core.watcha.fr yarn start`
 
-## Using with Riot
+## Using with Riot: simple setup
+
+Requires a rebuild every time, not really practical in dev
 
 * install nginx
 * use a config file like this (remove all other servers):
@@ -47,26 +49,11 @@ server {
 * build this project using `yarn build` here
 * everything works :)
 
-Alternatively, it should be able to run with 'yarn start' for both riot (i.e. make it run on port 7001) and watcha-admin make it run on port 1664),and a config like:
+## Using with Riot: reverse proxy
 
-```
-server {
-    listen 7001;
-    location / {
-            proxy_pass http://localhost:8080;
-            index index.html;
-    }
-    location /admin {    
-            proxy_pass http://localhost:1664;
-            sub_filter "/static" "/admin/static";
-            proxy_set_header Accept-Encoding "";
-            sub_filter_once off;
-            sub_filter_types *;
-    } 
-}
-```
-
-but it doesn't seem to be working ( http://localhost:7001/admin/static/js/bundle.js is not serving the .js...)
+* install nginx
+* add the file `devops.git/dev/watcha.conf` to your nginx install (follow the instructions in it)
+* you can comment the `include nextcloud.conf;` in that file, if you don't need nextcloud
 
 ## How was this build ? How can I get more information ?
 
