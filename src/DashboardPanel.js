@@ -21,7 +21,7 @@ export default ({
     const dispatch = useDispatchContext();
 
     const onAdministratebuttonClick = () => {
-        dispatch({ administrateButtonTabDestination });
+        dispatch({ tab: administrateButtonTabDestination });
     };
 
     const roomPanelContent =
