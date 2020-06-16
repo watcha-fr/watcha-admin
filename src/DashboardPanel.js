@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatchContext } from "./contexts";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -16,6 +17,12 @@ export default ({
     administrateButtonTabDestination,
 }) => {
     const { t } = useTranslation(ns);
+
+    const dispatch = useDispatchContext();
+
+    const onAdministratebuttonClick = () => {
+        dispatch({ administrateButtonTabDestination });
+    };
 
     const roomPanelContent =
         panelInformations.non_direct_rooms_count === 0 &&
@@ -51,12 +58,12 @@ export default ({
                 label={t(`${panelName}.upgradeDate`)}
                 value={`${panelInformations.upgrade_date}`}
             />
-            <PanelRow
+            {/* <PanelRow
                 label={t(`${panelName}.diskUsage`)}
                 value={`${Math.round(
                     panelInformations.disk.used / 1000000000
                 )} Go  (${panelInformations.disk.percent}%)`}
-            />
+            /> */}
         </tbody>
     );
 
@@ -84,7 +91,7 @@ export default ({
                 {administrateButtonTabDestination && (
                     <AdministrateButton
                         panelName={panelName}
-                        tabDestination={administrateButtonTabDestination}
+                        onClick={onAdministratebuttonClick}
                     />
                 )}
             </Card.Header>

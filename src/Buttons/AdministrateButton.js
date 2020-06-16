@@ -1,19 +1,14 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
-import { useDispatchContext } from "../contexts";
+import { useTranslation } from "react-i18next";
 
 const ns = "dashboardTab";
 
-export default ({ panelName, tabDestination }) => {
+export default ({ panelName, onClick }) => {
     const { t } = useTranslation(ns);
-    
-    const dispatch = useDispatchContext();
-
-    const onClick = () => dispatch({ tabDestination });
 
     return (
-        <Button className="administrateButton" onClick={() => onClick}>
+        <Button className="administrateButton" {...{onClick}}>
             {t(`${panelName}.administrateButton`)}
         </Button>
     );
