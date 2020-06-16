@@ -5,7 +5,11 @@ import Table from "react-bootstrap/Table";
 
 const ns = "dashboardTab";
 
-export default ({ panelSectionName, panelSectionInformations, administratorList }) => {
+export default ({
+    panelSectionName,
+    panelSectionInformations,
+    administratorList,
+}) => {
     const { t } = useTranslation(ns);
 
     const usersPerRoleSection = (
@@ -13,15 +17,18 @@ export default ({ panelSectionName, panelSectionInformations, administratorList 
             <PanelRow
                 label={t("usersPanel.administrators")}
                 value={`${panelSectionInformations.administrators}`}
-                {...{administratorList}}
+                {...{ administratorList }}
+                tooltipName="administrator"
             />
             <PanelRow
                 label={t("usersPanel.collaborators")}
                 value={`${panelSectionInformations.collaborators}`}
+                tooltipName="collaborator"
             />
             <PanelRow
                 label={t("usersPanel.partners")}
                 value={`${panelSectionInformations.partners}`}
+                tooltipName="partner"
             />
         </tbody>
     );
@@ -48,6 +55,7 @@ export default ({ panelSectionName, panelSectionInformations, administratorList 
             <PanelRow
                 label={t("usersPanel.pendingInvitationUsers")}
                 value={`${panelSectionInformations.number_of_users_with_pending_invitation}`}
+                tooltipName="pendingInvitation"
             />
         </tbody>
     );

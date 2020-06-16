@@ -55,5 +55,12 @@
     "close": "Fermer",
     "success": "Opération terminée avec succès",
     "danger": "Une erreur s'est produite",
-    "expand": "étendre"
+    "expand": "étendre",
+    "help": "aide",
+    "tooltip":{
+        "administrator": "Utilisateurs ayant accès à la console d'administration de l'instance.",
+        "collaborator": "Utilisateurs internes ayant le droit de créer des salons et d'inviter des utilisateurs dans ces derniers.",
+        "partner": "Utilisateurs externes ayant été invités dans un ou plusieurs salons, par un utilisateur interne et ayant des droits limités.",
+        "pendingInvitation": "Utilisateurs ayant été invités, mais n'ayant pas encore défini leur mot de passe, ni s'étant encore connecté."
+    }
 }

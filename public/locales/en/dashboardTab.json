@@ -12,11 +12,7 @@
         "administrateButton": "Administrate users",
         "usersPerRole": "Roles of users",
         "connectedUsers": "Connected users",
-        "otherStatistics": "Other statistics",
-        "administratorTooltip": "Users with access to the administration console of this instance.",
-        "collaboratorTooltip": "Internal users with the right to create rooms and invite users into them.",
-        "partnerTooltip": "External users who have been invited to one or more rooms by an internal user and have limited rights.",
-        "pendingInvitationTooltip": "Users who have been invited, but have not yet set their password or logged in."
+        "otherStatistics": "Other statistics"
     },
     "roomsPanel": {
         "title": "Rooms per type",

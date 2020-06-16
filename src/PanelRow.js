@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ExpandButton from "./Buttons/ExpandButton";
+import Tooltip from "./Tooltip";
 import { useDispatchContext } from "./contexts";
 
-export default ({ label, value, administratorList }) => {
+export default ({ label, value, administratorList, tooltipName }) => {
     const administratorsSection = [];
 
     if (administratorList) {
@@ -40,6 +41,7 @@ export default ({ label, value, administratorList }) => {
     return (
         <tr>
             <td className="panelRow_label">{label}</td>
+            {tooltipName && <Tooltip {...{ tooltipName }} />}
             {administratorList && (
                 <ExpandButton onClick={onExpandButtonClick} />
             )}
