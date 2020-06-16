@@ -1,10 +1,36 @@
 {
     "title": "Dashboard",
-    "usersPannel": {
-        "footerLink": "Administrate users"
+    "usersPanel": {
+        "collaborators": "Collaborators",
+        "partners": "Partners",
+        "administrators": "Administrators",
+        "loggedUsers": "At least once",
+        "monthlyUsers": "During last month",
+        "weeklyUsers": "Duringlast week",
+        "pendingInvitationUsers": "Pending invitations",
+        "administrateButton": "Administrate users",
+        "usersPerRole": "Roles of users",
+        "connectedUsers": "Connected users",
+        "otherStatistics": "Other statistics",
+        "administratorTooltip": "Users with access to the administration console of this instance.",
+        "collaboratorTooltip": "Internal users with the right to create rooms and invite users into them.",
+        "partnerTooltip": "External users who have been invited to one or more rooms by an internal user and have limited rights.",
+        "pendingInvitationTooltip": "Users who have been invited, but have not yet set their password or logged in."
     },
-    "roomsPannel": {
-        "footerLink": "Administrate rooms",
-        "noRoomsMessage": "This Watcha instance does not yet have some rooms. Return to Watcha to create a first room (button \"+\")."
+    "roomsPanel": {
+        "title": "Rooms per type",
+        "nonDirectRoomsCount": "Multiple conversations of which active",
+        "directRoomsCount": "Personnals conversations of which active",
+        "administrateButton": "Administrate rooms",
+        "noRoomsMessageOne": "This Watcha instance does not yet have some rooms.",
+        "noRoomsMessageTwo": "Return to Watcha to create a first room (button \"+\")."
+    },
+    "serverStatePannel": {
+        "title": "Server state",
+        "generaleInformation": "General information",
+        "version": "Version",
+        "installDate": "Installed on",
+        "upgradeDate": "Upgrade on",
+        "diskUsage": "Disk space used"
     }
 }
