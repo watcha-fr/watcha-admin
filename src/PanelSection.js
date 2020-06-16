@@ -3,30 +3,28 @@ import { useTranslation } from "react-i18next";
 import PanelRow from "./PanelRow";
 import Table from "react-bootstrap/Table";
 
-const ns = "dashboardTab";
-
 export default ({
     panelSectionName,
     panelSectionInformations,
     administratorList,
 }) => {
-    const { t } = useTranslation(ns);
+    const { t } = useTranslation(["dashboardTab", "common"]);
 
     const usersPerRoleSection = (
         <tbody>
             <PanelRow
-                label={t("usersPanel.administrators")}
+                label={t("common:administrators")}
                 value={`${panelSectionInformations.administrators}`}
                 {...{ administratorList }}
                 tooltipName="administrator"
             />
             <PanelRow
-                label={t("usersPanel.collaborators")}
+                label={t("common:collaborators")}
                 value={`${panelSectionInformations.collaborators}`}
                 tooltipName="collaborator"
             />
             <PanelRow
-                label={t("usersPanel.partners")}
+                label={t("common:partners")}
                 value={`${panelSectionInformations.partners}`}
                 tooltipName="partner"
             />
@@ -36,15 +34,15 @@ export default ({
     const connectedUsersSection = (
         <tbody>
             <PanelRow
-                label={t("usersPanel.loggedUsers")}
+                label={t("dashboardTab:usersPanel.loggedUsers")}
                 value={`${panelSectionInformations.number_of_users_logged_at_least_once}`}
             />
             <PanelRow
-                label={t("usersPanel.monthlyUsers")}
+                label={t("dashboardTab:usersPanel.monthlyUsers")}
                 value={`${panelSectionInformations.number_of_last_month_logged_users}`}
             />
             <PanelRow
-                label={t("usersPanel.weeklyUsers")}
+                label={t("dashboardTab:usersPanel.weeklyUsers")}
                 value={`${panelSectionInformations.number_of_last_week_logged_users}`}
             />
         </tbody>
@@ -53,7 +51,7 @@ export default ({
     const otherStatisticsSection = (
         <tbody>
             <PanelRow
-                label={t("usersPanel.pendingInvitationUsers")}
+                label={t("dashboardTab:usersPanel.pendingInvitationUsers")}
                 value={`${panelSectionInformations.number_of_users_with_pending_invitation}`}
                 tooltipName="pendingInvitation"
             />
@@ -63,7 +61,7 @@ export default ({
     return (
         <fieldset className="watcha-fieldset">
             <legend className="watcha-legend">
-                {t(`usersPanel.${panelSectionName}`)}
+                {t(`dashboardTab:usersPanel.${panelSectionName}`)}
             </legend>
             <Table>
                 {panelSectionName === "usersPerRole" && usersPerRoleSection}

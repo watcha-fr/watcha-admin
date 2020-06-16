@@ -2,9 +2,6 @@
     "title": "Tableau de bord",
     "usersPanel": {
         "title": "Utilisateurs",
-        "collaborators": "Collaborateurs",
-        "partners": "Partenaires",
-        "administrators": "Administrateurs",
         "loggedUsers": "Au moins une fois",
         "monthlyUsers": "Sur le dernier mois",
         "weeklyUsers": "Sur la dernière semaine",

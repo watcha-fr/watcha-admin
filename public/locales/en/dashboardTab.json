@@ -2,9 +2,6 @@
     "title": "Dashboard",
     "usersPanel": {
         "title": "Users",
-        "collaborators": "Collaborators",
-        "partners": "Partners",
-        "administrators": "Administrators",
         "loggedUsers": "At least once",
         "monthlyUsers": "During last month",
         "weeklyUsers": "Duringlast week",

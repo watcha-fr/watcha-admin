@@ -57,6 +57,9 @@
     "danger": "Une erreur s'est produite",
     "expand": "étendre",
     "help": "aide",
+    "collaborators": "Collaborateurs",
+    "partners": "Partenaires",
+    "administrators": "Administrateurs",
     "tooltip":{
         "administrator": "Utilisateurs ayant accès à la console d'administration de l'instance.",
         "collaborator": "Utilisateurs internes ayant le droit de créer des salons et d'inviter des utilisateurs dans ces derniers.",

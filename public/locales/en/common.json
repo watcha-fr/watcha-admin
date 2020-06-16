@@ -21,6 +21,9 @@
     "danger": "An error has occurred",
     "expand": "expand",
     "help": "help",
+    "collaborators": "Collaborators",
+    "partners": "Partners",
+    "administrators": "Administrators",
     "tooltip":{
         "administrator": "Users with access to the administration console of this instance.",
         "collaborator": "Internal users with the right to create rooms and invite users into them.",
