@@ -18,5 +18,6 @@
     "save": "Save",
     "cancel": "Cancel",
     "success": "Successfull transaction",
-    "danger": "An error has occurred"
+    "danger": "An error has occurred",
+    "expand": "expand"
 }

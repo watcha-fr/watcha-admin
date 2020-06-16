@@ -54,5 +54,6 @@
     "cancel": "Annuler",
     "close": "Fermer",
     "success": "Opération terminée avec succès",
-    "danger": "Une erreur s'est produite"
+    "danger": "Une erreur s'est produite",
+    "expand": "étendre"
 }
