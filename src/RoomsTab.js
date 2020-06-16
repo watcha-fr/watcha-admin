@@ -31,7 +31,7 @@ export default () => {
     };
 
     const requestParams = {
-        path: "watcha_extend_room_list",
+        path: "watcha_room_list",
         lazy: true,
         resolve,
     };

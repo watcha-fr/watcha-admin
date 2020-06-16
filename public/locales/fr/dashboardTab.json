@@ -1,10 +1,36 @@
 {
     "title": "Tableau de bord",
-    "usersPannel": {
-        "footerLink": "Administrer les utilisateurs"
+    "usersPanel": {
+        "collaborators": "Collaborateurs",
+        "partners": "Partenaires",
+        "administrators": "Administrateurs",
+        "loggedUsers": "Au moins une fois",
+        "monthlyUsers": "Sur le dernier mois",
+        "weeklyUsers": "Sur la dernière semaine",
+        "pendingInvitationUsers": "Invitations en attente",
+        "administrateButton": "Administrer les utilisateurs",
+        "usersPerRole": "Rôles des utilisateurs",
+        "connectedUsers": "Utilisateurs connectés",
+        "otherStatistics": "Autres statistiques",
+        "administratorTooltip": "Utilisateurs ayant accès à la console d'administration de l'instance.",
+        "collaboratorTooltip": "Utilisateurs internes ayant le droit de créer des salons et d'inviter des utilisateurs dans ces derniers.",
+        "partnerTooltip": "Utilisateurs externes ayant été invités dans un ou plusieurs salons, par un utilisateur interne et ayant des droits limités.",
+        "pendingInvitationTooltip": "Utilisateurs ayant été invités, mais n'ayant pas encore défini leur mot de passe, ni s'étant encore connecté."
     },
-    "roomsPannel": {
-        "footerLink": "Administrer les salons",
-        "noRoomsMessage": "Cette installation de Watcha n'a encore aucun salon. Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")"
+    "roomsPanel": {
+        "title": "Salons par type",
+        "nonDirectRoomsCount": "Conversations a plusieurs actives",
+        "directRoomsCount": "Conversations privées actives",
+        "administrateButton": "Administrer les salons",
+        "noRoomsMessageOne": "Cette installation de Watcha n'a encore aucun salon.",
+        "noRoomsMessageTwo": "Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")"
+    },
+    "serverStatePannel": {
+        "title": "État du serveur",
+        "generaleInformation": "Informations générales",
+        "version": "Version",
+        "installDate": "Installé le",
+        "upgradeDate": "Mis à jour le",
+        "diskUsage": "Espace disque utilisé"
     }
 }
