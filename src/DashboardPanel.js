@@ -72,6 +72,7 @@ export default ({
             <PanelSection
                 panelSectionName="usersPerRole"
                 panelSectionInformations={panelInformations.users_per_role}
+                administratorList={panelInformations.administrators_users}
             />
             <PanelSection
                 panelSectionName="connectedUsers"

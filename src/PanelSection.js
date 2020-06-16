@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 
 const ns = "dashboardTab";
 
-export default ({ panelSectionName, panelSectionInformations }) => {
+export default ({ panelSectionName, panelSectionInformations, administratorList }) => {
     const { t } = useTranslation(ns);
 
     const usersPerRoleSection = (
@@ -13,6 +13,7 @@ export default ({ panelSectionName, panelSectionInformations }) => {
             <PanelRow
                 label={t("usersPanel.administrators")}
                 value={`${panelSectionInformations.administrators}`}
+                {...{administratorList}}
             />
             <PanelRow
                 label={t("usersPanel.collaborators")}
