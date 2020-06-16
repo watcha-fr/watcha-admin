@@ -3,7 +3,6 @@ import { useGet } from "restful-react";
 import Col from "react-bootstrap/Col";
 import CardDeck from "react-bootstrap/CardDeck";
 import DelayedSpinner from "./DelayedSpinner";
-import RefreshButton from "./Buttons/RefreshButton";
 import DashboardPanel from "./DashboardPanel";
 
 export default () => {
@@ -38,8 +37,6 @@ export default () => {
         <DelayedSpinner />
     ) : (
         <div>
-            {/* <RefreshButton onClick={this.getDatas} variant="primary" /> */}
-
             <CardDeck className="dashboardTab_contentLayout">
                 <Col>
                     <DashboardPanel
