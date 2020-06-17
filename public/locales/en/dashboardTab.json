@@ -7,12 +7,12 @@
         "weeklyUsers": "Duringlast week",
         "pendingInvitationUsers": "Pending invitations",
         "administrateButton": "Administrate users",
-        "usersPerRole": "Roles of users",
+        "usersPerRole": "Distribution of users",
         "connectedUsers": "Connected users",
         "otherStatistics": "Other statistics"
     },
     "roomsPanel": {
-        "title": "Rooms per type",
+        "title": "Rooms",
         "nonDirectRoomsCount": "Multiple conversations of which active",
         "directRoomsCount": "Personnals conversations of which active",
         "administrateButton": "Administrate rooms",
@@ -20,7 +20,7 @@
         "noRoomsMessageTwo": "Return to Watcha to create a first room (button \"+\")."
     },
     "serverStatePanel": {
-        "title": "Server state",
+        "title": "Application",
         "generaleInformation": "General information",
         "version": "Version",
         "installDate": "Installed on",

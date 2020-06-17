@@ -7,12 +7,12 @@
         "weeklyUsers": "Sur la dernière semaine",
         "pendingInvitationUsers": "Invitations en attente",
         "administrateButton": "Administrer les utilisateurs",
-        "usersPerRole": "Rôles des utilisateurs",
+        "usersPerRole": "Répartition des utilisateurs",
         "connectedUsers": "Utilisateurs connectés",
         "otherStatistics": "Autres statistiques"
     },
     "roomsPanel": {
-        "title": "Salons par type",
+        "title": "Salons",
         "nonDirectRoomsCount": "Conversations a plusieurs actives",
         "directRoomsCount": "Conversations privées actives",
         "administrateButton": "Administrer les salons",
@@ -20,7 +20,7 @@
         "noRoomsMessageTwo": "Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")"
     },
     "serverStatePanel": {
-        "title": "État du serveur",
+        "title": "Application",
         "generaleInformation": "Informations générales",
         "version": "Version",
         "installDate": "Installé le",

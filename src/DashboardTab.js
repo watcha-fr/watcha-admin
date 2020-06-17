@@ -39,7 +39,7 @@ export default () => {
         <DelayedSpinner />
     ) : (
         <div>
-            <CardDeck className="DashboardTab_layout">
+            <CardDeck className="DashboardTab">
                 <Col>
                     <DashboardPanel
                         panelName="roomsPanel"

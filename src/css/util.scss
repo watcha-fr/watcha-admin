@@ -1,1 +1,9 @@
 $img: "../images";
+
+.AdminButton:hover {
+    &:hover {
+        cursor: pointer;
+        background-color: darkturquoise;
+        border-color: darkturquoise;
+    }
+}
