@@ -7,7 +7,9 @@ import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import PanelRow from "./PanelRow";
 import PanelSection from "./PanelSection";
-import AdministrateButton from "./Buttons/AdministrateButton";
+import AdministrateButton from "./AdministrateButton";
+
+import "./css/DashboardPanel.scss"
 
 const ns = "dashboardTab";
 
@@ -68,7 +70,7 @@ export default ({
     );
 
     const usersPanelContent = (
-        <Row className="panelSection">
+        <Row className="DashboardPanel_usersPanel">
             <PanelSection
                 panelSectionName="usersPerRole"
                 panelSectionInformations={panelInformations.users_per_role}
@@ -86,7 +88,7 @@ export default ({
     );
 
     return (
-        <Card className="dashboardPanel">
+        <Card className="DashboardPanel">
             <Card.Header>
                 <span>{t(`${panelName}.title`)}</span>
                 {administrateButtonTabDestination && (

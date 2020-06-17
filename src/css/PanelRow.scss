@@ -1,0 +1,27 @@
+@import "util.scss";
+
+.PanelRow_content {
+    display: contents;
+
+    .PanelRow_value {
+        text-align: end;
+        font-weight: bold;
+    }
+
+    .PanelRow_administratorsSection{
+        border:solid 1px #dfdfdf;
+        border-radius: 0.25rem;
+        height: 150px;
+        overflow-y: auto;
+        margin-bottom: 1em;
+        width: max-content;
+    }
+
+    .PanelRow_adminUserRow{
+        @extend .AdminButton
+    }
+
+    &:first-child tr td {
+        border: unset;
+    }
+}

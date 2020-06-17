@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import PanelRow from "./PanelRow";
 import Table from "react-bootstrap/Table";
 
+import "./css/PanelSection.scss";
+
 export default ({
     panelSectionName,
     panelSectionInformations,
@@ -59,11 +61,11 @@ export default ({
     );
 
     return (
-        <div>
+        <div className="PanelSection">
             <span className="PanelSection_title">
-                {t(`dashboardTab:usersPanel.${panelSectionName}`)}
+                ○ {t(`dashboardTab:usersPanel.${panelSectionName}`)}
             </span>
-            <Table>
+            <Table className="PanelSection_container">
                 {panelSectionName === "usersPerRole" && usersPerRoleSection}
                 {panelSectionName === "connectedUsers" && connectedUsersSection}
                 {panelSectionName === "otherStatistics" &&

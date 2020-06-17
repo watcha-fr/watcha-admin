@@ -3,6 +3,8 @@ import ExpandButton from "./ExpandButton";
 import Tooltip from "./Tooltip";
 import { useDispatchContext } from "./contexts";
 
+import "./css/PanelRow.scss";
+
 export default ({ label, value, administratorList, tooltipName }) => {
     const administratorsSection = [];
 
@@ -12,7 +14,7 @@ export default ({ label, value, administratorList, tooltipName }) => {
             administratorsSection.push(
                 <tr key={adminUser.user_id}>
                     <td
-                        className="panelRow_adminUserRow"
+                        className="PanelRow_adminUserRow"
                         onClick={() => onAdminUserClick(adminUser.user_id)}
                     >
                         {`${
@@ -39,18 +41,24 @@ export default ({ label, value, administratorList, tooltipName }) => {
     const onAdminUserClick = userId => dispatch({ tab: "users", userId });
 
     return (
-        <tr>
-            <td className="panelRow_label">{label}</td>
-            {tooltipName && <Tooltip {...{ tooltipName }} />}
-            {administratorList && (
-                <ExpandButton onClick={onExpandButtonClick} />
-            )}
-            <td className="panelRow_value">{value}</td>
+        <div className="PanelRow_content">
+            <tr>
+                <td className="PanelRow_label">
+                    {label}
+                    {tooltipName && <Tooltip {...{ tooltipName }} />}
+                    {administratorList && (
+                        <ExpandButton onClick={onExpandButtonClick} />
+                    )}
+                </td>
+                <td className="PanelRow_value">{value} </td>
+            </tr>
             {isExpanded && (
-                <div className="panelRow_administratorsSection">
-                    {administratorsSection}
-                </div>
+                <tr>
+                    <div className="PanelRow_administratorsSection">
+                        {administratorsSection}
+                    </div>
+                </tr>
             )}
-        </tr>
+        </div>
     );
 };
