@@ -5,6 +5,8 @@ import CardDeck from "react-bootstrap/CardDeck";
 import DelayedSpinner from "./DelayedSpinner";
 import DashboardPanel from "./DashboardPanel";
 
+import "./css/DashboardTab.scss"
+
 export default () => {
     const [loading, setLoading] = useState(true);
 
@@ -37,7 +39,7 @@ export default () => {
         <DelayedSpinner />
     ) : (
         <div>
-            <CardDeck className="dashboardTab_contentLayout">
+            <CardDeck className="DashboardTab_layout">
                 <Col>
                     <DashboardPanel
                         panelName="roomsPanel"
