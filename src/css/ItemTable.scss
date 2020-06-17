@@ -33,6 +33,13 @@
         }
     }
 
+    td {
+        max-width: 20em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
     // required for the Status component to be visible
     tr,
     td {
