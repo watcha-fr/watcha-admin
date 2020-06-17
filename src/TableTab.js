@@ -7,7 +7,7 @@ import matchSorter from "match-sorter";
 import { useDispatchContext } from "./contexts";
 import DelayedSpinner from "./DelayedSpinner";
 import SearchBox from "./SearchBox";
-import Table from "./Table";
+import ItemTable from "./ItemTable";
 
 export default ({
     itemList,
@@ -66,7 +66,7 @@ export default ({
             </div>
             <div className="tableTabBody">
                 <div className="tableContainer px-3">
-                    <Table {...{ tableInstance, itemId }} />
+                    <ItemTable {...{ tableInstance, itemId }} />
                 </div>
                 {rightPanel}
             </div>

@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import classNames from "classnames";
 import Table from "react-bootstrap/Table";
 
+import "./css/ItemTable.scss";
+
 import { useDispatchContext } from "./contexts";
 
 export default ({ tableInstance, itemId }) => {
@@ -15,8 +17,8 @@ export default ({ tableInstance, itemId }) => {
     const getSortedChevron = column => (
         <span
             className={classNames("chevron", {
-                chevronHidden: !column.isSorted,
-                chevronUp: !column.isSortedDesc,
+                "chevron-hidden": !column.isSorted,
+                "chevron-up": !column.isSortedDesc,
             })}
         />
     );
@@ -24,7 +26,7 @@ export default ({ tableInstance, itemId }) => {
     const getRowProps = row => {
         const className =
             itemId && row.original.itemId === itemId
-                ? "selectedRow"
+                ? "ItemTable_row-selected"
                 : undefined;
         return row.getRowProps({ className });
     };
@@ -56,7 +58,7 @@ export default ({ tableInstance, itemId }) => {
     } = tableInstance;
 
     return (
-        <Table hover size="sm" {...getTableProps()}>
+        <Table className="ItemTable" hover size="sm" {...getTableProps()}>
             <colgroup>
                 {tableInstance.columns.map(column => (
                     <col key={column.id} className={column.id} />
@@ -68,7 +70,7 @@ export default ({ tableInstance, itemId }) => {
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
                             <th {...getHeaderProps(column)}>
-                                <span className="tableHeader">
+                                <span className="ItemTable_header">
                                     {column.render("Header")}
                                     {getSortedChevron(column)}
                                 </span>

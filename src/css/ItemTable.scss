@@ -1,0 +1,82 @@
+@import "util.scss";
+
+.ItemTable {
+    col {
+        width: 1%;
+
+        &.status {
+            width: 0.0001%;
+        }
+    }
+
+    th {
+        // fixed headers
+        z-index: 1;
+        position: sticky;
+        top: 0;
+        border: 0 !important;
+        background-color: white;
+        background-clip: padding-box;
+
+        // required for the bottom border to be also fixed
+        &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            border-bottom: 1px solid black;
+        }
+
+        &:hover {
+            background-color: darkturquoise;
+        }
+    }
+
+    // required for the Status component to be visible
+    tr,
+    td {
+        height: 100%;
+    }
+
+    .active {
+        color: green;
+    }
+
+    .inactive {
+        color: red;
+    }
+}
+
+.ItemTable_header {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+
+    img {
+        margin-left: 0.5em;
+    }
+}
+
+.ItemTable_row-selected {
+    background-color: darkgrey !important;
+}
+
+.chevron {
+    mask: url("#{$img}/arrow-down-angle.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 1em;
+    background-color: black;
+    transition: transform 0.2s ease-in;
+}
+
+.chevron-up {
+    transform: rotateZ(-180deg);
+}
+
+.chevron-hidden {
+    visibility: hidden;
+}
