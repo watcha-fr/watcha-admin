@@ -77,12 +77,14 @@ export default () => {
                 Header: t("headers.name"),
                 accessor: "name",
                 sortType: compareLowerCase,
+                Cell: ({ value }) => <span title={value}>{value}</span>,
             },
             {
                 Header: t("headers.creator"),
                 accessor: "creator",
                 sortType: compareLowerCase,
                 disableGlobalFilter: true,
+                Cell: ({ value }) => <span title={value}>{value}</span>,
             },
             {
                 Header: t("headers.memberCount"),
