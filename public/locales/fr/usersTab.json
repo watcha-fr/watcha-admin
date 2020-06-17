@@ -1,10 +1,6 @@
 {
     "title": "Utilisateurs",
-    "searchBox": {
-        "filter": "Filtrer",
-        "clear": "Effacer",
-        "placeholder": "Filtrer les utilisateurs"
-    },
+    "searchBoxPlaceholder": "Filtrer les utilisateurs",
     "button": "Nouvel utilisateur",
     "fullName": "Nom complet",
     "emailAddress": "Adresse électronique",
@@ -22,11 +18,19 @@
     "success": "Un nouvel utilisateur a été créé",
     "danger": "La création de l'utilisateur a échoué",
     "headers": {
-        "displayName": "Nom d'affichage",
+        "displayName": "Nom affiché",
         "emailAddress": "Adresse électronique",
         "lastSeen": "Dernière activité le",
         "role": "Rôle",
-        "status": "Statut du compte"
+        "status": "Statut"
+    },
+    "statusHelp": {
+        "title": "Statut du compte",
+        "content": {
+            "active": "<strong>Activé</strong> : l'utilisateur peut se connecter à Watcha.",
+            "inactive": "<strong>Désactivé</strong> : l'utilisateur ne peut pas se connecter à Watcha. Un utilisateur désactivé peut être réactivé ; un email lui demandant de définir un nouveau mot de passe lui sera envoyé.",
+            "invited": "<strong>Invitation envoyée</strong> : un email d'invitation a été envoyé à l'utilisateur, mais ce dernier n'a pas encore finalisé la procédure d'inscription, et ne s'est pas encore connecté à Watcha."
+        }
     },
     "roles": {
         "administrator": "Administrateur",
@@ -34,8 +38,8 @@
         "partner": "Partenaire"
     },
     "status": {
-        "active": "activé",
-        "inactive": "désactivé",
-        "invited": "invitation envoyée"
+        "active": "Compte activé",
+        "inactive": "Compte désactivé",
+        "invited": "Invitation envoyée"
     }
 }

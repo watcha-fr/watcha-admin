@@ -4,7 +4,6 @@ import sdk from "matrix-js-sdk";
 
 import AdminHome from "./AdminHome";
 import DelayedSpinner from "./DelayedSpinner";
-import ErrorBoundary from "./ErrorBoundary";
 import Login from "./Login";
 import { MatrixClientContext } from "./contexts";
 
@@ -89,19 +88,17 @@ export default () => {
 
     return (
         <Suspense fallback={<DelayedSpinner />}>
-            <ErrorBoundary>
-                <MatrixClientContext.Provider value={client}>
-                    {clientPrepared ? (
-                        <RestfulProvider {...getRestfulConfig()}>
-                            <AdminHome />
-                        </RestfulProvider>
-                    ) : missingAccessToken ? (
-                        <Login {...{ setupClient }} />
-                    ) : (
-                        <DelayedSpinner />
-                    )}
-                </MatrixClientContext.Provider>
-            </ErrorBoundary>
+            <MatrixClientContext.Provider value={client}>
+                {clientPrepared ? (
+                    <RestfulProvider {...getRestfulConfig()}>
+                        <AdminHome />
+                    </RestfulProvider>
+                ) : missingAccessToken ? (
+                    <Login {...{ setupClient }} />
+                ) : (
+                    <DelayedSpinner />
+                )}
+            </MatrixClientContext.Provider>
         </Suspense>
     );
 };

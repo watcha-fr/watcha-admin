@@ -1,3 +1,16 @@
 {
-    "title": "Salons"
+    "title": "Salons",
+    "searchBoxPlaceholder": "Filtrer les salons",
+    "button": "Nouveau salon",
+    "headers": {
+        "name": "Nom",
+        "creator": "Créateur",
+        "memberCount": "Nombre de membres",
+        "type": "Type",
+        "status": "Statut"
+    },
+    "status": {
+        "active": "activé",
+        "inactive": "désactivé"
+    }
 }

@@ -1,0 +1,35 @@
+@import "util.scss";
+
+.Status_base {
+    mask-size: contain !important;
+    mask-repeat: no-repeat !important;
+
+    &.active,
+    &.inactive {
+        mask: url("#{$img}/status.svg");
+    }
+
+    &.active {
+        background-color: limegreen;
+    }
+
+    &.inactive {
+        background-color: red;
+    }
+
+    &.invited {
+        mask: url("#{$img}/pending-invitation.svg");
+        background-color: black;
+    }
+}
+
+.Status {
+    @extend .Status_base;
+    display: block;
+    height: 80%;
+    margin-left: 1em;
+}
+
+.selectedRow .Status {
+    background-color: white !important;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import ExpandLogo from "../images/expand-button.svg"
+import ExpandLogo from "./images/expand-button.svg"
 import {useTranslation} from "react-i18next"
 
 const ns = "common"

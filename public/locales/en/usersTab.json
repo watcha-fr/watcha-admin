@@ -1,10 +1,6 @@
 {
     "title": "Users",
-    "searchBox": {
-        "filter": "Filter",
-        "clear": "Clear",
-        "placeholder": "Filter users"
-    },
+    "searchBoxPlaceholder": "Filter users",
     "button": "New user",
     "fullName": "Full name",
     "emailAddress": "Email address",
@@ -26,7 +22,15 @@
         "emailAddress": "Email address",
         "lastSeen": "Last activity on",
         "role": "Role",
-        "status": "Account status"
+        "status": "Status"
+    },
+    "statusHelp": {
+        "title": "Account status",
+        "content": {
+            "active": "<strong>Active</strong>: the user can log in to Watcha.",
+            "inactive": "<strong>Inactive</strong>: the user cannot log in to Watcha. A deactivated user can be reactivated; an email will be sent asking them to set a new password.",
+            "invited": "<strong>Invitation sent</strong>: an invitation email has been sent to the user, but the user has not yet finalized the registration process, and has not yet logged in to Watcha."
+        }
     },
     "roles": {
         "administrator": "Administrator",
@@ -34,8 +38,8 @@
         "partner": "Partner"
     },
     "status": {
-        "active": "enabled",
-        "inactive": "disabled",
-        "invited": "invitation sent"
+        "active": "Account enabled",
+        "inactive": "Account disabled",
+        "invited": "Invitation sent"
     }
 }

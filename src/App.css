@@ -98,6 +98,7 @@
 }
 
 th {
+    z-index: 1;
     position: sticky;
     top: 0;
     border: 0 !important;
@@ -121,6 +122,24 @@ th:hover {
 .tableHeader {
     display: flex;
     align-items: center;
+    white-space: nowrap;
+}
+
+.tableHeader img {
+    margin-left: 0.5em;
+}
+
+tr,
+td {
+    height: 100%;
+}
+
+col {
+    width: 1%;
+}
+
+col.status {
+    width: 0.0001%;
 }
 
 .chevron {
@@ -154,9 +173,10 @@ td .inactive {
     color: red;
 }
 
-.rowSelected {
-    background: #00e5e5;
-    color: white !important;
+.newRoomIframe {
+    width: 510px;
+    height: 278px;
+    border: 0;
 }
 
 .bottomButtons {
@@ -170,35 +190,56 @@ td .inactive {
     width: 30vw;
 }
 
-.trueBoolean {
-    color: green;
+.header-with-button {
+    display: flex;
+    justify-content: space-between;
 }
 
-.page-header {
-    margin: 40px 49px 20px;
+/* DashboardTab : */
+
+.dashboardPanelsContainer {
+    display: flex;
+    font-size: 18px;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    padding: 1.25rem;
+    align-items: space-between;
 }
 
-.falseBoolean {
-    color: red;
+.dashboardPanel {
+    display: flex;
+    width: 100%;
+    flex: 1;
+    margin: 1.25rem;
+    background-color: white;
 }
 
-.filtersOption {
+#tabs-tabpane-dashboard .dashboardPanel{
+    margin-left: unset;
+}
+
+.dashboardPanel .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.refreshButton {
-    margin-right: 20px;
+.dashboardPanelSection {
+    padding: 1rem;
+    font-size: 1rem;
 }
 
-.card-header.header-with-button {
-    display: flex;
-    justify-content: space-between;
+.watcha-legend {
+    margin: 0.5rem;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    width: auto;
 }
 
-.fas {
-    line-height: inherit;
+.watcha-fieldset {
+    border: 2px solid;
+    border-width: 80%;
+    width: 100%;
 }
 
 /* DashboardTab : */
@@ -311,11 +352,44 @@ td .inactive {
 
 .dismissRight {
     cursor: pointer;
+    color: white;
 }
 
-.email.form-group {
-    display: flex;
-    align-items: baseline;
+.sectionPanelAdminListLabel .card {
+    margin: unset;
+    border: unset;
+}
+
+.sectionPanelAdminListLabel .adminUserRow:hover {
+    background-color: darkturquoise;
+    cursor: pointer;
+    color: white;
+}
+
+.dashboardAdministrateButton:hover {
+    cursor: pointer;
+    background-color: darkturquoise;
+    border-color: darkturquoise;
+}
+
+.noRoomsMessage {
+    font-weight: bold;
+}
+
+.tooltipMessage {
+    font-style: italic;
+}
+
+#tabs-tabpane-dashboard .refreshButton {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+/* end of DashboardTab : */
+
+.dismissRight {
+    cursor: pointer;
 }
 
 .labelText {
@@ -334,38 +408,6 @@ td .inactive {
     margin-bottom: 10px;
 }
 
-.TableToolBar {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-}
-
-.table-responsive {
-    max-height: 92vh;
-}
-
-.table-responsive {
-    flex-grow: 1;
-}
-
-.checkboxfilter {
-    display: flex;
-    margin-top: 2vh;
-}
-
-.checkboxfilter label {
-    margin-left: 4px;
-}
-
-.checkboxfilter input {
-    margin-left: 2px;
-}
-
-.usersPanel {
-    height: none;
-    width: none;
-}
-
 .inputValue {
     margin-right: 12px;
     font-size: 14px;
@@ -377,17 +419,8 @@ td .inactive {
     background: #e3e3e3;
 }
 
-.textFilter {
-    margin-top: 1vh;
-    margin-right: 8px;
-}
-
 .AdminName {
     cursor: pointer;
-}
-
-.ServerStatePanelBody {
-    background: grey;
 }
 
 .TableAdvanced {

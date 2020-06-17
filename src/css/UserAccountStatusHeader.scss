@@ -1,0 +1,13 @@
+@import "Status.scss";
+
+.UserAccountStatusHeader_Popover {
+    max-width: 25em;
+
+    .status {
+        @extend .Status_base;
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+        margin-right: 0.5em;
+    }
+}

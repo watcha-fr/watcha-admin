@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faPencilAlt,
+    // faPencilAlt,
     faCheck,
     faTimes,
 } from "@fortawesome/free-solid-svg-icons";
@@ -335,7 +335,7 @@ class UserRightPanel extends Component {
             const userId = encodeURIComponent(this.props.user.userId);
             const SERVER_REQUEST = await fetch(
                 new URL(
-                    `_matrix/client/r0/watcha_update_partner_to_member/${userId}`,
+                    `_matrix/client/r0/watcha_update_user_role/${userId}`,
                     client.baseUrl
                 ),
                 {
@@ -345,6 +345,9 @@ class UserRightPanel extends Component {
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
+                    body: JSON.stringify({
+                        role: "collaborator",
+                    }),
                 }
             );
             const RESPONSE = JSON.parse(await SERVER_REQUEST.text());
