@@ -59,16 +59,16 @@ export default ({
     );
 
     return (
-        <fieldset className="watcha-fieldset">
-            <legend className="watcha-legend">
+        <div>
+            <span className="PanelSection_title">
                 {t(`dashboardTab:usersPanel.${panelSectionName}`)}
-            </legend>
+            </span>
             <Table>
                 {panelSectionName === "usersPerRole" && usersPerRoleSection}
                 {panelSectionName === "connectedUsers" && connectedUsersSection}
                 {panelSectionName === "otherStatistics" &&
                     otherStatisticsSection}
             </Table>
-        </fieldset>
+        </div>
     );
 };
