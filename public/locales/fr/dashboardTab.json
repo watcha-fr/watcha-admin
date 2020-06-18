@@ -16,8 +16,7 @@
         "nonDirectRoomsCount": "Conversations a plusieurs actives",
         "directRoomsCount": "Conversations privées actives",
         "administrateButton": "Administrer les salons",
-        "noRoomsMessageOne": "Cette installation de Watcha n'a encore aucun salon.",
-        "noRoomsMessageTwo": "Retournez sur Watcha  pour creer un premier Salon (bouton \"+\")"
+        "noRoomsMessage": "<strong>Cette installation de Watcha n'a encore aucun salon.<br/>Retournez sur Watcha  pour creer un premier Salon (bouton \"+\").</strong>"
     },
     "serverStatePanel": {
         "title": "Application",

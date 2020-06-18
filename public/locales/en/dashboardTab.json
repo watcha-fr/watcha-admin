@@ -16,8 +16,7 @@
         "nonDirectRoomsCount": "Multiple conversations of which active",
         "directRoomsCount": "Personnals conversations of which active",
         "administrateButton": "Administrate rooms",
-        "noRoomsMessageOne": "This Watcha instance does not yet have some rooms.",
-        "noRoomsMessageTwo": "Return to Watcha to create a first room (button \"+\")."
+        "noRoomsMessage": "<strong>This Watcha instance does not yet have some rooms.<br/>Return to Watcha to create a first room (button \"+\").</strong>."
     },
     "serverStatePanel": {
         "title": "Application",
