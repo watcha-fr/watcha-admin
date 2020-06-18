@@ -61,22 +61,6 @@
     cursor: pointer;
 }
 
-.newUserButton {
-    display: flex;
-    align-items: center;
-}
-
-.newUserButton::before {
-    content: "";
-    mask: url("./images/new-user.svg");
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    width: 1.5em;
-    height: 1.2em;
-    margin-right: 0.5em;
-    background-color: white;
-}
-
 .rightRoundedInput {
     border-top-right-radius: 0.25rem !important;
     border-bottom-right-radius: 0.25rem !important;
@@ -200,34 +184,6 @@ td .inactive {
     color: white;
 }
 
-.sectionPanelAdminListLabel .card {
-    margin: unset;
-    border: unset;
-}
-
-.sectionPanelAdminListLabel .adminUserRow:hover {
-    background-color: darkturquoise;
-    cursor: pointer;
-    color: white;
-}
-
-.dashboardAdministrateButton:hover {
-    cursor: pointer;
-    background-color: darkturquoise;
-    border-color: darkturquoise;
-}
-
-.noRoomsMessage {
-    font-weight: bold;
-}
-
-.tooltipMessage {
-    font-style: italic;
-}
-
-
-/* end of DashboardTab : */
-
 .dismissRight {
     cursor: pointer;
 }
@@ -257,10 +213,6 @@ td .inactive {
     margin-right: 12px;
     font-size: 14px;
     background: #e3e3e3;
-}
-
-.AdminName {
-    cursor: pointer;
 }
 
 .TableAdvanced {
