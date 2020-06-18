@@ -1,5 +1,29 @@
 @import "util.scss";
 
-.btn {
-    @extend .AdminButton
+.NewItemButton {
+    @extend .AdminButton;
+    padding: unset;
+
+    &:hover {
+        .newUserButton::before {
+            background-color: black;
+        }
+    }
+
+    .newUserButton {
+        display: flex;
+        align-items: center;
+        margin: 0.400em;
+
+        &::before {
+            content: "";
+            mask: url("#{$img}/new-user.svg");
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            width: 1.5em;
+            height: 1.2em;
+            margin-right: 0.5em;
+            background-color: white;
+        }
+    }
 }
