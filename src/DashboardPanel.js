@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useDispatchContext } from "./contexts";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
@@ -30,8 +30,7 @@ export default ({
         panelInformations.non_direct_rooms_count === 0 &&
         panelInformations.direct_rooms_count === 0 ? (
             <div className="noRoomsMessage">
-                {t(`${panelName}.noRoomsMessageOne`)} <br></br>
-                {t(`${panelName}.noRoomsMessageTwo`)}
+                <Trans t={t} i18nKey={`${panelName}.noRoomsMessage`} />
             </div>
         ) : (
             <tbody>
