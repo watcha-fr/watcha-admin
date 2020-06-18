@@ -1,7 +1,8 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import PanelRow from "./PanelRow";
 import Table from "react-bootstrap/Table";
+import { useTranslation } from "react-i18next";
+
+import PanelRow from "./PanelRow";
 
 import "./css/PanelSection.scss";
 

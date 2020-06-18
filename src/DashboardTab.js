@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useGet } from "restful-react";
-import Col from "react-bootstrap/Col";
 import CardDeck from "react-bootstrap/CardDeck";
-import DelayedSpinner from "./DelayedSpinner";
+import Col from "react-bootstrap/Col";
+
 import DashboardPanel from "./DashboardPanel";
+import DelayedSpinner from "./DelayedSpinner";
 
 import "./css/DashboardTab.scss"
 

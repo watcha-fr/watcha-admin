@@ -1,13 +1,14 @@
 import React from "react";
-import { Trans, useTranslation } from "react-i18next";
-import { useDispatchContext } from "./contexts";
-import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
+import { Trans, useTranslation } from "react-i18next";
+
+import AdministrateButton from "./AdministrateButton";
+import { useDispatchContext } from "./contexts";
 import PanelRow from "./PanelRow";
 import PanelSection from "./PanelSection";
-import AdministrateButton from "./AdministrateButton";
 
 import "./css/DashboardPanel.scss"
 
