@@ -1,67 +1,42 @@
 import React from "react";
-import { withTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
-import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
-import { useDispatchContext } from "./contexts";
 
-export default withTranslation()(({ t, datas, tab }) => {
-    const dispatch = useDispatchContext();
+import PanelRow from "./PanelRow";
 
-    const onAdministrateLinkClick = () => dispatch({ tab });
+import "./css/DashboardPanel.scss";
 
-    const contentPanel =
-        datas.non_direct_rooms_count === 0 && datas.direct_rooms_count === 0 ? (
-            <div className="noRoomsMessage">
-                {t("dashboardTab:roomsPanel.noRoomsMessageOne")} <br></br>
-                {t("dashboardTab:roomsPanel.noRoomsMessageTwo")}
-            </div>
-        ) : (
-            <Table>
-                <tbody>
-                    <tr key={t("dashboardTab:roomsPanel.nonDirectRoomsCount")}>
-                        <td className="sectionPanelLabel">
-                            {t("dashboardTab:roomsPanel.nonDirectRoomsCount")}
-                        </td>
-                        <td className="sectionPanelData">
-                            {`${datas.non_direct_active_rooms_count} / ${datas.non_direct_rooms_count}`}
-                        </td>
-                    </tr>
-                    <tr key={t("dashboardTab:roomsPanel.directRoomsCount")}>
-                        <td className="sectionPanelLabel">
-                            {t("dashboardTab:roomsPanel.directRoomsCount")}
-                        </td>
-                        <td className="sectionPanelData">
-                            {`${datas.direct_active_rooms_count} / ${datas.direct_rooms_count}`}
-                        </td>
-                    </tr>
-                </tbody>
-            </Table>
-        );
+const ns = "dashboardTab";
+
+export default ({ roomsPanelInformations, children }) => {
+    const { t } = useTranslation([ns]);
 
     return (
-        <Card className="dashboardPanel">
+        <Card className="DashboardPanel">
             <Card.Header>
-                <span>{t("dashboardTab:roomsPanel.title")}</span>
-                <Button
-                    className="dashboardAdministrateButton"
-                    onClick={onAdministrateLinkClick}
-                >
-                    {t("dashboardTab:roomsPanel.administrateButton")}
-                </Button>
+                <span>{t("roomsPanel.title")}</span>
+                {children}
             </Card.Header>
             <Card.Body>
-                <Container fluid>
-                    <Row
-                        className="dashboardPanelSection"
-                        key={t("dashboardTab:roomsPanel.roomsPerType")}
-                    >
-                        {contentPanel}
+                {roomsPanelInformations.non_direct_rooms_count === 0 &&
+                roomsPanelInformations.direct_rooms_count === 0 ? (
+                    <div>
+                        <Trans t={t} i18nKey={"roomsPanel.noRoomsMessage"} />
+                    </div>
+                ) : (
+                    <Row className="DashboardPanel_body">
+                        <PanelRow
+                            label={t("roomsPanel.nonDirectRoomsCount")}
+                            value={`${roomsPanelInformations.non_direct_active_rooms_count} / ${roomsPanelInformations.non_direct_rooms_count}`}
+                        />
+                        <PanelRow
+                            label={t("roomsPanel.directRoomsCount")}
+                            value={`${roomsPanelInformations.direct_active_rooms_count} / ${roomsPanelInformations.direct_rooms_count}`}
+                        />
                     </Row>
-                </Container>
+                )}
             </Card.Body>
         </Card>
     );
-});
+};

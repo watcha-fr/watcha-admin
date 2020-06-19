@@ -1,79 +1,75 @@
-import React, { Component } from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Col";
-import UsersDashboardPanel from "./UsersDashboardPanel";
-import RoomsDashboardPanel from "./RoomsDashboardPanel";
-import ServerStateDashboardPanel from "./ServerStateDashboardPanel";
+import React, { useState, useEffect, useRef } from "react";
+import { useGet } from "restful-react";
 import CardDeck from "react-bootstrap/CardDeck";
+import Col from "react-bootstrap/Col";
+
+import AdministrateButton from "./AdministrateButton";
+import ApplicationDashboardPanel from "./ApplicationDashboardPanel";
 import DelayedSpinner from "./DelayedSpinner";
-import RefreshButton from "./RefreshButton";
-import { MatrixClientContext } from "./contexts";
+import RoomsDashboardPanel from "./RoomsDashboardPanel";
+import UsersDashboardPanel from "./UsersDashboardPanel";
 
-class DashboardTab extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            apiAdress: "_matrix/client/r0/watcha_admin_stats",
-            datas: undefined,
-            loading: true,
-        };
-    }
+import "./css/DashboardTab.scss";
 
-    static contextType = MatrixClientContext;
+export default () => {
+    const [loading, setLoading] = useState(true);
 
-    getDatas = async () => {
-        const client = this.context;
-        let datas;
-        try {
-            const adminStatsRequest = await fetch(
-                new URL(this.state.apiAdress, client.baseUrl),
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: "Bearer " + client.getAccessToken(),
-                    },
-                }
-            );
-            datas = JSON.parse(await adminStatsRequest.text());
-        } catch (e) {
-            console.log("error: " + e);
-            return;
+    const [dashboardInformations, setDashboardInformations] = useState([]);
+
+    const { data, refetch } = useGet({
+        path: "watcha_admin_stats",
+        lazy: true,
+    });
+
+    const refetchRef = useRef();
+    refetchRef.current = refetch;
+
+    const intervalIdRef = useRef();
+
+    useEffect(() => {
+        refetchRef.current();
+    }, []);
+
+    useEffect(() => {
+        setDashboardInformations(data);
+        loading && setLoading(false);
+        if (intervalIdRef.current) {
+            clearInterval(intervalIdRef.current);
         }
+        intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
+    }, [data]);
 
-        this.setState({ datas, loading: false });
-    };
-
-    componentDidMount() {
-        this.getDatas();
-    }
-
-    render() {
-        return this.state.loading || !this.state.datas ? (
-            <DelayedSpinner />
-        ) : (
-            <div>
-                <RefreshButton onClick={this.getDatas} variant="primary" />
-
-                <CardDeck className="dashboardPanelsContainer">
-                    <Col>
-                        <RoomsDashboardPanel
-                            datas={this.state.datas.rooms}
-                            tab="rooms"
+    return loading || !dashboardInformations ? (
+        <DelayedSpinner />
+    ) : (
+        <div>
+            <CardDeck className="DashboardTab">
+                <Col>
+                    <RoomsDashboardPanel
+                        roomsPanelInformations={dashboardInformations.rooms}
+                    >
+                        <AdministrateButton
+                            panelName={"roomsPanel"}
+                            tabDestination={"rooms"}
                         />
-                        <ServerStateDashboardPanel
-                            datas={this.state.datas.server}
+                    </RoomsDashboardPanel>
+                    <ApplicationDashboardPanel
+                        applicationPanelInformations={
+                            dashboardInformations.server
+                        }
+                    />
+                </Col>
+                <Col>
+                    <UsersDashboardPanel
+                        usersPanelInformations={dashboardInformations.users}
+                    >
+                        <AdministrateButton
+                            panelName={"usersPanel"}
+                            tabDestination={"users"}
                         />
-                    </Col>
-                    <Col>
-                        <UsersDashboardPanel
-                            datas={this.state.datas.users}
-                            tab="users"
-                        />
-                    </Col>
-                </CardDeck>
-            </div>
-        );
-    }
-}
-
-export default DashboardTab;
+                    </UsersDashboardPanel>
+                </Col>
+            </CardDeck>
+        </div>
+    );
+};
