@@ -11,6 +11,7 @@
     },
     "status": {
         "active": "enabled",
-        "inactive": "disabled"
+        "inactive": "disabled",
+        "new": "new"
     }
 }

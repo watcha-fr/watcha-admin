@@ -19,8 +19,8 @@
     },
     "roomsPanel": {
         "title": "Rooms per type",
-        "nonDirectRoomsCount": "Multiple conversations of which active",
-        "directRoomsCount": "Personnals conversations of which active",
+        "nonDirectRoomsCount": "Multiple conversations of which new or active",
+        "directRoomsCount": "Personnals conversations of which new or active",
         "administrateButton": "Administrate rooms",
         "noRoomsMessageOne": "This Watcha instance does not yet have some rooms.",
         "noRoomsMessageTwo": "Return to Watcha to create a first room (button \"+\")."
