@@ -59,11 +59,13 @@ export default ({ userId }) => {
                 Header: t("headers.displayName"),
                 accessor: "displayName",
                 sortType: compareLowerCase,
+                Cell: ({ value }) => <span title={value}>{value}</span>,
             },
             {
                 Header: t("headers.emailAddress"),
                 accessor: "emailAddress",
                 sortType: compareLowerCase,
+                Cell: ({ value }) => <span title={value}>{value}</span>,
             },
             {
                 Header: t("headers.lastSeen"),
