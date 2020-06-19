@@ -12,17 +12,8 @@
         font-size: 1.25em;
     }
 
-    table {
-        margin: unset;
-    }
-}
-
-.DashboardPanel_usersPanel {
-    @extend .DashboardPanel;
-    display: block;
-    margin-top: unset;
-
-    table {
-        margin: 1em;
+    .DashboardPanel_body {
+        padding-left: 1em;
+        padding-right: 1em;
     }
 }

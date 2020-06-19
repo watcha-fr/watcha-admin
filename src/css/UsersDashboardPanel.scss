@@ -1,0 +1,26 @@
+@import "./DashboardPanel.scss";
+
+.UsersDashboardPanel {
+    @extend .DashboardPanel;
+
+    .UsersDashboardPanel_panelSection {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 1.5em;
+
+        .UsersDashboardPanel_panelSectionTitle {
+            font-size: 1.15em;
+        }
+
+        .PanelRow_content {
+            width: unset;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+
+            &:first-of-type {
+                border-top: unset;
+            }
+        }
+    }
+}

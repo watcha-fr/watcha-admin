@@ -1,27 +1,16 @@
-@import "util.scss";
-
 .PanelRow_content {
-    display: contents;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0.5em;
+    padding-top: 1em;
+    border-top: solid 1px #dfdfdf;
+
+    &:first-child{
+        border-top: unset;
+    }
 
     .PanelRow_value {
-        text-align: end;
         font-weight: bold;
-    }
-
-    .PanelRow_administratorsSection{
-        border:solid 1px #dfdfdf;
-        border-radius: 0.25rem;
-        height: 150px;
-        overflow-y: auto;
-        margin-bottom: 1em;
-        width: max-content;
-    }
-
-    .PanelRow_adminUserRow{
-        @extend .AdminButton
-    }
-
-    &:first-child tr td {
-        border: unset;
     }
 }

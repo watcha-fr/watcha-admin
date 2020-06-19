@@ -1,19 +1,9 @@
 @import "util.scss";
 
 .NewItemButton {
-    @extend .AdminButton;
-    padding: unset;
-
-    &:hover {
-        .newUserButton::before {
-            background-color: black;
-        }
-    }
-
     .newUserButton {
         display: flex;
         align-items: center;
-        margin: 0.400em;
 
         &::before {
             content: "";

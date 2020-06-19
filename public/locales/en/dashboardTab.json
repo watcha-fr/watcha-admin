@@ -18,7 +18,7 @@
         "administrateButton": "Administrate rooms",
         "noRoomsMessage": "<strong>This Watcha instance does not yet have some rooms.<br/>Return to Watcha to create a first room (button \"+\").</strong>."
     },
-    "serverStatePanel": {
+    "applicationPanel": {
         "title": "Application",
         "generaleInformation": "General information",
         "version": "Version",

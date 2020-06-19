@@ -1,8 +1,9 @@
 import React from "react";
-import TooltipLogo from "./images/info-circle.svg";
 import { useTranslation } from "react-i18next";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
+
+import TooltipLogo from "./images/info-circle.svg";
 
 import "./css/Tooltip.scss";
 

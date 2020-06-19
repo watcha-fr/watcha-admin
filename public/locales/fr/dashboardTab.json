@@ -3,8 +3,8 @@
     "usersPanel": {
         "title": "Utilisateurs",
         "loggedUsers": "Au moins une fois",
-        "monthlyUsers": "Sur le dernier mois",
-        "weeklyUsers": "Sur la dernière semaine",
+        "monthlyUsers": "Au cours du dernier mois",
+        "weeklyUsers": "Au cours de la dernière semaine",
         "pendingInvitationUsers": "Invitations en attente",
         "administrateButton": "Administrer les utilisateurs",
         "usersPerRole": "Répartition des utilisateurs",
@@ -18,7 +18,7 @@
         "administrateButton": "Administrer les salons",
         "noRoomsMessage": "<strong>Cette installation de Watcha n'a encore aucun salon.<br/>Retournez sur Watcha  pour creer un premier Salon (bouton \"+\").</strong>"
     },
-    "serverStatePanel": {
+    "applicationPanel": {
         "title": "Application",
         "generaleInformation": "Informations générales",
         "version": "Version",

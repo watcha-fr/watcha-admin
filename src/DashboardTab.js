@@ -3,10 +3,13 @@ import { useGet } from "restful-react";
 import CardDeck from "react-bootstrap/CardDeck";
 import Col from "react-bootstrap/Col";
 
-import DashboardPanel from "./DashboardPanel";
+import AdministrateButton from "./AdministrateButton";
+import ApplicationDashboardPanel from "./ApplicationDashboardPanel";
 import DelayedSpinner from "./DelayedSpinner";
+import RoomsDashboardPanel from "./RoomsDashboardPanel";
+import UsersDashboardPanel from "./UsersDashboardPanel";
 
-import "./css/DashboardTab.scss"
+import "./css/DashboardTab.scss";
 
 export default () => {
     const [loading, setLoading] = useState(true);
@@ -42,22 +45,29 @@ export default () => {
         <div>
             <CardDeck className="DashboardTab">
                 <Col>
-                    <DashboardPanel
-                        panelName="roomsPanel"
-                        panelInformations={dashboardInformations.rooms}
-                        administrateButtonTabDestination="rooms"
-                    />
-                    <DashboardPanel
-                        panelName="serverStatePanel"
-                        panelInformations={dashboardInformations.server}
+                    <RoomsDashboardPanel
+                        roomsPanelInformations={dashboardInformations.rooms}
+                    >
+                        <AdministrateButton
+                            panelName={"roomsPanel"}
+                            tabDestination={"rooms"}
+                        />
+                    </RoomsDashboardPanel>
+                    <ApplicationDashboardPanel
+                        applicationPanelInformations={
+                            dashboardInformations.server
+                        }
                     />
                 </Col>
                 <Col>
-                    <DashboardPanel
-                        panelName="usersPanel"
-                        panelInformations={dashboardInformations.users}
-                        administrateButtonTabDestination="users"
-                    />
+                    <UsersDashboardPanel
+                        usersPanelInformations={dashboardInformations.users}
+                    >
+                        <AdministrateButton
+                            panelName={"usersPanel"}
+                            tabDestination={"users"}
+                        />
+                    </UsersDashboardPanel>
                 </Col>
             </CardDeck>
         </div>
