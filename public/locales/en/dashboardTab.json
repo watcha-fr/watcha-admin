@@ -12,11 +12,11 @@
         "otherStatistics": "Other statistics"
     },
     "roomsPanel": {
-        "title": "Rooms",
-        "nonDirectRoomsCount": "Multiple conversations of which active",
-        "directRoomsCount": "Personnals conversations of which active",
+        "title": "Rooms per type",
+        "nonDirectRoomsCount": "New or active rooms",
+        "directRoomsCount": "New or active one-to-one conversations",
         "administrateButton": "Administrate rooms",
-        "noRoomsMessage": "<strong>This Watcha instance does not yet have some rooms.<br/>Return to Watcha to create a first room (button \"+\").</strong>."
+        "noRoomsMessage": "<strong>This Watcha instance does not have any rooms yet.<br/>Return to Watcha to create a first room (button \"+\").</strong>."
     },
     "applicationPanel": {
         "title": "Application",

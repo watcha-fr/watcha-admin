@@ -22,7 +22,7 @@ export default () => {
             name: item.name || "",
             creator: getDisplayName(item.creator) || "",
             memberCount: item.members.length,
-            status: item.active === 1 ? "active" : "inactive",
+            status: item.status,
         }));
 
     const getDisplayName = userId => {
