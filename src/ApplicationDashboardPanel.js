@@ -7,10 +7,10 @@ import PanelRow from "./PanelRow";
 
 import "./css/DashboardPanel.scss";
 
-const ns = "dashboardTab";
-
 export default ({ applicationPanelInformations }) => {
-    const { t } = useTranslation([ns]);
+    const { t } = useTranslation("dashboardTab");
+
+    const getDiskMemoryUsed = diskUsed => Math.round(diskUsed / 1000000000);
 
     return (
         <Card className="DashboardPanel">
@@ -21,20 +21,20 @@ export default ({ applicationPanelInformations }) => {
                 <Row className="DashboardPanel_body">
                     <PanelRow
                         label={t("applicationPanel.version")}
-                        value={`${applicationPanelInformations.watcha_release}`}
+                        value={applicationPanelInformations.watcha_release}
                     />
                     <PanelRow
                         label={t("applicationPanel.installDate")}
-                        value={`${applicationPanelInformations.install_date}`}
+                        value={applicationPanelInformations.install_date}
                     />
                     <PanelRow
                         label={t("applicationPanel.upgradeDate")}
-                        value={`${applicationPanelInformations.upgrade_date}`}
+                        value={applicationPanelInformations.upgrade_date}
                     />
                     <PanelRow
                         label={t("applicationPanel.diskUsage")}
-                        value={`${Math.round(
-                            applicationPanelInformations.disk.used / 1000000000
+                        value={`${getDiskMemoryUsed(
+                            applicationPanelInformations.disk.used
                         )} Go  (${applicationPanelInformations.disk.percent}%)`}
                     />
                 </Row>

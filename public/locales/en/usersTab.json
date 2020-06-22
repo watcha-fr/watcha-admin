@@ -32,11 +32,6 @@
             "invited": "<strong>Invitation sent</strong>: an invitation email has been sent to the user, but the user has not yet finalized the registration process, and has not yet logged in to Watcha."
         }
     },
-    "roles": {
-        "administrator": "Administrator",
-        "collaborator": "Collaborator",
-        "partner": "Partner"
-    },
     "status": {
         "active": "Account enabled",
         "inactive": "Account disabled",

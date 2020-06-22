@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useGet } from "restful-react";
+import { useTranslation } from "react-i18next";
 import CardDeck from "react-bootstrap/CardDeck";
 import Col from "react-bootstrap/Col";
 
@@ -12,6 +13,8 @@ import UsersDashboardPanel from "./UsersDashboardPanel";
 import "./css/DashboardTab.scss";
 
 export default () => {
+    const { t } = useTranslation("dashboardTab");
+
     const [loading, setLoading] = useState(true);
 
     const [dashboardInformations, setDashboardInformations] = useState([]);
@@ -42,34 +45,28 @@ export default () => {
     return loading || !dashboardInformations ? (
         <DelayedSpinner />
     ) : (
-        <div>
-            <CardDeck className="DashboardTab">
-                <Col>
-                    <RoomsDashboardPanel
-                        roomsPanelInformations={dashboardInformations.rooms}
-                    >
-                        <AdministrateButton
-                            panelName={"roomsPanel"}
-                            tabDestination={"rooms"}
-                        />
-                    </RoomsDashboardPanel>
-                    <ApplicationDashboardPanel
-                        applicationPanelInformations={
-                            dashboardInformations.server
-                        }
-                    />
-                </Col>
-                <Col>
-                    <UsersDashboardPanel
-                        usersPanelInformations={dashboardInformations.users}
-                    >
-                        <AdministrateButton
-                            panelName={"usersPanel"}
-                            tabDestination={"users"}
-                        />
-                    </UsersDashboardPanel>
-                </Col>
-            </CardDeck>
-        </div>
+        <CardDeck className="DashboardTab">
+            <Col>
+                <RoomsDashboardPanel
+                    roomsPanelInformations={dashboardInformations.rooms}
+                >
+                    <AdministrateButton tabDestination="rooms">
+                        {t("roomsPanel.administrateButton")}
+                    </AdministrateButton>
+                </RoomsDashboardPanel>
+                <ApplicationDashboardPanel
+                    applicationPanelInformations={dashboardInformations.server}
+                />
+            </Col>
+            <Col>
+                <UsersDashboardPanel
+                    usersPanelInformations={dashboardInformations.users}
+                >
+                    <AdministrateButton tabDestination="users">
+                        {t("usersPanel.administrateButton")}
+                    </AdministrateButton>
+                </UsersDashboardPanel>
+            </Col>
+        </CardDeck>
     );
 };

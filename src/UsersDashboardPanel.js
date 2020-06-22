@@ -11,7 +11,7 @@ import Tooltip from "./Tooltip";
 import "./css/UsersDashboardPanel.scss";
 
 export default ({ usersPanelInformations, children }) => {
-    const { t } = useTranslation(["dashboardTab", "common"]);
+    const { t } = useTranslation("dashboardTab");
 
     const [isExpanded, setIsExpand] = useState(false);
 
@@ -25,8 +25,10 @@ export default ({ usersPanelInformations, children }) => {
                 ○ {t(`usersPanel.usersPerRole`)}
             </span>
             <PanelRow
-                label={t("common:administrators")}
-                value={`${usersPanelInformations.users_per_role.administrators}`}
+                label={t("common:administrator", {
+                    count: usersPanelInformations.users_per_role.administrators,
+                })}
+                value={usersPanelInformations.users_per_role.administrators}
             >
                 <Tooltip tooltipName="administrator" />
                 <ExpandButton onClick={onExpandButtonClick} />
@@ -39,14 +41,18 @@ export default ({ usersPanelInformations, children }) => {
                 />
             )}
             <PanelRow
-                label={t("common:collaborators")}
-                value={`${usersPanelInformations.users_per_role.collaborators}`}
+                label={t("common:collaborator", {
+                    count: usersPanelInformations.users_per_role.collaborators,
+                })}
+                value={usersPanelInformations.users_per_role.collaborators}
             >
                 <Tooltip tooltipName="collaborator" />
             </PanelRow>
             <PanelRow
-                label={t("common:partners")}
-                value={`${usersPanelInformations.users_per_role.partners}`}
+                label={t("common:partner", {
+                    count: usersPanelInformations.users_per_role.partners,
+                })}
+                value={usersPanelInformations.users_per_role.partners}
             >
                 <Tooltip tooltipName="partner" />
             </PanelRow>
@@ -59,16 +65,25 @@ export default ({ usersPanelInformations, children }) => {
                 ○ {t(`usersPanel.connectedUsers`)}
             </span>
             <PanelRow
-                label={t("dashboardTab:usersPanel.loggedUsers")}
-                value={`${usersPanelInformations.connected_users.number_of_users_logged_at_least_once}`}
+                label={t("usersPanel.loggedUsers")}
+                value={
+                    usersPanelInformations.connected_users
+                        .number_of_users_logged_at_least_once
+                }
             />
             <PanelRow
-                label={t("dashboardTab:usersPanel.monthlyUsers")}
-                value={`${usersPanelInformations.connected_users.number_of_last_month_logged_users}`}
+                label={t("usersPanel.monthlyUsers")}
+                value={
+                    usersPanelInformations.connected_users
+                        .number_of_last_month_logged_users
+                }
             />
             <PanelRow
-                label={t("dashboardTab:usersPanel.weeklyUsers")}
-                value={`${usersPanelInformations.connected_users.number_of_last_week_logged_users}`}
+                label={t("usersPanel.weeklyUsers")}
+                value={
+                    usersPanelInformations.connected_users
+                        .number_of_last_week_logged_users
+                }
             />
         </div>
     );
@@ -79,8 +94,11 @@ export default ({ usersPanelInformations, children }) => {
                 ○ {t(`usersPanel.otherStatistics`)}
             </span>
             <PanelRow
-                label={t("dashboardTab:usersPanel.pendingInvitationUsers")}
-                value={`${usersPanelInformations.other_statistics.number_of_users_with_pending_invitation}`}
+                label={t("usersPanel.pendingInvitationUsers")}
+                value={
+                    usersPanelInformations.other_statistics
+                        .number_of_users_with_pending_invitation
+                }
             >
                 <Tooltip tooltipName="pendingInvitation" />
             </PanelRow>

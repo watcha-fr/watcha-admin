@@ -10,8 +10,6 @@ import DashboardTab from "./DashboardTab";
 import RoomsTab from "./RoomsTab";
 import UsersTab from "./UsersTab";
 
-import "./css/AdminHome.scss"
-
 export default () => {
     const { t } = useTranslation();
 
@@ -24,7 +22,7 @@ export default () => {
 
     return (
         <DispatchContext.Provider value={dispatch}>
-            <Tabs id="AdminHome_tabs" activeKey={tab} {...{ onSelect }}>
+            <Tabs id="tabs" activeKey={tab} {...{ onSelect }}>
                 <Tab eventKey="dashboard" title={t("dashboardTab:title")}>
                     <DashboardTab />
                 </Tab>

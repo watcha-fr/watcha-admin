@@ -5,13 +5,13 @@
     overflow-y: auto;
     margin: 0.5em;
     width: max-content;
+}
 
-    .AdministratorList_adminUserRow {
-        &:hover {
-            cursor: pointer;
-            background-color: darkturquoise;
-            border-color: darkturquoise;
-            color: black;
-        }
+.AdministratorList_adminUserRow {
+    &:hover {
+        cursor: pointer;
+        background-color: darkturquoise;
+        border-color: darkturquoise;
+        color: black;
     }
 }

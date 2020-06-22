@@ -8,24 +8,20 @@ export default ({ administratorList }) => {
 
     const onAdminUserClick = userId => dispatch({ tab: "users", userId });
 
-    const administratorsSection = [];
+    const getDisplayname = (displayname, userID) =>
+        displayname ? displayname : userID.replace("@", "").split(":")[0];
 
-    for (const index in administratorList) {
-        const adminUser = administratorList[index];
-        administratorsSection.push(
-            <div
-                key={adminUser.user_id}
-                className="AdministratorList_adminUserRow"
-                onClick={() => onAdminUserClick(adminUser.user_id)}
-            >
-                {`${
-                    adminUser.displayname
-                        ? adminUser.displayname
-                        : adminUser.user_id.replace("@", "").split(":")[0]
-                } ${adminUser.email ? `(${adminUser.email})` : ""}`}
-            </div>
-        );
-    }
+    const administrators = administratorList.map(adminUser => (
+        <div
+            key={adminUser.user_id}
+            className="AdministratorList_adminUserRow"
+            onClick={() => onAdminUserClick(adminUser.user_id)}
+        >
+            {`${getDisplayname(adminUser.displayname, adminUser.user_id)} ${
+                adminUser.email ? `(${adminUser.email})` : ""
+            }`}
+        </div>
+    ));
 
-    return <div className="AdministratorList">{administratorsSection}</div>;
+    return <div className="AdministratorList">{administrators}</div>;
 };

@@ -1,13 +1,8 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { useDispatchContext } from "./contexts";
-import { useTranslation } from "react-i18next";
 
-const ns = "dashboardTab";
-
-export default ({ panelName, tabDestination }) => {
-    const { t } = useTranslation(ns);
-
+export default ({ children, tabDestination }) => {
     const dispatch = useDispatchContext();
 
     const onClick = () => {
@@ -15,8 +10,8 @@ export default ({ panelName, tabDestination }) => {
     };
 
     return (
-        <Button className="AdministrateButton" {...{onClick}}>
-            {t(`${panelName}.administrateButton`)}
+        <Button className="AdministrateButton" {...{ onClick }}>
+            {children}
         </Button>
     );
 };

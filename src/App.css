@@ -41,6 +41,10 @@
     width: 100%;
 }
 
+#tabs-tabpane-dashboard{
+    overflow-y: auto;
+}
+
 .loadingLoginButton {
     display: flex;
     align-items: center;
