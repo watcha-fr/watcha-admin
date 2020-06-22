@@ -1,0 +1,17 @@
+.ExpandButton {
+    background-color: #f7f7f7;
+    border-color: #dfdfdf;
+    box-shadow: unset;
+    display: inline-flex;
+    height: 100%;
+
+    &:hover {
+        background-color: darkturquoise;
+        border-color: darkturquoise;
+        cursor: pointer;
+    }
+
+    &:focus {
+        @extend .ExpandButton;
+    }
+}
