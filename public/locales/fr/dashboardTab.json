@@ -12,7 +12,7 @@
         "otherStatistics": "Autres statistiques"
     },
     "roomsPanel": {
-        "title": "Salons par type",
+        "title": "Salons",
         "nonDirectRoomsCount": "Conversations a plusieurs nouvelles ou actives",
         "directRoomsCount": "Conversations privées nouvelles ou actives",
         "administrateButton": "Administrer les salons",

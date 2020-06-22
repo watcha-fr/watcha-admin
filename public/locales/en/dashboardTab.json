@@ -12,7 +12,7 @@
         "otherStatistics": "Other statistics"
     },
     "roomsPanel": {
-        "title": "Rooms per type",
+        "title": "Rooms",
         "nonDirectRoomsCount": "New or active rooms",
         "directRoomsCount": "New or active one-to-one conversations",
         "administrateButton": "Administrate rooms",
