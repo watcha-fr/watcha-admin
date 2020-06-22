@@ -7,10 +7,8 @@ import PanelRow from "./PanelRow";
 
 import "./css/DashboardPanel.scss";
 
-const ns = "dashboardTab";
-
 export default ({ roomsPanelInformations, children }) => {
-    const { t } = useTranslation([ns]);
+    const { t } = useTranslation("dashboardTab");
 
     return (
         <Card className="DashboardPanel">
@@ -21,9 +19,7 @@ export default ({ roomsPanelInformations, children }) => {
             <Card.Body>
                 {roomsPanelInformations.non_direct_rooms_count === 0 &&
                 roomsPanelInformations.direct_rooms_count === 0 ? (
-                    <div>
-                        <Trans t={t} i18nKey={"roomsPanel.noRoomsMessage"} />
-                    </div>
+                    <Trans t={t} i18nKey={"roomsPanel.noRoomsMessage"} />
                 ) : (
                     <Row className="DashboardPanel_body">
                         <PanelRow

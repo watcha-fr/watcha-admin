@@ -77,7 +77,7 @@ export default ({ userId }) => {
                 Header: t("headers.role"),
                 accessor: "role",
                 disableGlobalFilter: true,
-                Cell: ({ value }) => t(`roles.${value}`),
+                Cell: ({ value }) => t(`common:${value}`, { count: 1 }),
             },
             {
                 Header: <UserAccountStatusHeader />,
