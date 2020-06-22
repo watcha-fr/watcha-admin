@@ -1,216 +1,118 @@
-import React from "react";
-import { withTranslation } from "react-i18next";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
-import Table from "react-bootstrap/Table";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
-import Accordion from "react-bootstrap/Accordion";
-import Button from "react-bootstrap/Button";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Popover from "react-bootstrap/Popover";
-import { useDispatchContext } from "./contexts";
-import infoCircle from "./images/info-circle.svg";
 
-export default withTranslation()(({ t, datas, tab }) => {
-    const standardSections = [
-        {
-            title: t("dashboardTab:usersPanel.usersPerRole"),
-            labels: [
-                t("dashboardTab:usersPanel.administrators"),
-                t("dashboardTab:usersPanel.collaborators"),
-                t("dashboardTab:usersPanel.partners"),
-            ],
-            datas: [
-                datas.users_per_role.administrators,
-                datas.users_per_role.collaborators,
-                datas.users_per_role.partners,
-            ],
-        },
-        {
-            title: t("dashboardTab:usersPanel.connectedUsers"),
-            labels: [
-                t("dashboardTab:usersPanel.loggedUsers"),
-                t("dashboardTab:usersPanel.monthlyUsers"),
-                t("dashboardTab:usersPanel.weeklyUsers"),
-            ],
-            datas: [
-                datas.connected_users.number_of_users_logged_at_least_once,
-                datas.connected_users.number_of_last_month_logged_users,
-                datas.connected_users.number_of_last_week_logged_users,
-            ],
-        },
-        {
-            title: t("dashboardTab:usersPanel.otherStatistics"),
-            labels: [t("dashboardTab:usersPanel.pendingInvitationUsers")],
-            datas: [
-                datas.other_statistics.number_of_users_with_pending_invitation,
-            ],
-        },
-    ];
+import AdministratorList from "./AdministratorsList";
+import ExpandButton from "./ExpandButton";
+import PanelRow from "./PanelRow";
+import Tooltip from "./Tooltip";
 
-    const getInfoCircleTag = label => {
-        let tooltipMessage = "";
-        switch (label) {
-            case t("dashboardTab:usersPanel.administrators"):
-                tooltipMessage = t(
-                    "dashboardTab:usersPanel.administratorTooltip"
-                );
-                break;
-            case t("dashboardTab:usersPanel.collaborators"):
-                tooltipMessage = t(
-                    "dashboardTab:usersPanel.collaboratorTooltip"
-                );
-                break;
-            case t("dashboardTab:usersPanel.partners"):
-                tooltipMessage = t("dashboardTab:usersPanel.partnerTooltip");
-                break;
-            case t("dashboardTab:usersPanel.pendingInvitationUsers"):
-                tooltipMessage = t(
-                    "dashboardTab:usersPanel.pendingInvitationTooltip"
-                );
-                break;
-            default:
-                return;
-        }
+import "./css/DashboardPanel.scss";
+import "./css/UsersDashboardPanel.scss";
 
-        const infoCircleTag = (
-            <OverlayTrigger
-                overlay={
-                    <Popover className="tooltipMessage">
-                        <Popover.Content>{tooltipMessage}</Popover.Content>
-                    </Popover>
-                }
-                placement="right"
+export default ({ usersPanelInformations, children }) => {
+    const { t } = useTranslation("dashboardTab");
+
+    const [isExpanded, setIsExpand] = useState(false);
+
+    const onExpandButtonClick = () => {
+        isExpanded ? setIsExpand(false) : setIsExpand(true);
+    };
+
+    const usersPerRoleSection = (
+        <div className="UsersDashboardPanel_panelSection">
+            <span className="UsersDashboardPanel_panelSectionTitle">
+                ○ {t(`usersPanel.usersPerRole`)}
+            </span>
+            <PanelRow
+                label={t("common:administrators")}
+                value={usersPanelInformations.users_per_role.administrators}
             >
-                <img src={infoCircle}></img>
-            </OverlayTrigger>
-        );
-        return infoCircleTag;
-    };
+                <Tooltip tooltipName="administrator" />
+                <ExpandButton onClick={onExpandButtonClick} />
+            </PanelRow>
+            {isExpanded && (
+                <AdministratorList
+                    administratorList={
+                        usersPanelInformations.administrators_users
+                    }
+                />
+            )}
+            <PanelRow
+                label={t("common:collaborators")}
+                value={usersPanelInformations.users_per_role.collaborators}
+            >
+                <Tooltip tooltipName="collaborator" />
+            </PanelRow>
+            <PanelRow
+                label={t("common:partners")}
+                value={usersPanelInformations.users_per_role.partners}
+            >
+                <Tooltip tooltipName="partner" />
+            </PanelRow>
+        </div>
+    );
 
-    const dispatch = useDispatchContext();
-
-    const onAdministrateLinkClick = () => dispatch({ tab });
-
-    const onAdminUserClick = userId => dispatch({ tab: "users", userId });
-
-    const getStandardPanelContent = sections => {
-        const panelContent = [];
-        for (const index in sections) {
-            const section = sections[index];
-            if (section.datas) {
-                const sectionContent = [];
-                for (const index in section.labels) {
-                    const label = section.labels[index];
-                    const labelCell =
-                        label ===
-                        t("dashboardTab:usersPanel.administrators") ? (
-                            <td className="sectionPanelAdminListLabel">
-                                {getAdminPanelContent(
-                                    datas.administrators_users
-                                )}
-                            </td>
-                        ) : (
-                            <td className="sectionPanelLabel">
-                                {label} {getInfoCircleTag(label)}
-                            </td>
-                        );
-
-                    sectionContent.push(
-                        <tr key={label}>
-                            {labelCell}
-                            <td className="sectionPanelData">
-                                {section.datas[index]}
-                            </td>
-                        </tr>
-                    );
+    const connectedUsersSection = (
+        <div className="UsersDashboardPanel_panelSection">
+            <span className="UsersDashboardPanel_panelSectionTitle">
+                ○ {t(`usersPanel.connectedUsers`)}
+            </span>
+            <PanelRow
+                label={t("usersPanel.loggedUsers")}
+                value={
+                    usersPanelInformations.connected_users
+                        .number_of_users_logged_at_least_once
                 }
-                if (sectionContent) {
-                    panelContent.push(
-                        <Row
-                            className="dashboardPanelSection"
-                            key={section.title}
-                        >
-                            <fieldset className="watcha-fieldset">
-                                <legend className="watcha-legend">
-                                    {section.title}
-                                </legend>
-                                <Table>
-                                    <tbody>{sectionContent}</tbody>
-                                </Table>
-                            </fieldset>
-                        </Row>
-                    );
+            />
+            <PanelRow
+                label={t("usersPanel.monthlyUsers")}
+                value={
+                    usersPanelInformations.connected_users
+                        .number_of_last_month_logged_users
                 }
-            }
-        }
-        return panelContent;
-    };
+            />
+            <PanelRow
+                label={t("usersPanel.weeklyUsers")}
+                value={
+                    usersPanelInformations.connected_users
+                        .number_of_last_week_logged_users
+                }
+            />
+        </div>
+    );
 
-    const getAdminPanelContent = adminList => {
-        const adminPanelContent = [];
-        const sectionContent = [];
-        for (const index in adminList) {
-            const admin = adminList[index];
-            sectionContent.push(
-                <tr key={admin.user_id}>
-                    <td
-                        className="adminUserRow"
-                        onClick={() => onAdminUserClick(admin.user_id)}
-                    >
-                        {`${setAdminName(admin.displayname, admin.user_id)} ${
-                            admin.email ? `(${admin.email})` : ""
-                        }`}
-                    </td>
-                </tr>
-            );
-        }
-        if (sectionContent) {
-            adminPanelContent.push(
-                <Accordion key={t("dashboardTab:usersPanel.administrators")} defaultActiveKey="0">
-                    <Card>
-                        <Accordion.Toggle as={Card.Header} eventKey="1">
-                            {t("dashboardTab:usersPanel.administrators")}{" "}
-                            {getInfoCircleTag(
-                                t("dashboardTab:usersPanel.administrators")
-                            )}
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="1">
-                            <Card.Body>
-                                {" "}
-                                <Table>
-                                    <tbody>{sectionContent}</tbody>
-                                </Table>
-                            </Card.Body>
-                        </Accordion.Collapse>
-                    </Card>
-                </Accordion>
-            );
-        }
-
-        return adminPanelContent;
-    };
-
-    const setAdminName = (displayname, adminUserID) => {
-        return displayname || adminUserID.replace("@", "").split(":")[0];
-    };
-
-    const standardPanelContent = getStandardPanelContent(standardSections);
+    const otherStatisticsSection = (
+        <div className="UsersDashboardPanel_panelSection">
+            <span className="UsersDashboardPanel_panelSectionTitle">
+                ○ {t(`usersPanel.otherStatistics`)}
+            </span>
+            <PanelRow
+                label={t("usersPanel.pendingInvitationUsers")}
+                value={
+                    usersPanelInformations.other_statistics
+                        .number_of_users_with_pending_invitation
+                }
+            >
+                <Tooltip tooltipName="pendingInvitation" />
+            </PanelRow>
+        </div>
+    );
 
     return (
-        <Card className="dashboardPanel">
+        <Card className="DashboardPanel">
             <Card.Header>
-                <span>{t("usersTab:title")}</span>
-                <Button
-                    className="dashboardAdministrateButton"
-                    onClick={onAdministrateLinkClick}
-                >
-                    {t("dashboardTab:usersPanel.administrateButton")}
-                </Button>
+                <span>{t(`usersPanel.title`)}</span>
+                {children}
             </Card.Header>
             <Card.Body>
-                <Container fluid>{standardPanelContent}</Container>
+                <Row className="DashboardPanel_body">
+                    {usersPerRoleSection}
+                    {connectedUsersSection}
+                    {otherStatisticsSection}
+                </Row>
             </Card.Body>
         </Card>
     );
-});
+};

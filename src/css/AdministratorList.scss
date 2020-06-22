@@ -1,0 +1,17 @@
+.AdministratorList {
+    border: solid 1px #dfdfdf;
+    border-radius: 0.25rem;
+    height: 12em;
+    overflow-y: auto;
+    margin: 0.5em;
+    padding-left: 1em;
+    width: 100%;
+}
+
+.AdministratorList_adminUserRow:hover {
+    cursor: pointer;
+    background-color: darkturquoise;
+    border-color: darkturquoise;
+    color: black;
+    white-space: nowrap;
+}

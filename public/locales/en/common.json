@@ -15,7 +15,17 @@
     "cancel": "Cancel",
     "success": "Successfull transaction",
     "danger": "An error has occurred",
+    "expand": "expand",
+    "help": "help",
     "filter": "Filter",
     "clear": "Clear",
-    "help": "Help"
+    "collaborators": "Collaborators",
+    "partners": "Partners",
+    "administrators": "Administrators",
+    "tooltip":{
+        "administrator": "Users with access to the administration console of this instance.",
+        "collaborator": "Internal users with the right to create rooms and invite users into them.",
+        "partner": "External users who have been invited to one or more rooms by an internal user and have limited rights.",
+        "pendingInvitation": "Users who have been invited, but have not yet set their password or logged in."
+    }
 }

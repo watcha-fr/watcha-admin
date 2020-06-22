@@ -1,0 +1,16 @@
+.PanelRow_content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0.5em;
+    padding-top: 1em;
+    border-top: solid 1px #dfdfdf;
+
+    &:first-child {
+        border-top: 0;
+    }
+}
+
+.PanelRow_value {
+    font-weight: bold;
+}

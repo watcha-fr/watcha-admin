@@ -33,9 +33,9 @@
         }
     },
     "roles": {
-        "administrator": "Administrator",
         "collaborator": "Collaborator",
-        "partner": "Partner"
+        "partner": "Partner",
+        "administrator": "Administrator"
     },
     "status": {
         "active": "Account enabled",
