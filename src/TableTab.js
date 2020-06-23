@@ -15,6 +15,7 @@ export default ({
     requestParams,
     columns,
     initialState,
+    plugins,
     newItemButton,
     newItemModal,
     rightPanel,
@@ -50,7 +51,8 @@ export default ({
             disableSortRemove: true,
         },
         useGlobalFilter,
-        useSortBy
+        useSortBy,
+        ...(plugins || [])
     );
 
     const dispatch = useDispatchContext();
