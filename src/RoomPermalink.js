@@ -14,7 +14,7 @@ export default ({ roomId }) => {
     const isMine = rooms.some(room => room.roomId === roomId);
 
     return isMine ? (
-        <a href={`/app/#/room/${roomId}`} target="_blank">
+        <a href={`/app/#/room/${roomId}`} target="room">
             <img
                 className="RoomPermalink"
                 src={boxArrowUpRight}
