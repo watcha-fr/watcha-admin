@@ -10,16 +10,14 @@ export default ({ tooltipName }) => {
     const { t } = useTranslation();
 
     const overlay = (
-        <Popover className="tooltip">
+        <Popover>
             <Popover.Content>{t(`tooltip.${tooltipName}`)}</Popover.Content>
         </Popover>
     );
 
     return (
-        <div className="Tooltip">
-            <OverlayTrigger {...{ overlay }} placement="right">
-                <img src={icon} alt={t("help")}></img>
-            </OverlayTrigger>
-        </div>
+        <OverlayTrigger placement="right" {...{ overlay }}>
+            <img className="Tooltip-icon" src={icon} alt={t("help")}></img>
+        </OverlayTrigger>
     );
 };

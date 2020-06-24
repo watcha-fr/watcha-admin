@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useGet } from "restful-react";
-import { useTranslation } from "react-i18next";
 import CardDeck from "react-bootstrap/CardDeck";
 import Col from "react-bootstrap/Col";
 
@@ -12,11 +11,10 @@ import UsersDashboardPanel from "./UsersDashboardPanel";
 import "./css/DashboardTab.scss";
 
 export default () => {
-    const { t } = useTranslation("dashboardTab");
 
     const [loading, setLoading] = useState(true);
 
-    const [dashboardInformations, setDashboardInformations] = useState([]);
+    const [metrics, setMetrics] = useState(null);
 
     const { data, refetch } = useGet({
         path: "watcha_admin_stats",
@@ -33,7 +31,7 @@ export default () => {
     }, []);
 
     useEffect(() => {
-        setDashboardInformations(data);
+        setMetrics(data);
         loading && setLoading(false);
         if (intervalIdRef.current) {
             clearInterval(intervalIdRef.current);
@@ -41,21 +39,21 @@ export default () => {
         intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
     }, [data]);
 
-    return loading || !dashboardInformations ? (
+    return loading || !metrics ? (
         <DelayedSpinner />
     ) : (
         <CardDeck className="DashboardTab">
             <Col>
                 <RoomsDashboardPanel
-                    roomsPanelInformations={dashboardInformations.rooms}
+                    roomsMetrics={metrics.rooms}
                 />
                 <ApplicationDashboardPanel
-                    applicationPanelInformations={dashboardInformations.server}
+                    applicationMetrics={metrics.server}
                 />
             </Col>
             <Col>
                 <UsersDashboardPanel
-                    usersPanelInformations={dashboardInformations.users}
+                    usersMetrics={metrics.users}
                 />
             </Col>
         </CardDeck>

@@ -7,37 +7,40 @@ import PanelRow from "./PanelRow";
 
 import "./css/DashboardPanel.scss";
 
-export default ({ applicationPanelInformations }) => {
+export default ({ applicationMetrics }) => {
     const { t } = useTranslation("dashboardTab");
 
-    const getDiskMemoryUsed = diskUsed => Math.round(diskUsed / 1000000000);
+    const {
+        watcha_release,
+        install_date,
+        upgrade_date,
+        disk,
+    } = applicationMetrics;
+
+    const diskMemoryUsed = Math.round(disk.used / 10 ** 9);
 
     return (
         <Card className="DashboardPanel">
             <Card.Header>
                 <span>{t("applicationPanel.title")}</span>
             </Card.Header>
-            <Card.Body>
-                <Row className="DashboardPanel_body">
-                    <PanelRow
-                        label={t("applicationPanel.version")}
-                        value={applicationPanelInformations.watcha_release}
-                    />
-                    <PanelRow
-                        label={t("applicationPanel.installDate")}
-                        value={applicationPanelInformations.install_date}
-                    />
-                    <PanelRow
-                        label={t("applicationPanel.upgradeDate")}
-                        value={applicationPanelInformations.upgrade_date}
-                    />
-                    <PanelRow
-                        label={t("applicationPanel.diskUsage")}
-                        value={`${getDiskMemoryUsed(
-                            applicationPanelInformations.disk.used
-                        )} Go  (${applicationPanelInformations.disk.percent}%)`}
-                    />
-                </Row>
+            <Card.Body className="DashboardPanel_body">
+                <PanelRow
+                    label={t("applicationPanel.version")}
+                    value={watcha_release}
+                />
+                <PanelRow
+                    label={t("applicationPanel.installDate")}
+                    value={install_date}
+                />
+                <PanelRow
+                    label={t("applicationPanel.upgradeDate")}
+                    value={upgrade_date}
+                />
+                <PanelRow
+                    label={t("applicationPanel.diskUsage")}
+                    value={`${diskMemoryUsed} Go  (${disk.percent}%)`}
+                />
             </Card.Body>
         </Card>
     );

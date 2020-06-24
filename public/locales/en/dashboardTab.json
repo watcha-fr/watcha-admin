@@ -1,5 +1,6 @@
 {
     "title": "Dashboard",
+    "expand": "See an overview of the administrators",
     "usersPanel": {
         "title": "Users",
         "loggedUsers": "At least once",

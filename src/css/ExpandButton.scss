@@ -3,12 +3,11 @@
     border-color: #dfdfdf;
     box-shadow: initial;
     display: inline-flex;
-    height: 100%;
+    margin-left: 1.5em;
 
     &:hover {
         background-color: darkturquoise;
         border-color: darkturquoise;
-        cursor: pointer;
     }
 
     &:focus {

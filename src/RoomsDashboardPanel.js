@@ -8,8 +8,15 @@ import PanelRow from "./PanelRow";
 
 import "./css/DashboardPanel.scss";
 
-export default ({ roomsPanelInformations, children }) => {
+export default ({ roomsMetrics }) => {
     const { t } = useTranslation("dashboardTab");
+
+    const {
+        non_direct_rooms_count,
+        direct_rooms_count,
+        non_direct_active_rooms_count,
+        direct_active_rooms_count,
+    } = roomsMetrics;
 
     return (
         <Card className="DashboardPanel">
@@ -19,21 +26,20 @@ export default ({ roomsPanelInformations, children }) => {
                     {t("roomsPanel.administrateButton")}
                 </AdministrateButton>
             </Card.Header>
-            <Card.Body>
-                {roomsPanelInformations.non_direct_rooms_count === 0 &&
-                roomsPanelInformations.direct_rooms_count === 0 ? (
+            <Card.Body className="DashboardPanel_body">
+                {non_direct_rooms_count === 0 && direct_rooms_count === 0 ? (
                     <Trans t={t} i18nKey={"roomsPanel.noRoomsMessage"} />
                 ) : (
-                    <Row className="DashboardPanel_body">
+                    <>
                         <PanelRow
                             label={t("roomsPanel.nonDirectRoomsCount")}
-                            value={`${roomsPanelInformations.non_direct_active_rooms_count} / ${roomsPanelInformations.non_direct_rooms_count}`}
+                            value={`${non_direct_active_rooms_count} / ${non_direct_rooms_count}`}
                         />
                         <PanelRow
                             label={t("roomsPanel.directRoomsCount")}
-                            value={`${roomsPanelInformations.direct_active_rooms_count} / ${roomsPanelInformations.direct_rooms_count}`}
+                            value={`${direct_active_rooms_count} / ${direct_rooms_count}`}
                         />
-                    </Row>
+                    </>
                 )}
             </Card.Body>
         </Card>

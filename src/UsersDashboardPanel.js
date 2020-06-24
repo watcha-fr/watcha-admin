@@ -12,7 +12,7 @@ import Tooltip from "./Tooltip";
 import "./css/DashboardPanel.scss";
 import "./css/UsersDashboardPanel.scss";
 
-export default ({ usersPanelInformations, children }) => {
+export default ({ usersMetrics }) => {
     const { t } = useTranslation("dashboardTab");
 
     const [isExpanded, setIsExpand] = useState(false);
@@ -21,65 +21,80 @@ export default ({ usersPanelInformations, children }) => {
         isExpanded ? setIsExpand(false) : setIsExpand(true);
     };
 
+    const { administrators_users } = usersMetrics;
+
+    const {
+        administrators,
+        collaborators,
+        partners,
+    } = usersMetrics.users_per_role;
+
+    const {
+        number_of_users_logged_at_least_once,
+        number_of_last_month_logged_users,
+        number_of_last_week_logged_users,
+    } = usersMetrics.connected_users;
+
+    const {
+        number_of_users_with_pending_invitation,
+    } = usersMetrics.other_statistics;
+
     const usersPerRoleSection = (
         <div className="UsersDashboardPanel_panelSection">
             <span className="UsersDashboardPanel_panelSectionTitle">
-                ○ {t(`usersPanel.usersPerRole`)}
+                {t(`usersPanel.usersPerRole`)}
             </span>
             <PanelRow
-                label={t("common:administrators")}
-                value={usersPanelInformations.users_per_role.administrators}
-            >
-                <Tooltip tooltipName="administrator" />
-                <ExpandButton onClick={onExpandButtonClick} />
-            </PanelRow>
+                label={
+                    <>
+                        {t("common:administrators")}
+                        <Tooltip tooltipName="administrator" />
+                        <ExpandButton onClick={onExpandButtonClick} />
+                    </>
+                }
+                value={administrators}
+            />
             {isExpanded && (
-                <AdministratorList
-                    administratorList={
-                        usersPanelInformations.administrators_users
-                    }
-                />
+                <AdministratorList administratorList={administrators_users} />
             )}
             <PanelRow
-                label={t("common:collaborators")}
-                value={usersPanelInformations.users_per_role.collaborators}
-            >
-                <Tooltip tooltipName="collaborator" />
-            </PanelRow>
+                label={
+                    <>
+                        {t("common:collaborators")}
+                        <Tooltip tooltipName="collaborator" />
+                    </>
+                }
+                value={collaborators}
+            />
             <PanelRow
-                label={t("common:partners")}
-                value={usersPanelInformations.users_per_role.partners}
-            >
-                <Tooltip tooltipName="partner" />
-            </PanelRow>
+                label={
+                    <>
+                        {t("common:partners")}
+                        <Tooltip tooltipName="partner" />
+                    </>
+                }
+                value={partners}
+                other_statistics
+            />
         </div>
     );
 
     const connectedUsersSection = (
         <div className="UsersDashboardPanel_panelSection">
             <span className="UsersDashboardPanel_panelSectionTitle">
-                ○ {t(`usersPanel.connectedUsers`)}
+                {t(`usersPanel.connectedUsers`)}
             </span>
             <PanelRow
                 label={t("usersPanel.loggedUsers")}
-                value={
-                    usersPanelInformations.connected_users
-                        .number_of_users_logged_at_least_once
-                }
+                value={number_of_users_logged_at_least_once}
             />
             <PanelRow
                 label={t("usersPanel.monthlyUsers")}
-                value={
-                    usersPanelInformations.connected_users
-                        .number_of_last_month_logged_users
-                }
+                value={number_of_last_month_logged_users}
             />
             <PanelRow
                 label={t("usersPanel.weeklyUsers")}
-                value={
-                    usersPanelInformations.connected_users
-                        .number_of_last_week_logged_users
-                }
+                value={number_of_last_week_logged_users}
             />
         </div>
     );
@@ -87,17 +102,17 @@ export default ({ usersPanelInformations, children }) => {
     const otherStatisticsSection = (
         <div className="UsersDashboardPanel_panelSection">
             <span className="UsersDashboardPanel_panelSectionTitle">
-                ○ {t(`usersPanel.otherStatistics`)}
+                {t(`usersPanel.otherStatistics`)}
             </span>
             <PanelRow
-                label={t("usersPanel.pendingInvitationUsers")}
-                value={
-                    usersPanelInformations.other_statistics
-                        .number_of_users_with_pending_invitation
+                label={
+                    <>
+                        {t("usersPanel.pendingInvitationUsers")}
+                        <Tooltip tooltipName="pendingInvitation" />
+                    </>
                 }
-            >
-                <Tooltip tooltipName="pendingInvitation" />
-            </PanelRow>
+                value={number_of_users_with_pending_invitation}
+            />
         </div>
     );
 
@@ -109,12 +124,10 @@ export default ({ usersPanelInformations, children }) => {
                     {t("usersPanel.administrateButton")}
                 </AdministrateButton>
             </Card.Header>
-            <Card.Body>
-                <Row className="DashboardPanel_body">
-                    {usersPerRoleSection}
-                    {connectedUsersSection}
-                    {otherStatisticsSection}
-                </Row>
+            <Card.Body className="DashboardPanel_body">
+                {usersPerRoleSection}
+                {connectedUsersSection}
+                {otherStatisticsSection}
             </Card.Body>
         </Card>
     );

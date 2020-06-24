@@ -1,5 +1,6 @@
 {
     "title": "Tableau de bord",
+    "expand": "Voir un aperçu des administrateurs",
     "usersPanel": {
         "title": "Utilisateurs",
         "loggedUsers": "Au moins une fois",

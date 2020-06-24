@@ -37,7 +37,11 @@ export default () => {
     };
 
     const newItemButton = (
-        <NewItemButton onClick={() => setModalShow(true)} {...{ t }} />
+        <NewItemButton
+            onClick={() => setModalShow(true)}
+            className="NewItemButton-room"
+            {...{ t }}
+        />
     );
 
     function getRoomCreatorDisplayName(mxRoom) {

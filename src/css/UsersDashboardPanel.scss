@@ -4,16 +4,19 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
+    margin-top: 1em;
 
-    .PanelRow_content {
+    .PanelRow {
         width: initial;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-
+        margin-left: 2em;
         &:first-of-type {
             border-top: 0;
         }
+    }
+
+    &:last-child {
+        margin-bottom: 0;
     }
 }
 

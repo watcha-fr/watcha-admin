@@ -1,4 +1,4 @@
-.AdministratorList {
+.AdministratorsList {
     border: solid 1px #dfdfdf;
     border-radius: 0.25rem;
     height: 12em;
@@ -8,7 +8,7 @@
     width: 100%;
 }
 
-.AdministratorList_adminUserRow:hover {
+.AdministratorsList_adminUserRow:hover {
     cursor: pointer;
     background-color: darkturquoise;
     border-color: darkturquoise;
