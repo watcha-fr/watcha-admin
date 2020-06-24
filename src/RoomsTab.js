@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useMatrixClientContext } from "./contexts";
 import NewItemButton from "./NewItemButton";
 import NewRoomModal from "./NewRoomModal";
+import RoomPermalink from "./RoomPermalink";
 import TableTab, { compareLowerCase } from "./TableTab";
 
 const ns = "roomsTab";
@@ -109,6 +110,19 @@ export default () => {
         []
     );
 
+    const plugins = [
+        hooks => {
+            hooks.visibleColumns.push(columns => [
+                ...columns,
+                {
+                    id: "permalink",
+                    Header: "",
+                    Cell: ({ row }) => <RoomPermalink roomId={row.original.roomId} />,
+                },
+            ]);
+        },
+    ];
+
     return (
         <TableTab
             itemList={roomList}
@@ -117,6 +131,7 @@ export default () => {
                 requestParams,
                 columns,
                 initialState,
+                plugins,
                 newItemButton,
                 newItemModal,
                 ns,
