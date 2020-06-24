@@ -1,7 +1,6 @@
 import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
 
 import AdministrateButton from "./AdministrateButton";
 import PanelRow from "./PanelRow";

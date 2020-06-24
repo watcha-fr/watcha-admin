@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
 
 import AdministrateButton from "./AdministrateButton";
 import AdministratorList from "./AdministratorsList";
