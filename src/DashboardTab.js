@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import CardDeck from "react-bootstrap/CardDeck";
 import Col from "react-bootstrap/Col";
 
-import AdministrateButton from "./AdministrateButton";
 import ApplicationDashboardPanel from "./ApplicationDashboardPanel";
 import DelayedSpinner from "./DelayedSpinner";
 import RoomsDashboardPanel from "./RoomsDashboardPanel";
@@ -49,11 +48,7 @@ export default () => {
             <Col>
                 <RoomsDashboardPanel
                     roomsPanelInformations={dashboardInformations.rooms}
-                >
-                    <AdministrateButton tabDestination="rooms">
-                        {t("roomsPanel.administrateButton")}
-                    </AdministrateButton>
-                </RoomsDashboardPanel>
+                />
                 <ApplicationDashboardPanel
                     applicationPanelInformations={dashboardInformations.server}
                 />
@@ -61,11 +56,7 @@ export default () => {
             <Col>
                 <UsersDashboardPanel
                     usersPanelInformations={dashboardInformations.users}
-                >
-                    <AdministrateButton tabDestination="users">
-                        {t("usersPanel.administrateButton")}
-                    </AdministrateButton>
-                </UsersDashboardPanel>
+                />
             </Col>
         </CardDeck>
     );

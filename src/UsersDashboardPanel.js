@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 
+import AdministrateButton from "./AdministrateButton";
 import AdministratorList from "./AdministratorsList";
 import ExpandButton from "./ExpandButton";
 import PanelRow from "./PanelRow";
@@ -104,7 +105,9 @@ export default ({ usersPanelInformations, children }) => {
         <Card className="DashboardPanel">
             <Card.Header>
                 <span>{t(`usersPanel.title`)}</span>
-                {children}
+                <AdministrateButton targetTab="users">
+                    {t("usersPanel.administrateButton")}
+                </AdministrateButton>
             </Card.Header>
             <Card.Body>
                 <Row className="DashboardPanel_body">

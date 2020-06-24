@@ -3,6 +3,7 @@ import { Trans, useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 
+import AdministrateButton from "./AdministrateButton";
 import PanelRow from "./PanelRow";
 
 import "./css/DashboardPanel.scss";
@@ -14,7 +15,9 @@ export default ({ roomsPanelInformations, children }) => {
         <Card className="DashboardPanel">
             <Card.Header>
                 <span>{t("roomsPanel.title")}</span>
-                {children}
+                <AdministrateButton targetTab="rooms">
+                    {t("roomsPanel.administrateButton")}
+                </AdministrateButton>
             </Card.Header>
             <Card.Body>
                 {roomsPanelInformations.non_direct_rooms_count === 0 &&
