@@ -22,7 +22,7 @@ export default ({ administratorList }) => {
     const administrators = administratorList.map(adminUser => (
         <div
             key={adminUser.user_id}
-            className="AdministratorsList_adminUserRow"
+            className="AdministratorList_adminUserRow"
             onClick={() => onClick(adminUser.user_id)}
         >
             {getDisplayName(adminUser) + getEmail(adminUser.email)}
@@ -30,23 +30,19 @@ export default ({ administratorList }) => {
     ));
 
     return (
-        <>
-            <Accordion className="AdministratorsList" defaultActiveKey="1">
-                <Card>
-                    <Accordion.Toggle as={Card.Header} eventKey="0">
-                        <img
-                            src={icon}
-                            alt={t("expand")}
-                            title={t("expand")}
-                        ></img>
-                    </Accordion.Toggle>
-                    <Accordion.Collapse eventKey="0">
-                        <Card.Body>
-                            {administrators}
-                        </Card.Body>
-                    </Accordion.Collapse>
-                </Card>
-            </Accordion>
-        </>
+        <Accordion className="AdministratorList" defaultActiveKey="1">
+            <Card>
+                <Accordion.Toggle
+                    as={Card.Header}
+                    eventKey="0"
+                    title={t("usersPanel.expand")}
+                >
+                    <img src={icon} alt={t("usersPanel.expand")}></img>
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="0">
+                    <Card.Body>{administrators}</Card.Body>
+                </Accordion.Collapse>
+            </Card>
+        </Accordion>
     );
 };

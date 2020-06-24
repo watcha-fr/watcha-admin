@@ -38,7 +38,7 @@ export default ({ applicationMetrics }) => {
                 />
                 <PanelRow
                     label={t("applicationPanel.diskUsage")}
-                    value={`${diskMemoryUsed} Go  (${disk.percent}%)`}
+                    value={`${diskMemoryUsed} Go (${disk.percent}%)`}
                 />
             </Card.Body>
         </Card>

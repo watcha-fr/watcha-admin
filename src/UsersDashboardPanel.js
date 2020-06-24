@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
 import AdministrateButton from "./AdministrateButton";
-import AdministratorList from "./AdministratorsList";
+import AdministratorList from "./AdministratorList";
 import PanelRow from "./PanelRow";
 import Tooltip from "./Tooltip";
 
@@ -65,7 +65,6 @@ export default ({ usersMetrics }) => {
                     </>
                 }
                 value={partners}
-                other_statistics
             />
         </div>
     );

@@ -1,6 +1,5 @@
 {
     "title": "Tableau de bord",
-    "expand": "Voir un aperçu des administrateurs",
     "usersPanel": {
         "title": "Utilisateurs",
         "loggedUsers": "Au moins une fois",
@@ -10,7 +9,8 @@
         "administrateButton": "Administrer les utilisateurs",
         "usersPerRole": "Répartition des utilisateurs",
         "connectedUsers": "Utilisateurs connectés",
-        "otherStatistics": "Autres statistiques"
+        "otherStatistics": "Autres statistiques",
+        "expand": "Voir un aperçu des administrateurs"
     },
     "roomsPanel": {
         "title": "Salons",

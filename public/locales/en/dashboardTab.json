@@ -1,6 +1,5 @@
 {
     "title": "Dashboard",
-    "expand": "See an overview of the administrators",
     "usersPanel": {
         "title": "Users",
         "loggedUsers": "At least once",
@@ -10,7 +9,8 @@
         "administrateButton": "Administrate users",
         "usersPerRole": "Distribution of users",
         "connectedUsers": "Connected users",
-        "otherStatistics": "Other statistics"
+        "otherStatistics": "Other statistics",
+        "expand": "See an overview of the administrators"
     },
     "roomsPanel": {
         "title": "Rooms",

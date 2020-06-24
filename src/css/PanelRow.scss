@@ -1,6 +1,7 @@
 .PanelRow {
     display: flex;
     justify-content: space-between;
+
     margin-bottom: 1em;
     padding-top: 1em;
     border-top: solid 1px #dfdfdf;
@@ -8,6 +9,12 @@
     &:first-child {
         border-top: 0;
     }
+}
+
+.PanelRow_label {
+    display: flex;
+    align-items: baseline;
+    flex-grow: 1;
 }
 
 .PanelRow_value {

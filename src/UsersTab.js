@@ -45,7 +45,7 @@ export default ({ userId }) => {
     const newItemButton = (
         <NewItemButton
             onClick={() => setModalShow(true)}
-            className="NewItemButton-room"
+            className="NewItemButton-user"
             {...{ t }}
         />
     );

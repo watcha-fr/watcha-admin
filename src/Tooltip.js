@@ -17,7 +17,7 @@ export default ({ tooltipName }) => {
 
     return (
         <OverlayTrigger placement="right" {...{ overlay }}>
-            <img className="Tooltip-icon" src={icon} alt={t("help")}></img>
+            <img className="Tooltip-icon" src={icon} alt={t("help")} />
         </OverlayTrigger>
     );
 };

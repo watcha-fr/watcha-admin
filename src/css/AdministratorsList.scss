@@ -1,6 +1,8 @@
-.AdministratorsList {
+.AdministratorList {
     display: inline-flex;
     margin-left: 1.5em;
+    margin-right: 1.5em;
+    width: 100%;
 
     .card-header {
         padding: 0.4em;
@@ -17,7 +19,7 @@
     }
 }
 
-.AdministratorsList_adminUserRow {
+.AdministratorList_adminUserRow {
     white-space: nowrap;
 
     &:hover {
