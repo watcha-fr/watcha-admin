@@ -1,17 +1,29 @@
 .AdministratorsList {
-    border: solid 1px #dfdfdf;
-    border-radius: 0.25rem;
-    height: 12em;
-    overflow-y: auto;
-    margin: 0.5em;
-    padding-left: 1em;
-    width: 100%;
+    display: inline-flex;
+    margin-left: 1.5em;
+
+    .card-header {
+        padding: 0.4em;
+
+        &:hover {
+            background-color: darkturquoise;
+            border-color: darkturquoise;
+        }
+    }
+
+    .card-body {
+        height: 10em;
+        overflow-y: auto;
+    }
 }
 
-.AdministratorsList_adminUserRow:hover {
-    cursor: pointer;
-    background-color: darkturquoise;
-    border-color: darkturquoise;
-    color: black;
+.AdministratorsList_adminUserRow {
     white-space: nowrap;
+
+    &:hover {
+        cursor: pointer;
+        background-color: darkturquoise;
+        border-color: darkturquoise;
+        color: black;
+    }
 }

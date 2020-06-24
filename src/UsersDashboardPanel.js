@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
 import AdministrateButton from "./AdministrateButton";
 import AdministratorList from "./AdministratorsList";
-import ExpandButton from "./ExpandButton";
 import PanelRow from "./PanelRow";
 import Tooltip from "./Tooltip";
 
@@ -13,12 +12,6 @@ import "./css/UsersDashboardPanel.scss";
 
 export default ({ usersMetrics }) => {
     const { t } = useTranslation("dashboardTab");
-
-    const [isExpanded, setIsExpand] = useState(false);
-
-    const onExpandButtonClick = () => {
-        isExpanded ? setIsExpand(false) : setIsExpand(true);
-    };
 
     const { administrators_users } = usersMetrics;
 
@@ -48,14 +41,13 @@ export default ({ usersMetrics }) => {
                     <>
                         {t("common:administrators")}
                         <Tooltip tooltipName="administrator" />
-                        <ExpandButton onClick={onExpandButtonClick} />
+                        <AdministratorList
+                            administratorList={administrators_users}
+                        />
                     </>
                 }
                 value={administrators}
             />
-            {isExpanded && (
-                <AdministratorList administratorList={administrators_users} />
-            )}
             <PanelRow
                 label={
                     <>

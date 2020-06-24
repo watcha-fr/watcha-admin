@@ -1,9 +1,15 @@
 import React from "react";
 import { useDispatchContext } from "./contexts";
+import { useTranslation } from "react-i18next";
+import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
 
 import "./css/AdministratorsList.scss";
+import icon from "./images/expand-button.svg";
 
 export default ({ administratorList }) => {
+    const { t } = useTranslation("dashboardTab");
+
     const dispatch = useDispatchContext();
 
     const onClick = userId => dispatch({ tab: "users", userId });
@@ -23,5 +29,24 @@ export default ({ administratorList }) => {
         </div>
     ));
 
-    return <div className="AdministratorsList">{administrators}</div>;
+    return (
+        <>
+            <Accordion className="AdministratorsList" defaultActiveKey="1">
+                <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="0">
+                        <img
+                            src={icon}
+                            alt={t("expand")}
+                            title={t("expand")}
+                        ></img>
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="0">
+                        <Card.Body>
+                            {administrators}
+                        </Card.Body>
+                    </Accordion.Collapse>
+                </Card>
+            </Accordion>
+        </>
+    );
 };
