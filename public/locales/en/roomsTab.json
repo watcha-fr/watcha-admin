@@ -13,5 +13,10 @@
         "active": "enabled",
         "inactive": "disabled",
         "new": "new"
+    },
+    "permalink": {
+        "alt": "Permalink",
+        "enabled": "Open this room in a new tab",
+        "disabled": "You are not a member of this room"
     }
 }
