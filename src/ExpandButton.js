@@ -2,7 +2,7 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { useTranslation } from "react-i18next";
 
-import expandLogo from "./images/expand-button.svg";
+import icon from "./images/expand-button.svg";
 
 import "./css/ExpandButton.scss";
 
@@ -11,7 +11,7 @@ export default ({ onClick }) => {
 
     return (
         <Button className="ExpandButton" {...{ onClick }}>
-            <img src={expandLogo} alt={t("expand")}></img>
+            <img src={icon} alt={t("expand")}></img>
         </Button>
     );
 };

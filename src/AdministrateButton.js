@@ -1,12 +1,13 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+
 import { useDispatchContext } from "./contexts";
 
-export default ({ children, tabDestination }) => {
+export default ({ children, targetTab }) => {
     const dispatch = useDispatchContext();
 
     const onClick = () => {
-        dispatch({ tab: tabDestination });
+        dispatch({ tab: targetTab });
     };
 
     return (

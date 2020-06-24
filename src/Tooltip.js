@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 
-import tooltipLogo from "./images/info-circle.svg";
+import icon from "./images/info-circle.svg";
 import "./css/Tooltip.scss";
 
 export default ({ tooltipName }) => {
@@ -18,7 +18,7 @@ export default ({ tooltipName }) => {
     return (
         <div className="Tooltip">
             <OverlayTrigger {...{ overlay }} placement="right">
-                <img src={tooltipLogo} alt={t("help")}></img>
+                <img src={icon} alt={t("help")}></img>
             </OverlayTrigger>
         </div>
     );
