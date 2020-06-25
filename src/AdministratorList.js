@@ -14,10 +14,10 @@ export default ({ administratorList }) => {
 
     const onClick = userId => dispatch({ tab: "users", userId });
 
-    const getDisplayName = user =>
-        user.displayname || user.user_id.replace("@", "").split(":")[0];
-
-    const getEmail = email => (email ? ` (${email})` : "");
+    const getAdminName = userId =>
+        userId.displayname
+            ? `${userId.displayname} (${userId.email})`
+            : `${userId.email}`;
 
     const administrators = administratorList.map(adminUser => (
         <div
@@ -25,7 +25,7 @@ export default ({ administratorList }) => {
             className="AdministratorList_adminUserRow"
             onClick={() => onClick(adminUser.user_id)}
         >
-            {getDisplayName(adminUser) + getEmail(adminUser.email)}
+            {getAdminName(adminUser)}
         </div>
     ));
 
