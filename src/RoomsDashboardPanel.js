@@ -27,7 +27,9 @@ export default ({ roomsMetrics }) => {
             </Card.Header>
             <Card.Body className="DashboardPanel_body">
                 {non_direct_rooms_count === 0 && direct_rooms_count === 0 ? (
-                    <Trans t={t} i18nKey={"roomsPanel.noRoomsMessage"} />
+                    <div className="DashboardPanel_noRoomMessage">
+                        <Trans t={t} i18nKey={"roomsPanel.noRoomsMessage"} />
+                    </div>
                 ) : (
                     <>
                         <PanelRow
