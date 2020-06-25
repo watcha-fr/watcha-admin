@@ -17,7 +17,7 @@ export default ({ administratorList }) => {
     const getAdminName = userId =>
         userId.displayname
             ? `${userId.displayname} (${userId.email})`
-            : `${userId.email}`;
+            : userId.email;
 
     const administrators = administratorList.map(adminUser => (
         <div
