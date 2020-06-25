@@ -30,14 +30,14 @@ export default ({ administratorList }) => {
     ));
 
     return (
-        <Accordion className="AdministratorList" defaultActiveKey="1">
+        <Accordion className="AdministratorList">
             <Card>
                 <Accordion.Toggle
                     as={Card.Header}
                     eventKey="0"
                     title={t("usersPanel.expand")}
                 >
-                    <img src={icon} alt={t("usersPanel.expand")}></img>
+                    <img src={icon} alt={t("usersPanel.expand")}/>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>{administrators}</Card.Body>
