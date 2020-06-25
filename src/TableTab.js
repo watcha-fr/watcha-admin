@@ -22,7 +22,6 @@ export default ({
     itemId,
     ns,
 }) => {
-    console.log(plugins)
     const intervalIdRef = useRef();
 
     const { data, refetch } = useGet(requestParams);
