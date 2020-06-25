@@ -13,5 +13,10 @@
         "active": "activé",
         "inactive": "désactivé",
         "new": "nouveau"
+    },
+    "permalink": {
+        "alt": "Permalien",
+        "enabled": "Ouvrir ce salon dans un nouvel onglet",
+        "disabled": "Vous n'êtes pas membre de ce salon"
     }
 }

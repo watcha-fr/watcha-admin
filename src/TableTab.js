@@ -15,6 +15,7 @@ export default ({
     requestParams,
     columns,
     initialState,
+    plugins,
     newItemButton,
     newItemModal,
     rightPanel,
@@ -25,8 +26,11 @@ export default ({
 
     const { data, refetch } = useGet(requestParams);
 
+    const refetchRef = useRef();
+    refetchRef.current = refetch;
+
     useEffect(() => {
-        refetch();
+        refetchRef.current();
     }, []);
 
     useEffect(() => {
@@ -34,7 +38,7 @@ export default ({
         if (intervalIdRef.current) {
             clearInterval(intervalIdRef.current);
         }
-        intervalIdRef.current = setInterval(() => refetch(), 10000);
+        intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
     }, [data, setItemList]);
 
     const globalFilter = useMemo(() => fuzzyTextFilterFn, []);
@@ -50,7 +54,8 @@ export default ({
             disableSortRemove: true,
         },
         useGlobalFilter,
-        useSortBy
+        useSortBy,
+        ...(plugins || [])
     );
 
     const dispatch = useDispatchContext();

@@ -11,17 +11,21 @@ export default ({ tableInstance, itemId }) => {
 
     const getHeaderProps = column =>
         column.getHeaderProps(
-            column.getSortByToggleProps({ title: undefined })
+            column.getSortByToggleProps({
+                className: column.id,
+                title: undefined,
+            })
         );
 
-    const getSortedChevron = column => (
-        <span
-            className={classNames("chevron", {
-                "chevron-hidden": !column.isSorted,
-                "chevron-up": !column.isSortedDesc,
-            })}
-        />
-    );
+    const getSortedChevron = column =>
+        tableInstance.columns.includes(column) ? (
+            <span
+                className={classNames("chevron", {
+                    "chevron-hidden": !column.isSorted,
+                    "chevron-up": !column.isSortedDesc,
+                })}
+            />
+        ) : null;
 
     const getRowProps = row => {
         const className =
@@ -60,7 +64,7 @@ export default ({ tableInstance, itemId }) => {
     return (
         <Table className="ItemTable" hover size="sm" {...getTableProps()}>
             <colgroup>
-                {tableInstance.columns.map(column => (
+                {tableInstance.visibleColumns.map(column => (
                     <col key={column.id} className={column.id} />
                 ))}
             </colgroup>
