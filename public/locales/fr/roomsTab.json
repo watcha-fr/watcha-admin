@@ -10,8 +10,8 @@
         "status": "Statut"
     },
     "status": {
-        "active": "activé",
-        "inactive": "désactivé",
+        "active": "actif",
+        "inactive": "inactif",
         "new": "nouveau"
     },
     "permalink": {

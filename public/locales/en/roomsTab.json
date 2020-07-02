@@ -10,8 +10,8 @@
         "status": "Status"
     },
     "status": {
-        "active": "enabled",
-        "inactive": "disabled",
+        "active": "active",
+        "inactive": "inactive",
         "new": "new"
     },
     "permalink": {
