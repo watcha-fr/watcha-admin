@@ -24,7 +24,7 @@
         "role": "Rôle",
         "status": "Statut"
     },
-    "statusHelp": {
+    "StatusHeaderTooltip": {
         "title": "Statut du compte",
         "content": {
             "active": "<strong>Activé</strong> : l'utilisateur peut se connecter à Watcha.",

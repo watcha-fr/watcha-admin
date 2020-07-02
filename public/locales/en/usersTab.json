@@ -24,7 +24,7 @@
         "role": "Role",
         "status": "Status"
     },
-    "statusHelp": {
+    "StatusHeaderTooltip": {
         "title": "Account status",
         "content": {
             "active": "<strong>Active</strong>: the user can log in to Watcha.",
