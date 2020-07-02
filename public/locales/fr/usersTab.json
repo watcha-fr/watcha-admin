@@ -24,12 +24,20 @@
         "role": "Rôle",
         "status": "Statut"
     },
-    "StatusHeaderTooltip": {
+    "statusHeaderTooltip": {
         "title": "Statut du compte",
         "content": {
             "active": "<strong>Activé</strong> : l'utilisateur peut se connecter à Watcha.",
             "inactive": "<strong>Désactivé</strong> : l'utilisateur ne peut pas se connecter à Watcha. Un utilisateur désactivé peut être réactivé ; un email lui demandant de définir un nouveau mot de passe lui sera envoyé.",
             "invited": "<strong>Invitation envoyée</strong> : un email d'invitation a été envoyé à l'utilisateur, mais ce dernier n'a pas encore finalisé la procédure d'inscription, et ne s'est pas encore connecté à Watcha."
+        }
+    },
+    "roleHeaderTooltip": {
+        "title": "Rôle de l'utilisateur",
+        "content": {
+            "administrator": "<strong>Administrateur</strong> : utilisateur ayant accès à toutes les fonctionnalités de Watcha, dont cette console d'administration. Il ne peut néanmoins pas accéder aux salons dont il n'est pas membre.",
+            "collaborator": "<strong>Collaborateur</strong> : utilisateur ayant le droit de créer des salons et d'y inviter des utilisateurs existants, ou de nouveaux partenaires ; il n'a pas accès aux autres salons. Il s'agit habituellement d'un employé de votre organisation.",
+            "partner": "<strong>Partenaire</strong> : utilisateur n'ayant accès qu'aux salons pour lesquels il a été invité ; il n'a pas accès au répertoire des membres, sauf s'il est promus administrateur d'un salon. Il s'agit habituellement d'un invité externe à votre organisation."
         }
     },
     "roles": {

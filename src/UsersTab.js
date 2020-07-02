@@ -57,19 +57,39 @@ export default ({ userId }) => {
         />
     );
 
+    const roleHeaderPopoverContent = (
+        <>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roleHeaderTooltip.content.administrator"}
+                />
+            </p>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roleHeaderTooltip.content.collaborator"}
+                />
+            </p>
+            <p>
+                <Trans t={t} i18nKey={"roleHeaderTooltip.content.partner"} />
+            </p>
+        </>
+    );
+
     const statusHeaderPopoverContent = (
         <>
             <p>
                 <span className="status active" />
-                <Trans t={t} i18nKey={"StatusHeaderTooltip.content.active"} />
+                <Trans t={t} i18nKey={"statusHeaderTooltip.content.active"} />
             </p>
             <p>
                 <span className="status inactive" />
-                <Trans t={t} i18nKey={"StatusHeaderTooltip.content.inactive"} />
+                <Trans t={t} i18nKey={"statusHeaderTooltip.content.inactive"} />
             </p>
             <p>
                 <span className="status invited" />
-                <Trans t={t} i18nKey={"StatusHeaderTooltip.content.invited"} />
+                <Trans t={t} i18nKey={"statusHeaderTooltip.content.invited"} />
             </p>
         </>
     );
@@ -95,7 +115,13 @@ export default ({ userId }) => {
                 Cell: ({ value }) => value && <Date timestamp={value} />,
             },
             {
-                Header: t("headers.role"),
+                Header: (
+                    <HeaderTooltip
+                        headerTitle={t("headers.role")}
+                        popoverTitle={t("roleHeaderTooltip.title")}
+                        popoverContent={roleHeaderPopoverContent}
+                    />
+                ),
                 accessor: "role",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => t(`roles.${value}`),
@@ -104,7 +130,7 @@ export default ({ userId }) => {
                 Header: (
                     <HeaderTooltip
                         headerTitle={t("headers.status")}
-                        popoverTitle={t("StatusHeaderTooltip.title")}
+                        popoverTitle={t("statusHeaderTooltip.title")}
                         popoverContent={statusHeaderPopoverContent}
                     />
                 ),

@@ -24,12 +24,20 @@
         "role": "Role",
         "status": "Status"
     },
-    "StatusHeaderTooltip": {
+    "statusHeaderTooltip": {
         "title": "Account status",
         "content": {
             "active": "<strong>Active</strong>: the user can log in to Watcha.",
             "inactive": "<strong>Inactive</strong>: the user cannot log in to Watcha. A deactivated user can be reactivated; an email will be sent asking them to set a new password.",
             "invited": "<strong>Invitation sent</strong>: an invitation email has been sent to the user, but the user has not yet finalized the registration process, and has not yet logged in to Watcha."
+        }
+    },
+    "roleHeaderTooltip": {
+        "title": "User role",
+        "content": {
+            "administrator": "<strong>Administrator</strong> : user with access to all Watcha features, including this administration console. He cannot, however, access rooms in which he's not a member.",
+            "collaborator": "<strong>Collaborator</strong> : user with the right to create rooms and invite existing users or new partners to them; he doesn't have access to other rooms. He's usually an employee of your organization.",
+            "partner": "<strong>Partner</strong> : user only has access to the room for which he has been invited; he doesn't have access to the member directory unless he's promoted to room administrator. He's usually a guest from outside your organization."
         }
     },
     "roles": {
