@@ -1,10 +1,12 @@
 import React, { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { useMatrixClientContext } from "./contexts";
+import HeaderTooltip from "./HeaderTooltip";
 import NewItemButton from "./NewItemButton";
 import NewRoomModal from "./NewRoomModal";
 import RoomPermalink from "./RoomPermalink";
+import Status from "./Status";
 import TableTab, { compareLowerCase } from "./TableTab";
 
 const ns = "roomsTab";
@@ -76,6 +78,23 @@ export default () => {
         />
     );
 
+    const statusHeaderPopoverContent = (
+        <>
+            <p>
+                <span className="status active" />
+                <Trans t={t} i18nKey={"StatusHeaderTooltip.content.active"} />
+            </p>
+            <p>
+                <span className="status inactive" />
+                <Trans t={t} i18nKey={"StatusHeaderTooltip.content.inactive"} />
+            </p>
+            <p>
+                <span className="status new" />
+                <Trans t={t} i18nKey={"StatusHeaderTooltip.content.new"} />
+            </p>
+        </>
+    );
+
     const columns = useMemo(
         () => [
             {
@@ -97,13 +116,16 @@ export default () => {
                 disableGlobalFilter: true,
             },
             {
-                Header: t("headers.status"),
+                Header: (
+                    <HeaderTooltip
+                        headerTitle={t("headers.status")}
+                        popoverTitle={t("StatusHeaderTooltip.title")}
+                        popoverContent={statusHeaderPopoverContent}
+                    />
+                ),
                 accessor: "status",
                 disableGlobalFilter: true,
-                Cell: ({ value }) =>
-                    value && (
-                        <span className={value}>{t(`status.${value}`)}</span>
-                    ),
+                Cell: ({ value }) => <Status status={value} t={t} />,
             },
         ],
         [t]
@@ -121,7 +143,9 @@ export default () => {
                 {
                     id: "permalink",
                     Header: "",
-                    Cell: ({ row }) => <RoomPermalink roomId={row.original.roomId} />,
+                    Cell: ({ row }) => (
+                        <RoomPermalink roomId={row.original.roomId} />
+                    ),
                 },
             ]);
         },
