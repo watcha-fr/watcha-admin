@@ -6,15 +6,13 @@ import Popover from "react-bootstrap/Popover";
 import "./css/HeaderTooltip.scss";
 import infoCircle from "./images/info-circle.svg";
 
-export default ({headerTitle, popoverTitle, popoverContent}) => {
+export default ({ headerTitle, popoverTitle, popoverContent }) => {
     const { t } = useTranslation("usersTab");
 
     const popover = (
         <Popover className="HeaderTooltip_Popover">
             <Popover.Title as="h3">{popoverTitle}</Popover.Title>
-            <Popover.Content>
-                {popoverContent}
-            </Popover.Content>
+            <Popover.Content>{popoverContent}</Popover.Content>
         </Popover>
     );
 
