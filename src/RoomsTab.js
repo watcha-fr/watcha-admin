@@ -26,6 +26,7 @@ export default () => {
             creator: getDisplayName(item.creator) || "",
             memberCount: item.members.length,
             status: item.status,
+            type: item.type,
         }));
 
     const getDisplayName = userId => {
@@ -65,6 +66,7 @@ export default () => {
                 creator: getRoomCreatorDisplayName(mxRoom) || "",
                 memberCount: mxRoom.getInvitedAndJoinedMemberCount(),
                 status: null,
+                type: null,
             };
             setRoomList([...roomList, room]);
         }
@@ -114,6 +116,12 @@ export default () => {
                 Header: t("headers.memberCount"),
                 accessor: "memberCount",
                 disableGlobalFilter: true,
+            },
+            {
+                Header: t("headers.type"),
+                accessor: "type",
+                disableGlobalFilter: true,
+                Cell: ({ value }) => t(`type.${value}`),
             },
             {
                 Header: (

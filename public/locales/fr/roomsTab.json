@@ -14,6 +14,10 @@
         "inactive": "inactif",
         "new": "nouveau"
     },
+    "type":{
+        "personnal": "privée",
+        "multiple": "à plusieurs"
+    },
     "permalink": {
         "alt": "Permalien",
         "enabled": "Ouvrir ce salon dans un nouvel onglet",
