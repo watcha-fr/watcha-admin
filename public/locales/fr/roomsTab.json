@@ -23,7 +23,7 @@
         "enabled": "Ouvrir ce salon dans un nouvel onglet",
         "disabled": "Vous n'êtes pas membre de ce salon"
     },
-    "StatusHeaderTooltip": {
+    "statusHeaderTooltip": {
         "title": "Statut du salon",
         "content": {
             "active": "<strong>Actif</strong> : le dernier message reçu dans le salon date de moins d'une semaine.",
