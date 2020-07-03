@@ -4,20 +4,20 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 
 import icon from "./images/info-circle.svg";
-import "./css/Tooltip.scss";
+import "./css/LabelTooltip.scss";
 
-export default ({ tooltipName }) => {
+export default ({ popoverContent }) => {
     const { t } = useTranslation();
 
     const overlay = (
         <Popover>
-            <Popover.Content>{t(`tooltip.${tooltipName}`)}</Popover.Content>
+            <Popover.Content>{popoverContent}</Popover.Content>
         </Popover>
     );
 
     return (
         <OverlayTrigger placement="right" {...{ overlay }}>
-            <img className="Tooltip-icon" src={icon} alt={t("help")} />
+            <img className="LabelTooltip-icon" src={icon} alt={t("help")} />
         </OverlayTrigger>
     );
 };

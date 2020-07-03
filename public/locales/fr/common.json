@@ -37,11 +37,5 @@
     "clear": "Effacer",
     "collaborators": "Collaborateurs",
     "partners": "Partenaires",
-    "administrators": "Administrateurs",
-    "tooltip": {
-        "administrator": "Utilisateurs ayant accès à toutes les fonctionnalités de Watcha, dont cette console d'administration. Ils ne peuvent néanmoins pas accéder aux salons dont ils ne sont pas membre.",
-        "collaborator": "Utilisateurs ayant le droit de créer des salons et d'y inviter des utilisateurs existants, ou de nouveaux partenaires ; ils n'ont pas accès aux autres salons. Il s'agit habituellement des employés de votre organisation.",
-        "partner": "Utilisateurs n'ayant accès qu'aux salons pour lesquels ils ont été invités ; ils n'ont pas accès au répertoire des membres, sauf s'ils sont promus administrateurs d'un salon. Il s'agit habituellement des invités externes à votre organisation.",
-        "pendingInvitation": "Utilisateurs n'ayant pas encore finalisé la procédure d'inscription envoyée par email. Cette étape lors de laquelle ils définissent leur mot de passe, est nécessaire pour pouvoir utiliser Watcha."
-    }
+    "administrators": "Administrateurs"
 }
