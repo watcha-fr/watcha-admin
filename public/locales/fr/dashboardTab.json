@@ -5,7 +5,7 @@
         "loggedUsers": "Au moins une fois",
         "monthlyUsers": "Au cours du dernier mois",
         "weeklyUsers": "Au cours de la dernière semaine",
-        "pendingInvitationUsers": "Invitations en attente",
+        "pendingInvitationUsers": "Invitations envoyées sans réponse",
         "administrateButton": "Administrer les utilisateurs",
         "usersPerRole": "Répartition des utilisateurs",
         "connectedUsers": "Utilisateurs connectés",
