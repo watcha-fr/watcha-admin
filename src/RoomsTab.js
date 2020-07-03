@@ -80,6 +80,17 @@ export default () => {
         />
     );
 
+    const typeHeaderPopoverContent = (
+        <>
+            <p>
+                <Trans t={t} i18nKey={"typeHeaderTooltip.content.personnal"} />
+            </p>
+            <p>
+                <Trans t={t} i18nKey={"typeHeaderTooltip.content.multiple"} />
+            </p>
+        </>
+    );
+
     const statusHeaderPopoverContent = (
         <>
             <p>
@@ -118,7 +129,13 @@ export default () => {
                 disableGlobalFilter: true,
             },
             {
-                Header: t("headers.type"),
+                Header: (
+                    <HeaderTooltip
+                        headerTitle={t("headers.type")}
+                        popoverTitle={t("typeHeaderTooltip.title")}
+                        popoverContent={typeHeaderPopoverContent}
+                    />
+                ),
                 accessor: "type",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => t(`type.${value}`),
