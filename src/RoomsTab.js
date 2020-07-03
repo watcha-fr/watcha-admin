@@ -82,15 +82,15 @@ export default () => {
         <>
             <p>
                 <span className="status active" />
-                <Trans t={t} i18nKey={"StatusHeaderTooltip.content.active"} />
+                <Trans t={t} i18nKey={"statusHeaderTooltip.content.active"} />
             </p>
             <p>
                 <span className="status inactive" />
-                <Trans t={t} i18nKey={"StatusHeaderTooltip.content.inactive"} />
+                <Trans t={t} i18nKey={"statusHeaderTooltip.content.inactive"} />
             </p>
             <p>
                 <span className="status new" />
-                <Trans t={t} i18nKey={"StatusHeaderTooltip.content.new"} />
+                <Trans t={t} i18nKey={"statusHeaderTooltip.content.new"} />
             </p>
         </>
     );
@@ -119,7 +119,7 @@ export default () => {
                 Header: (
                     <HeaderTooltip
                         headerTitle={t("headers.status")}
-                        popoverTitle={t("StatusHeaderTooltip.title")}
+                        popoverTitle={t("statusHeaderTooltip.title")}
                         popoverContent={statusHeaderPopoverContent}
                     />
                 ),
