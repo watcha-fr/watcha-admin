@@ -15,7 +15,7 @@
         "new": "nouveau"
     },
     "type":{
-        "personnal": "privée",
+        "personnal": "privé",
         "multiple": "à plusieurs"
     },
     "permalink": {
@@ -34,7 +34,7 @@
     "typeHeaderTooltip": {
         "title": "Type du salon",
         "content": {
-            "personnal": "<strong>Priveé</strong> : un salon qui ne possède pas plus de deux utilisateurs.",
+            "personnal": "<strong>Privé</strong> : un salon qui ne possède pas plus de deux utilisateurs.",
             "multiple": "<strong>A plusieurs</strong> : un salon qui possède plus de deux utilisateurs."
         }
     }
