@@ -3,6 +3,7 @@ import { Trans, useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
 import AdministrateButton from "./AdministrateButton";
+import LabelTooltip from "./LabelTooltip";
 import PanelRow from "./PanelRow";
 
 import "./css/DashboardPanel.scss";
@@ -16,6 +17,52 @@ export default ({ roomsMetrics }) => {
         non_direct_active_rooms_count,
         direct_active_rooms_count,
     } = roomsMetrics;
+
+    const nonDirectRoomPopoverContent = (
+        <>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roomsTab:typeHeaderTooltip.content.multiple"}
+                />
+            </p>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roomsTab:statusHeaderTooltip.content.new"}
+                />
+            </p>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roomsTab:statusHeaderTooltip.content.active"}
+                />
+            </p>
+        </>
+    );
+
+    const directRoomPopoverContent = (
+        <>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roomsTab:typeHeaderTooltip.content.personnal"}
+                />
+            </p>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roomsTab:statusHeaderTooltip.content.new"}
+                />
+            </p>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roomsTab:statusHeaderTooltip.content.active"}
+                />
+            </p>
+        </>
+    );
 
     return (
         <Card className="DashboardPanel">
@@ -33,11 +80,29 @@ export default ({ roomsMetrics }) => {
                 ) : (
                     <>
                         <PanelRow
-                            label={t("roomsPanel.nonDirectRoomsCount")}
+                            label={
+                                <>
+                                    {t("roomsPanel.nonDirectRoomsCount")}
+                                    <LabelTooltip
+                                        popoverContent={
+                                            nonDirectRoomPopoverContent
+                                        }
+                                    />
+                                </>
+                            }
                             value={`${non_direct_active_rooms_count} / ${non_direct_rooms_count}`}
                         />
                         <PanelRow
-                            label={t("roomsPanel.directRoomsCount")}
+                            label={
+                                <>
+                                    {t("roomsPanel.directRoomsCount")}
+                                    <LabelTooltip
+                                        popoverContent={
+                                            directRoomPopoverContent
+                                        }
+                                    />
+                                </>
+                            }
                             value={`${direct_active_rooms_count} / ${direct_rooms_count}`}
                         />
                     </>
