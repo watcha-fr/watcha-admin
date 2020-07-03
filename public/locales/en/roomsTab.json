@@ -26,5 +26,12 @@
             "inactive": "<strong>Inactive</strong> : the last message received in the living room was more than a week ago.",
             "new": "<strong>New</strong> : the room was created less than a week ago."
         }
+    },
+    "typeHeaderTooltip": {
+        "title": "Room type",
+        "content": {
+            "personnal": "<strong>Private</strong> : the room has no more than two users.",
+            "multiple": "<strong>Multiple</strong> : the room has more than two users."
+        }
     }
 }
