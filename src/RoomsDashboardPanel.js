@@ -18,51 +18,25 @@ export default ({ roomsMetrics }) => {
         direct_active_rooms_count,
     } = roomsMetrics;
 
-    const nonDirectRoomPopoverContent = (
-        <>
-            <p>
-                <Trans
-                    t={t}
-                    i18nKey={"roomsTab:typeHeaderTooltip.content.multiple"}
-                />
-            </p>
-            <p>
-                <Trans
-                    t={t}
-                    i18nKey={"roomsTab:statusHeaderTooltip.content.new"}
-                />
-            </p>
-            <p>
-                <Trans
-                    t={t}
-                    i18nKey={"roomsTab:statusHeaderTooltip.content.active"}
-                />
-            </p>
-        </>
-    );
+    const nonDirectRoomPopoverContent = [
+        "roomsTab:typeHeaderTooltip.content.multiple",
+        "roomsTab:statusHeaderTooltip.content.new",
+        "roomsTab:statusHeaderTooltip.content.active",
+    ].map(i18nKey => (
+        <p>
+            <Trans t={t} i18nKey={i18nKey} key={i18nKey} />
+        </p>
+    ));
 
-    const directRoomPopoverContent = (
-        <>
-            <p>
-                <Trans
-                    t={t}
-                    i18nKey={"roomsTab:typeHeaderTooltip.content.personnal"}
-                />
-            </p>
-            <p>
-                <Trans
-                    t={t}
-                    i18nKey={"roomsTab:statusHeaderTooltip.content.new"}
-                />
-            </p>
-            <p>
-                <Trans
-                    t={t}
-                    i18nKey={"roomsTab:statusHeaderTooltip.content.active"}
-                />
-            </p>
-        </>
-    );
+    const directRoomPopoverContent = [
+        "roomsTab:typeHeaderTooltip.content.personnal",
+        "roomsTab:statusHeaderTooltip.content.new",
+        "roomsTab:statusHeaderTooltip.content.active",
+    ].map(i18nKey => (
+        <p>
+            <Trans t={t} i18nKey={i18nKey} key={i18nKey} />
+        </p>
+    ));
 
     return (
         <Card className="DashboardPanel">
