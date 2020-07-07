@@ -26,8 +26,8 @@
     "statusHeaderTooltip": {
         "title": "Statut du salon",
         "content": {
-            "active": "<strong>Actif</strong> : le dernier message reçu dans le salon date de moins d'une semaine.",
-            "inactive": "<strong>Inactif</strong> : le dernier message reçu dans le salon date de plus d'une semaine.",
+            "active": "<strong>Actif</strong> : le dernier message posté dans le salon date de moins d'une semaine.",
+            "inactive": "<strong>Inactif</strong> : le dernier message posté dans le salon date de plus d'une semaine.",
             "new": "<strong>Nouveau</strong> : le salon a été crée il y a moins d'une semaine."
         }
     },

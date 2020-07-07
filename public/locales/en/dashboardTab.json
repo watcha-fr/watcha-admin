@@ -5,7 +5,7 @@
         "loggedUsers": "At least once",
         "monthlyUsers": "During last month",
         "weeklyUsers": "Duringlast week",
-        "pendingInvitationUsers": "Pending invitations",
+        "pendingInvitationUsers": "Unanswered email invitations",
         "administrateButton": "Administrate users",
         "usersPerRole": "Distribution of users",
         "connectedUsers": "Connected users",
@@ -14,8 +14,8 @@
     },
     "roomsPanel": {
         "title": "Rooms",
-        "nonDirectRoomsCount": "Multiple, new and/or active conversations",
-        "directRoomsCount": "Private, new and/or active conversations",
+        "nonDirectRoomsCount": "Multiple, new and/or active rooms",
+        "directRoomsCount": "Private, new and/or active rooms",
         "administrateButton": "Administrate rooms",
         "noRoomsMessage": "<strong>This Watcha instance does not have any rooms yet.<br/>You can create one in the Rooms tab.</strong>"
     },

@@ -20,11 +20,5 @@
     "clear": "Clear",
     "collaborators": "Collaborators",
     "partners": "Partners",
-    "administrators": "Administrators",
-    "tooltip": {
-        "administrator": "Users with access to all Watcha features, including this administration console. They cannot, however, access rooms in which they are not a member.",
-        "collaborator": "Users have the right to create rooms and invite existing users or new partners to them; they do not have access to other rooms. These are usually employees of your organization.",
-        "partner": "Users only have access to the rooms for which they have been invited; they do not have access to the member directory unless they are promoted to room administrator. These are usually guests from outside your organization.",
-        "pendingInvitation": "Users who have been invited, but have not yet set their password or logged in"
-    }
+    "administrators": "Administrators"
 }
