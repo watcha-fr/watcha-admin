@@ -1,7 +1,7 @@
 {
     "title": "Rooms",
     "searchBoxPlaceholder": "Filter rooms",
-    "button": "New room",
+    "button": "Create a new room",
     "headers": {
         "name": "Name",
         "creator": "Creator",

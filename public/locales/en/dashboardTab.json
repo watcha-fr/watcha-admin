@@ -17,7 +17,7 @@
         "nonDirectRoomsCount": "Multiple, new and/or active rooms",
         "directRoomsCount": "Private, new and/or active rooms",
         "administrateButton": "Administrate rooms",
-        "noRoomsMessage": "<strong>This Watcha instance does not have any rooms yet.<br/>You can create one in the Rooms tab.</strong>"
+        "noRoomsMessage": "<strong>This Watcha instance does not have any rooms yet.<br/>You can create one in the \"Rooms\" tab.</strong>"
     },
     "applicationPanel": {
         "title": "Application",

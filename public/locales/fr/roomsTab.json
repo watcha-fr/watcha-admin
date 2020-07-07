@@ -1,7 +1,7 @@
 {
     "title": "Salons",
     "searchBoxPlaceholder": "Filtrer les salons",
-    "button": "Nouveau salon",
+    "button": "Créer un nouveau salon",
     "headers": {
         "name": "Nom",
         "creator": "Créateur",

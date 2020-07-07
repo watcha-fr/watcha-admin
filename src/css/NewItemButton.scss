@@ -3,22 +3,4 @@
 .NewItemButton {
     display: flex;
     align-items: center;
-
-    &::before {
-        content: "";
-        mask-size: contain;
-        mask-repeat: no-repeat;
-        width: 1.5em;
-        height: 1.2em;
-        margin-right: 0.5em;
-        background-color: white;
-    }
-}
-
-.NewItemButton-user::before {
-    mask-image: url("#{$img}/new-user.svg");
-}
-
-.NewItemButton-room::before {
-    mask-image: url("#{$img}/new-room.svg");
 }
