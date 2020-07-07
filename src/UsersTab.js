@@ -43,7 +43,11 @@ export default ({ userId }) => {
     }, [userId, dispatch]);
 
     const newItemButton = (
-        <NewItemButton onClick={() => setModalShow(true)} {...{ t }} />
+        <NewItemButton
+            onClick={() => setModalShow(true)}
+            className="NewItemButton-user"
+            {...{ t }}
+        />
     );
 
     const newItemModal = (
