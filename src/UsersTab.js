@@ -121,5 +121,5 @@ const resolve = data =>
         lastSeen: item.last_seen || null,
         role: item.role,
         status: item.status,
-        creationTs: item.creation_ts * 1000,
+        creationTs: item.creation_ts,
     }));
