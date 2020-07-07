@@ -1,0 +1,31 @@
+.AdministratorList {
+    display: inline-flex;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+    width: 100%;
+
+    .card-header {
+        padding: 0.4em;
+
+        &:hover {
+            background-color: darkturquoise;
+            border-color: darkturquoise;
+        }
+    }
+
+    .card-body {
+        height: 10em;
+        overflow-y: auto;
+    }
+}
+
+.AdministratorList_adminUserRow {
+    white-space: nowrap;
+
+    &:hover {
+        cursor: pointer;
+        background-color: darkturquoise;
+        border-color: darkturquoise;
+        color: black;
+    }
+}
