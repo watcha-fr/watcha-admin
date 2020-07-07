@@ -14,10 +14,10 @@
     },
     "roomsPanel": {
         "title": "Salons",
-        "nonDirectRoomsCount": "Salons a plusieurs, nouveaux ou actifs",
+        "nonDirectRoomsCount": "Salons à plusieurs, nouveaux ou actifs",
         "directRoomsCount": "Salons privés, nouveaux ou actifs",
         "administrateButton": "Administrer les salons",
-        "noRoomsMessage": "<strong>Cette installation de Watcha ne possède aucun salon.<br/>Vous pouvez en créer un dans l'onglet \"Salons\", via le bouton \"Nouveau salon\".</strong>"
+        "noRoomsMessage": "<strong>Cette installation de Watcha ne compte aucun salon.<br/>Vous pouvez en créer un dans l'onglet \"Salons\", via le bouton \"Nouveau salon\".</strong>"
     },
     "applicationPanel": {
         "title": "Application",
