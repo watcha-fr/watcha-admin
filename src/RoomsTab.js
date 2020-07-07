@@ -26,6 +26,7 @@ export default () => {
             creator: getDisplayName(item.creator) || "",
             memberCount: item.members.length,
             status: item.status,
+            type: item.type,
         }));
 
     const getDisplayName = userId => {
@@ -65,6 +66,7 @@ export default () => {
                 creator: getRoomCreatorDisplayName(mxRoom) || "",
                 memberCount: mxRoom.getInvitedAndJoinedMemberCount(),
                 status: null,
+                type: null,
             };
             setRoomList([...roomList, room]);
         }
@@ -76,6 +78,17 @@ export default () => {
             onHide={() => setModalShow(false)}
             {...{ newRoomLocalEcho }}
         />
+    );
+
+    const typeHeaderPopoverContent = (
+        <>
+            <p>
+                <Trans t={t} i18nKey={"typeHeaderTooltip.content.personnal"} />
+            </p>
+            <p>
+                <Trans t={t} i18nKey={"typeHeaderTooltip.content.multiple"} />
+            </p>
+        </>
     );
 
     const statusHeaderPopoverContent = (
@@ -114,6 +127,18 @@ export default () => {
                 Header: t("headers.memberCount"),
                 accessor: "memberCount",
                 disableGlobalFilter: true,
+            },
+            {
+                Header: (
+                    <HeaderTooltip
+                        headerTitle={t("headers.type")}
+                        popoverTitle={t("typeHeaderTooltip.title")}
+                        popoverContent={typeHeaderPopoverContent}
+                    />
+                ),
+                accessor: "type",
+                disableGlobalFilter: true,
+                Cell: ({ value }) => t(`type.${value}`),
             },
             {
                 Header: (
