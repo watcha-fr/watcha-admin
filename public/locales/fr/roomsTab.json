@@ -34,8 +34,8 @@
     "typeHeaderTooltip": {
         "title": "Type du salon",
         "content": {
-            "personnal": "<strong>Privé</strong> : un salon qui ne possède pas plus de deux utilisateurs.",
-            "multiple": "<strong>A plusieurs</strong> : un salon qui possède plus de deux utilisateurs."
+            "personnal": "<strong>Privé</strong> : un salon qui ne compte pas plus de deux utilisateurs.",
+            "multiple": "<strong>A plusieurs</strong> : un salon qui compte plus de deux utilisateurs."
         }
     }
 }

@@ -26,16 +26,16 @@
     "statusHeaderTooltip": {
         "title": "Room status",
         "content": {
-            "active": "<strong>Active</strong> : the last message received in the room was less than a week ago.",
-            "inactive": "<strong>Inactive</strong> : the last message received in the living room was more than a week ago.",
-            "new": "<strong>New</strong> : the room was created less than a week ago."
+            "active": "<strong>Active</strong>: the last message received in the room was less than a week ago.",
+            "inactive": "<strong>Inactive</strong>: the last message received in the living room was more than a week ago.",
+            "new": "<strong>New</strong>: the room was created less than a week ago."
         }
     },
     "typeHeaderTooltip": {
         "title": "Room type",
         "content": {
-            "personnal": "<strong>Private</strong> : a room with no more than two users.",
-            "multiple": "<strong>Multiple</strong> : a room with more than two users."
+            "personnal": "<strong>Private</strong>: a room with no more than two users.",
+            "multiple": "<strong>Multiple</strong>: a room with more than two users."
         }
     }
 }
