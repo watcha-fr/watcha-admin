@@ -5,7 +5,7 @@
         "loggedUsers": "Au moins une fois",
         "monthlyUsers": "Au cours du dernier mois",
         "weeklyUsers": "Au cours de la dernière semaine",
-        "pendingInvitationUsers": "Invitations envoyées sans réponse",
+        "pendingInvitationUsers": "Invitations en attentes",
         "administrateButton": "Administrer les utilisateurs",
         "usersPerRole": "Répartition des utilisateurs",
         "connectedUsers": "Utilisateurs connectés",
@@ -14,8 +14,8 @@
     },
     "roomsPanel": {
         "title": "Salons",
-        "nonDirectRoomsCount": "Salons à plusieurs, nouveaux ou actifs",
-        "directRoomsCount": "Salons privés, nouveaux ou actifs",
+        "nonDirectRoomsCount": "Salons à plusieurs actifs",
+        "directRoomsCount": "Salons privés actifs",
         "administrateButton": "Administrer les salons",
         "noRoomsMessage": "<strong>Cette installation de Watcha ne compte aucun salon.<br/>Vous pouvez en créer un dans l'onglet \"Salons\", via le bouton \"Nouveau salon\".</strong>"
     },

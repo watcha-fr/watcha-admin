@@ -29,7 +29,7 @@
         "content": {
             "active": "<strong>Activé</strong> : l'utilisateur peut se connecter à Watcha",
             "inactive": "<strong>Désactivé</strong> : l'utilisateur ne peut pas se connecter à Watcha. Un utilisateur désactivé peut être réactivé ; un email lui demandant de définir un nouveau mot de passe lui sera envoyé.",
-            "invited": "<strong>Invitation envoyée</strong> : un email d'invitation a été envoyé à l'utilisateur, mais ce dernier n'a pas encore finalisé la procédure d'inscription, et ne s'est pas encore connecté à Watcha"
+            "invited": "<strong>Invitation en attente</strong> : un email d'invitation a été envoyé à l'utilisateur, mais ce dernier n'a pas encore finalisé la procédure d'inscription, et ne s'est pas encore connecté à Watcha"
         }
     },
     "roleHeaderTooltip": {
@@ -48,6 +48,6 @@
     "status": {
         "active": "Compte activé",
         "inactive": "Compte désactivé",
-        "invited": "Invitation envoyée"
+        "invited": "Invitation en attente"
     }
 }

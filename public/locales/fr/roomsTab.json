@@ -35,7 +35,7 @@
         "title": "Type du salon",
         "content": {
             "personnal": "<strong>Privé</strong> : un salon qui ne compte pas plus de deux utilisateurs",
-            "multiple": "<strong>À plusieurs</strong> : un salon qui compte plus de deux utilisateurs"
+            "multiple": "<strong>À plusieurs</strong> : un salon qui compte trois utilisateurs ou plus"
         }
     }
 }
