@@ -14,6 +14,10 @@
         "inactive": "inactif",
         "new": "nouveau"
     },
+    "type":{
+        "personnal": "privé",
+        "multiple": "à plusieurs"
+    },
     "permalink": {
         "alt": "Permalien",
         "enabled": "Ouvrir ce salon dans un nouvel onglet",
@@ -23,16 +27,16 @@
     "statusHeaderTooltip": {
         "title": "Statut du salon",
         "content": {
-            "active": "<strong>Actif</strong> : le dernier message reçu dans le salon date de moins d'une semaine.",
-            "inactive": "<strong>Inactif</strong> : le dernier message reçu dans le salon date de plus d'une semaine.",
-            "new": "<strong>Nouveau</strong> : le salon a été crée il y a moins d'une semaine."
+            "active": "<strong>Actif</strong> : le dernier message posté dans le salon date de moins d'une semaine",
+            "inactive": "<strong>Inactif</strong> : le dernier message posté dans le salon date de plus d'une semaine",
+            "new": "<strong>Nouveau</strong> : le salon a été crée il y a moins d'une semaine"
         }
     },
     "typeHeaderTooltip": {
         "title": "Type du salon",
         "content": {
-            "personnal": "<strong>Privé</strong> : le salon ne possède pas plus de deux utilisateurs.",
-            "multiple": "<strong>A plusieurs</strong> : le salon possède plus de deux utilisateurs."
+            "personnal": "<strong>Privé</strong> : un salon qui ne compte pas plus de deux utilisateurs",
+            "multiple": "<strong>À plusieurs</strong> : un salon qui compte trois utilisateurs ou plus"
         }
     }
 }

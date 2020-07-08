@@ -4,7 +4,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 
 import "./css/HeaderTooltip.scss";
-import infoCircle from "./images/info-circle.svg";
+import icon from "./images/info-circle.svg";
 
 export default ({ headerTitle, popoverTitle, popoverContent }) => {
     const { t } = useTranslation("usersTab");
@@ -20,7 +20,7 @@ export default ({ headerTitle, popoverTitle, popoverContent }) => {
         <>
             {headerTitle}
             <OverlayTrigger placement="left" overlay={popover}>
-                <img src={infoCircle} alt={t("help")} />
+                <img src={icon} alt={t("help")} />
             </OverlayTrigger>
         </>
     );
