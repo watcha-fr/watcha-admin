@@ -10,13 +10,33 @@
         "status": "Status"
     },
     "status": {
-        "active": "enabled",
-        "inactive": "disabled",
+        "active": "active",
+        "inactive": "inactive",
         "new": "new"
+    },
+    "type":{
+        "personnal": "private",
+        "multiple": "multiple"
     },
     "permalink": {
         "alt": "Permalink",
         "enabled": "Open this room in a new tab",
         "disabled": "You are not a member of this room"
+    },
+    "buttonTooltip": "Create a new room",
+    "statusHeaderTooltip": {
+        "title": "Room status",
+        "content": {
+            "active": "<strong>Active</strong>: the last message received in this room was less than a week ago",
+            "inactive": "<strong>Inactive</strong>: the last message received in this room was more than a week ago",
+            "new": "<strong>New</strong>: the room was created less than a week ago"
+        }
+    },
+    "typeHeaderTooltip": {
+        "title": "Room type",
+        "content": {
+            "personnal": "<strong>Private</strong>: a room with no more than two users",
+            "multiple": "<strong>Multiple</strong>: a room with more than two users"
+        }
     }
 }

@@ -14,10 +14,10 @@
     },
     "roomsPanel": {
         "title": "Rooms",
-        "nonDirectRoomsCount": "New or active rooms",
-        "directRoomsCount": "New or active one-to-one conversations",
+        "nonDirectRoomsCount": "Multiple active rooms",
+        "directRoomsCount": "Private active rooms",
         "administrateButton": "Administrate rooms",
-        "noRoomsMessage": "<strong>This Watcha instance does not have any rooms yet.<br/>Return to Watcha to create a first room (button \"+\").</strong>."
+        "noRoomsMessage": "<strong>This Watcha instance does not have any rooms yet.<br/>You can create one in the \"Rooms\" tab.</strong>"
     },
     "applicationPanel": {
         "title": "Application",

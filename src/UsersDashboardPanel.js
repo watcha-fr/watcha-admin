@@ -1,11 +1,11 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
 import AdministrateButton from "./AdministrateButton";
 import AdministratorList from "./AdministratorList";
+import LabelTooltip from "./LabelTooltip";
 import PanelRow from "./PanelRow";
-import Tooltip from "./Tooltip";
 
 import "./css/DashboardPanel.scss";
 import "./css/UsersDashboardPanel.scss";
@@ -31,6 +31,30 @@ export default ({ usersMetrics }) => {
         number_of_users_with_pending_invitation,
     } = usersMetrics.other_statistics;
 
+    const administratorPopoverContent = (
+        <p>
+            <Trans t={t} i18nKey={"usersTab:roleHeaderTooltip.content.administrator"} />
+        </p>
+    );
+
+    const collaboratorPopoverContent = (
+        <p>
+            <Trans t={t} i18nKey={"usersTab:roleHeaderTooltip.content.collaborator"} />
+        </p>
+    );
+
+    const partnerPopoverContent = (
+        <p>
+            <Trans t={t} i18nKey={"usersTab:roleHeaderTooltip.content.partner"} />
+        </p>
+    );
+
+    const pendingInvitationPopoverContent = (
+        <p>
+            <Trans t={t} i18nKey={"usersTab:statusHeaderTooltip.content.invited"} />
+        </p>
+    );
+
     const usersPerRoleSection = (
         <div className="UsersDashboardPanel_panelSection">
             <span className="UsersDashboardPanel_panelSectionTitle">
@@ -40,7 +64,7 @@ export default ({ usersMetrics }) => {
                 label={
                     <>
                         {t("common:administrators")}
-                        <Tooltip tooltipName="administrator" />
+                        <LabelTooltip popoverContent={administratorPopoverContent} />
                         <AdministratorList
                             administratorList={administrators_users}
                         />
@@ -52,7 +76,7 @@ export default ({ usersMetrics }) => {
                 label={
                     <>
                         {t("common:collaborators")}
-                        <Tooltip tooltipName="collaborator" />
+                        <LabelTooltip popoverContent={collaboratorPopoverContent} />
                     </>
                 }
                 value={collaborators}
@@ -61,7 +85,7 @@ export default ({ usersMetrics }) => {
                 label={
                     <>
                         {t("common:partners")}
-                        <Tooltip tooltipName="partner" />
+                        <LabelTooltip popoverContent={partnerPopoverContent} />
                     </>
                 }
                 value={partners}
@@ -98,7 +122,7 @@ export default ({ usersMetrics }) => {
                 label={
                     <>
                         {t("usersPanel.pendingInvitationUsers")}
-                        <Tooltip tooltipName="pendingInvitation" />
+                        <LabelTooltip popoverContent={pendingInvitationPopoverContent} />
                     </>
                 }
                 value={number_of_users_with_pending_invitation}

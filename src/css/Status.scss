@@ -21,6 +21,11 @@
         mask: url("#{$img}/pending-invitation.svg");
         background-color: black;
     }
+
+    &.new {
+        mask: url("#{$img}/new-room.svg");
+        background-color: black;
+    }
 }
 
 .Status {

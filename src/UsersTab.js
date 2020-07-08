@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { useDispatchContext } from "./contexts";
 import NewItemButton from "./NewItemButton";
@@ -9,7 +9,7 @@ import TableTab, { compareLowerCase } from "./TableTab";
 import UserRightPanel from "./UserRightPanel";
 
 import Status from "./Status";
-import UserAccountStatusHeader from "./UserAccountStatusHeader";
+import HeaderTooltip from "./HeaderTooltip";
 
 const ns = "usersTab";
 
@@ -57,6 +57,43 @@ export default ({ userId }) => {
         />
     );
 
+    const roleHeaderPopoverContent = (
+        <>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roleHeaderTooltip.content.administrator"}
+                />
+            </p>
+            <p>
+                <Trans
+                    t={t}
+                    i18nKey={"roleHeaderTooltip.content.collaborator"}
+                />
+            </p>
+            <p>
+                <Trans t={t} i18nKey={"roleHeaderTooltip.content.partner"} />
+            </p>
+        </>
+    );
+
+    const statusHeaderPopoverContent = (
+        <>
+            <p>
+                <span className="status active" />
+                <Trans t={t} i18nKey={"statusHeaderTooltip.content.active"} />
+            </p>
+            <p>
+                <span className="status inactive" />
+                <Trans t={t} i18nKey={"statusHeaderTooltip.content.inactive"} />
+            </p>
+            <p>
+                <span className="status invited" />
+                <Trans t={t} i18nKey={"statusHeaderTooltip.content.invited"} />
+            </p>
+        </>
+    );
+
     const columns = useMemo(
         () => [
             {
@@ -78,13 +115,25 @@ export default ({ userId }) => {
                 Cell: ({ value }) => value && <Date timestamp={value} />,
             },
             {
-                Header: t("headers.role"),
+                Header: (
+                    <HeaderTooltip
+                        headerTitle={t("headers.role")}
+                        popoverTitle={t("roleHeaderTooltip.title")}
+                        popoverContent={roleHeaderPopoverContent}
+                    />
+                ),
                 accessor: "role",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => t(`roles.${value}`),
             },
             {
-                Header: <UserAccountStatusHeader />,
+                Header: (
+                    <HeaderTooltip
+                        headerTitle={t("headers.status")}
+                        popoverTitle={t("statusHeaderTooltip.title")}
+                        popoverContent={statusHeaderPopoverContent}
+                    />
+                ),
                 accessor: "status",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => <Status status={value} t={t} />,

@@ -10,13 +10,33 @@
         "status": "Statut"
     },
     "status": {
-        "active": "activé",
-        "inactive": "désactivé",
+        "active": "actif",
+        "inactive": "inactif",
         "new": "nouveau"
+    },
+    "type":{
+        "personnal": "privé",
+        "multiple": "à plusieurs"
     },
     "permalink": {
         "alt": "Permalien",
         "enabled": "Ouvrir ce salon dans un nouvel onglet",
         "disabled": "Vous n'êtes pas membre de ce salon"
+    },
+    "buttonTooltip": "Créer un nouveau salon",
+    "statusHeaderTooltip": {
+        "title": "Statut du salon",
+        "content": {
+            "active": "<strong>Actif</strong> : le dernier message posté dans ce salon date de moins d'une semaine",
+            "inactive": "<strong>Inactif</strong> : le dernier message posté dans ce salon date de plus d'une semaine",
+            "new": "<strong>Nouveau</strong> : le salon a été crée il y a moins d'une semaine"
+        }
+    },
+    "typeHeaderTooltip": {
+        "title": "Type du salon",
+        "content": {
+            "personnal": "<strong>Privé</strong> : un salon qui ne compte pas plus de deux utilisateurs",
+            "multiple": "<strong>À plusieurs</strong> : un salon qui compte trois utilisateurs ou plus"
+        }
     }
 }
