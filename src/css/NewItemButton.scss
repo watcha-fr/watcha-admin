@@ -16,9 +16,9 @@
 }
 
 .NewItemButton-user::before {
-    mask-image: url("#{$img}/new-user.svg");
+    mask-image: url("#{$img}/new-user-btn.svg");
 }
 
 .NewItemButton-room::before {
-    mask-image: url("#{$img}/new-user.svg");
+    mask-image: url("#{$img}/new-room-btn.svg");
 }
