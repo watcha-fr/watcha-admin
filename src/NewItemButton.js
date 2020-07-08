@@ -3,8 +3,8 @@ import Button from "react-bootstrap/Button";
 
 import "./css/NewItemButton.scss";
 
-export default ({ onClick, t }) => (
+export default ({ onClick, className, t }) => (
     <Button variant="primary" {...{ onClick }}>
-        <span className="NewItemButton">{t("button")}</span>
+        <span className={`NewItemButton ${className}`}>{t("button")}</span>
     </Button>
 );

@@ -1,7 +1,7 @@
 {
     "title": "Users",
     "searchBoxPlaceholder": "Filter users",
-    "button": "Create a new user",
+    "button": "New user",
     "fullName": "Full name",
     "emailAddress": "Email address",
     "synapseAdminCheckbox": "Assign the administrator role to this user",

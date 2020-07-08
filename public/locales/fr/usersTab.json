@@ -1,7 +1,7 @@
 {
     "title": "Utilisateurs",
     "searchBoxPlaceholder": "Filtrer les utilisateurs",
-    "button": "Créer un nouvel utilisateur",
+    "button": "Nouvel utilisateur",
     "fullName": "Nom complet",
     "emailAddress": "Adresse électronique",
     "synapseAdminCheckbox": "Attribuer le rôle d'administrateur à cet utilisateur",

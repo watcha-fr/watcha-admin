@@ -42,6 +42,7 @@ export default () => {
     const newItemButton = (
         <NewItemButton
             onClick={() => setModalShow(true)}
+            className="NewItemButton-room"
             {...{ t }}
         />
     );
