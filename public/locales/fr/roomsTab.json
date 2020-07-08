@@ -19,7 +19,7 @@
         "enabled": "Ouvrir ce salon dans un nouvel onglet",
         "disabled": "Vous n'êtes pas membre de ce salon"
     },
-    "buttonTooltip": "Création d'un nouveau salon",
+    "buttonTooltip": "Créer un nouveau salon",
     "statusHeaderTooltip": {
         "title": "Statut du salon",
         "content": {
