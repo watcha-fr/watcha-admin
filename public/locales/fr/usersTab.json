@@ -37,7 +37,7 @@
         "content": {
             "administrator": "<strong>Administrateur</strong> : utilisateur ayant accès à toutes les fonctionnalités de Watcha, dont cette console d'administration. Il ne peut néanmoins pas accéder aux salons dont il n'est pas membre.",
             "collaborator": "<strong>Collaborateur</strong> : utilisateur ayant le droit de créer des salons et d'y inviter des utilisateurs existants, ou de nouveaux partenaires ; il n'a pas accès aux autres salons. Il s'agit habituellement d'un employé de votre organisation.",
-            "partner": "<strong>Partenaire</strong> : utilisateur n'ayant accès qu'aux salons pour lesquels il a été invité ; il n'a pas accès au répertoire des membres, sauf s'il est promus administrateur d'un salon. Il s'agit habituellement d'un invité externe à votre organisation."
+            "partner": "<strong>Partenaire</strong> : utilisateur avec des privilèges restreints, invité par un administrateur ou un collaborateur, il n'est pas autorisé à créer des salons, à inviter d'autres utilisateurs, et il n'a pas accès au répertoire des utilisateurs, sauf s'il est promu administrateur. Il s'agit généralement d'un invité extérieur à votre organisation."
         }
     },
     "roles": {
