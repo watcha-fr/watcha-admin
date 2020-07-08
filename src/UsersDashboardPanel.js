@@ -4,8 +4,8 @@ import Card from "react-bootstrap/Card";
 
 import AdministrateButton from "./AdministrateButton";
 import AdministratorList from "./AdministratorList";
-import PanelRow from "./PanelRow";
 import LabelTooltip from "./LabelTooltip";
+import PanelRow from "./PanelRow";
 
 import "./css/DashboardPanel.scss";
 import "./css/UsersDashboardPanel.scss";

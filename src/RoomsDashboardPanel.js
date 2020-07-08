@@ -77,6 +77,7 @@ export default ({ roomsMetrics }) => {
                                     />
                                 </>
                             }
+
                             value={`${direct_active_rooms_count} / ${direct_rooms_count}`}
                         />
                     </>
