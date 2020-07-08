@@ -24,6 +24,7 @@
         "role": "Role",
         "status": "Status"
     },
+    "buttonTooltip": "Create a new user",
     "statusHeaderTooltip": {
         "title": "Account status",
         "content": {
