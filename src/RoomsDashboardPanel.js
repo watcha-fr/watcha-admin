@@ -20,7 +20,6 @@ export default ({ roomsMetrics }) => {
 
     const nonDirectRoomPopoverContent = [
         "roomsTab:typeHeaderTooltip.content.multiple",
-        "roomsTab:statusHeaderTooltip.content.new",
         "roomsTab:statusHeaderTooltip.content.active",
     ].map(i18nKey => (
         <p>
@@ -30,7 +29,6 @@ export default ({ roomsMetrics }) => {
 
     const directRoomPopoverContent = [
         "roomsTab:typeHeaderTooltip.content.personnal",
-        "roomsTab:statusHeaderTooltip.content.new",
         "roomsTab:statusHeaderTooltip.content.active",
     ].map(i18nKey => (
         <p>
