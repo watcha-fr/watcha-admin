@@ -2,9 +2,9 @@
     "title": "Tableau de bord",
     "usersPanel": {
         "title": "Utilisateurs",
-        "loggedUsers": "Connecté au moins une fois",
-        "monthlyUsers": "Connecté au cours du dernier mois",
-        "weeklyUsers": "Connecté au cours de la dernière semaine",
+        "loggedUsers": "Connectés au moins une fois",
+        "monthlyUsers": "Connectés au cours du dernier mois",
+        "weeklyUsers": "Connectés au cours de la dernière semaine",
         "pendingInvitationUsers": "Invitations en attente",
         "administrateButton": "Administrer les utilisateurs",
         "usersPerRole": "Répartition des utilisateurs",
