@@ -559,7 +559,7 @@ class UserRightPanel extends Component {
                     <div className="pannelContainer">
                         <Card.Body>
                             <Card body bg="light">
-                                <Table>
+                                <Table className="UserRightPanel_Table">
                                     <tbody>
                                         <tr>
                                             <td className="labelText">
@@ -573,7 +573,7 @@ class UserRightPanel extends Component {
                                         </tr>
                                         <tr>
                                             <td className="labelText">
-                                                {t("Email")}:
+                                                {t("usersTab:emailAddress")}:
                                             </td>
                                             {editEmail}
                                         </tr>
