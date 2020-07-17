@@ -14,7 +14,8 @@
     },
     "roomsPanel": {
         "title": "Rooms",
-        "nonDirectRoomsCount": "Multiple active rooms",
+        "nonDirectRoomsCount": "Total number of rooms",
+        "nonDirectActiveRoomsCount": "Total number of active rooms",
         "administrateButton": "Administrate rooms",
         "noRoomsMessage": "<strong>This Watcha instance does not have any rooms yet.<br/>You can create one in the \"Rooms\" tab.</strong>"
     },

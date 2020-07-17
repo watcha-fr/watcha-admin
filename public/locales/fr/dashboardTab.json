@@ -14,7 +14,8 @@
     },
     "roomsPanel": {
         "title": "Salons",
-        "nonDirectRoomsCount": "Salons à plusieurs actifs",
+        "nonDirectRoomsCount": "Nombre total de salons",
+        "nonDirectActiveRoomsCount": "Nombre total de salons actifs",
         "administrateButton": "Administrer les salons",
         "noRoomsMessage": "<strong>Cette installation de Watcha ne compte aucun salon.<br/>Vous pouvez en créer un dans l'onglet \"Salons\".</strong>"
     },
