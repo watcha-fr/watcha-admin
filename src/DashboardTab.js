@@ -43,13 +43,13 @@ export default () => {
     ) : (
         <CardDeck className="DashboardTab">
             <Col>
+                <UsersDashboardPanel usersMetrics={metrics.users} />
+            </Col>
+            <Col>
                 <RoomsDashboardPanel roomsMetrics={metrics.rooms} />
                 <ApplicationDashboardPanel
                     applicationMetrics={metrics.server}
                 />
-            </Col>
-            <Col>
-                <UsersDashboardPanel usersMetrics={metrics.users} />
             </Col>
         </CardDeck>
     );
