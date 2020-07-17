@@ -11,7 +11,6 @@ import UsersDashboardPanel from "./UsersDashboardPanel";
 import "./css/DashboardTab.scss";
 
 export default () => {
-
     const [loading, setLoading] = useState(true);
 
     const [metrics, setMetrics] = useState(null);
@@ -44,17 +43,13 @@ export default () => {
     ) : (
         <CardDeck className="DashboardTab">
             <Col>
-                <RoomsDashboardPanel
-                    roomsMetrics={metrics.rooms}
-                />
+                <RoomsDashboardPanel roomsMetrics={metrics.rooms} />
                 <ApplicationDashboardPanel
                     applicationMetrics={metrics.server}
                 />
             </Col>
             <Col>
-                <UsersDashboardPanel
-                    usersMetrics={metrics.users}
-                />
+                <UsersDashboardPanel usersMetrics={metrics.users} />
             </Col>
         </CardDeck>
     );
