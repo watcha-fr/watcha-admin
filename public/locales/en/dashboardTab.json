@@ -2,13 +2,13 @@
     "title": "Dashboard",
     "usersPanel": {
         "title": "Users",
-        "loggedUsers": "At least once",
-        "monthlyUsers": "During last month",
-        "weeklyUsers": "Duringlast week",
+        "loggedUsers": "Connected at least once",
+        "monthlyUsers": "Connected during the last month",
+        "weeklyUsers": "Connected during the last week",
         "pendingInvitationUsers": "Pending invitations",
         "administrateButton": "Administrate users",
         "usersPerRole": "Distribution of users",
-        "connectedUsers": "Connected users",
+        "connectedUsers": "Activity of users",
         "otherStatistics": "Other statistics",
         "expand": "See an overview of the administrators"
     },
