@@ -83,10 +83,10 @@ export default () => {
     const typeHeaderPopoverContent = (
         <>
             <p>
-                <Trans t={t} i18nKey={"typeHeaderTooltip.content.personnal"} />
+                <Trans t={t} i18nKey={"typeHeaderTooltip.content.directMessage"} />
             </p>
             <p>
-                <Trans t={t} i18nKey={"typeHeaderTooltip.content.multiple"} />
+                <Trans t={t} i18nKey={"typeHeaderTooltip.content.room"} />
             </p>
         </>
     );

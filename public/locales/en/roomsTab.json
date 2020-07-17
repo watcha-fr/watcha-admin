@@ -1,7 +1,7 @@
 {
-    "title": "Rooms",
-    "searchBoxPlaceholder": "Filter rooms",
-    "button": "New room",
+    "title": "Conversation",
+    "searchBoxPlaceholder": "Filter conversations",
+    "button": "New conversation",
     "headers": {
         "name": "Name",
         "creator": "Creator",
@@ -15,28 +15,28 @@
         "new": "new"
     },
     "type":{
-        "personnal": "private",
-        "multiple": "multiple"
+        "directMessage": "direct message",
+        "room": "room"
     },
     "permalink": {
         "alt": "Permalink",
-        "enabled": "Open this room in a new tab",
-        "disabled": "You are not a member of this room"
+        "enabled": "Open this conversation in a new tab",
+        "disabled": "You are not a member of this conversation"
     },
-    "buttonTooltip": "Create a new room",
+    "buttonTooltip": "Create a new conversation",
     "statusHeaderTooltip": {
-        "title": "Room status",
+        "title": "Conversation status",
         "content": {
-            "active": "<strong>Active</strong>: the last message received in this room was less than a week ago",
-            "inactive": "<strong>Inactive</strong>: the last message received in this room was more than a week ago",
-            "new": "<strong>New</strong>: the room was created less than a week ago"
+            "active": "<strong>Active</strong>: the last message received in this conversation was less than a week ago",
+            "inactive": "<strong>Inactive</strong>: the last message received in this conversation was more than a week ago",
+            "new": "<strong>New</strong>: the conversation was created less than a week ago"
         }
     },
     "typeHeaderTooltip": {
-        "title": "Room type",
+        "title": "Conversation type",
         "content": {
-            "personnal": "<strong>Private</strong>: a room with no more than two users",
-            "multiple": "<strong>Multiple</strong>: a room with more than two users"
+            "directMessage": "<strong>Direct message</strong>: a conversation with no more than two users",
+            "room": "<strong>Room</strong>: a conversation with more than two users"
         }
     }
 }

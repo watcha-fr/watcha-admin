@@ -18,7 +18,7 @@ export default ({ roomsMetrics }) => {
     } = roomsMetrics;
 
     const nonDirectRoomPopoverContent = [
-        "roomsTab:typeHeaderTooltip.content.multiple",
+        "roomsTab:typeHeaderTooltip.content.room",
     ].map(i18nKey => (
         <p>
             <Trans t={t} i18nKey={i18nKey} key={i18nKey} />
@@ -26,7 +26,7 @@ export default ({ roomsMetrics }) => {
     ));
 
     const nonDirectActiveRoomPopoverContent = [
-        "roomsTab:typeHeaderTooltip.content.multiple",
+        "roomsTab:typeHeaderTooltip.content.room",
         "roomsTab:statusHeaderTooltip.content.active",
     ].map(i18nKey => (
         <p>

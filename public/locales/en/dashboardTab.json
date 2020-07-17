@@ -13,11 +13,11 @@
         "expand": "See an overview of the administrators"
     },
     "roomsPanel": {
-        "title": "Rooms",
+        "title": "Conversations",
         "nonDirectRoomsCount": "Total number of rooms",
         "nonDirectActiveRoomsCount": "Total number of active rooms",
-        "administrateButton": "Administrate rooms",
-        "noRoomsMessage": "<strong>This Watcha instance does not have any rooms yet.<br/>You can create one in the \"Rooms\" tab.</strong>"
+        "administrateButton": "Administrate conversations",
+        "noRoomsMessage": "<strong>This Watcha instance does not have any conversations yet.<br/>You can create one in the \"Conversations\" tab.</strong>"
     },
     "applicationPanel": {
         "title": "Application",

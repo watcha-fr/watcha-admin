@@ -1,7 +1,7 @@
 {
-    "title": "Salons",
-    "searchBoxPlaceholder": "Filtrer les salons",
-    "button": "Nouveau salon",
+    "title": "Conversations",
+    "searchBoxPlaceholder": "Filtrer les conversations",
+    "button": "Nouvelle conversation",
     "headers": {
         "name": "Nom",
         "creator": "Créateur",
@@ -15,28 +15,28 @@
         "new": "nouveau"
     },
     "type":{
-        "personnal": "privé",
-        "multiple": "à plusieurs"
+        "directMessage": "message direct",
+        "room": "salon"
     },
     "permalink": {
         "alt": "Permalien",
-        "enabled": "Ouvrir ce salon dans un nouvel onglet",
-        "disabled": "Vous n'êtes pas membre de ce salon"
+        "enabled": "Ouvrir cette conversation dans un nouvel onglet",
+        "disabled": "Vous n'êtes pas membre de cette conversation"
     },
-    "buttonTooltip": "Créer un nouveau salon",
+    "buttonTooltip": "Créer une nouvelle conversation",
     "statusHeaderTooltip": {
-        "title": "Statut du salon",
+        "title": "Statut de la conversation",
         "content": {
-            "active": "<strong>Actif</strong> : le dernier message posté dans ce salon date de moins d'une semaine",
-            "inactive": "<strong>Inactif</strong> : le dernier message posté dans ce salon date de plus d'une semaine",
-            "new": "<strong>Nouveau</strong> : le salon a été crée il y a moins d'une semaine"
+            "active": "<strong>Actif</strong> : le dernier message posté dans cette conversation date de moins d'une semaine",
+            "inactive": "<strong>Inactif</strong> : le dernier message posté dans cette conversation date de plus d'une semaine",
+            "new": "<strong>Nouveau</strong> : la conversation a été crée il y a moins d'une semaine"
         }
     },
     "typeHeaderTooltip": {
-        "title": "Type du salon",
+        "title": "Type de conversation",
         "content": {
-            "personnal": "<strong>Privé</strong> : un salon qui ne compte pas plus de deux utilisateurs",
-            "multiple": "<strong>À plusieurs</strong> : un salon qui compte trois utilisateurs ou plus"
+            "directMessage": "<strong>Message direct</strong> : une conversation qui ne compte pas plus de deux utilisateurs",
+            "room": "<strong>Salon</strong> : une conversation qui compte trois utilisateurs ou plus"
         }
     }
 }
