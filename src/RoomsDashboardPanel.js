@@ -15,20 +15,10 @@ export default ({ roomsMetrics }) => {
         non_direct_rooms_count,
         direct_rooms_count,
         non_direct_active_rooms_count,
-        direct_active_rooms_count,
     } = roomsMetrics;
 
     const nonDirectRoomPopoverContent = [
         "roomsTab:typeHeaderTooltip.content.multiple",
-        "roomsTab:statusHeaderTooltip.content.active",
-    ].map(i18nKey => (
-        <p>
-            <Trans t={t} i18nKey={i18nKey} key={i18nKey} />
-        </p>
-    ));
-
-    const directRoomPopoverContent = [
-        "roomsTab:typeHeaderTooltip.content.personnal",
         "roomsTab:statusHeaderTooltip.content.active",
     ].map(i18nKey => (
         <p>
@@ -63,20 +53,6 @@ export default ({ roomsMetrics }) => {
                                 </>
                             }
                             value={`${non_direct_active_rooms_count} / ${non_direct_rooms_count}`}
-                        />
-                        <PanelRow
-                            label={
-                                <>
-                                    {t("roomsPanel.directRoomsCount")}
-                                    <LabelTooltip
-                                        popoverContent={
-                                            directRoomPopoverContent
-                                        }
-                                    />
-                                </>
-                            }
-
-                            value={`${direct_active_rooms_count} / ${direct_rooms_count}`}
                         />
                     </>
                 )}
