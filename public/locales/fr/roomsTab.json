@@ -15,7 +15,7 @@
         "new": "nouveau"
     },
     "type":{
-        "directMessage": "message direct",
+        "directsMessages": "messages directs",
         "room": "salon"
     },
     "permalink": {
@@ -35,7 +35,7 @@
     "typeHeaderTooltip": {
         "title": "Type de conversation",
         "content": {
-            "directMessage": "<strong>Message direct</strong> : une conversation qui ne compte pas plus de deux utilisateurs",
+            "directsMessages": "<strong>Messages directs</strong> : une conversation qui ne compte pas plus de deux utilisateurs",
             "room": "<strong>Salon</strong> : une conversation qui compte trois utilisateurs ou plus"
         }
     }

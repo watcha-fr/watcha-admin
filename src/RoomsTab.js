@@ -26,7 +26,7 @@ export default () => {
             creator: getDisplayName(item.creator) || "",
             memberCount: item.members.length,
             status: item.status,
-            type: item.type,
+            type: item.type === "directs_messages" ? "directsMessages" : "room",
         }));
 
     const getDisplayName = userId => {
@@ -85,7 +85,7 @@ export default () => {
             <p>
                 <Trans
                     t={t}
-                    i18nKey={"typeHeaderTooltip.content.directMessage"}
+                    i18nKey={"typeHeaderTooltip.content.directsMessages"}
                 />
             </p>
             <p>

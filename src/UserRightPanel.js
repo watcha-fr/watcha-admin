@@ -573,7 +573,7 @@ class UserRightPanel extends Component {
                                         </tr>
                                         <tr>
                                             <td className="labelText">
-                                                {t("usersTab:emailAddress")}:
+                                                {`t("usersTab:emailAddress") :`}
                                             </td>
                                             {editEmail}
                                         </tr>

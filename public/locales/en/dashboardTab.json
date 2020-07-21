@@ -8,16 +8,16 @@
         "pendingInvitationUsers": "Pending invitations",
         "administrateButton": "Administrate users",
         "usersPerRole": "Distribution of users",
-        "connectedUsers": "Activity of users",
+        "connectedUsers": "Users activity",
         "otherStatistics": "Other statistics",
         "expand": "See an overview of the administrators"
     },
     "roomsPanel": {
         "title": "Conversations",
-        "nonDirectRoomsCount": "Total number of rooms",
-        "nonDirectActiveRoomsCount": "Total number of active rooms",
+        "nonDirectRoomsCount": "Number of rooms",
+        "nonDirectActiveRoomsCount": "Number of active rooms",
         "administrateButton": "Administrate conversations",
-        "noRoomsMessage": "<strong>This Watcha instance does not have any conversations yet.<br/>You can create one in the \"Conversations\" tab.</strong>"
+        "noRoomsMessage": "<strong>This Watcha installation does not have any conversations yet.<br/>You can create one in the \"Conversations\" tab.</strong>"
     },
     "applicationPanel": {
         "title": "Application",
