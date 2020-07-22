@@ -18,7 +18,7 @@ export default ({ roomsMetrics }) => {
     } = roomsMetrics;
 
     const nonDirectRoomPopoverContent = [
-        "roomsTab:typeHeaderTooltip.content.room",
+        "roomsTab:typeHeaderTooltip.content.regularRoom",
     ].map(i18nKey => (
         <p>
             <Trans t={t} i18nKey={i18nKey} key={i18nKey} />
@@ -26,7 +26,7 @@ export default ({ roomsMetrics }) => {
     ));
 
     const nonDirectActiveRoomPopoverContent = [
-        "roomsTab:typeHeaderTooltip.content.room",
+        "roomsTab:typeHeaderTooltip.content.regularRoom",
         "roomsTab:statusHeaderTooltip.content.active",
     ].map(i18nKey => (
         <p>
@@ -52,7 +52,7 @@ export default ({ roomsMetrics }) => {
                         <PanelRow
                             label={
                                 <>
-                                    {t("roomsPanel.nonDirectActiveRoomsCount")}
+                                    {t("roomsPanel.regularActiveRoomsCount")}
                                     <LabelTooltip
                                         popoverContent={
                                             nonDirectRoomPopoverContent
@@ -65,7 +65,7 @@ export default ({ roomsMetrics }) => {
                         <PanelRow
                             label={
                                 <>
-                                    {t("roomsPanel.nonDirectRoomsCount")}
+                                    {t("roomsPanel.regularRoomsCount")}
                                     <LabelTooltip
                                         popoverContent={
                                             nonDirectActiveRoomPopoverContent

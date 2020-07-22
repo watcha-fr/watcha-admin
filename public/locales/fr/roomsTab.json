@@ -15,8 +15,8 @@
         "new": "nouveau"
     },
     "type":{
-        "directsMessages": "messages directs",
-        "room": "salon"
+        "dmRoom": "messages directs",
+        "regularRoom": "salon"
     },
     "permalink": {
         "alt": "Permalien",
@@ -35,8 +35,8 @@
     "typeHeaderTooltip": {
         "title": "Type de conversation",
         "content": {
-            "directsMessages": "<strong>Messages directs</strong> : une conversation qui ne compte pas plus de deux utilisateurs",
-            "room": "<strong>Salon</strong> : une conversation qui compte trois utilisateurs ou plus"
+            "dmRoom": "<strong>Messages directs</strong> : une conversation qui ne compte pas plus de deux utilisateurs",
+            "regularRoom": "<strong>Salon</strong> : une conversation qui compte trois utilisateurs ou plus"
         }
     }
 }

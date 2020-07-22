@@ -15,8 +15,8 @@
         "new": "new"
     },
     "type":{
-        "directsMessages": "directs messages",
-        "room": "room"
+        "dmRoom": "direct messages",
+        "regularRoom": "room"
     },
     "permalink": {
         "alt": "Permalink",
@@ -35,8 +35,8 @@
     "typeHeaderTooltip": {
         "title": "Conversation type",
         "content": {
-            "directsMessages": "<strong>Directs messages</strong>: a conversation with no more than two users",
-            "room": "<strong>Room</strong>: a conversation with more than two users"
+            "dmRoom": "<strong>Direct messages</strong>: a conversation with no more than two users",
+            "regularRoom": "<strong>Room</strong>: a conversation with more than two users"
         }
     }
 }
