@@ -33,25 +33,37 @@ export default ({ usersMetrics }) => {
 
     const administratorPopoverContent = (
         <p>
-            <Trans t={t} i18nKey={"usersTab:roleHeaderTooltip.content.administrator"} />
+            <Trans
+                t={t}
+                i18nKey={"usersTab:roleHeaderTooltip.content.administrator"}
+            />
         </p>
     );
 
     const collaboratorPopoverContent = (
         <p>
-            <Trans t={t} i18nKey={"usersTab:roleHeaderTooltip.content.collaborator"} />
+            <Trans
+                t={t}
+                i18nKey={"usersTab:roleHeaderTooltip.content.collaborator"}
+            />
         </p>
     );
 
     const partnerPopoverContent = (
         <p>
-            <Trans t={t} i18nKey={"usersTab:roleHeaderTooltip.content.partner"} />
+            <Trans
+                t={t}
+                i18nKey={"usersTab:roleHeaderTooltip.content.partner"}
+            />
         </p>
     );
 
     const pendingInvitationPopoverContent = (
         <p>
-            <Trans t={t} i18nKey={"usersTab:statusHeaderTooltip.content.invited"} />
+            <Trans
+                t={t}
+                i18nKey={"usersTab:statusHeaderTooltip.content.invited"}
+            />
         </p>
     );
 
@@ -64,7 +76,9 @@ export default ({ usersMetrics }) => {
                 label={
                     <>
                         {t("common:administrators")}
-                        <LabelTooltip popoverContent={administratorPopoverContent} />
+                        <LabelTooltip
+                            popoverContent={administratorPopoverContent}
+                        />
                         <AdministratorList
                             administratorList={administrators_users}
                         />
@@ -76,7 +90,9 @@ export default ({ usersMetrics }) => {
                 label={
                     <>
                         {t("common:collaborators")}
-                        <LabelTooltip popoverContent={collaboratorPopoverContent} />
+                        <LabelTooltip
+                            popoverContent={collaboratorPopoverContent}
+                        />
                     </>
                 }
                 value={collaborators}
@@ -122,7 +138,9 @@ export default ({ usersMetrics }) => {
                 label={
                     <>
                         {t("usersPanel.pendingInvitationUsers")}
-                        <LabelTooltip popoverContent={pendingInvitationPopoverContent} />
+                        <LabelTooltip
+                            popoverContent={pendingInvitationPopoverContent}
+                        />
                     </>
                 }
                 value={number_of_users_with_pending_invitation}
