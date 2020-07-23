@@ -14,8 +14,8 @@
     },
     "roomsPanel": {
         "title": "Conversations",
-        "regularRoomsCount": "Nombre total de salons",
-        "regularActiveRoomsCount": "Nombre total de salons actifs",
+        "regularRoomCount": "Nombre total de salons",
+        "activeRegularRoomCount": "Nombre total de salons actifs",
         "administrateButton": "Administrer les conversations",
         "noRoomsMessage": "<strong>Cette installation de Watcha ne compte aucunes conversations.<br/>Vous pouvez en créer un dans l'onglet \"Conversations\".</strong>"
     },
