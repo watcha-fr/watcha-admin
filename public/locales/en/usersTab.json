@@ -36,9 +36,9 @@
     "roleHeaderTooltip": {
         "title": "User role",
         "content": {
-            "administrator": "<strong>Administrator</strong>: user having access to all Watcha features, including this administration console. He cannot, however, access rooms in which he's not a member.",
-            "collaborator": "<strong>Collaborator</strong>: user having the right to create rooms and invite existing users or new partners to them; he doesn't have access to other rooms. He's usually an employee of your organization.",
-            "partner": "<strong>Partner</strong>: user having access only to the room for which he has been invited and not being allowed to create rooms. However, he doesn't have access to the member directory unless he's promoted to room administrator. He's usually a guest from outside your organization."
+            "administrator": "<strong>Administrator</strong>: user having access to all Watcha features, including this administration console. He cannot, however, access conversations in which he's not a member.",
+            "collaborator": "<strong>Collaborator</strong>: user allowed to create conversations and invite existing users or new partners to them; he doesn't have access to other conversations. He's usually an employee of your organization.",
+            "partner": "<strong>Partner</strong>: user having access only to the room for which he has been invited and not being allowed to create conversations. However, he doesn't have access to the member directory unless he's promoted to room administrator. He's usually a guest from outside your organization."
         }
     },
     "roles": {

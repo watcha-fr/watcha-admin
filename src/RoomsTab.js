@@ -26,7 +26,7 @@ export default () => {
             creator: getDisplayName(item.creator) || "",
             memberCount: item.members.length,
             status: item.status,
-            type: item.type,
+            type: item.type === "dm_room" ? "dmRoom" : "regularRoom",
         }));
 
     const getDisplayName = userId => {
@@ -83,10 +83,13 @@ export default () => {
     const typeHeaderPopoverContent = (
         <>
             <p>
-                <Trans t={t} i18nKey={"typeHeaderTooltip.content.personnal"} />
+                <Trans
+                    t={t}
+                    i18nKey={"typeHeaderTooltip.content.dmRoom"}
+                />
             </p>
             <p>
-                <Trans t={t} i18nKey={"typeHeaderTooltip.content.multiple"} />
+                <Trans t={t} i18nKey={"typeHeaderTooltip.content.regularRoom"} />
             </p>
         </>
     );

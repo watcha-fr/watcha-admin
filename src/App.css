@@ -140,6 +140,10 @@
     max-height: 30vh;
 }
 
+.UserRightPanel_Table{
+    table-layout: fixed;
+}
+
 .Error {
     color: red;
 }
