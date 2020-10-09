@@ -11,7 +11,7 @@
     },
     "invalid": "Veuillez entrer {{field}}",
     "invalidField": {
-        "fullName": "les nom et prénom espacés",
+        "fullName": "des caractères alphabétiques valides",
         "emailAddress": "une adresse électronique valide"
     },
     "unavailableEmailAddress": "Cette adresse électronique est déjà liée à un autre compte",

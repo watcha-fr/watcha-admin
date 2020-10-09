@@ -11,7 +11,7 @@
     },
     "invalid": "Please provide {{field}}",
     "invalidField": {
-        "fullName": "name and surname spaced out",
+        "fullName": "valid alphabetic characters",
         "emailAddress": "a valid email address"
     },
     "unavailableEmailAddress": "This email address is already bound to another account",

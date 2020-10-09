@@ -8,8 +8,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-const NAME_PATTERN = "[a-z\u00C0-\u017F]{2,}";
-
 export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
     const { t } = useTranslation("usersTab");
 
@@ -29,7 +27,10 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
             .string()
             .required(t("requiered.fullName"))
             .matches(
-                new RegExp(`^${NAME_PATTERN} ${NAME_PATTERN}$`, "i"),
+                // https://stackoverflow.com/a/39134560
+                // https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)
+                // https://en.wikipedia.org/wiki/Latin_Extended-A
+                new RegExp("^[ a-z\u00C0-\u017F]{2,}$", "i"),
                 t("invalid", { field: "$t(invalidField.fullName)" })
             ),
         emailAddress: yup
