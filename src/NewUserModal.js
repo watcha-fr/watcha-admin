@@ -57,11 +57,11 @@ const makePayload = data => ({
     admin: data.isSynapseAdministrator ? "admin" : false,
     email: data.emailAddress,
     full_name: _pruneSpace(data.fullName),
-    user: _computeUserIdFromEmailAddress(data.emailAddress),
+    user: _genLocalpartFromEmail(data.emailAddress),
 });
 
 const makeUser = data => ({
-    userId: _computeUserIdFromEmailAddress(data.emailAddress),
+    userId: _genLocalpartFromEmail(data.emailAddress),
     displayName: _pruneSpace(data.fullName),
     emailAddress: data.emailAddress,
     lastSeen: null,
@@ -71,10 +71,11 @@ const makeUser = data => ({
 
 const _pruneSpace = string => string.replace(/ {2,}/g, " ").trim();
 
-const _computeUserIdFromEmailAddress = emailAddress =>
+const _genLocalpartFromEmail = emailAddress =>
     emailAddress
-        .replace("@", "/")
-        .normalize("NFKD")
-        .replace(/[\u0300-\u036F]/g, "")
         .toLowerCase()
-        .replace(/[^\w=\-./]/g, "");
+        .replace("=", "==")
+        .replace(/[^\w.=/-]/g, _encodeForbiddenChar);
+
+const _encodeForbiddenChar = char =>
+    char.charCodeAt(0).toString(16).padStart(2, "0").replace(/(..)/g, "=$1");
