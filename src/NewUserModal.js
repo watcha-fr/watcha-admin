@@ -56,20 +56,22 @@ export default ({ modalShow, setModalShow, userList, newUserLocalEcho }) => {
 const makePayload = data => ({
     admin: data.isSynapseAdministrator ? "admin" : false,
     email: data.emailAddress,
-    full_name: data.fullName,
-    user: computeUserIdFromEmailAddress(data.emailAddress),
+    full_name: _pruneSpace(data.fullName),
+    user: _computeUserIdFromEmailAddress(data.emailAddress),
 });
 
 const makeUser = data => ({
-    userId: computeUserIdFromEmailAddress(data.emailAddress),
-    displayName: data.fullName,
+    userId: _computeUserIdFromEmailAddress(data.emailAddress),
+    displayName: _pruneSpace(data.fullName),
     emailAddress: data.emailAddress,
     lastSeen: null,
     role: data.isSynapseAdministrator ? "administrator" : "collaborator",
     status: "active",
 });
 
-const computeUserIdFromEmailAddress = emailAddress =>
+const _pruneSpace = string => string.replace(/ {2,}/g, " ").trim();
+
+const _computeUserIdFromEmailAddress = emailAddress =>
     emailAddress
         .replace("@", "/")
         .normalize("NFKD")
