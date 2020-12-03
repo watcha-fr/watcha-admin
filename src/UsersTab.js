@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
-import { useDispatchContext } from "./contexts";
 import NewItemButton from "./NewItemButton";
 import Date from "./Date";
 import NewUserModal from "./NewUserModal";
