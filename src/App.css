@@ -81,15 +81,3 @@
     height: 278px;
     border: 0;
 }
-
-.Error {
-    color: red;
-}
-
-.Warning {
-    color: rgb(245, 153, 16);
-}
-
-.Log {
-    color: blue;
-}
