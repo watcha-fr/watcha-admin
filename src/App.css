@@ -70,11 +70,6 @@
     border-bottom-right-radius: 0.25rem !important;
 }
 
-.tableTabBody {
-    display: flex;
-    min-height: 1%;
-}
-
 .tableContainer {
     display: flex;
     overflow: auto;
@@ -85,63 +80,6 @@
     width: 510px;
     height: 278px;
     border: 0;
-}
-
-.bottomButtons {
-    margin: auto;
-    width: 200px;
-    margin-bottom: 10px;
-}
-
-.rightPanel {
-    height: 100%;
-    width: 30vw;
-}
-
-.header-with-button {
-    display: flex;
-    justify-content: space-between;
-}
-
-.dismissRight {
-    cursor: pointer;
-}
-
-.labelText {
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.bottomButton {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.ActivationButton {
-    width: 300px;
-    margin-bottom: 10px;
-}
-
-.inputValue {
-    margin-right: 12px;
-    font-size: 14px;
-}
-
-.inputValue.disabled {
-    margin-right: 12px;
-    font-size: 14px;
-    background: #e3e3e3;
-}
-
-.TableAdvanced {
-    display: block;
-    overflow-y: auto;
-    max-height: 30vh;
-}
-
-.UserRightPanel_Table{
-    table-layout: fixed;
 }
 
 .Error {
