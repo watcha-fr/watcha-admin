@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
 import Modal from "react-bootstrap/Modal";
 
+import "./css/NewRoomModal.scss";
+
 class NewRoomModal extends Component {
     componentDidUpdate(prevProps) {
         const { onHide, newRoomLocalEcho } = prevProps;

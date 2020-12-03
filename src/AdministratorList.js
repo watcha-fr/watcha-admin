@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 
-import "./css/AdministratorsList.scss";
 import icon from "./images/expand-button.svg";
+import "./css/AdministratorsList.scss";
 
 export default ({ administratorList }) => {
     const { t } = useTranslation("dashboardTab");

@@ -2,6 +2,8 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
+import "./css/SearchBox.scss";
+
 export default ({ tableInstance, t }) => {
     const { state, setGlobalFilter } = tableInstance;
 

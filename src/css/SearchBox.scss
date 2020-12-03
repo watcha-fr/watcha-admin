@@ -1,0 +1,14 @@
+.searchBox {
+    max-width: 20em;
+}
+
+.searchBox .emptyFilter {
+    border-right: 0;
+}
+
+.searchBox .clearButton {
+    border-left: 0;
+    background-color: transparent;
+    font-size: small;
+    cursor: pointer;
+}

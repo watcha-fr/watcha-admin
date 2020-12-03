@@ -7,7 +7,7 @@ import DelayedSpinner from "./DelayedSpinner";
 import Login from "./Login";
 import { MatrixClientContext } from "./contexts";
 
-import "./App.css";
+import "./css/App.scss";
 
 export default () => {
     const [client, setClient] = useState(null);

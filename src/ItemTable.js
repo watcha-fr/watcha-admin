@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from "react";
 import classNames from "classnames";
 import Table from "react-bootstrap/Table";
 
-import "./css/ItemTable.scss";
-
 import { useDispatchContext } from "./contexts";
+
+import "./css/ItemTable.scss";
 
 export default ({ tableInstance, itemId }) => {
     const dispatch = useDispatchContext();

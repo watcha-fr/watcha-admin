@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 
-import "./css/HeaderTooltip.scss";
 import icon from "./images/info-circle.svg";
+import "./css/HeaderTooltip.scss";
 
 export default ({ headerTitle, popoverTitle, popoverContent }) => {
     const { t } = useTranslation("usersTab");
