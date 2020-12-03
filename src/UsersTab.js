@@ -6,7 +6,6 @@ import NewItemButton from "./NewItemButton";
 import Date from "./Date";
 import NewUserModal from "./NewUserModal";
 import TableTab, { compareLowerCase } from "./TableTab";
-import UserRightPanel from "./UserRightPanel";
 
 import Status from "./Status";
 import HeaderTooltip from "./HeaderTooltip";
@@ -18,29 +17,12 @@ export default ({ userId }) => {
 
     const [userList, setUserList] = useState(null);
     const [modalShow, setModalShow] = useState(false);
-    const [rightPanel, setRightPanel] = useState(null);
 
     const requestParams = {
         path: "watcha_user_list",
         lazy: true,
         resolve,
     };
-
-    const dispatch = useDispatchContext();
-
-    useEffect(() => {
-        const onClose = () => dispatch({ userId: null });
-        if (userList && userId) {
-            for (const user of userList) {
-                if (user.userId === userId) {
-                    setRightPanel(<UserRightPanel {...{ user, onClose }} />);
-                    break;
-                }
-            }
-        } else if (!userId) {
-            setRightPanel();
-        }
-    }, [userId, dispatch]);
 
     const newItemButton = (
         <NewItemButton
@@ -158,7 +140,6 @@ export default ({ userId }) => {
                 initialState,
                 newItemButton,
                 newItemModal,
-                rightPanel,
                 ns,
             }}
         />
