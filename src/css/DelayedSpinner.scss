@@ -1,0 +1,10 @@
+.delayed {
+    animation: 0s linear 0.5s forwards makeVisible;
+    visibility: hidden;
+}
+
+@keyframes makeVisible {
+    to {
+        visibility: visible;
+    }
+}

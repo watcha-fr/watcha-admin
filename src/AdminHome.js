@@ -9,6 +9,8 @@ import DashboardTab from "./DashboardTab";
 import RoomsTab from "./RoomsTab";
 import UsersTab from "./UsersTab";
 
+import "./css/AdminHome.scss";
+
 export default () => {
     const { t } = useTranslation();
 

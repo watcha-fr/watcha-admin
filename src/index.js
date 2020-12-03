@@ -5,7 +5,7 @@ import ErrorBoundary from "./ErrorBoundary";
 import App from "./App";
 
 import "./i18n";
-import "./index.css";
+import "./css/index.css";
 
 ReactDOM.render(
     <ErrorBoundary>

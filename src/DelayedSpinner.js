@@ -1,6 +1,8 @@
 import React from "react";
 import Spinner from "react-bootstrap/Spinner";
 
+import "./css/DelayedSpinner.scss";
+
 export default () => (
     <div className="delayed fullCentered">
         <Spinner

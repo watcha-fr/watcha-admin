@@ -12,6 +12,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { useMatrixClientContext } from "./contexts";
 
 import logo from "./images/logo.svg";
+import "./css/Login.scss";
 
 const Login = ({ setupClient }) => {
     const { t, i18n } = useTranslation();
