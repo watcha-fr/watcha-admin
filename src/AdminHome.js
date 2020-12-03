@@ -6,9 +6,10 @@ import Tabs from "react-bootstrap/Tabs";
 import { DispatchContext } from "./contexts";
 import reducer from "./reducer";
 import DashboardTab from "./DashboardTab";
-// import MonitoringTab from './MonitoringTab';
 import RoomsTab from "./RoomsTab";
 import UsersTab from "./UsersTab";
+
+import "./css/AdminHome.scss";
 
 export default () => {
     const { t } = useTranslation();
@@ -32,11 +33,6 @@ export default () => {
                 <Tab eventKey="rooms" title={t("roomsTab:title")}>
                     <RoomsTab />
                 </Tab>
-                {/* not functional yet
-                <Tab eventKey="monitoring" title={t("monitoringTab:title")}>
-                    <MonitoringTab />
-                </Tab>
-                */}
             </Tabs>
         </DispatchContext.Provider>
     );

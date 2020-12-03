@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { useMatrixClientContext } from "./contexts";
 
-import boxArrowUpRight from "./images/box-arrow-up-right.svg";
+import icon from "./images/box-arrow-up-right.svg";
 import "./css/RoomPermalink.scss";
 
 export default ({ roomId }) => {
@@ -17,7 +17,7 @@ export default ({ roomId }) => {
         <a href={`/app/#/room/${roomId}`} target="room">
             <img
                 className="RoomPermalink"
-                src={boxArrowUpRight}
+                src={icon}
                 alt={t("permalink.alt")}
                 title={t("permalink.enabled")}
             />
@@ -25,7 +25,7 @@ export default ({ roomId }) => {
     ) : (
         <img
             className="RoomPermalink RoomPermalink-disabled"
-            src={boxArrowUpRight}
+            src={icon}
             alt={t("permalink.alt")}
             title={t("permalink.disabled")}
         />

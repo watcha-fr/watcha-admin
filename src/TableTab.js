@@ -9,6 +9,8 @@ import DelayedSpinner from "./DelayedSpinner";
 import SearchBox from "./SearchBox";
 import ItemTable from "./ItemTable";
 
+import "./css/TableTab.scss";
+
 export default ({
     itemList,
     setItemList,
@@ -18,7 +20,6 @@ export default ({
     plugins,
     newItemButton,
     newItemModal,
-    rightPanel,
     itemId,
     ns,
 }) => {
@@ -69,11 +70,8 @@ export default ({
                 <TransSearchBox {...{ tableInstance }} />
                 {newItemButton}
             </div>
-            <div className="tableTabBody">
-                <div className="tableContainer px-3">
-                    <ItemTable {...{ tableInstance, itemId }} />
-                </div>
-                {rightPanel}
+            <div className="tableTabBody px-3">
+                <ItemTable {...{ tableInstance, itemId }} />
             </div>
             {newItemModal}
         </>
