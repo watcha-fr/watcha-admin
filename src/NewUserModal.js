@@ -56,8 +56,7 @@ export default ({ modalShow, setModalShow, userList, newUserLocalEcho }) => {
 const makePayload = data => ({
     admin: data.isSynapseAdministrator,
     email: data.emailAddress,
-    full_name: _pruneSpace(data.fullName),
-    user: _computeUserIdFromEmailAddress(data.emailAddress),
+    displayname: _pruneSpace(data.fullName),
 });
 
 const makeUser = data => ({
