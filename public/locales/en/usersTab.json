@@ -2,16 +2,13 @@
     "title": "Users",
     "searchBoxPlaceholder": "Filter users",
     "button": "New user",
-    "fullName": "Full name",
     "emailAddress": "Email address",
     "synapseAdminCheckbox": "Assign the administrator role to this user",
     "requiered": {
-        "fullName": "$t(fullName) is requiered",
         "emailAddress": "$t(emailAddress) is requiered"
     },
     "invalid": "Please provide {{field}}",
     "invalidField": {
-        "fullName": "valid alphabetic characters",
         "emailAddress": "a valid email address"
     },
     "unavailableEmailAddress": "This email address is already bound to another account",

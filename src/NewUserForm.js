@@ -25,16 +25,6 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
     }, [feedback]);
 
     const schema = yup.object({
-        fullName: yup
-            .string()
-            .required(t("requiered.fullName"))
-            .matches(
-                // https://stackoverflow.com/a/39134560
-                // https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)
-                // https://en.wikipedia.org/wiki/Latin_Extended-A
-                new RegExp("^[ a-z\u00C0-\u017F]{2,}$", "i"),
-                t("invalid", { field: "$t(invalidField.fullName)" })
-            ),
         emailAddress: yup
             .string()
             .required(t("requiered.emailAddress"))
@@ -52,7 +42,6 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
     return (
         <Formik
             initialValues={{
-                fullName: "",
                 emailAddress: "",
                 isSynapseAdministrator: false,
             }}
@@ -72,37 +61,6 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
                 bindResetForm(resetForm);
                 return (
                     <Form noValidate onSubmit={handleSubmit}>
-                        <Form.Group>
-                            <InputGroup>
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text>
-                                        <FontAwesomeIcon
-                                            icon={faUser}
-                                            fixedWidth
-                                        />
-                                    </InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <Form.Control
-                                    className="rightRoundedInput"
-                                    type="text"
-                                    name="fullName"
-                                    placeholder={t("fullName")}
-                                    value={values.fullName}
-                                    onChange={handleChange}
-                                    isValid={
-                                        values.fullName && !errors.fullName
-                                    }
-                                    isInvalid={
-                                        touched.fullName && !!errors.fullName
-                                    }
-                                    readOnly={feedback}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.fullName}
-                                </Form.Control.Feedback>
-                            </InputGroup>
-                        </Form.Group>
-
                         <Form.Group>
                             <InputGroup>
                                 <InputGroup.Prepend>
