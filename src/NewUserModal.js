@@ -56,24 +56,15 @@ export default ({ modalShow, setModalShow, userList, newUserLocalEcho }) => {
 const makePayload = data => ({
     admin: data.isSynapseAdministrator,
     email: data.emailAddress,
-    displayname: _pruneSpace(data.fullName),
 });
 
 const makeUser = data => ({
-    userId: _computeUserIdFromEmailAddress(data.emailAddress),
-    displayName: _pruneSpace(data.fullName),
+    userId: _genRandomString(),
+    displayName: "",
     emailAddress: data.emailAddress,
     lastSeen: null,
     role: data.isSynapseAdministrator ? "administrator" : "collaborator",
     status: "active",
 });
 
-const _pruneSpace = string => string.replace(/ {2,}/g, " ").trim();
-
-const _computeUserIdFromEmailAddress = emailAddress =>
-    emailAddress
-        .replace("@", "/")
-        .normalize("NFKD")
-        .replace(/[\u0300-\u036F]/g, "")
-        .toLowerCase()
-        .replace(/[^\w=\-./]/g, "");
+const _genRandomString = () => Math.floor(Math.random() * 1000000).toString();
