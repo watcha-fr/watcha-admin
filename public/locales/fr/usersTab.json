@@ -2,16 +2,13 @@
     "title": "Utilisateurs",
     "searchBoxPlaceholder": "Filtrer les utilisateurs",
     "button": "Nouvel utilisateur",
-    "fullName": "Nom complet",
     "emailAddress": "Adresse électronique",
     "synapseAdminCheckbox": "Attribuer le rôle d'administrateur à cet utilisateur",
     "requiered": {
-        "fullName": "Le nom complet est requis",
         "emailAddress": "L'adresse électronique est requise"
     },
     "invalid": "Veuillez entrer {{field}}",
     "invalidField": {
-        "fullName": "des caractères alphabétiques valides",
         "emailAddress": "une adresse électronique valide"
     },
     "unavailableEmailAddress": "Cette adresse électronique est déjà liée à un autre compte",
