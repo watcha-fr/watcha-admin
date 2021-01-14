@@ -27,10 +27,6 @@ export default ({ usersMetrics }) => {
         number_of_last_week_logged_users,
     } = usersMetrics.connected_users;
 
-    const {
-        number_of_users_with_pending_invitation,
-    } = usersMetrics.other_statistics;
-
     const administratorPopoverContent = (
         <p>
             <Trans
@@ -54,15 +50,6 @@ export default ({ usersMetrics }) => {
             <Trans
                 t={t}
                 i18nKey={"usersTab:roleHeaderTooltip.content.partner"}
-            />
-        </p>
-    );
-
-    const pendingInvitationPopoverContent = (
-        <p>
-            <Trans
-                t={t}
-                i18nKey={"usersTab:statusHeaderTooltip.content.invited"}
             />
         </p>
     );
@@ -129,25 +116,6 @@ export default ({ usersMetrics }) => {
         </div>
     );
 
-    const otherStatisticsSection = (
-        <div className="UsersDashboardPanel_panelSection">
-            <span className="UsersDashboardPanel_panelSectionTitle">
-                {t(`usersPanel.otherStatistics`)}
-            </span>
-            <PanelRow
-                label={
-                    <>
-                        {t("usersPanel.pendingInvitationUsers")}
-                        <LabelTooltip
-                            popoverContent={pendingInvitationPopoverContent}
-                        />
-                    </>
-                }
-                value={number_of_users_with_pending_invitation}
-            />
-        </div>
-    );
-
     return (
         <Card className="DashboardPanel">
             <Card.Header>
@@ -159,7 +127,6 @@ export default ({ usersMetrics }) => {
             <Card.Body className="DashboardPanel_body">
                 {usersPerRoleSection}
                 {connectedUsersSection}
-                {otherStatisticsSection}
             </Card.Body>
         </Card>
     );
