@@ -22,14 +22,6 @@
         "status": "Status"
     },
     "buttonTooltip": "Create a new user",
-    "statusHeaderTooltip": {
-        "title": "Account status",
-        "content": {
-            "active": "<strong>Active</strong>: the user can log in to Watcha",
-            "inactive": "<strong>Inactive</strong>: the user cannot log in to Watcha. A deactivated user can be reactivated; an email will be sent asking them to set a new password",
-            "invited": "<strong>Pending invitation</strong>: an invitation email has been sent to the user, but the user has not yet finalized the registration process, and has not yet logged in to Watcha"
-        }
-    },
     "roleHeaderTooltip": {
         "title": "User role",
         "content": {
@@ -42,10 +34,5 @@
         "collaborator": "Collaborator",
         "partner": "Partner",
         "administrator": "Administrator"
-    },
-    "status": {
-        "active": "Account enabled",
-        "inactive": "Account disabled",
-        "invited": "Pending invitation"
     }
 }

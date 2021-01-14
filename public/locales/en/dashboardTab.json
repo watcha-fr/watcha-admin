@@ -5,7 +5,6 @@
         "loggedUsers": "Connected at least once",
         "monthlyUsers": "Connected during the last month",
         "weeklyUsers": "Connected during the last week",
-        "pendingInvitationUsers": "Pending invitations",
         "administrateButton": "Administrate users",
         "usersPerRole": "Distribution of users",
         "connectedUsers": "Users activity",

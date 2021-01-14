@@ -58,23 +58,6 @@ export default ({ userId }) => {
         </>
     );
 
-    const statusHeaderPopoverContent = (
-        <>
-            <p>
-                <span className="status active" />
-                <Trans t={t} i18nKey={"statusHeaderTooltip.content.active"} />
-            </p>
-            <p>
-                <span className="status inactive" />
-                <Trans t={t} i18nKey={"statusHeaderTooltip.content.inactive"} />
-            </p>
-            <p>
-                <span className="status invited" />
-                <Trans t={t} i18nKey={"statusHeaderTooltip.content.invited"} />
-            </p>
-        </>
-    );
-
     const columns = useMemo(
         () => [
             {
@@ -106,18 +89,6 @@ export default ({ userId }) => {
                 accessor: "role",
                 disableGlobalFilter: true,
                 Cell: ({ value }) => t(`roles.${value}`),
-            },
-            {
-                Header: (
-                    <HeaderTooltip
-                        headerTitle={t("headers.status")}
-                        popoverTitle={t("statusHeaderTooltip.title")}
-                        popoverContent={statusHeaderPopoverContent}
-                    />
-                ),
-                accessor: "status",
-                disableGlobalFilter: true,
-                Cell: ({ value }) => <Status status={value} t={t} />,
             },
         ],
         [t]
