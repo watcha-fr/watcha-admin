@@ -13,10 +13,8 @@ export default ({ applicationMetrics }) => {
         watcha_release,
         install_date,
         upgrade_date,
-        disk,
+        disk_usage,
     } = applicationMetrics;
-
-    const diskMemoryUsed = Math.round(disk.used / 10 ** 9);
 
     return (
         <Card className="DashboardPanel">
@@ -38,7 +36,7 @@ export default ({ applicationMetrics }) => {
                 />
                 <PanelRow
                     label={t("applicationPanel.diskUsage")}
-                    value={`${diskMemoryUsed} Go (${disk.percent}%)`}
+                    value={disk_usage}
                 />
             </Card.Body>
         </Card>
