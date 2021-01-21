@@ -6,7 +6,6 @@ import Date from "./Date";
 import NewUserModal from "./NewUserModal";
 import TableTab, { compareLowerCase } from "./TableTab";
 
-import Status from "./Status";
 import HeaderTooltip from "./HeaderTooltip";
 
 const ns = "usersTab";
