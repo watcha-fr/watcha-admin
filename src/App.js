@@ -15,7 +15,7 @@ export default () => {
     const [missingAccessToken, setMissingAccessToken] = useState(false);
 
     useEffect(() => {
-        Promise.resolve(getBaseUrl()).then(baseUrl => {
+        Promise.resolve(getHsBaseUrl()).then(baseUrl => {
             let client;
             const accessToken = localStorage.getItem("mx_access_token");
             const userId = localStorage.getItem("mx_user_id");
@@ -35,22 +35,18 @@ export default () => {
         });
     }, []);
 
-    const getBaseUrl = () =>
+    const getHsBaseUrl = () =>
         localStorage.getItem("mx_hs_url") ||
-        fetch("/config.json")
+        fetch("/.well-known/matrix/client")
             .then(response => response.json())
-            .then(
-                data =>
-                    data["default_server_config"]["m.homeserver"]["base_url"]
-            )
+            .then(data => {
+                console.log(`.well-known discovery: ${data}`);
+                return data["m.homeserver"]["base_url"];
+            })
             .catch(error => {
-                // should only occur if the browser cache was cleared or
-                // in development environment when the chat and the
-                // administration interface do not have the same domain
-                const defaultHomeServer =
-                    process.env.REACT_APP_CORE || "http://localhost:8008";
-                console.log(`Set ${defaultHomeServer} as default home server`);
-                return defaultHomeServer;
+                const hsBaseUrl = process.env.HS_URL || "http://localhost:8008";
+                console.log(`Set ${hsBaseUrl} as home server url`);
+                return hsBaseUrl;
             });
 
     const setupClient = async client => {
@@ -66,7 +62,7 @@ export default () => {
         });
         client.on("Session.logged_out", error => {
             console.error(error.message);
-            Promise.resolve(getBaseUrl()).then(baseUrl => {
+            Promise.resolve(getHsBaseUrl()).then(baseUrl => {
                 client = sdk.createClient({ baseUrl });
                 setClient(client);
                 setMissingAccessToken(true);
