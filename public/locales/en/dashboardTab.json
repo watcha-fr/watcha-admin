@@ -2,7 +2,7 @@
     "title": "Dashboard",
     "usersPanel": {
         "title": "Users",
-        "loggedUsers": "Connected at least once",
+        "loggedUsers": "Number of users",
         "monthlyUsers": "Connected during the last month",
         "weeklyUsers": "Connected during the last week",
         "administrateButton": "Administrate users",
