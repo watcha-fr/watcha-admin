@@ -2,7 +2,6 @@ import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
-import AdministrateButton from "./AdministrateButton";
 import AdministratorList from "./AdministratorList";
 import LabelTooltip from "./LabelTooltip";
 import PanelRow from "./PanelRow";
@@ -120,9 +119,6 @@ export default ({ usersMetrics }) => {
         <Card className="DashboardPanel">
             <Card.Header>
                 <span>{t(`usersPanel.title`)}</span>
-                <AdministrateButton targetTab="users">
-                    {t("usersPanel.administrateButton")}
-                </AdministrateButton>
             </Card.Header>
             <Card.Body className="DashboardPanel_body">
                 {usersPerRoleSection}
