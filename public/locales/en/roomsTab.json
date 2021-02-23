@@ -1,7 +1,6 @@
 {
     "title": "Conversation",
     "searchBoxPlaceholder": "Filter conversations",
-    "button": "New conversation",
     "headers": {
         "name": "Name",
         "creator": "Creator",
@@ -23,7 +22,6 @@
         "enabled": "Open this conversation in a new tab",
         "disabled": "You are not a member of this conversation"
     },
-    "buttonTooltip": "Create a new conversation",
     "statusHeaderTooltip": {
         "title": "Conversation status",
         "content": {
