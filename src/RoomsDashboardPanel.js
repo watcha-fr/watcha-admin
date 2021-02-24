@@ -2,7 +2,6 @@ import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import Card from "react-bootstrap/Card";
 
-import AdministrateButton from "./AdministrateButton";
 import LabelTooltip from "./LabelTooltip";
 import PanelRow from "./PanelRow";
 
@@ -38,9 +37,6 @@ export default ({ roomsMetrics }) => {
         <Card className="DashboardPanel">
             <Card.Header>
                 <span>{t("roomsPanel.title")}</span>
-                <AdministrateButton targetTab="rooms">
-                    {t("roomsPanel.administrateButton")}
-                </AdministrateButton>
             </Card.Header>
             <Card.Body className="DashboardPanel_body">
                 {regular_room_count === 0 && dm_room_count === 0 ? (

@@ -3,8 +3,6 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { useMatrixClientContext } from "./contexts";
 import HeaderTooltip from "./HeaderTooltip";
-import NewItemButton from "./NewItemButton";
-import NewRoomModal from "./NewRoomModal";
 import RoomPermalink from "./RoomPermalink";
 import Status from "./Status";
 import TableTab, { compareLowerCase } from "./TableTab";
@@ -15,7 +13,6 @@ export default () => {
     const { t } = useTranslation(ns);
 
     const [roomList, setRoomList] = useState(null);
-    const [modalShow, setModalShow] = useState(false);
 
     const client = useMatrixClientContext();
 
@@ -39,46 +36,6 @@ export default () => {
         lazy: true,
         resolve,
     };
-
-    const newItemButton = (
-        <NewItemButton
-            onClick={() => setModalShow(true)}
-            className="NewItemButton-room"
-            {...{ t }}
-        />
-    );
-
-    function getRoomCreatorDisplayName(mxRoom) {
-        const currentState = mxRoom.currentState;
-        const createEvent = currentState.getStateEvents("m.room.create", "");
-        if (createEvent) {
-            const userId = createEvent.getSender();
-            return getDisplayName(userId);
-        }
-    }
-
-    const newRoomLocalEcho = ({ roomId, name }) => {
-        if (!roomList.some(room => room.roomId === roomId)) {
-            const mxRoom = client.getRoom(roomId);
-            const room = {
-                roomId,
-                name,
-                creator: getRoomCreatorDisplayName(mxRoom) || "",
-                memberCount: mxRoom.getInvitedAndJoinedMemberCount(),
-                status: null,
-                type: null,
-            };
-            setRoomList([...roomList, room]);
-        }
-    };
-
-    const newItemModal = (
-        <NewRoomModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            {...{ newRoomLocalEcho }}
-        />
-    );
 
     const typeHeaderPopoverContent = (
         <>
@@ -188,8 +145,6 @@ export default () => {
                 columns,
                 initialState,
                 plugins,
-                newItemButton,
-                newItemModal,
                 ns,
             }}
         />
