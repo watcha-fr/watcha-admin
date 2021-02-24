@@ -14,7 +14,7 @@
         "title": "Conversations",
         "regularRoomCount": "Number of rooms",
         "activeRegularRoomCount": "Number of active rooms",
-        "noRoomsMessage": "<strong>This Watcha installation does not have any conversations yet.<br/>You can create one in the \"Conversations\" tab.</strong>"
+        "noRoomsMessage": "<strong>This Watcha installation does not have any conversations yet.</strong>"
     },
     "applicationPanel": {
         "title": "Application",
