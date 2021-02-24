@@ -6,7 +6,6 @@
         "monthlyUsers": "Connectés au cours du dernier mois",
         "weeklyUsers": "Connectés au cours de la dernière semaine",
         "pendingInvitationUsers": "Invitations en attente",
-        "administrateButton": "Administrer les utilisateurs",
         "usersPerRole": "Répartition des utilisateurs",
         "connectedUsers": "Activité des utilisateurs",
         "otherStatistics": "Autres statistiques",
@@ -16,8 +15,7 @@
         "title": "Conversations",
         "regularRoomCount": "Nombre total de salons",
         "activeRegularRoomCount": "Nombre total de salons actifs",
-        "administrateButton": "Administrer les conversations",
-        "noRoomsMessage": "<strong>Cette installation de Watcha ne compte aucunes conversations.<br/>Vous pouvez en créer un dans l'onglet \"Conversations\".</strong>"
+        "noRoomsMessage": "<strong>Cette installation de Watcha ne compte aucunes conversations.</strong>"
     },
     "applicationPanel": {
         "title": "Application",
