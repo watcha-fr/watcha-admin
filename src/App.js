@@ -1,11 +1,13 @@
 import React, { Suspense, useEffect, useState } from "react";
+
 import { RestfulProvider } from "restful-react";
 import sdk from "matrix-js-sdk";
 
+import { MatrixClientContext } from "./contexts";
+import * as StorageManager from "./StorageManager";
 import AdminHome from "./AdminHome";
 import DelayedSpinner from "./DelayedSpinner";
 import Login from "./Login";
-import { MatrixClientContext } from "./contexts";
 
 import "./css/App.scss";
 
@@ -17,21 +19,24 @@ export default () => {
     useEffect(() => {
         Promise.resolve(getHsBaseUrl()).then(baseUrl => {
             let client;
-            const accessToken = localStorage.getItem("mx_access_token");
-            const userId = localStorage.getItem("mx_user_id");
-
-            if (accessToken && userId) {
-                client = sdk.createClient({
-                    baseUrl,
-                    accessToken,
-                    userId,
-                });
-                setupClient(client);
-            } else {
-                client = sdk.createClient({ baseUrl });
-                setMissingAccessToken(true);
-            }
-            setClient(client);
+            StorageManager.idbLoad("account", "mx_access_token").then(accessToken => {
+                if (!accessToken) {
+                    accessToken = localStorage.getItem("mx_access_token");
+                }
+                const userId = localStorage.getItem("mx_user_id");
+                if (accessToken && userId) {
+                    client = sdk.createClient({
+                        baseUrl,
+                        accessToken,
+                        userId,
+                    });
+                    setupClient(client);
+                } else {
+                    client = sdk.createClient({ baseUrl });
+                    setMissingAccessToken(true);
+                }
+                setClient(client);
+            });
         });
     }, []);
 
