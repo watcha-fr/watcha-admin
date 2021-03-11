@@ -19,8 +19,8 @@ export default ({ roomsMetrics }) => {
     const regularRoomPopoverContent = [
         "roomsTab:typeHeaderTooltip.content.regularRoom",
     ].map(i18nKey => (
-        <p>
-            <Trans t={t} i18nKey={i18nKey} key={i18nKey} />
+        <p key={i18nKey}>
+            <Trans t={t} i18nKey={i18nKey} />
         </p>
     ));
 
@@ -28,8 +28,8 @@ export default ({ roomsMetrics }) => {
         "roomsTab:typeHeaderTooltip.content.regularRoom",
         "roomsTab:statusHeaderTooltip.content.active",
     ].map(i18nKey => (
-        <p>
-            <Trans t={t} i18nKey={i18nKey} key={i18nKey} />
+        <p key={i18nKey}>
+            <Trans t={t} i18nKey={i18nKey} />
         </p>
     ));
 
