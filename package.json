@@ -12,6 +12,7 @@
     "i18next-browser-languagedetector": "^4.0.2",
     "i18next-http-backend": "^1.0.3",
     "match-sorter": "^4.1.0",
+    "matrix-js-sdk": "9.8.0",
     "moment": "^2.24.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
