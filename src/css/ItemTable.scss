@@ -50,6 +50,11 @@
     td {
         height: 100%;
     }
+
+    // required to fix Firefox issue
+    thead {
+        height: 1em;
+    }
 }
 
 .ItemTable_header {
