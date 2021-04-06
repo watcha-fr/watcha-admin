@@ -6,24 +6,11 @@ import Spinner from "react-bootstrap/Spinner";
 
 import Alert from "./Alert";
 
-export default ({
-    feedback,
-    onClick,
-    loading,
-    show,
-    title,
-    onHide,
-    onSave,
-    children,
-}) => {
+export default ({ feedback, onClick, loading, show, title, onHide, onSave, children }) => {
     const { t } = useTranslation();
 
     const footer = feedback ? (
-        <Alert
-            variant={feedback.variant}
-            message={feedback.message}
-            {...{ onClick }}
-        />
+        <Alert variant={feedback.variant} message={feedback.message} {...{ onClick }} />
     ) : (
         <>
             <Button onClick={onHide} variant="secondary">
@@ -32,14 +19,7 @@ export default ({
             {loading ? (
                 <Button variant="primary" disabled>
                     <span className="flex-grow-1">{t("save")}</span>
-                    <Spinner
-                        className="ml-2"
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                    />
+                    <Spinner className="ml-2" as="span" animation="border" size="sm" role="status" aria-hidden="true" />
                 </Button>
             ) : (
                 <Button variant="primary" onClick={onSave}>

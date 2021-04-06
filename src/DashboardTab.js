@@ -47,9 +47,7 @@ export default () => {
             </Col>
             <Col>
                 <RoomsDashboardPanel roomsMetrics={metrics.rooms} />
-                <ApplicationDashboardPanel
-                    applicationMetrics={metrics.server}
-                />
+                <ApplicationDashboardPanel applicationMetrics={metrics.server} />
             </Col>
         </CardDeck>
     );

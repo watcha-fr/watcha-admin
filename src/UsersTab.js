@@ -23,11 +23,7 @@ export default ({ userId }) => {
     };
 
     const newItemButton = (
-        <NewItemButton
-            onClick={() => setModalShow(true)}
-            className="NewItemButton-user"
-            {...{ t }}
-        />
+        <NewItemButton onClick={() => setModalShow(true)} className="NewItemButton-user" {...{ t }} />
     );
 
     const newItemModal = (
@@ -40,16 +36,10 @@ export default ({ userId }) => {
     const roleHeaderPopoverContent = (
         <>
             <p>
-                <Trans
-                    t={t}
-                    i18nKey={"roleHeaderTooltip.content.administrator"}
-                />
+                <Trans t={t} i18nKey={"roleHeaderTooltip.content.administrator"} />
             </p>
             <p>
-                <Trans
-                    t={t}
-                    i18nKey={"roleHeaderTooltip.content.collaborator"}
-                />
+                <Trans t={t} i18nKey={"roleHeaderTooltip.content.collaborator"} />
             </p>
             <p>
                 <Trans t={t} i18nKey={"roleHeaderTooltip.content.partner"} />
@@ -93,10 +83,7 @@ export default ({ userId }) => {
         [t]
     );
 
-    const initialState = useMemo(
-        () => ({ sortBy: [{ id: "displayName", desc: false }] }),
-        []
-    );
+    const initialState = useMemo(() => ({ sortBy: [{ id: "displayName", desc: false }] }), []);
 
     return (
         <TableTab

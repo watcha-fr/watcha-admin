@@ -32,9 +32,7 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
             .test(
                 "is-available",
                 t("unavailableEmailAddress"),
-                value =>
-                    !value ||
-                    !userList.some(user => user.emailAddress === value)
+                value => !value || !userList.some(user => user.emailAddress === value)
             ),
         isSynapseAdministrator: yup.bool(),
     });
@@ -48,15 +46,7 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
             validationSchema={schema}
             {...{ onSubmit }}
         >
-            {({
-                handleChange,
-                handleSubmit,
-                submitForm,
-                resetForm,
-                values,
-                touched,
-                errors,
-            }) => {
+            {({ handleChange, handleSubmit, submitForm, resetForm, values, touched, errors }) => {
                 bindSubmitForm(submitForm);
                 bindResetForm(resetForm);
                 return (
@@ -65,10 +55,7 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
                             <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>
-                                        <FontAwesomeIcon
-                                            icon={faAt}
-                                            fixedWidth
-                                        />
+                                        <FontAwesomeIcon icon={faAt} fixedWidth />
                                     </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <Form.Control
@@ -78,19 +65,11 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
                                     placeholder={t("emailAddress")}
                                     value={values.emailAddress}
                                     onChange={handleChange}
-                                    isValid={
-                                        values.emailAddress &&
-                                        !errors.emailAddress
-                                    }
-                                    isInvalid={
-                                        touched.emailAddress &&
-                                        !!errors.emailAddress
-                                    }
+                                    isValid={values.emailAddress && !errors.emailAddress}
+                                    isInvalid={touched.emailAddress && !!errors.emailAddress}
                                     readOnly={feedback}
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                    {errors.emailAddress}
-                                </Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">{errors.emailAddress}</Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
 
@@ -106,11 +85,7 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
 
                         {/* This button is only required to submit the form from a field by pressing the enter key.
                         It is therefore hidden. The button actually used is rendered in the parent component. */}
-                        <Button
-                            type="submit"
-                            disabled={feedback}
-                            style={{ display: "none" }}
-                        ></Button>
+                        <Button type="submit" disabled={feedback} style={{ display: "none" }}></Button>
                     </Form>
                 );
             }}

@@ -14,11 +14,7 @@ export default ({ usersMetrics }) => {
 
     const { administrators_users } = usersMetrics;
 
-    const {
-        administrators,
-        collaborators,
-        partners,
-    } = usersMetrics.users_per_role;
+    const { administrators, collaborators, partners } = usersMetrics.users_per_role;
 
     const {
         number_of_users_logged_at_least_once,
@@ -28,46 +24,31 @@ export default ({ usersMetrics }) => {
 
     const administratorPopoverContent = (
         <p>
-            <Trans
-                t={t}
-                i18nKey={"usersTab:roleHeaderTooltip.content.administrator"}
-            />
+            <Trans t={t} i18nKey={"usersTab:roleHeaderTooltip.content.administrator"} />
         </p>
     );
 
     const collaboratorPopoverContent = (
         <p>
-            <Trans
-                t={t}
-                i18nKey={"usersTab:roleHeaderTooltip.content.collaborator"}
-            />
+            <Trans t={t} i18nKey={"usersTab:roleHeaderTooltip.content.collaborator"} />
         </p>
     );
 
     const partnerPopoverContent = (
         <p>
-            <Trans
-                t={t}
-                i18nKey={"usersTab:roleHeaderTooltip.content.partner"}
-            />
+            <Trans t={t} i18nKey={"usersTab:roleHeaderTooltip.content.partner"} />
         </p>
     );
 
     const usersPerRoleSection = (
         <div className="UsersDashboardPanel_panelSection">
-            <span className="UsersDashboardPanel_panelSectionTitle">
-                {t(`usersPanel.usersPerRole`)}
-            </span>
+            <span className="UsersDashboardPanel_panelSectionTitle">{t(`usersPanel.usersPerRole`)}</span>
             <PanelRow
                 label={
                     <>
                         {t("common:administrators")}
-                        <LabelTooltip
-                            popoverContent={administratorPopoverContent}
-                        />
-                        <AdministratorList
-                            administratorList={administrators_users}
-                        />
+                        <LabelTooltip popoverContent={administratorPopoverContent} />
+                        <AdministratorList administratorList={administrators_users} />
                     </>
                 }
                 value={administrators}
@@ -76,9 +57,7 @@ export default ({ usersMetrics }) => {
                 label={
                     <>
                         {t("common:collaborators")}
-                        <LabelTooltip
-                            popoverContent={collaboratorPopoverContent}
-                        />
+                        <LabelTooltip popoverContent={collaboratorPopoverContent} />
                     </>
                 }
                 value={collaborators}
@@ -97,21 +76,10 @@ export default ({ usersMetrics }) => {
 
     const connectedUsersSection = (
         <div className="UsersDashboardPanel_panelSection">
-            <span className="UsersDashboardPanel_panelSectionTitle">
-                {t(`usersPanel.connectedUsers`)}
-            </span>
-            <PanelRow
-                label={t("usersPanel.loggedUsers")}
-                value={number_of_users_logged_at_least_once}
-            />
-            <PanelRow
-                label={t("usersPanel.monthlyUsers")}
-                value={number_of_last_month_logged_users}
-            />
-            <PanelRow
-                label={t("usersPanel.weeklyUsers")}
-                value={number_of_last_week_logged_users}
-            />
+            <span className="UsersDashboardPanel_panelSectionTitle">{t(`usersPanel.connectedUsers`)}</span>
+            <PanelRow label={t("usersPanel.loggedUsers")} value={number_of_users_logged_at_least_once} />
+            <PanelRow label={t("usersPanel.monthlyUsers")} value={number_of_last_month_logged_users} />
+            <PanelRow label={t("usersPanel.weeklyUsers")} value={number_of_last_week_logged_users} />
         </div>
     );
 

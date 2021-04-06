@@ -14,10 +14,7 @@ export default ({ administratorList }) => {
 
     const onClick = userId => dispatch({ tab: "users", userId });
 
-    const getAdminName = userId =>
-        userId.displayname
-            ? `${userId.displayname} (${userId.email})`
-            : userId.email;
+    const getAdminName = userId => (userId.displayname ? `${userId.displayname} (${userId.email})` : userId.email);
 
     const administrators = administratorList.map(adminUser => (
         <div
@@ -32,12 +29,8 @@ export default ({ administratorList }) => {
     return (
         <Accordion className="AdministratorList">
             <Card>
-                <Accordion.Toggle
-                    as={Card.Header}
-                    eventKey="0"
-                    title={t("usersPanel.expand")}
-                >
-                    <img src={icon} alt={t("usersPanel.expand")}/>
+                <Accordion.Toggle as={Card.Header} eventKey="0" title={t("usersPanel.expand")}>
+                    <img src={icon} alt={t("usersPanel.expand")} />
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>{administrators}</Card.Body>

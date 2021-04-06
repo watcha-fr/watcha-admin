@@ -10,15 +10,9 @@ import "./css/DashboardPanel.scss";
 export default ({ roomsMetrics }) => {
     const { t } = useTranslation("dashboardTab");
 
-    const {
-        regular_room_count,
-        dm_room_count,
-        active_regular_room_count,
-    } = roomsMetrics;
+    const { regular_room_count, dm_room_count, active_regular_room_count } = roomsMetrics;
 
-    const regularRoomPopoverContent = [
-        "roomsTab:typeHeaderTooltip.content.regularRoom",
-    ].map(i18nKey => (
+    const regularRoomPopoverContent = ["roomsTab:typeHeaderTooltip.content.regularRoom"].map(i18nKey => (
         <p key={i18nKey}>
             <Trans t={t} i18nKey={i18nKey} />
         </p>
@@ -49,11 +43,7 @@ export default ({ roomsMetrics }) => {
                             label={
                                 <>
                                     {t("roomsPanel.activeRegularRoomCount")}
-                                    <LabelTooltip
-                                        popoverContent={
-                                            regularRoomPopoverContent
-                                        }
-                                    />
+                                    <LabelTooltip popoverContent={regularRoomPopoverContent} />
                                 </>
                             }
                             value={active_regular_room_count}
@@ -62,11 +52,7 @@ export default ({ roomsMetrics }) => {
                             label={
                                 <>
                                     {t("roomsPanel.regularRoomCount")}
-                                    <LabelTooltip
-                                        popoverContent={
-                                            activeRegularRoomPopoverContent
-                                        }
-                                    />
+                                    <LabelTooltip popoverContent={activeRegularRoomPopoverContent} />
                                 </>
                             }
                             value={regular_room_count}
