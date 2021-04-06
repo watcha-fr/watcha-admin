@@ -19,7 +19,7 @@
     "react-dom": "^16.13.1",
     "react-i18next": "^11.3.4",
     "react-scripts": "^3.4.1",
-    "react-table": "^7.0.4",
+    "react-table": "^7.6.3",
     "restful-react": "^15.4.1",
     "yup": "^0.32.9"
   },
@@ -52,8 +52,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "/admin-v2",
-  "scarfSettings": {
-    "enabled": false
-  }
+  "homepage": "/admin-v2"
 }
