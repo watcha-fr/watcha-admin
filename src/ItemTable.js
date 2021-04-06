@@ -28,10 +28,7 @@ export default ({ tableInstance, itemId }) => {
         ) : null;
 
     const getRowProps = row => {
-        const className =
-            itemId && row.original.itemId === itemId
-                ? "ItemTable_row-selected"
-                : undefined;
+        const className = itemId && row.original.itemId === itemId ? "ItemTable_row-selected" : undefined;
         return row.getRowProps({ className });
     };
 
@@ -54,12 +51,7 @@ export default ({ tableInstance, itemId }) => {
         }
     }, [itemId]);
 
-    const {
-        getTableProps,
-        headerGroups,
-        getTableBodyProps,
-        prepareRow,
-    } = tableInstance;
+    const { getTableProps, headerGroups, getTableBodyProps, prepareRow } = tableInstance;
 
     return (
         <Table className="ItemTable" hover size="sm" {...getTableProps()}>
@@ -89,14 +81,9 @@ export default ({ tableInstance, itemId }) => {
                     prepareRow(row);
                     const onClick = () => dispatch({ item: row.original });
                     return (
-                        <tr
-                            ref={refs.current[row.original.itemId]}
-                            {...getRowProps(row)}
-                        >
+                        <tr ref={refs.current[row.original.itemId]} {...getRowProps(row)}>
                             {row.cells.map(cell => (
-                                <td {...cell.getCellProps({ onClick })}>
-                                    {cell.render("Cell")}
-                                </td>
+                                <td {...cell.getCellProps({ onClick })}>{cell.render("Cell")}</td>
                             ))}
                         </tr>
                     );

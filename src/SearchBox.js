@@ -30,12 +30,7 @@ export default ({ tableInstance, t }) => {
             {state.globalFilter && (
                 <InputGroup.Append>
                     <InputGroup.Text className="clearButton">
-                        <span
-                            role="img"
-                            aria-label={t("common:clear")}
-                            title={t("common:clear")}
-                            {...{ onClick }}
-                        >
+                        <span role="img" aria-label={t("common:clear")} title={t("common:clear")} {...{ onClick }}>
                             ❌
                         </span>
                     </InputGroup.Text>

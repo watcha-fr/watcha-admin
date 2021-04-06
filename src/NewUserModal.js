@@ -23,9 +23,7 @@ export default ({ modalShow, setModalShow, userList, newUserLocalEcho }) => {
                 newUserLocalEcho(user);
                 setFeedback({ variant: "success", message: t("success") });
             })
-            .catch(error =>
-                setFeedback({ variant: "danger", message: t("danger") })
-            );
+            .catch(error => setFeedback({ variant: "danger", message: t("danger") }));
     };
 
     const onHide = () => {
@@ -46,9 +44,7 @@ export default ({ modalShow, setModalShow, userList, newUserLocalEcho }) => {
             onClick={() => setFeedback(null)}
             {...{ feedback, loading, onHide }}
         >
-            <NewUserForm
-                {...{ userList, onSubmit, bindSubmitForm, feedback }}
-            />
+            <NewUserForm {...{ userList, onSubmit, bindSubmitForm, feedback }} />
         </NewItemModal>
     );
 };

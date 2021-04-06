@@ -40,10 +40,7 @@ export default () => {
     const typeHeaderPopoverContent = (
         <>
             <p>
-                <Trans
-                    t={t}
-                    i18nKey={"typeHeaderTooltip.content.dmRoom"}
-                />
+                <Trans t={t} i18nKey={"typeHeaderTooltip.content.dmRoom"} />
             </p>
             <p>
                 <Trans t={t} i18nKey={"typeHeaderTooltip.content.regularRoom"} />
@@ -116,10 +113,7 @@ export default () => {
         [t]
     );
 
-    const initialState = useMemo(
-        () => ({ sortBy: [{ id: "name", desc: false }] }),
-        []
-    );
+    const initialState = useMemo(() => ({ sortBy: [{ id: "name", desc: false }] }), []);
 
     const plugins = [
         hooks => {
@@ -128,9 +122,7 @@ export default () => {
                 {
                     id: "permalink",
                     Header: "",
-                    Cell: ({ row }) => (
-                        <RoomPermalink roomId={row.original.roomId} />
-                    ),
+                    Cell: ({ row }) => <RoomPermalink roomId={row.original.roomId} />,
                 },
             ]);
         },

@@ -47,20 +47,9 @@ const Login = ({ setupClient }) => {
             });
 
     const button = pendingLogin ? (
-        <Button
-            className="loadingLoginButton"
-            variant="outline-primary"
-            block
-            disabled
-        >
+        <Button className="loadingLoginButton" variant="outline-primary" block disabled>
             <span className="flex-grow-1">{t("login.loading")}</span>
-            <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
-            />
+            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
         </Button>
     ) : (
         <Button variant="outline-primary" type="submit" block>
@@ -70,13 +59,7 @@ const Login = ({ setupClient }) => {
 
     return (
         <Container className="loginForm">
-            <Form.Control
-                className="my-4"
-                as="select"
-                custom
-                value={i18n.language}
-                onChange={onLanguageChange}
-            >
+            <Form.Control className="my-4" as="select" custom value={i18n.language} onChange={onLanguageChange}>
                 {["en", "fr"].map(lng => (
                     <option key={lng} value={lng}>
                         {t(`language.${lng}`)}

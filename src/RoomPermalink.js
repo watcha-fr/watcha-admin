@@ -15,12 +15,7 @@ export default ({ roomId }) => {
 
     return isMine ? (
         <a href={`/app/#/room/${roomId}`} target="room">
-            <img
-                className="RoomPermalink"
-                src={icon}
-                alt={t("permalink.alt")}
-                title={t("permalink.enabled")}
-            />
+            <img className="RoomPermalink" src={icon} alt={t("permalink.alt")} title={t("permalink.enabled")} />
         </a>
     ) : (
         <img
