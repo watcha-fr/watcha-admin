@@ -41,7 +41,7 @@ i18n
     .init({
         debug: false,
         fallbackLng: "en",
-        ns: ["common", "dashboardTab", "usersTab", "roomsTab", "monitoringTab"],
+        ns: ["common", "dashboardTab", "usersTab", "roomsTab"],
         defaultNS: "common",
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default

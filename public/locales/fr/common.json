@@ -1,20 +1,4 @@
 {
-    "Upgrade to internal user": "Promouvoir en utilisateur interne",
-    "Reset Password": " Réinitialiser le mot de passe",
-    "Delete Account": "Supprimer le compte",
-    "Show connection history": "voir l'historique de connexion",
-    "Device": "Appareil",
-    "Connected": "Connecté",
-    "Creation": "Création ",
-    " account has been deleted": "le compte a été supprimé",
-    "Role updated": "Rôle mis à jour",
-    " account has been upgraded to internal user": " a été promu en utilisateur interne",
-    "an email has been send to ": "un email a été envoyé à ",
-    " with a new password": " avec un nouveau de mot de passe",
-    "The account ": "Le compte ",
-    "Password reset failed": "L'opération a échoué",
-    "Password reset": "Mot de passe réinitialisé",
-
     "login": {
         "title": "Interface d'administration",
         "username": "Adresse électronique",
