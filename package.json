@@ -9,7 +9,7 @@
     "classnames": "^2.2.6",
     "formik": "^2.1.4",
     "i18next": "^20.1.0",
-    "i18next-browser-languagedetector": "^4.0.2",
+    "i18next-browser-languagedetector": "^6.1.0",
     "i18next-http-backend": "^1.2.1",
     "match-sorter": "^6.3.0",
     "matrix-js-sdk": "^9.10.0",
