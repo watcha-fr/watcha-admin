@@ -8,7 +8,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "classnames": "^2.2.6",
     "formik": "^2.1.4",
-    "i18next": "^19.4.2",
+    "i18next": "^20.1.0",
     "i18next-browser-languagedetector": "^4.0.2",
     "i18next-http-backend": "^1.0.3",
     "match-sorter": "^6.3.0",
