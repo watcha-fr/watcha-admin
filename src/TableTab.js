@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useGet } from "restful-react";
 import { useGlobalFilter, useSortBy, useTable } from "react-table";
 import { withTranslation } from "react-i18next";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 
 import { useDispatchContext } from "./contexts";
 import DelayedSpinner from "./DelayedSpinner";
