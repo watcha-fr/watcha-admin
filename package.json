@@ -21,7 +21,7 @@
     "react-scripts": "^3.4.1",
     "react-table": "^7.0.4",
     "restful-react": "^11.2.0",
-    "yup": "^0.28.5"
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "PORT=1664 react-scripts start",
