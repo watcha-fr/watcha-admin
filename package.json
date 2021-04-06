@@ -13,7 +13,7 @@
     "i18next-http-backend": "^1.0.3",
     "match-sorter": "^4.1.0",
     "matrix-js-sdk": "^9.10.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
