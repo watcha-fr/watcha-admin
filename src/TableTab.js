@@ -1,8 +1,10 @@
 import React, { useEffect, useMemo, useRef } from "react";
+import { matchSorter } from "match-sorter";
 import { useGet } from "restful-react";
 import { useGlobalFilter, useSortBy, useTable } from "react-table";
 import { withTranslation } from "react-i18next";
-import { matchSorter } from "match-sorter";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 import { useDispatchContext } from "./contexts";
 import DelayedSpinner from "./DelayedSpinner";
@@ -66,10 +68,12 @@ export default ({
 
     return itemList ? (
         <>
-            <div className="d-flex justify-content-between p-3">
-                <TransSearchBox {...{ tableInstance }} />
-                {newItemButton}
-            </div>
+            <Container fluid>
+                <Row className="d-flex justify-content-between p-3">
+                    <TransSearchBox {...{ tableInstance }} />
+                    {newItemButton}
+                </Row>
+            </Container>
             <div className="tableTabBody px-3">
                 <ItemTable {...{ tableInstance, itemId }} />
             </div>
