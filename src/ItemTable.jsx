@@ -81,11 +81,18 @@ const ItemTable = ({ tableInstance, itemId }) => {
             <tbody {...getTableBodyProps()}>
                 {rows.map(row => {
                     prepareRow(row);
-                    const onClick = () => dispatch({ item: row.original });
                     return (
                         <tr ref={refs.current[row.original.itemId]} {...getRowProps(row)}>
                             {row.cells.map(cell => (
-                                <td {...cell.getCellProps({ onClick })}>{cell.render("Cell")}</td>
+                                <td
+                                    {...cell.getCellProps({
+                                        onClick: () => {
+                                            dispatch({ item: row.original });
+                                        },
+                                    })}
+                                >
+                                    {cell.render("Cell")}
+                                </td>
                             ))}
                         </tr>
                     );

@@ -43,7 +43,9 @@ const TableTab = ({
         if (intervalIdRef.current) {
             clearInterval(intervalIdRef.current);
         }
-        intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
+        intervalIdRef.current = setInterval(() => {
+            refetchRef.current();
+        }, 10000);
     }, [data, setItemList]);
 
     const fuzzyTextFilterFn = (rows, ids, filterValue) =>
@@ -69,7 +71,9 @@ const TableTab = ({
     );
 
     const dispatch = useDispatchContext();
-    useEffect(() => dispatch({ tableInstance }), [tableInstance, dispatch]);
+    useEffect(() => {
+        dispatch({ tableInstance });
+    }, [tableInstance, dispatch]);
 
     const TransSearchBox = useMemo(() => withTranslation(ns)(SearchBox), [ns]);
 

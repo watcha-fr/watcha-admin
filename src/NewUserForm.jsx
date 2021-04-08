@@ -34,7 +34,7 @@ const NewUserForm = ({ userList, onSubmit, bindSubmitForm, feedback }) => {
             .test(
                 "is-available",
                 t("unavailableEmailAddress"),
-                value => !value || !userList.some(user => user.emailAddress === value)
+                value => !value || userList.every(user => user.emailAddress !== value)
             ),
         isSynapseAdministrator: yup.bool(),
     });

@@ -9,9 +9,13 @@ import "./css/SearchBox.scss";
 const SearchBox = ({ tableInstance, t }) => {
     const { state, setGlobalFilter } = tableInstance;
 
-    const onChange = event => setGlobalFilter(event.target.value || undefined);
+    const onChange = event => {
+        setGlobalFilter(event.target.value || undefined);
+    };
 
-    const onClick = () => setGlobalFilter();
+    const onClick = () => {
+        setGlobalFilter();
+    };
 
     return (
         <InputGroup className="searchBox">
