@@ -27,7 +27,9 @@ const Login = ({ setupClient }) => {
     const login = () =>
         client
             .loginWithPassword(username, password)
-            .then(() => setupClient(client))
+            .then(() => {
+                setupClient(client);
+            })
             .catch(error => {
                 setPendingLogin(false);
                 alert(error.message);

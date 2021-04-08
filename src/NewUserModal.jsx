@@ -41,7 +41,9 @@ const NewUserModal = ({ modalShow, setModalShow, userList, newUserLocalEcho }) =
                 newUserLocalEcho(user);
                 setFeedback({ variant: "success", message: t("success") });
             })
-            .catch(() => setFeedback({ variant: "danger", message: t("danger") }));
+            .catch(() => {
+                setFeedback({ variant: "danger", message: t("danger") });
+            });
     };
 
     const onHide = () => {
@@ -58,8 +60,12 @@ const NewUserModal = ({ modalShow, setModalShow, userList, newUserLocalEcho }) =
         <NewItemModal
             show={modalShow}
             title={t("button")}
-            onSave={() => submitFormRef.current()}
-            onClick={() => setFeedback(null)}
+            onSave={() => {
+                submitFormRef.current();
+            }}
+            onClick={() => {
+                setFeedback(null);
+            }}
             {...{ feedback, loading, onHide }}
         >
             <NewUserForm {...{ userList, onSubmit, bindSubmitForm, feedback }} />

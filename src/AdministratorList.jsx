@@ -15,7 +15,9 @@ const AdministratorList = ({ administratorList }) => {
 
     const dispatch = useDispatchContext();
 
-    const onClick = userId => dispatch({ tab: "users", userId });
+    const onClick = userId => {
+        dispatch({ tab: "users", userId });
+    };
 
     const getAdminName = userId => (userId.displayname ? `${userId.displayname} (${userId.email})` : userId.email);
 
@@ -23,7 +25,9 @@ const AdministratorList = ({ administratorList }) => {
         <div
             key={adminUser.user_id}
             className="AdministratorList_adminUserRow"
-            onClick={() => onClick(adminUser.user_id)}
+            onClick={() => {
+                onClick(adminUser.user_id);
+            }}
         >
             {getAdminName(adminUser)}
         </div>

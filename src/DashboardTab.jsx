@@ -36,7 +36,9 @@ export default () => {
         if (intervalIdRef.current) {
             clearInterval(intervalIdRef.current);
         }
-        intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
+        intervalIdRef.current = setInterval(() => {
+            refetchRef.current();
+        }, 10000);
     }, [data]);
 
     return loading || !metrics ? (

@@ -19,7 +19,9 @@ export default () => {
         userId: null,
     });
 
-    const onSelect = tab => dispatch({ tab });
+    const onSelect = tab => {
+        dispatch({ tab });
+    };
 
     return (
         <DispatchContext.Provider value={dispatch}>

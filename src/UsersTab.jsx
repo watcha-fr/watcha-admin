@@ -36,12 +36,20 @@ const UsersTab = ({ userId }) => {
     };
 
     const newItemButton = (
-        <NewItemButton onClick={() => setModalShow(true)} className="NewItemButton-user" {...{ t }} />
+        <NewItemButton
+            onClick={() => {
+                setModalShow(true);
+            }}
+            className="NewItemButton-user"
+            {...{ t }}
+        />
     );
 
     const newItemModal = (
         <NewUserModal
-            newUserLocalEcho={user => setUserList([...userList, user])}
+            newUserLocalEcho={user => {
+                setUserList([...userList, user]);
+            }}
             {...{ modalShow, setModalShow, userList }}
         />
     );

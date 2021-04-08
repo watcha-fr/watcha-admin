@@ -17,10 +17,7 @@ export default () => {
 
     const client = useMatrixClientContext();
 
-    const getDisplayName = userId => {
-        const user = client.getUser(userId);
-        return user && user.displayName;
-    };
+    const getDisplayName = userId => client.getUser(userId)?.displayName;
 
     const resolve = data =>
         data.map(item => ({
