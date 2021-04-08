@@ -1,13 +1,16 @@
 import React from "react";
-import { useDispatchContext } from "./contexts";
+import PropTypes from "prop-types";
+
 import { useTranslation } from "react-i18next";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 
+import { useDispatchContext } from "./contexts";
+
 import icon from "./images/expand-button.svg";
 import "./css/AdministratorsList.scss";
 
-export default ({ administratorList }) => {
+const AdministratorList = ({ administratorList }) => {
     const { t } = useTranslation("dashboardTab");
 
     const dispatch = useDispatchContext();
@@ -39,3 +42,15 @@ export default ({ administratorList }) => {
         </Accordion>
     );
 };
+
+AdministratorList.propTypes = {
+    administratorList: PropTypes.arrayOf(
+        PropTypes.shape({
+            user_id: PropTypes.string.isRequired,
+            email: PropTypes.string.isRequired,
+            displayname: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+};
+
+export default AdministratorList;

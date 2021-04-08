@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+
 import { Formik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAt } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +12,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 import "./css/NewUserForm.scss";
 
-export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
+const NewUserForm = ({ userList, onSubmit, bindSubmitForm, feedback }) => {
     const { t } = useTranslation("usersTab");
 
     const resetFormRef = useRef();
@@ -85,10 +87,36 @@ export default ({ userList, onSubmit, bindSubmitForm, feedback }) => {
 
                         {/* This button is only required to submit the form from a field by pressing the enter key.
                         It is therefore hidden. The button actually used is rendered in the parent component. */}
-                        <Button type="submit" disabled={feedback} style={{ display: "none" }}></Button>
+                        <Button type="submit" disabled={feedback} style={{ display: "none" }} />
                     </Form>
                 );
             }}
         </Formik>
     );
 };
+
+NewUserForm.defaultProps = {
+    feedback: null,
+};
+
+NewUserForm.propTypes = {
+    userList: PropTypes.arrayOf(
+        PropTypes.shape({
+            userId: PropTypes.string.isRequired,
+            itemId: PropTypes.string,
+            displayName: PropTypes.string.isRequired,
+            emailAddress: PropTypes.string.isRequired,
+            lastSeen: PropTypes.number,
+            role: PropTypes.string.isRequired,
+            creationTs: PropTypes.number,
+        })
+    ).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    bindSubmitForm: PropTypes.func.isRequired,
+    feedback: PropTypes.shape({
+        variant: PropTypes.string.isRequired,
+        message: PropTypes.string.isRequired,
+    }),
+};
+
+export default NewUserForm;

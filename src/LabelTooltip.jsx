@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { useTranslation } from "react-i18next";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
@@ -6,7 +8,7 @@ import Popover from "react-bootstrap/Popover";
 import icon from "./images/info-circle.svg";
 import "./css/LabelTooltip.scss";
 
-export default ({ popoverContent }) => {
+const LabelTooltip = ({ popoverContent }) => {
     const { t } = useTranslation();
 
     const overlay = (
@@ -21,3 +23,9 @@ export default ({ popoverContent }) => {
         </OverlayTrigger>
     );
 };
+
+LabelTooltip.propTypes = {
+    popoverContent: PropTypes.node.isRequired,
+};
+
+export default LabelTooltip;

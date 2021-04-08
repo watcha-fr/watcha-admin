@@ -8,18 +8,15 @@ import "moment/locale/fr";
 const mxLanguageDetector = {
     name: "mxLocalSettings",
 
-    lookup(options) {
-        const rawValue = localStorage.getItem("mx_local_settings");
-        if (rawValue) {
-            const localSettings = JSON.parse(rawValue);
-            return localSettings.language;
-        }
+    lookup() {
+        const localSettings = localStorage.getItem("mx_local_settings");
+        return localSettings ? JSON.parse(localSettings).language : null;
     },
 
-    cacheUserLanguage(lng, options) {
+    cacheUserLanguage(lng) {
         const rawValue = localStorage.getItem("mx_local_settings");
         const localSettings = rawValue ? JSON.parse(rawValue) : {};
-        localSettings["language"] = lng;
+        localSettings.language = lng;
         localStorage.setItem("mx_local_settings", JSON.stringify(localSettings));
     },
 };

@@ -16,6 +16,41 @@ export default () => {
     const [clientPrepared, setClientPrepared] = useState(false);
     const [missingAccessToken, setMissingAccessToken] = useState(false);
 
+    const getHsBaseUrl = () =>
+        localStorage.getItem("mx_hs_url") ||
+        fetch("/.well-known/matrix/client")
+            .then(response => response.json())
+            .then(data => {
+                console.log(`.well-known discovery: ${data}`);
+                return data["m.homeserver"].base_url;
+            })
+            .catch(() => {
+                const hsBaseUrl = process.env.HS_URL || "http://localhost:8008";
+                console.log(`Set ${hsBaseUrl} as home server url`);
+                return hsBaseUrl;
+            });
+
+    const setupClient = async client => {
+        await client.startClient({ initialSyncLimit: 10 });
+        client.on("sync", (state, prevState) => {
+            if (state === "SYNCING" && prevState === "SYNCING") {
+                return;
+            }
+            console.info("MatrixClient sync state => %s", state);
+            if (state === "PREPARED") {
+                setClientPrepared(true);
+            }
+        });
+        client.on("Session.logged_out", error => {
+            console.error(error.message);
+            Promise.resolve(getHsBaseUrl()).then(baseUrl => {
+                client = sdk.createClient({ baseUrl });
+                setClient(client);
+                setMissingAccessToken(true);
+            });
+        });
+    };
+
     useEffect(() => {
         Promise.resolve(getHsBaseUrl()).then(baseUrl => {
             let client;
@@ -40,41 +75,6 @@ export default () => {
         });
     }, []);
 
-    const getHsBaseUrl = () =>
-        localStorage.getItem("mx_hs_url") ||
-        fetch("/.well-known/matrix/client")
-            .then(response => response.json())
-            .then(data => {
-                console.log(`.well-known discovery: ${data}`);
-                return data["m.homeserver"]["base_url"];
-            })
-            .catch(error => {
-                const hsBaseUrl = process.env.HS_URL || "http://localhost:8008";
-                console.log(`Set ${hsBaseUrl} as home server url`);
-                return hsBaseUrl;
-            });
-
-    const setupClient = async client => {
-        await client.startClient({ initialSyncLimit: 10 });
-        client.on("sync", (state, prevState, response) => {
-            if (state === "SYNCING" && prevState === "SYNCING") {
-                return;
-            }
-            console.info("MatrixClient sync state => %s", state);
-            if (state === "PREPARED") {
-                setClientPrepared(true);
-            }
-        });
-        client.on("Session.logged_out", error => {
-            console.error(error.message);
-            Promise.resolve(getHsBaseUrl()).then(baseUrl => {
-                client = sdk.createClient({ baseUrl });
-                setClient(client);
-                setMissingAccessToken(true);
-            });
-        });
-    };
-
     const getRestfulConfig = () => ({
         base: new URL("_matrix/client/r0", client.baseUrl).href,
         requestOptions: {
@@ -82,24 +82,29 @@ export default () => {
                 Authorization: `Bearer ${client.getAccessToken()}`,
             },
         },
-        onError: (error, retry, repsonse) => {
-            repsonse && console.error(repsonse);
+        onError: (error, retry, response) => {
+            if (response) {
+                console.error(response);
+            }
         },
     });
 
+    let view;
+    if (clientPrepared) {
+        view = (
+            <RestfulProvider {...getRestfulConfig()}>
+                <AdminHome />
+            </RestfulProvider>
+        );
+    } else if (missingAccessToken) {
+        view = <Login {...{ setupClient }} />;
+    } else {
+        view = <DelayedSpinner />;
+    }
+
     return (
         <Suspense fallback={<DelayedSpinner />}>
-            <MatrixClientContext.Provider value={client}>
-                {clientPrepared ? (
-                    <RestfulProvider {...getRestfulConfig()}>
-                        <AdminHome />
-                    </RestfulProvider>
-                ) : missingAccessToken ? (
-                    <Login {...{ setupClient }} />
-                ) : (
-                    <DelayedSpinner />
-                )}
-            </MatrixClientContext.Provider>
+            <MatrixClientContext.Provider value={client}>{view}</MatrixClientContext.Provider>
         </Suspense>
     );
 };

@@ -1,10 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 import "./css/SearchBox.scss";
 
-export default ({ tableInstance, t }) => {
+const SearchBox = ({ tableInstance, t }) => {
     const { state, setGlobalFilter } = tableInstance;
 
     const onChange = event => setGlobalFilter(event.target.value || undefined);
@@ -39,3 +41,11 @@ export default ({ tableInstance, t }) => {
         </InputGroup>
     );
 };
+
+SearchBox.propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
+    tableInstance: PropTypes.object.isRequired,
+    t: PropTypes.func.isRequired,
+};
+
+export default SearchBox;

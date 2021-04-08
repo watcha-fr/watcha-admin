@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { useTranslation } from "react-i18next";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
@@ -6,7 +8,7 @@ import Popover from "react-bootstrap/Popover";
 import icon from "./images/info-circle.svg";
 import "./css/HeaderTooltip.scss";
 
-export default ({ headerTitle, popoverTitle, popoverContent }) => {
+const HeaderTooltip = ({ headerTitle, popoverTitle, popoverContent }) => {
     const { t } = useTranslation("usersTab");
 
     const popover = (
@@ -25,3 +27,11 @@ export default ({ headerTitle, popoverTitle, popoverContent }) => {
         </>
     );
 };
+
+HeaderTooltip.propTypes = {
+    headerTitle: PropTypes.string.isRequired,
+    popoverTitle: PropTypes.string.isRequired,
+    popoverContent: PropTypes.node.isRequired,
+};
+
+export default HeaderTooltip;

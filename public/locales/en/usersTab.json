@@ -18,8 +18,7 @@
         "displayName": "Display name",
         "emailAddress": "Email address",
         "lastSeen": "Last activity on",
-        "role": "Role",
-        "status": "Status"
+        "role": "Role"
     },
     "buttonTooltip": "Create a new user",
     "roleHeaderTooltip": {

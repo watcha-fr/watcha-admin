@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+
 import { useGet } from "restful-react";
 import CardDeck from "react-bootstrap/CardDeck";
 import Col from "react-bootstrap/Col";
@@ -31,7 +32,7 @@ export default () => {
 
     useEffect(() => {
         setMetrics(data);
-        loading && setLoading(false);
+        setLoading(false);
         if (intervalIdRef.current) {
             clearInterval(intervalIdRef.current);
         }

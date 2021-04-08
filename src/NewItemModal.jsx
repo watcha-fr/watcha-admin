@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { useTranslation } from "react-i18next";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -6,7 +8,7 @@ import Spinner from "react-bootstrap/Spinner";
 
 import Alert from "./Alert";
 
-export default ({ feedback, onClick, loading, show, title, onHide, onSave, children }) => {
+const NewItemModal = ({ feedback, onClick, loading, show, title, onHide, onSave, children }) => {
     const { t } = useTranslation();
 
     const footer = feedback ? (
@@ -39,3 +41,23 @@ export default ({ feedback, onClick, loading, show, title, onHide, onSave, child
         </Modal>
     );
 };
+
+NewItemModal.defaultProps = {
+    feedback: null,
+};
+
+NewItemModal.propTypes = {
+    feedback: PropTypes.shape({
+        variant: PropTypes.string.isRequired,
+        message: PropTypes.string.isRequired,
+    }),
+    onClick: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    show: PropTypes.bool.isRequired,
+    title: PropTypes.string.isRequired,
+    onHide: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    children: PropTypes.element.isRequired,
+};
+
+export default NewItemModal;

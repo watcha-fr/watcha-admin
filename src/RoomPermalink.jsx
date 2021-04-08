@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { useTranslation } from "react-i18next";
 
 import { useMatrixClientContext } from "./contexts";
@@ -6,7 +8,7 @@ import { useMatrixClientContext } from "./contexts";
 import icon from "./images/box-arrow-up-right.svg";
 import "./css/RoomPermalink.scss";
 
-export default ({ roomId }) => {
+const RoomPermalink = ({ roomId }) => {
     const { t } = useTranslation("roomsTab");
 
     const client = useMatrixClientContext();
@@ -26,3 +28,9 @@ export default ({ roomId }) => {
         />
     );
 };
+
+RoomPermalink.propTypes = {
+    roomId: PropTypes.string.isRequired,
+};
+
+export default RoomPermalink;

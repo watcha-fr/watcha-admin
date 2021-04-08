@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+
 import { Trans, useTranslation } from "react-i18next";
 
 import { useMatrixClientContext } from "./contexts";
@@ -16,6 +17,11 @@ export default () => {
 
     const client = useMatrixClientContext();
 
+    const getDisplayName = userId => {
+        const user = client.getUser(userId);
+        return user && user.displayName;
+    };
+
     const resolve = data =>
         data.map(item => ({
             roomId: item.room_id,
@@ -26,11 +32,6 @@ export default () => {
             type: item.type === "dm_room" ? "dmRoom" : "regularRoom",
         }));
 
-    const getDisplayName = userId => {
-        const user = client.getUser(userId);
-        return user && user.displayName;
-    };
-
     const requestParams = {
         path: "watcha_room_list",
         lazy: true,
@@ -40,10 +41,10 @@ export default () => {
     const typeHeaderPopoverContent = (
         <>
             <p>
-                <Trans t={t} i18nKey={"typeHeaderTooltip.content.dmRoom"} />
+                <Trans t={t} i18nKey="typeHeaderTooltip.content.dmRoom" />
             </p>
             <p>
-                <Trans t={t} i18nKey={"typeHeaderTooltip.content.regularRoom"} />
+                <Trans t={t} i18nKey="typeHeaderTooltip.content.regularRoom" />
             </p>
         </>
     );
@@ -52,15 +53,15 @@ export default () => {
         <>
             <p>
                 <span className="status active" />
-                <Trans t={t} i18nKey={"statusHeaderTooltip.content.active"} />
+                <Trans t={t} i18nKey="statusHeaderTooltip.content.active" />
             </p>
             <p>
                 <span className="status inactive" />
-                <Trans t={t} i18nKey={"statusHeaderTooltip.content.inactive"} />
+                <Trans t={t} i18nKey="statusHeaderTooltip.content.inactive" />
             </p>
             <p>
                 <span className="status new" />
-                <Trans t={t} i18nKey={"statusHeaderTooltip.content.new"} />
+                <Trans t={t} i18nKey="statusHeaderTooltip.content.new" />
             </p>
         </>
     );
@@ -71,14 +72,16 @@ export default () => {
                 Header: t("headers.name"),
                 accessor: "name",
                 sortType: compareLowerCase,
-                Cell: ({ value }) => <span title={value}>{value}</span>,
+                // eslint-disable-next-line react/prop-types
+                Cell: ({ value }: { value: string }) => <span title={value}>{value}</span>,
             },
             {
                 Header: t("headers.creator"),
                 accessor: "creator",
                 sortType: compareLowerCase,
                 disableGlobalFilter: true,
-                Cell: ({ value }) => <span title={value}>{value}</span>,
+                // eslint-disable-next-line react/prop-types
+                Cell: ({ value }: { value: string }) => <span title={value}>{value}</span>,
             },
             {
                 Header: t("headers.memberCount"),
@@ -95,7 +98,8 @@ export default () => {
                 ),
                 accessor: "type",
                 disableGlobalFilter: true,
-                Cell: ({ value }) => t(`type.${value}`),
+                // eslint-disable-next-line react/prop-types
+                Cell: ({ value }: { value: string }) => t(`type.${value}`),
             },
             {
                 Header: (
@@ -107,7 +111,8 @@ export default () => {
                 ),
                 accessor: "status",
                 disableGlobalFilter: true,
-                Cell: ({ value }) => <Status status={value} t={t} />,
+                // eslint-disable-next-line react/prop-types
+                Cell: ({ value }: { value: string }) => <Status status={value} t={t} />,
             },
         ],
         [t]
@@ -122,6 +127,7 @@ export default () => {
                 {
                     id: "permalink",
                     Header: "",
+                    // eslint-disable-next-line react/prop-types
                     Cell: ({ row }) => <RoomPermalink roomId={row.original.roomId} />,
                 },
             ]);
