@@ -19,14 +19,7 @@ const RoomPermalink = ({ roomId }) => {
         <a href={`/app/#/room/${roomId}`} target="room">
             <img className="RoomPermalink" src={icon} alt={t("permalink.alt")} title={t("permalink.enabled")} />
         </a>
-    ) : (
-        <img
-            className="RoomPermalink RoomPermalink-disabled"
-            src={icon}
-            alt={t("permalink.alt")}
-            title={t("permalink.disabled")}
-        />
-    );
+    ) : null;
 };
 
 RoomPermalink.propTypes = {
