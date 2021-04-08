@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useRef } from "react";
+import PropTypes from "prop-types";
+
 import { matchSorter } from "match-sorter";
 import { useGet } from "restful-react";
 import { useGlobalFilter, useSortBy, useTable } from "react-table";
@@ -13,7 +15,7 @@ import ItemTable from "./ItemTable";
 
 import "./css/TableTab.scss";
 
-export default ({
+const TableTab = ({
     itemList,
     setItemList,
     requestParams,
@@ -44,6 +46,11 @@ export default ({
         intervalIdRef.current = setInterval(() => refetchRef.current(), 10000);
     }, [data, setItemList]);
 
+    const fuzzyTextFilterFn = (rows, ids, filterValue) =>
+        matchSorter(rows, filterValue, {
+            keys: [row => ids.map(id => row.values[id])],
+        });
+
     const globalFilter = useMemo(() => fuzzyTextFilterFn, []);
 
     const tableInstance = useTable(
@@ -58,7 +65,7 @@ export default ({
         },
         useGlobalFilter,
         useSortBy,
-        ...(plugins || [])
+        ...plugins
     );
 
     const dispatch = useDispatchContext();
@@ -84,15 +91,45 @@ export default ({
     );
 };
 
-const fuzzyTextFilterFn = (rows, ids, filterValue) =>
-    matchSorter(rows, filterValue, {
-        keys: [row => ids.map(id => row.values[id])],
-    });
+TableTab.defaultProps = {
+    itemList: null,
+    itemId: null,
+    plugins: [],
+    newItemButton: null,
+    newItemModal: null,
+};
+
+TableTab.propTypes = {
+    itemList: PropTypes.arrayOf(PropTypes.object),
+    setItemList: PropTypes.func.isRequired,
+    itemId: PropTypes.string,
+    requestParams: PropTypes.shape({
+        path: PropTypes.string.isRequired,
+        lazy: PropTypes.bool.isRequired,
+        resolve: PropTypes.func.isRequired,
+    }).isRequired,
+    columns: PropTypes.arrayOf(PropTypes.object).isRequired,
+    initialState: PropTypes.shape({
+        sortBy: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.string,
+                desc: PropTypes.bool,
+            })
+        ),
+    }).isRequired,
+    plugins: PropTypes.arrayOf(PropTypes.func),
+    newItemButton: PropTypes.element,
+    newItemModal: PropTypes.element,
+    ns: PropTypes.string.isRequired,
+};
+
+export default TableTab;
 
 export function compareLowerCase(rowA, rowB, columnId) {
     const a = rowA.values[columnId].toLowerCase();
     const b = rowB.values[columnId].toLowerCase();
     if (a === "") return 1;
     if (b === "") return -1;
-    return a === b ? 0 : a > b ? 1 : -1;
+    if (a === b) return 0;
+    return a > b ? 1 : -1;
 }

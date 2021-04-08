@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+
 import classNames from "classnames";
 import Table from "react-bootstrap/Table";
 
@@ -6,7 +8,7 @@ import { useDispatchContext } from "./contexts";
 
 import "./css/ItemTable.scss";
 
-export default ({ tableInstance, itemId }) => {
+const ItemTable = ({ tableInstance, itemId }) => {
     const dispatch = useDispatchContext();
 
     const getHeaderProps = column =>
@@ -28,7 +30,7 @@ export default ({ tableInstance, itemId }) => {
         ) : null;
 
     const getRowProps = row => {
-        const className = itemId && row.original.itemId === itemId ? "ItemTable_row-selected" : undefined;
+        const className = row.original.itemId === itemId ? "ItemTable_row-selected" : undefined;
         return row.getRowProps({ className });
     };
 
@@ -92,3 +94,15 @@ export default ({ tableInstance, itemId }) => {
         </Table>
     );
 };
+
+ItemTable.defaultProps = {
+    itemId: null,
+};
+
+ItemTable.propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
+    tableInstance: PropTypes.object.isRequired,
+    itemId: PropTypes.string,
+};
+
+export default ItemTable;

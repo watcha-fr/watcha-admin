@@ -18,7 +18,9 @@ limitations under the License.
 let indexedDB;
 try {
     indexedDB = window.indexedDB;
-} catch (e) {}
+} catch (e) {
+    console.warn(e);
+}
 
 let idb = null;
 
@@ -29,10 +31,10 @@ async function idbInit() {
     idb = await new Promise((resolve, reject) => {
         const request = indexedDB.open("matrix-react-sdk", 1);
         request.onerror = reject;
-        request.onsuccess = event => {
+        request.onsuccess = () => {
             resolve(request.result);
         };
-        request.onupgradeneeded = event => {
+        request.onupgradeneeded = () => {
             const db = request.result;
             db.createObjectStore("account");
         };
@@ -50,7 +52,7 @@ export async function idbLoad(table, key) {
         const objectStore = txn.objectStore(table);
         const request = objectStore.get(key);
         request.onerror = reject;
-        request.onsuccess = event => {
+        request.onsuccess = () => {
             resolve(request.result);
         };
     });
@@ -67,7 +69,7 @@ export async function idbSave(table: string, key: string | string[], data: any):
         const objectStore = txn.objectStore(table);
         const request = objectStore.put(data, key);
         request.onerror = reject;
-        request.onsuccess = event => {
+        request.onsuccess = () => {
             resolve();
         };
     });
@@ -84,7 +86,7 @@ export async function idbDelete(table: string, key: string | string[]): Promise<
         const objectStore = txn.objectStore(table);
         const request = objectStore.delete(key);
         request.onerror = reject;
-        request.onsuccess = event => {
+        request.onsuccess = () => {
             resolve();
         };
     });

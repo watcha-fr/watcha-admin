@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
@@ -23,20 +24,6 @@ const Login = ({ setupClient }) => {
 
     const client = useMatrixClientContext();
 
-    const onLanguageChange = event => i18n.changeLanguage(event.target.value);
-
-    const onUsernameChange = event => setUsername(event.target.value);
-
-    const onPasswordChange = event => setPassword(event.target.value);
-
-    const onSubmit = event => {
-        event.preventDefault();
-        setPendingLogin(prevPendingLogin => {
-            prevPendingLogin || login();
-            return true;
-        });
-    };
-
     const login = () =>
         client
             .loginWithPassword(username, password)
@@ -56,6 +43,28 @@ const Login = ({ setupClient }) => {
             {t("login.button")}
         </Button>
     );
+
+    const onLanguageChange = event => {
+        i18n.changeLanguage(event.target.value);
+    };
+
+    const onUsernameChange = event => {
+        setUsername(event.target.value);
+    };
+
+    const onPasswordChange = event => {
+        setPassword(event.target.value);
+    };
+
+    const onSubmit = event => {
+        event.preventDefault();
+        setPendingLogin(prevPendingLogin => {
+            if (!prevPendingLogin) {
+                login();
+            }
+            return true;
+        });
+    };
 
     return (
         <Container className="loginForm">

@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from "react";
+import PropTypes from "prop-types";
+
 import { Trans, useTranslation } from "react-i18next";
 
 import NewItemButton from "./NewItemButton";
@@ -10,11 +12,22 @@ import HeaderTooltip from "./HeaderTooltip";
 
 const ns = "usersTab";
 
-export default ({ userId }) => {
+const UsersTab = ({ userId }) => {
     const { t } = useTranslation(ns);
 
     const [userList, setUserList] = useState(null);
     const [modalShow, setModalShow] = useState(false);
+
+    const resolve = data =>
+        data.map(item => ({
+            userId: item.user_id,
+            itemId: item.user_id,
+            displayName: item.display_name || "",
+            emailAddress: item.email_address || "",
+            lastSeen: item.last_seen || null,
+            role: item.role,
+            creationTs: item.creation_ts,
+        }));
 
     const requestParams = {
         path: "watcha_user_list",
@@ -36,13 +49,13 @@ export default ({ userId }) => {
     const roleHeaderPopoverContent = (
         <>
             <p>
-                <Trans t={t} i18nKey={"roleHeaderTooltip.content.administrator"} />
+                <Trans t={t} i18nKey="roleHeaderTooltip.content.administrator" />
             </p>
             <p>
-                <Trans t={t} i18nKey={"roleHeaderTooltip.content.collaborator"} />
+                <Trans t={t} i18nKey="roleHeaderTooltip.content.collaborator" />
             </p>
             <p>
-                <Trans t={t} i18nKey={"roleHeaderTooltip.content.partner"} />
+                <Trans t={t} i18nKey="roleHeaderTooltip.content.partner" />
             </p>
         </>
     );
@@ -53,19 +66,22 @@ export default ({ userId }) => {
                 Header: t("headers.displayName"),
                 accessor: "displayName",
                 sortType: compareLowerCase,
-                Cell: ({ value }) => <span title={value}>{value}</span>,
+                // eslint-disable-next-line react/prop-types
+                Cell: ({ value }: { value: string }) => <span title={value}>{value}</span>,
             },
             {
                 Header: t("headers.emailAddress"),
                 accessor: "emailAddress",
                 sortType: compareLowerCase,
-                Cell: ({ value }) => <span title={value}>{value}</span>,
+                // eslint-disable-next-line react/prop-types
+                Cell: ({ value }: { value: string }) => <span title={value}>{value}</span>,
             },
             {
                 Header: t("headers.lastSeen"),
                 accessor: "lastSeen",
                 disableGlobalFilter: true,
-                Cell: ({ value }) => value && <Date timestamp={value} />,
+                // eslint-disable-next-line react/prop-types
+                Cell: ({ value }: { value: string }) => (value ? <Date timestamp={value} /> : null),
             },
             {
                 Header: (
@@ -102,14 +118,12 @@ export default ({ userId }) => {
     );
 };
 
-const resolve = data =>
-    data.map(item => ({
-        userId: item.user_id,
-        itemId: item.user_id,
-        displayName: item.display_name || "",
-        emailAddress: item.email_address || "",
-        lastSeen: item.last_seen || null,
-        role: item.role,
-        status: item.status,
-        creationTs: item.creation_ts,
-    }));
+UsersTab.defaultProps = {
+    userId: null,
+};
+
+UsersTab.propTypes = {
+    userId: PropTypes.string,
+};
+
+export default UsersTab;
