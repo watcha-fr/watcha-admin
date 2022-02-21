@@ -4,7 +4,7 @@ import { RestfulProvider } from "restful-react";
 import sdk from "matrix-js-sdk";
 
 import { MatrixClientContext } from "./contexts";
-import * as StorageManager from "./StorageManager";
+import idbLoad from "./StorageManager";
 import AdminHome from "./AdminHome";
 import DelayedSpinner from "./DelayedSpinner";
 import Login from "./Login";
@@ -54,7 +54,7 @@ export default () => {
     useEffect(() => {
         Promise.resolve(getHsBaseUrl()).then(baseUrl => {
             let client;
-            StorageManager.idbLoad("account", "mx_access_token").then(accessToken => {
+            idbLoad("account", "mx_access_token").then(accessToken => {
                 if (!accessToken) {
                     accessToken = localStorage.getItem("mx_access_token");
                 }

@@ -41,7 +41,7 @@ async function idbInit() {
     });
 }
 
-export async function idbLoad(table, key) {
+export default async function idbLoad(table, key) {
     if (!idb) {
         await idbInit();
     }
@@ -54,40 +54,6 @@ export async function idbLoad(table, key) {
         request.onerror = reject;
         request.onsuccess = () => {
             resolve(request.result);
-        };
-    });
-}
-
-export async function idbSave(table: string, key: string | string[], data: any): Promise<void> {
-    if (!idb) {
-        await idbInit();
-    }
-    return new Promise((resolve, reject) => {
-        const txn = idb.transaction([table], "readwrite");
-        txn.onerror = reject;
-
-        const objectStore = txn.objectStore(table);
-        const request = objectStore.put(data, key);
-        request.onerror = reject;
-        request.onsuccess = () => {
-            resolve();
-        };
-    });
-}
-
-export async function idbDelete(table: string, key: string | string[]): Promise<void> {
-    if (!idb) {
-        await idbInit();
-    }
-    return new Promise((resolve, reject) => {
-        const txn = idb.transaction([table], "readwrite");
-        txn.onerror = reject;
-
-        const objectStore = txn.objectStore(table);
-        const request = objectStore.delete(key);
-        request.onerror = reject;
-        request.onsuccess = () => {
-            resolve();
         };
     });
 }
